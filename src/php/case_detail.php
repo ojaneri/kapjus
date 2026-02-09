@@ -438,7 +438,7 @@ async function viewPdf(encodedFilename) {
     openTab.href = currentPdfUrl;
     
     // Use PDF.js embedded viewer with search
-    viewer.src = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(currentPdfUrl);
+    viewer.src = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeURIComponent(window.location.origin + currentPdfUrl);
     
     modal.classList.remove('hidden');
 }
