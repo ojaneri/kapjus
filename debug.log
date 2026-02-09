@@ -276,3 +276,884 @@
 [2026-02-09 22:53:42] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
 [2026-02-09 22:53:42] [DEBUG] socket_client.php START {"action":"documents"}
 [2026-02-09 22:53:42] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:06:12] [INFO] Checking Python service status...
+[2026-02-09 23:06:12] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:06:12] [DEBUG] Initializing database...
+[2026-02-09 23:06:12] [DEBUG] Database initialized successfully
+[2026-02-09 23:06:12] [INFO] Page Request: Home
+[2026-02-09 23:06:13] [INFO] Checking Python service status...
+[2026-02-09 23:06:13] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:06:13] [DEBUG] Initializing database...
+[2026-02-09 23:06:13] [DEBUG] Database initialized successfully
+[2026-02-09 23:06:13] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:06:14] [INFO] Checking Python service status...
+[2026-02-09 23:06:14] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:06:14] [DEBUG] Initializing database...
+[2026-02-09 23:06:14] [DEBUG] Database initialized successfully
+[2026-02-09 23:06:14] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:06:14] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:06:14] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:06:17] [INFO] Checking Python service status...
+[2026-02-09 23:06:17] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:06:17] [DEBUG] Initializing database...
+[2026-02-09 23:06:17] [DEBUG] Database initialized successfully
+[2026-02-09 23:06:17] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"88"}
+[2026-02-09 23:06:17] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:06:17] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:06:18] [INFO] Checking Python service status...
+[2026-02-09 23:06:18] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:06:18] [DEBUG] Initializing database...
+[2026-02-09 23:06:18] [DEBUG] Database initialized successfully
+[2026-02-09 23:06:18] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=0d625d65-5b68-4518-b0eb-d4023c003341","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:06:18] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:06:18] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:07:08] [INFO] Checking Python service status...
+[2026-02-09 23:07:08] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:07:08] [DEBUG] Initializing database...
+[2026-02-09 23:07:08] [DEBUG] Database initialized successfully
+[2026-02-09 23:07:08] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:07:09] [INFO] Checking Python service status...
+[2026-02-09 23:07:09] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:07:09] [DEBUG] Initializing database...
+[2026-02-09 23:07:09] [DEBUG] Database initialized successfully
+[2026-02-09 23:07:09] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:07:09] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:07:09] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:07:11] [INFO] Checking Python service status...
+[2026-02-09 23:07:11] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:07:11] [DEBUG] Initializing database...
+[2026-02-09 23:07:11] [DEBUG] Database initialized successfully
+[2026-02-09 23:07:11] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:07:12] [INFO] Checking Python service status...
+[2026-02-09 23:07:12] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:07:12] [DEBUG] Initializing database...
+[2026-02-09 23:07:12] [DEBUG] Database initialized successfully
+[2026-02-09 23:07:12] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:07:12] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:07:12] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:07:13] [INFO] Checking Python service status...
+[2026-02-09 23:07:13] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:07:13] [DEBUG] Initializing database...
+[2026-02-09 23:07:13] [DEBUG] Database initialized successfully
+[2026-02-09 23:07:13] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-09 23:07:15] [INFO] Checking Python service status...
+[2026-02-09 23:07:15] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:07:15] [DEBUG] Initializing database...
+[2026-02-09 23:07:15] [DEBUG] Database initialized successfully
+[2026-02-09 23:07:15] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"88"}
+[2026-02-09 23:07:15] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:07:15] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:07:16] [INFO] Checking Python service status...
+[2026-02-09 23:07:16] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:07:16] [DEBUG] Initializing database...
+[2026-02-09 23:07:16] [DEBUG] Database initialized successfully
+[2026-02-09 23:07:16] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=3840e1c2-8ef9-4cc5-bdfb-a191632dd482","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:07:16] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:07:16] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:08:58] [INFO] Checking Python service status...
+[2026-02-09 23:08:58] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:08:58] [DEBUG] Initializing database...
+[2026-02-09 23:08:58] [DEBUG] Database initialized successfully
+[2026-02-09 23:08:58] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:08:58] [INFO] Checking Python service status...
+[2026-02-09 23:08:58] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:08:58] [DEBUG] Initializing database...
+[2026-02-09 23:08:58] [DEBUG] Database initialized successfully
+[2026-02-09 23:08:58] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:08:58] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:08:58] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:10:39] [INFO] Checking Python service status...
+[2026-02-09 23:10:39] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:10:39] [DEBUG] Initializing database...
+[2026-02-09 23:10:39] [DEBUG] Database initialized successfully
+[2026-02-09 23:10:39] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"92"}
+[2026-02-09 23:10:39] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:10:39] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:10:40] [INFO] Checking Python service status...
+[2026-02-09 23:10:40] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:10:40] [DEBUG] Initializing database...
+[2026-02-09 23:10:40] [DEBUG] Database initialized successfully
+[2026-02-09 23:10:40] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=e7d4ea19-aec3-4522-8742-08469ed55cb7","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:10:40] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:10:40] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:10:56] [INFO] Checking Python service status...
+[2026-02-09 23:10:56] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:10:56] [DEBUG] Initializing database...
+[2026-02-09 23:10:56] [DEBUG] Database initialized successfully
+[2026-02-09 23:10:56] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:10:57] [INFO] Checking Python service status...
+[2026-02-09 23:10:57] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:10:57] [DEBUG] Initializing database...
+[2026-02-09 23:10:57] [DEBUG] Database initialized successfully
+[2026-02-09 23:10:57] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:10:57] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:10:57] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:10:57] [INFO] Checking Python service status...
+[2026-02-09 23:10:57] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:10:57] [DEBUG] Initializing database...
+[2026-02-09 23:10:57] [DEBUG] Database initialized successfully
+[2026-02-09 23:10:57] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-09 23:10:59] [INFO] Checking Python service status...
+[2026-02-09 23:10:59] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:10:59] [DEBUG] Initializing database...
+[2026-02-09 23:10:59] [DEBUG] Database initialized successfully
+[2026-02-09 23:10:59] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"88"}
+[2026-02-09 23:10:59] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:10:59] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:11:00] [INFO] Checking Python service status...
+[2026-02-09 23:11:00] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:11:00] [DEBUG] Initializing database...
+[2026-02-09 23:11:00] [DEBUG] Database initialized successfully
+[2026-02-09 23:11:00] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=9a907531-76d7-4174-a5f3-66130b07a34a","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:11:00] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:11:00] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:11:00] [INFO] Checking Python service status...
+[2026-02-09 23:11:00] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:11:00] [DEBUG] Initializing database...
+[2026-02-09 23:11:00] [DEBUG] Database initialized successfully
+[2026-02-09 23:11:00] [INFO] API Request START {"path":"\/api\/upload_complete","method":"POST","query_string":"","content_type":"application\/json","content_length":"66"}
+[2026-02-09 23:11:00] [DEBUG] socket_client.php START {"action":"upload_complete"}
+[2026-02-09 23:11:00] [DEBUG] Processing action {"action":"upload_complete"}
+[2026-02-09 23:11:00] [INFO] Checking Python service status...
+[2026-02-09 23:11:00] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:11:00] [DEBUG] Initializing database...
+[2026-02-09 23:11:00] [DEBUG] Database initialized successfully
+[2026-02-09 23:11:00] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:11:00] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:11:00] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:11:21] [INFO] Checking Python service status...
+[2026-02-09 23:11:21] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:11:21] [DEBUG] Initializing database...
+[2026-02-09 23:11:21] [DEBUG] Database initialized successfully
+[2026-02-09 23:11:21] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"92"}
+[2026-02-09 23:11:21] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:11:21] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:11:22] [INFO] Checking Python service status...
+[2026-02-09 23:11:22] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:11:22] [DEBUG] Initializing database...
+[2026-02-09 23:11:22] [DEBUG] Database initialized successfully
+[2026-02-09 23:11:22] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=a35c316e-1354-487c-8e42-69311137b8f5","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:11:22] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:11:22] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:11:22] [INFO] Checking Python service status...
+[2026-02-09 23:11:22] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:11:22] [DEBUG] Initializing database...
+[2026-02-09 23:11:22] [DEBUG] Database initialized successfully
+[2026-02-09 23:11:22] [INFO] API Request START {"path":"\/api\/upload_complete","method":"POST","query_string":"","content_type":"application\/json","content_length":"66"}
+[2026-02-09 23:11:22] [DEBUG] socket_client.php START {"action":"upload_complete"}
+[2026-02-09 23:11:22] [DEBUG] Processing action {"action":"upload_complete"}
+[2026-02-09 23:11:22] [INFO] Checking Python service status...
+[2026-02-09 23:11:22] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:11:22] [DEBUG] Initializing database...
+[2026-02-09 23:11:22] [DEBUG] Database initialized successfully
+[2026-02-09 23:11:22] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:11:22] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:11:22] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:12:12] [INFO] Checking Python service status...
+[2026-02-09 23:12:12] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:12] [DEBUG] Initializing database...
+[2026-02-09 23:12:12] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:12] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"141"}
+[2026-02-09 23:12:12] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:12:12] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:12:12] [INFO] Checking Python service status...
+[2026-02-09 23:12:12] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:12] [DEBUG] Initializing database...
+[2026-02-09 23:12:12] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:12] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=ba59762f-50d9-4942-98e7-d9fa2e152017","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:12:12] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:12:12] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:12:13] [INFO] Checking Python service status...
+[2026-02-09 23:12:13] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:13] [DEBUG] Initializing database...
+[2026-02-09 23:12:13] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:13] [INFO] API Request START {"path":"\/api\/upload_complete","method":"POST","query_string":"","content_type":"application\/json","content_length":"66"}
+[2026-02-09 23:12:13] [DEBUG] socket_client.php START {"action":"upload_complete"}
+[2026-02-09 23:12:13] [DEBUG] Processing action {"action":"upload_complete"}
+[2026-02-09 23:12:13] [INFO] Checking Python service status...
+[2026-02-09 23:12:13] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:13] [DEBUG] Initializing database...
+[2026-02-09 23:12:13] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:13] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:12:13] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:12:13] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:12:19] [INFO] Checking Python service status...
+[2026-02-09 23:12:19] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:19] [DEBUG] Initializing database...
+[2026-02-09 23:12:19] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:19] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:12:20] [INFO] Checking Python service status...
+[2026-02-09 23:12:20] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:20] [DEBUG] Initializing database...
+[2026-02-09 23:12:20] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:20] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:12:20] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:12:20] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:12:23] [INFO] Checking Python service status...
+[2026-02-09 23:12:23] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:23] [DEBUG] Initializing database...
+[2026-02-09 23:12:23] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:23] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"141"}
+[2026-02-09 23:12:23] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:12:23] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:12:23] [INFO] Checking Python service status...
+[2026-02-09 23:12:23] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:23] [DEBUG] Initializing database...
+[2026-02-09 23:12:23] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:23] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=311c53c4-752a-4932-9e26-ee6bf8ee920a","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:12:23] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:12:23] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:12:23] [INFO] Checking Python service status...
+[2026-02-09 23:12:23] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:23] [DEBUG] Initializing database...
+[2026-02-09 23:12:23] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:23] [INFO] API Request START {"path":"\/api\/upload_complete","method":"POST","query_string":"","content_type":"application\/json","content_length":"66"}
+[2026-02-09 23:12:23] [DEBUG] socket_client.php START {"action":"upload_complete"}
+[2026-02-09 23:12:23] [DEBUG] Processing action {"action":"upload_complete"}
+[2026-02-09 23:12:24] [INFO] Checking Python service status...
+[2026-02-09 23:12:24] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:12:24] [DEBUG] Initializing database...
+[2026-02-09 23:12:24] [DEBUG] Database initialized successfully
+[2026-02-09 23:12:24] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:12:24] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:12:24] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:14:42] [INFO] Checking Python service status...
+[2026-02-09 23:14:42] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:14:42] [DEBUG] Initializing database...
+[2026-02-09 23:14:42] [DEBUG] Database initialized successfully
+[2026-02-09 23:14:42] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:14:43] [INFO] Checking Python service status...
+[2026-02-09 23:14:43] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:14:43] [DEBUG] Initializing database...
+[2026-02-09 23:14:43] [DEBUG] Database initialized successfully
+[2026-02-09 23:14:43] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:14:43] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:14:43] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:17:12] [INFO] Checking Python service status...
+[2026-02-09 23:17:12] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:17:12] [DEBUG] Initializing database...
+[2026-02-09 23:17:12] [DEBUG] Database initialized successfully
+[2026-02-09 23:17:12] [INFO] Page Request: Home
+[2026-02-09 23:17:30] [INFO] Checking Python service status...
+[2026-02-09 23:17:30] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:17:30] [DEBUG] Initializing database...
+[2026-02-09 23:17:30] [DEBUG] Database initialized successfully
+[2026-02-09 23:17:30] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:17:31] [INFO] Checking Python service status...
+[2026-02-09 23:17:31] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:17:31] [DEBUG] Initializing database...
+[2026-02-09 23:17:31] [DEBUG] Database initialized successfully
+[2026-02-09 23:17:31] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:17:31] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:17:31] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:28:25] [INFO] Checking Python service status...
+[2026-02-09 23:28:25] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:25] [DEBUG] Initializing database...
+[2026-02-09 23:28:25] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:25] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:28:26] [INFO] Checking Python service status...
+[2026-02-09 23:28:26] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:26] [DEBUG] Initializing database...
+[2026-02-09 23:28:26] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:26] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:28:26] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:28:26] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:28:32] [INFO] Checking Python service status...
+[2026-02-09 23:28:32] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:32] [DEBUG] Initializing database...
+[2026-02-09 23:28:32] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:32] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:28:33] [INFO] Checking Python service status...
+[2026-02-09 23:28:33] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:33] [DEBUG] Initializing database...
+[2026-02-09 23:28:33] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:33] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:28:33] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:28:33] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:28:34] [INFO] Checking Python service status...
+[2026-02-09 23:28:34] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:34] [DEBUG] Initializing database...
+[2026-02-09 23:28:34] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:34] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-09 23:28:40] [INFO] Checking Python service status...
+[2026-02-09 23:28:40] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:40] [DEBUG] Initializing database...
+[2026-02-09 23:28:40] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:40] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"141"}
+[2026-02-09 23:28:40] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:28:40] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:28:40] [INFO] Checking Python service status...
+[2026-02-09 23:28:40] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:40] [DEBUG] Initializing database...
+[2026-02-09 23:28:40] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:40] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=7c10292f-a108-438f-b671-5c267db2c741","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:28:40] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:28:40] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:28:43] [INFO] Checking Python service status...
+[2026-02-09 23:28:43] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:43] [DEBUG] Initializing database...
+[2026-02-09 23:28:43] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:43] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary0FUJoiQiZrM4Ao1y","content_length":"1049262"}
+[2026-02-09 23:28:43] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:43] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:28:43] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:43] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:28:43] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:43] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:28:45] [INFO] Checking Python service status...
+[2026-02-09 23:28:45] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:45] [DEBUG] Initializing database...
+[2026-02-09 23:28:45] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:45] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryBveGH8rSZp8QmXdU","content_length":"1049262"}
+[2026-02-09 23:28:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:45] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:28:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:45] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:28:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:45] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:28:48] [INFO] Checking Python service status...
+[2026-02-09 23:28:48] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:48] [DEBUG] Initializing database...
+[2026-02-09 23:28:48] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:48] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryiGDrcATMLAsDj77X","content_length":"1049262"}
+[2026-02-09 23:28:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:48] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:28:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:48] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:28:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:48] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:28:50] [INFO] Checking Python service status...
+[2026-02-09 23:28:50] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:50] [DEBUG] Initializing database...
+[2026-02-09 23:28:50] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:50] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryoWdrcnYSb6POdgRi","content_length":"1049262"}
+[2026-02-09 23:28:50] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:50] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:28:50] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:50] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:28:50] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:50] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:28:53] [INFO] Checking Python service status...
+[2026-02-09 23:28:53] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:53] [DEBUG] Initializing database...
+[2026-02-09 23:28:53] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:53] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary3P5n3A8AHLsiEZt4","content_length":"1049262"}
+[2026-02-09 23:28:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:53] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:28:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:53] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:28:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:53] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:28:56] [INFO] Checking Python service status...
+[2026-02-09 23:28:56] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:56] [DEBUG] Initializing database...
+[2026-02-09 23:28:56] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:56] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryfaILT7zsesSd2l6y","content_length":"1049262"}
+[2026-02-09 23:28:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:56] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:28:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:56] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:28:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:56] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:28:58] [INFO] Checking Python service status...
+[2026-02-09 23:28:58] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:28:58] [DEBUG] Initializing database...
+[2026-02-09 23:28:58] [DEBUG] Database initialized successfully
+[2026-02-09 23:28:58] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryJaYYAeWuwHzKXvnx","content_length":"1049262"}
+[2026-02-09 23:28:58] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:58] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:28:58] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:58] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:28:58] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:28:58] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:01] [INFO] Checking Python service status...
+[2026-02-09 23:29:01] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:01] [DEBUG] Initializing database...
+[2026-02-09 23:29:01] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:01] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryeLBm3cc9tReWKScA","content_length":"1049262"}
+[2026-02-09 23:29:01] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:01] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:01] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:01] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:01] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:01] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:03] [INFO] Checking Python service status...
+[2026-02-09 23:29:03] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:03] [DEBUG] Initializing database...
+[2026-02-09 23:29:03] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:03] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarylXhBZdB6V4jUYbhW","content_length":"1049262"}
+[2026-02-09 23:29:03] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:03] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:03] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:03] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:03] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:03] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:06] [INFO] Checking Python service status...
+[2026-02-09 23:29:06] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:06] [DEBUG] Initializing database...
+[2026-02-09 23:29:06] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:06] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryw3Q1PTp9vlxu5QYs","content_length":"1049262"}
+[2026-02-09 23:29:06] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:06] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:06] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:06] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:06] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:06] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:08] [INFO] Checking Python service status...
+[2026-02-09 23:29:08] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:08] [DEBUG] Initializing database...
+[2026-02-09 23:29:08] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:08] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarygU1Qv47jPfVY24iz","content_length":"1049263"}
+[2026-02-09 23:29:08] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:08] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:08] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:08] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:08] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:08] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:11] [INFO] Checking Python service status...
+[2026-02-09 23:29:11] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:11] [DEBUG] Initializing database...
+[2026-02-09 23:29:11] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:11] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryLnILwBTpeGMU7FGW","content_length":"1049263"}
+[2026-02-09 23:29:11] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:11] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:11] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:11] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:11] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:11] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:13] [INFO] Checking Python service status...
+[2026-02-09 23:29:13] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:13] [DEBUG] Initializing database...
+[2026-02-09 23:29:13] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:13] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryOZSQ7kpUlpNiLOs8","content_length":"1049263"}
+[2026-02-09 23:29:13] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:13] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:13] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:13] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:13] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:13] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:16] [INFO] Checking Python service status...
+[2026-02-09 23:29:16] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:16] [DEBUG] Initializing database...
+[2026-02-09 23:29:16] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:16] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryjBaRqAxWTiw4sdDA","content_length":"1049263"}
+[2026-02-09 23:29:16] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:16] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:16] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:16] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:16] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:16] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:18] [INFO] Checking Python service status...
+[2026-02-09 23:29:18] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:18] [DEBUG] Initializing database...
+[2026-02-09 23:29:18] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:18] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryBevNtnwlc0RfvPGD","content_length":"1049263"}
+[2026-02-09 23:29:18] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:18] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:18] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:18] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:18] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:18] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:21] [INFO] Checking Python service status...
+[2026-02-09 23:29:21] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:21] [DEBUG] Initializing database...
+[2026-02-09 23:29:21] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:21] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryVxDtDdxhh8fV25AN","content_length":"1049263"}
+[2026-02-09 23:29:21] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:21] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:21] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:21] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:21] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:21] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:24] [INFO] Checking Python service status...
+[2026-02-09 23:29:24] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:24] [DEBUG] Initializing database...
+[2026-02-09 23:29:24] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:24] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary1nbDWnyzpwKjCrw3","content_length":"1049263"}
+[2026-02-09 23:29:24] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:24] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:24] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:24] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:24] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:24] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:26] [INFO] Checking Python service status...
+[2026-02-09 23:29:26] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:26] [DEBUG] Initializing database...
+[2026-02-09 23:29:26] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:26] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryjfkSs9Nkjv2BN0rc","content_length":"1049263"}
+[2026-02-09 23:29:26] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:26] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:26] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:26] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:26] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:26] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:29] [INFO] Checking Python service status...
+[2026-02-09 23:29:29] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:29] [DEBUG] Initializing database...
+[2026-02-09 23:29:29] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:29] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarygfbi2QlBm0XSONVs","content_length":"1049263"}
+[2026-02-09 23:29:29] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:29] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:29] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:29] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:29] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:29] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:31] [INFO] Checking Python service status...
+[2026-02-09 23:29:31] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:31] [DEBUG] Initializing database...
+[2026-02-09 23:29:31] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:31] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryNJkAfmxo6BMmNKMA","content_length":"1049263"}
+[2026-02-09 23:29:31] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:31] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:31] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:31] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:31] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:31] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:34] [INFO] Checking Python service status...
+[2026-02-09 23:29:34] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:34] [DEBUG] Initializing database...
+[2026-02-09 23:29:34] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:34] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryDrTuzCODOc7iJ0B6","content_length":"1049263"}
+[2026-02-09 23:29:34] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:34] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:34] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:34] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:34] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:34] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:37] [INFO] Checking Python service status...
+[2026-02-09 23:29:37] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:37] [DEBUG] Initializing database...
+[2026-02-09 23:29:37] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:37] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryJQacMpFzpBwDlviA","content_length":"1049263"}
+[2026-02-09 23:29:37] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:37] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:37] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:37] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:37] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:37] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:39] [INFO] Checking Python service status...
+[2026-02-09 23:29:39] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:39] [DEBUG] Initializing database...
+[2026-02-09 23:29:39] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:39] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryA8z5v6AdoTYc2A3n","content_length":"1049263"}
+[2026-02-09 23:29:39] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:39] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:39] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:39] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:39] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:39] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:42] [INFO] Checking Python service status...
+[2026-02-09 23:29:42] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:42] [DEBUG] Initializing database...
+[2026-02-09 23:29:42] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:42] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryJcUr2c3DA2fhdsY8","content_length":"1049263"}
+[2026-02-09 23:29:42] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:42] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:42] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:42] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:42] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:42] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:45] [INFO] Checking Python service status...
+[2026-02-09 23:29:45] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:45] [DEBUG] Initializing database...
+[2026-02-09 23:29:45] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:45] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarywDasWNVowzbFnBbF","content_length":"1049263"}
+[2026-02-09 23:29:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:45] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:45] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:45] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:48] [INFO] Checking Python service status...
+[2026-02-09 23:29:48] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:48] [DEBUG] Initializing database...
+[2026-02-09 23:29:48] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:48] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryC86gxG7CPiQ8PTck","content_length":"1049263"}
+[2026-02-09 23:29:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:48] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:48] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:48] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:50] [INFO] Checking Python service status...
+[2026-02-09 23:29:50] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:50] [DEBUG] Initializing database...
+[2026-02-09 23:29:50] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:50] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryiAyVKh9oYUNlOuYG","content_length":"1049263"}
+[2026-02-09 23:29:50] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:50] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:50] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:50] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:50] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:50] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:53] [INFO] Checking Python service status...
+[2026-02-09 23:29:53] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:53] [DEBUG] Initializing database...
+[2026-02-09 23:29:53] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:53] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary91jCzBdGXolvf1AV","content_length":"1049263"}
+[2026-02-09 23:29:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:53] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:53] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:53] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:56] [INFO] Checking Python service status...
+[2026-02-09 23:29:56] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:56] [DEBUG] Initializing database...
+[2026-02-09 23:29:56] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:56] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary2K4jcBRQ3MwY0VTW","content_length":"1049263"}
+[2026-02-09 23:29:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:56] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:56] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:56] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:58] [INFO] Checking Python service status...
+[2026-02-09 23:29:58] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:58] [DEBUG] Initializing database...
+[2026-02-09 23:29:58] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:58] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryPObK6DTBKgcszCnz","content_length":"764002"}
+[2026-02-09 23:29:58] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:58] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:29:58] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:58] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:29:58] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:29:58] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:29:58] [INFO] Checking Python service status...
+[2026-02-09 23:29:58] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:29:58] [DEBUG] Initializing database...
+[2026-02-09 23:29:58] [DEBUG] Database initialized successfully
+[2026-02-09 23:29:58] [INFO] API Request START {"path":"\/api\/upload_complete","method":"POST","query_string":"","content_type":"application\/json","content_length":"66"}
+[2026-02-09 23:29:58] [DEBUG] socket_client.php START {"action":"upload_complete"}
+[2026-02-09 23:29:58] [DEBUG] Processing action {"action":"upload_complete"}
+[2026-02-09 23:30:01] [INFO] Checking Python service status...
+[2026-02-09 23:30:01] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:30:01] [DEBUG] Initializing database...
+[2026-02-09 23:30:01] [DEBUG] Database initialized successfully
+[2026-02-09 23:30:01] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:30:01] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:30:01] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:32:14] [INFO] Checking Python service status...
+[2026-02-09 23:32:14] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:32:14] [DEBUG] Initializing database...
+[2026-02-09 23:32:14] [DEBUG] Database initialized successfully
+[2026-02-09 23:32:14] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"32"}
+[2026-02-09 23:32:14] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-09 23:32:14] [DEBUG] Processing action {"action":"search"}
+[2026-02-09 23:32:29] [INFO] Checking Python service status...
+[2026-02-09 23:32:29] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:32:29] [DEBUG] Initializing database...
+[2026-02-09 23:32:29] [DEBUG] Database initialized successfully
+[2026-02-09 23:32:29] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-09 23:32:29] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-09 23:32:29] [DEBUG] Processing action {"action":"search"}
+[2026-02-09 23:32:32] [INFO] Checking Python service status...
+[2026-02-09 23:32:32] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:32:32] [DEBUG] Initializing database...
+[2026-02-09 23:32:32] [DEBUG] Database initialized successfully
+[2026-02-09 23:32:32] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"29"}
+[2026-02-09 23:32:32] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-09 23:32:32] [DEBUG] Processing action {"action":"search"}
+[2026-02-09 23:32:39] [INFO] Checking Python service status...
+[2026-02-09 23:32:39] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:32:39] [DEBUG] Initializing database...
+[2026-02-09 23:32:39] [DEBUG] Database initialized successfully
+[2026-02-09 23:32:39] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryzoNQmMPJG988pWFe","content_length":"258"}
+[2026-02-09 23:32:39] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-09 23:32:39] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-09 23:33:04] [INFO] Checking Python service status...
+[2026-02-09 23:33:04] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:33:04] [DEBUG] Initializing database...
+[2026-02-09 23:33:04] [DEBUG] Database initialized successfully
+[2026-02-09 23:33:04] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryAiBFOrbNi0gmLpSV","content_length":"237"}
+[2026-02-09 23:33:04] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-09 23:33:04] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-09 23:36:42] [INFO] Checking Python service status...
+[2026-02-09 23:36:42] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:42] [DEBUG] Initializing database...
+[2026-02-09 23:36:42] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:42] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"88"}
+[2026-02-09 23:36:42] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-09 23:36:42] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-09 23:36:42] [INFO] Checking Python service status...
+[2026-02-09 23:36:42] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:42] [DEBUG] Initializing database...
+[2026-02-09 23:36:42] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:42] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=e5e24d6d-fd55-4710-b639-c2e0097f4175","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-09 23:36:42] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-09 23:36:42] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-09 23:36:45] [INFO] Checking Python service status...
+[2026-02-09 23:36:45] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:45] [DEBUG] Initializing database...
+[2026-02-09 23:36:45] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:45] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryYsEsi7CB9VO2ClQA","content_length":"1049209"}
+[2026-02-09 23:36:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:45] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:36:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:45] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:36:45] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:45] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:36:48] [INFO] Checking Python service status...
+[2026-02-09 23:36:48] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:48] [DEBUG] Initializing database...
+[2026-02-09 23:36:48] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:48] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarypw4mzAjM27myhqTp","content_length":"1049209"}
+[2026-02-09 23:36:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:48] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:36:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:48] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:36:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:48] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:36:51] [INFO] Checking Python service status...
+[2026-02-09 23:36:51] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:51] [DEBUG] Initializing database...
+[2026-02-09 23:36:51] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:51] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryXffsvRBQ26hOuQWn","content_length":"1049209"}
+[2026-02-09 23:36:51] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:51] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:36:51] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:51] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:36:51] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:51] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:36:54] [INFO] Checking Python service status...
+[2026-02-09 23:36:54] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:54] [DEBUG] Initializing database...
+[2026-02-09 23:36:54] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:54] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary9Vpp5afB3Ygxt21R","content_length":"1049209"}
+[2026-02-09 23:36:54] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:54] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:36:54] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:54] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:36:54] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:54] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:36:56] [INFO] Checking Python service status...
+[2026-02-09 23:36:56] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:56] [DEBUG] Initializing database...
+[2026-02-09 23:36:56] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:56] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryVA50CQ6e2BDxDkmC","content_length":"1049209"}
+[2026-02-09 23:36:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:56] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:36:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:56] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:36:56] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:56] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:36:59] [INFO] Checking Python service status...
+[2026-02-09 23:36:59] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:36:59] [DEBUG] Initializing database...
+[2026-02-09 23:36:59] [DEBUG] Database initialized successfully
+[2026-02-09 23:36:59] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryBkWGEOBVMcjCpaD9","content_length":"1049209"}
+[2026-02-09 23:36:59] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:59] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:36:59] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:59] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:36:59] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:36:59] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:37:01] [INFO] Checking Python service status...
+[2026-02-09 23:37:01] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:01] [DEBUG] Initializing database...
+[2026-02-09 23:37:01] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:01] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryZZD67NrfRJqbj2Jx","content_length":"1049209"}
+[2026-02-09 23:37:01] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:01] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:37:01] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:01] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:37:01] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:01] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:37:04] [INFO] Checking Python service status...
+[2026-02-09 23:37:04] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:04] [DEBUG] Initializing database...
+[2026-02-09 23:37:04] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:04] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryRmALJ78mQ011lAnT","content_length":"1049209"}
+[2026-02-09 23:37:04] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:04] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:37:04] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:04] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:37:04] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:04] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:37:05] [INFO] Checking Python service status...
+[2026-02-09 23:37:05] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:05] [DEBUG] Initializing database...
+[2026-02-09 23:37:05] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:05] [INFO] Page Request: Home
+[2026-02-09 23:37:07] [INFO] Checking Python service status...
+[2026-02-09 23:37:07] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:07] [DEBUG] Initializing database...
+[2026-02-09 23:37:07] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:07] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarydOCq2clcKAposAiI","content_length":"1049209"}
+[2026-02-09 23:37:07] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:07] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-09 23:37:07] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:07] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-09 23:37:07] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-09 23:37:07] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-09 23:37:07] [INFO] Checking Python service status...
+[2026-02-09 23:37:07] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:07] [DEBUG] Initializing database...
+[2026-02-09 23:37:07] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:07] [INFO] Page Request: Home
+[2026-02-09 23:37:08] [INFO] Checking Python service status...
+[2026-02-09 23:37:08] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:08] [DEBUG] Initializing database...
+[2026-02-09 23:37:08] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:08] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:37:09] [INFO] Checking Python service status...
+[2026-02-09 23:37:09] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:09] [DEBUG] Initializing database...
+[2026-02-09 23:37:09] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:09] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:37:09] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:37:09] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:37:11] [INFO] Checking Python service status...
+[2026-02-09 23:37:11] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:11] [DEBUG] Initializing database...
+[2026-02-09 23:37:11] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:11] [INFO] Page Request: 404 {"path":"\/storage\/uploads\/RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf"}
+[2026-02-09 23:37:15] [INFO] Checking Python service status...
+[2026-02-09 23:37:15] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:15] [DEBUG] Initializing database...
+[2026-02-09 23:37:15] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:15] [INFO] Page Request: 404 {"path":"\/storage\/uploads\/test_real.pdf"}
+[2026-02-09 23:37:25] [INFO] Checking Python service status...
+[2026-02-09 23:37:25] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:25] [DEBUG] Initializing database...
+[2026-02-09 23:37:25] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:25] [INFO] Page Request: 404 {"path":"\/storage\/uploads\/test_real.pdf"}
+[2026-02-09 23:37:30] [INFO] Checking Python service status...
+[2026-02-09 23:37:30] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:30] [DEBUG] Initializing database...
+[2026-02-09 23:37:30] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:30] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:37:31] [INFO] Checking Python service status...
+[2026-02-09 23:37:31] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:31] [DEBUG] Initializing database...
+[2026-02-09 23:37:31] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:31] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:37:31] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:37:31] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:37:31] [INFO] Checking Python service status...
+[2026-02-09 23:37:31] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:31] [DEBUG] Initializing database...
+[2026-02-09 23:37:31] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:31] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-09 23:37:35] [INFO] Checking Python service status...
+[2026-02-09 23:37:35] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:35] [DEBUG] Initializing database...
+[2026-02-09 23:37:35] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:35] [INFO] Page Request: 404 {"path":"\/storage\/uploads\/test_real.pdf"}
+[2026-02-09 23:37:43] [INFO] Checking Python service status...
+[2026-02-09 23:37:43] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:43] [DEBUG] Initializing database...
+[2026-02-09 23:37:43] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:43] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-09 23:37:44] [INFO] Checking Python service status...
+[2026-02-09 23:37:44] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:44] [DEBUG] Initializing database...
+[2026-02-09 23:37:44] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:44] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-09 23:37:44] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-09 23:37:44] [DEBUG] Processing action {"action":"documents"}
+[2026-02-09 23:37:45] [INFO] Checking Python service status...
+[2026-02-09 23:37:45] [DEBUG] Socket available on attempt 1
+[2026-02-09 23:37:45] [DEBUG] Initializing database...
+[2026-02-09 23:37:45] [DEBUG] Database initialized successfully
+[2026-02-09 23:37:45] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
