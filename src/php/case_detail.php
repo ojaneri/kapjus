@@ -793,7 +793,7 @@ class ChunkedUploadManager {
             
             // Check for existing progress and resume if needed
             const statusResponse = await fetch(`/api/upload_status?upload_id=${initData.upload_id}`);
-            console.log('[UPLOAD] upload_status response:', statusResponse.ok ? await statusResponse.json() : 'FAILED');
+            console.log('[UPLOAD] upload_status response:', statusResponse.ok ? await statusResponse.clone().json() : 'FAILED');
             
             if (statusResponse.ok) {
                 const statusData = await statusResponse.json();
@@ -924,7 +924,7 @@ class ChunkedUploadManager {
             throw new Error(error.detail || 'Falha ao completar upload');
         }
         
-        return response.json();
+        return response.clone().json();
     }
 }
 
