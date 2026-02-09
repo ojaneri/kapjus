@@ -508,7 +508,7 @@ async def get_upload_status(upload_id: str):
         "status": "in_progress",
         "upload_id": upload_id,
         "filename": metadata["filename"],
-        "uploaded_chunks": uploaded_chunks,
+        "uploaded_chunks": metadata["uploaded_chunks"],
         "total_chunks": total_chunks,
         "progress": (uploaded_chunks / total_chunks) * 100 if total_chunks > 0 else 0,
         "missing_chunks": [i for i in range(total_chunks) if i not in metadata["uploaded_chunks"]],

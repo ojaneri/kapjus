@@ -797,12 +797,15 @@ class ChunkedUploadManager {
             
             if (statusResponse.ok) {
                 const statusData = await statusResponse.json();
-                if (statusData.status === 'in_progress') {
-                    statusData.missing_chunks.forEach(idx => upload.uploadedChunks.add(idx));
-                    upload.currentChunk = Math.min(...Array.from(upload.uploadedChunks));
-                    this.updateProgress(fileId, statusData.progress, 'Resumindo');
+                // Only mark chunks as uploaded if the server confirms they exist
+                if (statusData.uploaded_chunks && statusData.uploaded_chunks > 0) {
+                    // Server returns count, but we don't have the list - skip resuming
+                    // Just show progress
+                    console.log('[UPLOAD] Server has', statusData.uploaded_chunks, 'chunks already uploaded');
                 }
             }
+            
+            // Upload chunks - always start from 0 to ensure all chunks are uploaded
             
             // Upload chunks sequentially
             console.log('[UPLOAD] Starting uploadChunks, totalChunks:', upload.totalChunks);
