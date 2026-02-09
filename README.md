@@ -24,5 +24,4 @@ O **KapJus** é uma plataforma moderna para advogados e profissionais do direito
 5.  Acesse `http://localhost:8080` no seu navegador.
 
 ---
-**Créditos**: Desenvolvido para **Osvaldo J. Filho**.
-**Autor**: Manus AI
+**Créditos**: Desenvolvido por **Osvaldo J. Filho**.
