@@ -781,23 +781,33 @@ class ChunkedUploadManager {
             if (!initResponse.ok) throw new Error('Falha ao inicializar upload');
             
             const initData = await initResponse.json();
+            console.log('[UPLOAD] upload_init response:', initData);
+            
             upload.uploadId = initData.upload_id;
+            console.log('[UPLOAD] uploadId set to:', upload.uploadId);
+            
+            if (!upload.uploadId) {
+                console.error('[UPLOAD] ERROR: uploadId is null or empty!');
+                throw new Error('Invalid upload_id returned from server');
+            }
             
             // Check for existing progress and resume if needed
-            if (initData.upload_id) {
-                const statusResponse = await fetch(`/api/upload_status?upload_id=${initData.upload_id}`);
-                if (statusResponse.ok) {
-                    const statusData = await statusResponse.json();
-                    if (statusData.status === 'in_progress') {
-                        statusData.missing_chunks.forEach(idx => upload.uploadedChunks.add(idx));
-                        upload.currentChunk = Math.min(...Array.from(upload.uploadedChunks));
-                        this.updateProgress(fileId, statusData.progress, 'Resumindo');
-                    }
+            const statusResponse = await fetch(`/api/upload_status?upload_id=${initData.upload_id}`);
+            console.log('[UPLOAD] upload_status response:', statusResponse.ok ? await statusResponse.json() : 'FAILED');
+            
+            if (statusResponse.ok) {
+                const statusData = await statusResponse.json();
+                if (statusData.status === 'in_progress') {
+                    statusData.missing_chunks.forEach(idx => upload.uploadedChunks.add(idx));
+                    upload.currentChunk = Math.min(...Array.from(upload.uploadedChunks));
+                    this.updateProgress(fileId, statusData.progress, 'Resumindo');
                 }
             }
             
             // Upload chunks sequentially
+            console.log('[UPLOAD] Starting uploadChunks, totalChunks:', upload.totalChunks);
             await this.uploadChunks(upload);
+            console.log('[UPLOAD] uploadChunks completed');
             
             // Complete upload
             await this.completeUpload(upload);
@@ -812,16 +822,29 @@ class ChunkedUploadManager {
             setTimeout(() => this.cancelUpload(fileId), 3000);
             
         } catch (error) {
-            console.error('Upload error:', error);
+            console.error('[UPLOAD] Upload error caught:', error.message, error.stack);
             this.markError(fileId, error.message);
         }
     }
     
     // Upload chunks sequentially
     async uploadChunks(upload) {
+        console.log('[UPLOAD] uploadChunks called with:', {
+            uploadId: upload.uploadId,
+            totalChunks: upload.totalChunks,
+            uploadedChunksCount: upload.uploadedChunks.size
+        });
+        
         const { file, uploadId, uploadedChunks } = upload;
         
         for (let chunkIndex = 0; chunkIndex < upload.totalChunks; chunkIndex++) {
+            // Skip already uploaded chunks
+            if (uploadedChunks.has(chunkIndex)) {
+                console.log('[UPLOAD] Skipping chunk', chunkIndex, '(already uploaded)');
+                continue;
+            }
+            
+            console.log('[UPLOAD] Processing chunk', chunkIndex, 'of', upload.totalChunks);
             // Skip already uploaded chunks
             if (uploadedChunks.has(chunkIndex)) continue;
             
@@ -838,6 +861,8 @@ class ChunkedUploadManager {
             
             upload.xhr = new XMLHttpRequest();
             
+            console.log('[UPLOAD] Sending XHR for chunk', chunkIndex, 'to /api/upload_chunk');
+            
             const chunkPromise = new Promise((resolve, reject) => {
                 upload.xhr.upload.onprogress = (event) => {
                     if (event.lengthComputable) {
@@ -849,6 +874,7 @@ class ChunkedUploadManager {
                 };
                 
                 upload.xhr.onload = () => {
+                    console.log('[UPLOAD] XHR onload, status:', upload.xhr.status, 'response:', upload.xhr.responseText?.substring(0, 200));
                     if (upload.xhr.status >= 200 && upload.xhr.status < 300) {
                         uploadedChunks.add(chunkIndex);
                         resolve();
@@ -857,11 +883,22 @@ class ChunkedUploadManager {
                     }
                 };
                 
-                upload.xhr.onerror = () => reject(new Error('Erro de rede'));
-                upload.xhr.ontimeout = () => reject(new Error('Timeout'));
+                upload.xhr.onerror = () => {
+                    console.error('[UPLOAD] XHR onerror called');
+                    reject(new Error('Erro de rede'));
+                };
+                upload.xhr.ontimeout = () => {
+                    console.error('[UPLOAD] XHR ontimeout called');
+                    reject(new Error('Timeout'));
+                };
+                
+                upload.xhr.onabort = () => {
+                    console.error('[UPLOAD] XHR onabort called');
+                };
                 
                 upload.xhr.open('POST', '/api/upload_chunk');
                 upload.xhr.send(formData);
+                console.log('[UPLOAD] XHR sent for chunk', chunkIndex);
             });
             
             await chunkPromise;
