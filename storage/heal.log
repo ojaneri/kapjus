@@ -1,0 +1,61 @@
+[2026-02-09 11:27:16] Starting health check...
+[2026-02-09 11:27:16] Count: 1 instance but socket unresponsive, restarting...
+This account is currently not available.
+=== KAPJUS HEAL CHECK ===
+Timestamp: 2026-02-09T14:29:15-0300
+Instances: 1
+Socket exists: yes
+Socket responsive: 404yes
+Health check: fail
+Status: online
+Action taken: restarting process
+This account is currently not available.
+=========================
+=== KAPJUS HEAL CHECK ===
+Timestamp: 2026-02-09T14:29:40-0300
+Instances: 1
+Socket exists: yes
+Socket responsive: 404yes
+Health check: fail
+Status: online
+Action taken: restarting process
+This account is currently not available.
+=========================
+=== KAPJUS HEAL CHECK ===
+Timestamp: 2026-02-09T14:31:24-0300
+Instances: 1
+Socket exists: yes
+Socket responsive: 404yes
+Health check: fail
+Status: online
+Action taken: restarting process
+This account is currently not available.
+=========================
+=== KAPJUS HEAL CHECK ===
+Timestamp: 2026-02-09T14:37:27-0300
+Instances: 1
+Socket exists: yes
+Socket responsive: 200yes
+Health check: fail
+Status: online
+Action taken: restarting process
+This account is currently not available.
+=========================
+=== KAPJUS HEAL CHECK ===
+Timestamp: 2026-02-09T14:39:06-0300
+Instances: 1
+Socket exists: yes
+Socket responsive: yes
+Health check: pass
+Status: online
+Action taken: none needed
+=========================
+=== KAPJUS HEAL CHECK ===
+Timestamp: 2026-02-09T15:10:31-0300
+Instances: 1
+Socket exists: yes
+Socket responsive: yes
+Health check: pass
+Status: online
+Action taken: none needed
+=========================

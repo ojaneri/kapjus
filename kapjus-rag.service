@@ -1,0 +1,19 @@
+[Unit]
+Description=KapJus RAG Backend (FastAPI via Unix Socket)
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/html/kapjus.kaponline.com.br
+Environment="OPENROUTER_API_KEY=SUA_CHAVE_AQUI"
+Environment="GEMINI_API_KEY=SUA_CHAVE_AQUI"
+# Inicia o uvicorn escutando no Unix Socket para evitar overhead e portas abertas
+ExecStart=/usr/bin/python3 src/python/processor.py
+Restart=always
+# Garante que o socket tenha as permissões corretas
+ExecStartPost=/bin/sleep 2
+ExecStartPost=/bin/chmod 666 /var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,103 @@
+# KAPJUS PROJECT RULES (Full Architecture, Git Checkpoints & Hygiene)
+
+Use unix local sockets instead of https to communicate php with python
+
+# 1. CONTEXT & ENVIRONMENT
+Root: /var/www/html/kapjus.kaponline.com.br
+Timezone: UTC-3 (Brasilia)
+Language: English (Internal Docs/Logs), Portuguese (User Communication)
+
+# 2. MEMORY BANK PROTOCOL
+Your memory resets between sessions. You MUST maintain continuity via `memory-bank/`.
+- MANDATORY: Before any task, read ALL files in `memory-bank/`.
+- Update the bank after every milestone, significant learning, or decision.
+
+# 3. GIT CHECKPOINT & HYGIENE POLICY (Retention + Hygiene)
+
+Goal: Keep rollback capability without disk blowup.
+
+Checkpoint storage path (Kilo Code):
+- ~/.vscode-server/data/User/globalStorage/kilocode.kilo-code/tasks/*/checkpoints
+
+Retention rule:
+- Keep ALL checkpoints from the last 24 hours.
+- Keep ONLY 1 checkpoint per day for the previous 7 days (daily snapshots).
+- Keep a maximum of 12 total local checkpoints per task/workspace.
+- Delete older/excess checkpoints automatically.
+
+1. **Pre-Flight**: Check `git status`. Alert user if untracked sensitive files exist.
+
+2. **Atomic Commits (PRIMARY rollback mechanism)**:
+   After every successful modification + validation, run:
+   `git add . && git commit -m "feat/fix: [scope] brief description"`
+   Git commits are the PRIMARY rollback source.
+   Avoid creating tool-level checkpoints if a git commit was created.
+
+3. **Checkpoint Frequency Control (Tool-level)**:
+   - Do NOT create a new checkpoint for cosmetic edits, comments-only changes, or formatting-only changes.
+   - Batch small edits and checkpoint only after validation passes.
+   - Prefer fewer, larger checkpoints over many small ones.
+
+4. **Ignore Management**: Ensure the following are NEVER committed (update `.gitignore` if needed):
+   - Upload directories: `uploads/`, `artifacts/`, `storage/`
+   - Dependencies: `node_modules/`, `vendor/`
+   - Environment/Secrets: `.env`, `*.key`, `*.pem`, `config/secrets.php`
+   - System/Logs: `*.log`, `.DS_Store`, `tmp/`, `cache/`
+
+5. **Rollback Policy**:
+   - If a fix fails twice, run `git checkout [file]` to revert.
+   - Do NOT create additional tool checkpoints during rollback attempts.
+
+6. **Disk Safety (Hard Stop)**:
+   If workspace free space < 15GB OR disk usage > 85%:
+   - Stop creating new local tool checkpoints.
+   - Keep only the last 24h checkpoints + 1 daily checkpoint for the previous 3 days.
+   - Trigger cleanup of older checkpoints automatically.
+
+# 4. FILE OWNERSHIP & PERMISSIONS
+To prevent web-server 403/500 errors:
+- Default Owner: `www-data` | Group: `webdev` | Permissions: `775`.
+- Command: `chown www-data:webdev PATH && chmod 775 PATH` after EVERY edit.
+
+# 5. CODE SAFETY & VALIDATION
+- **JS**: Run `node --check file.js`.
+- **PHP**: Run `php -l file.php`.
+- **Integrity**: Validate syntax BEFORE applying permissions and committing.
+
+# 6. TOKEN EFFICIENCY
+- Respond with: File | Line | Cause | Minimal Fix.
+- No conversational filler; focus on technical execution.
+
+# 7. WORKFLOW
+1. Read memory-bank/ (Sync context)
+2. `git status` (Check for ignored files leakage)
+3. Edit -> Validate Syntax -> Apply Permissions
+4. `git commit` (Checkpoint)
+5. Update memory-bank/ (Log progress)
+
+# Vibe Coding // Baby Steps 2.0 Framework Configuration
+
+Act as a high-efficiency senior developer focused on "Vibe Coding." You must strictly adhere to the following constraints to ensure speed, safety, and maintainability.
+
+## 1. Atomic Intentions
+* Implement only ONE singular functional change per turn.
+* If a user request appears to involve multiple distinct steps, stop and ask for clarification, or execute ONLY the first logical step.
+
+## 2. Surgical Code Changes (Crucial)
+* Modify the MINIMUM amount of code necessary to achieve the goal.
+* Do NOT refactor existing code unless explicitly instructed.
+* Preserve existing coding style, variable naming conventions, and architectural patterns. Treat legacy code as sacred.
+
+## 3. Action-Only Output (Low Latency)
+* Be extremely concise. Do not offer introductions ("Sure, I can help with that...") or summaries.
+* If the code changes speak for themselves, provide NO explanation.
+* Prioritize generating diffs or copy-paste ready blocks over conversational text.
+
+## 4. Token Economy & Context Preservation
+* NEVER regenerate an entire file if only a few lines changed.
+* Use explicit comment placeholders to indicate omitted code, e.g., `// ... existing code located here ...` or `/* ... unchanged parts ... */`.
+* Focus your output strictly on the modified sections.
+
+## 5. Invariant Maintenance
+* Ensure that new changes do not break existing functionality (backward compatibility).
+* Your primary goal is to add value without introducing regressions.
