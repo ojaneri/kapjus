@@ -70,6 +70,30 @@ openrouter_client = OpenAI(
 
 app = FastAPI()
 
+# Enable VSS extension for vector similarity search
+def enable_vss_extension(conn):
+    """Load sqlite-vss extension for vector search capabilities."""
+    try:
+        conn.enable_load_extension(True)
+        conn.load_extension("vss0")
+        conn.enable_load_extension(False)
+        logger.info("VSS extension loaded successfully")
+        return True
+    except Exception as e:
+        logger.warning(f"VSS extension not available: {e}")
+        return False
+
+# Test VSS availability on module load
+_vss_available = False
+try:
+    _test_conn = sqlite3.connect(DB_PATH)
+    _vss_available = enable_vss_extension(_test_conn)
+    _test_conn.close()
+except Exception:
+    pass
+
+logger.info(f"VSS extension available: {_vss_available}")
+
 # Cleanup stale uploads (older than UPLOAD_TIMEOUT)
 def cleanup_stale_uploads():
     """Remove chunks directories older than UPLOAD_TIMEOUT"""
@@ -226,6 +250,217 @@ def store_document(case_id: str, filename: str, pages: List[Dict]):
     
     conn.commit()
     conn.close()
+
+# ==================== VSS (Vector Similarity Search) Infrastructure ====================
+
+def create_vss_table(conn):
+    """Create VSS virtual table for vector similarity search."""
+    if not _vss_available:
+        logger.warning("VSS extension not available, skipping vss_chunks table creation")
+        return False
+    
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            CREATE VIRTUAL TABLE IF NOT EXISTS vss_chunks USING vss0(
+                embedding(1536)  -- OpenAI text-embedding-3-small dimension
+            )
+        """)
+        conn.commit()
+        logger.info("VSS vss_chunks virtual table created/verified")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to create vss_chunks table: {e}")
+        return False
+
+def get_embedding(text: str, model: str = "text-embedding-3-small") -> Optional[List[float]]:
+    """Generate embedding vector for given text using OpenAI API via OpenRouter."""
+    if not text or not text.strip():
+        return None
+    
+    try:
+        response = openrouter_client.embeddings.create(
+            model=model,
+            input=text[:8000]  # Truncate to avoid token limits
+        )
+        embedding = response.data[0].embedding
+        logger.debug(f"Generated embedding for text ({len(text)} chars) using {model}")
+        return embedding
+    except Exception as e:
+        logger.error(f"Failed to generate embedding: {e}")
+        return None
+
+def store_document_with_embedding(case_id: str, filename: str, pages: List[Dict]):
+    """Store document with both text and vector embeddings."""
+    conn = sqlite3.connect(DB_PATH)
+    
+    if _vss_available:
+        create_vss_table(conn)
+    
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS documents (id INTEGER PRIMARY KEY AUTOINCREMENT, case_id TEXT, filename TEXT, page_number INTEGER, content TEXT)")
+    cursor.execute("CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(content, case_id UNINDEXED, filename UNINDEXED, page_number UNINDEXED)")
+
+    for p in pages:
+        content = p['content']
+        page_num = p['page']
+        
+        # Store text in documents and FTS tables
+        cursor.execute("INSERT INTO documents (case_id, filename, page_number, content) VALUES (?, ?, ?, ?)", 
+                      (case_id, filename, page_num, content))
+        doc_id = cursor.lastrowid
+        cursor.execute("INSERT INTO documents_fts (content, case_id, filename, page_number) VALUES (?, ?, ?, ?)", 
+                      (content, case_id, filename, page_num))
+        
+        # Generate and store embedding if VSS is available
+        if _vss_available:
+            embedding = get_embedding(content)
+            if embedding:
+                try:
+                    cursor.execute("INSERT INTO vss_chunks (rowid, embedding) VALUES (?, ?)", 
+                                  (doc_id, embedding))
+                    logger.debug(f"Stored embedding for {filename} page {page_num}")
+                except Exception as e:
+                    logger.warning(f"Failed to store embedding for {filename} page {page_num}: {e}")
+    
+    conn.commit()
+    conn.close()
+    logger.info(f"Stored document with embeddings: {filename} ({len(pages)} pages)")
+
+def index_document_embeddings(conn: sqlite3.Connection, case_id: str = None):
+    """Generate and store embeddings for documents without vectors."""
+    if not _vss_available:
+        logger.warning("VSS extension not available, skipping embedding indexing")
+        return 0
+    
+    cursor = conn.cursor()
+    
+    # Create vss_chunks table if it doesn't exist
+    create_vss_table(conn)
+    
+    # Find documents without embeddings
+    if case_id:
+        cursor.execute("""
+            SELECT d.id, d.case_id, d.filename, d.page_number, d.content
+            FROM documents d
+            LEFT JOIN vss_chunks v ON d.id = v.rowid
+            WHERE v.rowid IS NULL AND d.case_id = ?
+            ORDER BY d.id
+        """, (case_id,))
+    else:
+        cursor.execute("""
+            SELECT d.id, d.case_id, d.filename, d.page_number, d.content
+            FROM documents d
+            LEFT JOIN vss_chunks v ON d.id = v.rowid
+            WHERE v.rowid IS NULL
+            ORDER BY d.id
+        """)
+    
+    docs_to_index = cursor.fetchall()
+    
+    if not docs_to_index:
+        logger.info("No documents need embedding indexing")
+        return 0
+    
+    logger.info(f"Indexing {len(docs_to_index)} documents for vector search")
+    indexed_count = 0
+    
+    for doc in docs_to_index:
+        doc_id, doc_case_id, filename, page_num, content = doc
+        embedding = get_embedding(content)
+        if embedding:
+            try:
+                cursor.execute("INSERT INTO vss_chunks (rowid, embedding) VALUES (?, ?)", 
+                              (doc_id, embedding))
+                indexed_count += 1
+                logger.debug(f"Indexed embedding for {filename} page {page_num}")
+            except Exception as e:
+                logger.warning(f"Failed to index embedding for {filename} page {page_num}: {e}")
+    
+    conn.commit()
+    logger.info(f"Indexed {indexed_count} embeddings successfully")
+    return indexed_count
+
+class SetupVSSQuery(BaseModel):
+    case_id: Optional[str] = None
+
+@app.post("/setup_vss")
+async def setup_vss(query: SetupVSSQuery):
+    """Setup VSS infrastructure: create vss_chunks table and index existing documents."""
+    if not _vss_available:
+        return JSONResponse(
+            status_code=503,
+            content={"status": "error", "message": "VSS extension not available"}
+        )
+    
+    conn = sqlite3.connect(DB_PATH)
+    
+    try:
+        # Create vss_chunks table
+        table_created = create_vss_table(conn)
+        
+        if not table_created:
+            raise Exception("Failed to create vss_chunks table")
+        
+        # Index existing documents
+        indexed = index_document_embeddings(conn, query.case_id)
+        
+        # Get stats
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM vss_chunks")
+        total_embeddings = cursor.fetchone()[0]
+        
+        return {
+            "status": "success",
+            "message": "VSS infrastructure setup complete",
+            "vss_available": _vss_available,
+            "table_created": True,
+            "indexed_documents": indexed,
+            "total_embeddings": total_embeddings
+        }
+    
+    except Exception as e:
+        logger.error(f"VSS setup failed: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "message": str(e)}
+        )
+    finally:
+        conn.close()
+
+@app.get("/vss_status")
+async def vss_status():
+    """Get VSS infrastructure status."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    status = {
+        "vss_available": _vss_available,
+        "vss_chunks_exists": False,
+        "total_embeddings": 0,
+        "documents_without_embeddings": 0
+    }
+    
+    try:
+        if _vss_available:
+            cursor.execute("SELECT COUNT(*) FROM vss_chunks")
+            status["total_embeddings"] = cursor.fetchone()[0]
+            status["vss_chunks_exists"] = True
+            
+            cursor.execute("""
+                SELECT COUNT(*) FROM documents d
+                LEFT JOIN vss_chunks v ON d.id = v.rowid
+                WHERE v.rowid IS NULL
+            """)
+            status["documents_without_embeddings"] = cursor.fetchone()[0]
+    except Exception as e:
+        logger.error(f"Failed to get VSS status: {e}")
+    finally:
+        conn.close()
+    
+    return status
+
+# ==================== Document Processing Endpoints ====================
 
 @app.post("/process_document")
 async def process_document(case_id: str = Form(...), file: UploadFile = File(...)):
