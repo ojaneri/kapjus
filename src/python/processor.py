@@ -460,9 +460,383 @@ async def vss_status():
     
     return status
 
-# ==================== Document Processing Endpoints ====================
+# ==================== HYBRID SEARCH PHASE 2 ====================
 
-@app.post("/process_document")
+def expand_query(question: str) -> Dict[str, any]:
+    """
+    Expand user question into keywords for FTS5 and semantic query for VSS.
+    Uses AI to generate optimized search terms.
+    """
+    if not question or not question.strip():
+        return {"keywords": [], "semantic_query": ""}
+    
+    prompt = f""" Dada a pergunta do usuário: '{question}', retorne um JSON com:
+    - keywords: Lista de termos técnicos e sinônimos para busca por palavra-chave (FTS5)
+    - semantic_query: Uma frase otimizada para busca vetorial que capture a intenção
+    
+    Responda APENAS com o JSON, sem formatação adicional."""
+    
+    try:
+        response = openrouter_client.chat.completions.create(
+            model="deepseek/deepseek-r1:free",
+            messages=[
+                {"role": "system", "content": "Você é um assistente de busca jurídica. Retorne JSON válido."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=512,
+            temperature=0.3
+        )
+        
+        content = response.choices[0].message.content.strip()
+        # Clean up if model adds markdown formatting
+        if content.startswith("```"):
+            content = "\n".join(content.split("\n")[1:-1])
+        
+        result = json.loads(content)
+        logger.info(f"Query expanded: {len(result.get('keywords', []))} keywords, semantic: '{result.get('semantic_query', '')[:50]}...'")
+        return {
+            "keywords": result.get("keywords", []),
+            "semantic_query": result.get("semantic_query", question)
+        }
+    except Exception as e:
+        logger.warning(f"Query expansion failed, using fallback: {e}")
+        # Fallback: use question as-is
+        return {
+            "keywords": question.split()[:10],
+            "semantic_query": question
+        }
+
+def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[str] = None, limit: int = 5) -> Dict[str, List[Dict]]:
+    """
+    Execute parallel hybrid search using FTS5 and VSS.
+    Returns dict with 'fts_results' and 'vss_results'.
+    """
+    fts_results = []
+    vss_results = []
+    
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    # FTS5 Query
+    try:
+        if keywords:
+            # Build FTS5 query with OR operator
+            fts_query = " ".join(keywords) + "*"
+            if case_id:
+                cursor.execute("""
+                    SELECT rowid, content, filename, page_number,
+                           bm25(documents_fts) as rank
+                    FROM documents_fts 
+                    WHERE case_id = ? AND documents_fts MATCH ?
+                    ORDER BY rank
+                    LIMIT ?
+                """, (case_id, fts_query, limit))
+            else:
+                cursor.execute("""
+                    SELECT rowid, content, filename, page_number,
+                           bm25(documents_fts) as rank
+                    FROM documents_fts 
+                    WHERE documents_fts MATCH ?
+                    ORDER BY rank
+                    LIMIT ?
+                """, (fts_query, limit))
+            
+            for row in cursor.fetchall():
+                fts_results.append({
+                    "rowid": row[0],
+                    "content": row[1],
+                    "filename": row[2],
+                    "page": row[3],
+                    "rank": row[4]
+                })
+        
+        logger.info(f"FTS5 search returned {len(fts_results)} results")
+    except Exception as e:
+        logger.warning(f"FTS5 search failed: {e}")
+    
+    # VSS Query (Vector Similarity Search)
+    try:
+        if _vss_available and semantic_query:
+            # Generate embedding for semantic query
+            embedding = get_embedding(semantic_query)
+            
+            if embedding:
+                if case_id:
+                    # VSS with case_id filter - need to join with documents table
+                    cursor.execute("""
+                        SELECT v.rowid, d.content, d.filename, d.page_number,
+                               vss_distance(v.embedding, ?)
+                        FROM vss_chunks v
+                        JOIN documents d ON v.rowid = d.id
+                        WHERE d.case_id = ?
+                        ORDER BY vss_distance(v.embedding, ?)
+                        LIMIT ?
+                    """, (embedding, case_id, embedding, limit))
+                else:
+                    cursor.execute("""
+                        SELECT v.rowid, d.content, d.filename, d.page_number,
+                               vss_distance(v.embedding, ?)
+                        FROM vss_chunks v
+                        JOIN documents d ON v.rowid = d.id
+                        ORDER BY vss_distance(v.embedding, ?)
+                        LIMIT ?
+                    """, (embedding, embedding, limit))
+                
+                for row in cursor.fetchall():
+                    vss_results.append({
+                        "rowid": row[0],
+                        "content": row[1],
+                        "filename": row[2],
+                        "page": row[3],
+                        "distance": row[4]
+                    })
+        
+        logger.info(f"VSS search returned {len(vss_results)} results")
+    except Exception as e:
+        logger.warning(f"VSS search failed: {e}")
+    
+    conn.close()
+    
+    return {
+        "fts_results": fts_results,
+        "vss_results": vss_results
+    }
+
+def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 5) -> List[Dict]:
+    """
+    Merge and rank results using Reciprocal Rank Fusion (RRF).
+    score = 1 / (rank * 60 + position)
+    """
+    if not fts_results and not vss_results:
+        return []
+    
+    ranked_items = {}
+    
+    # Process FTS5 results with RRF
+    for position, item in enumerate(fts_results):
+        rowid = item["rowid"]
+        # FTS5 rank is lower is better, convert to position-based rank
+        rank = position + 1
+        rrf_score = 1.0 / (rank * 60 + position + 1)
+        
+        if rowid not in ranked_items:
+            ranked_items[rowid] = {"rowid": rowid, "content": item["content"], 
+                                   "filename": item["filename"], "page": item["page"],
+                                   "fts_rank": rank, "vss_rank": None, "rrf_score": rrf_score}
+        else:
+            # Item exists, combine scores
+            ranked_items[rowid]["rrf_score"] += rrf_score
+            ranked_items[rowid]["fts_rank"] = min(ranked_items[rowid].get("fts_rank"), rank)
+    
+    # Process VSS results with RRF
+    for position, item in enumerate(vss_results):
+        rowid = item["rowid"]
+        rank = position + 1
+        rrf_score = 1.0 / (rank * 60 + position + 1)
+        
+        if rowid not in ranked_items:
+            ranked_items[rowid] = {"rowid": rowid, "content": item["content"], 
+                                   "filename": item["filename"], "page": item["page"],
+                                   "fts_rank": None, "vss_rank": rank, "rrf_score": rrf_score}
+        else:
+            ranked_items[rowid]["rrf_score"] += rrf_score
+            ranked_items[rowid]["vss_rank"] = min(ranked_items[rowid].get("vss_rank"), rank)
+    
+    # Sort by combined RRF score and return top-k
+    sorted_results = sorted(ranked_items.values(), key=lambda x: x["rrf_score"], reverse=True)
+    
+    logger.info(f"RRF merged {len(sorted_results)} unique documents, returning top {top_k}")
+    return sorted_results[:top_k]
+
+def generate_response_with_context(question: str, ranked_chunks: List[Dict]) -> str:
+    """
+    Generate AI response using the ranked context chunks.
+    """
+    if not ranked_chunks:
+        return "Não foi possível encontrar informações relevantes para responder à pergunta."
+    
+    # Build context from chunks
+    context_parts = []
+    for i, chunk in enumerate(ranked_chunks, 1):
+        source_info = f"[{chunk.get('filename', 'unknown')}:pg {chunk.get('page', '?')}]"
+        content = chunk.get('content', '')[:1000]  # Limit chunk size
+        context_parts.append(f"--- Fonte {i} {source_info} ---\n{content}")
+    
+    context = "\n\n".join(context_parts)
+    
+    prompt = f"""Você é um assistente técnico jurídico. Abaixo estão trechos recuperados de documentos. 
+Utilize-os estritamente para responder à pergunta final. Se houver contradição, priorize os trechos mais relevantes.
+
+CONTEXTO RECUPERADO:
+{context}
+
+PERGUNTA: > {question}
+
+Resposta (cite as fontes utilizadas):"""
+    
+    try:
+        response = openrouter_client.chat.completions.create(
+            model="deepseek/deepseek-r1:free",
+            messages=[
+                {"role": "system", "content": "Você é um assistente jurídico helpful. Responda em português brasileiro, cite as fontes utilizadas."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=2048,
+            temperature=0.7
+        )
+        
+        answer = response.choices[0].message.content
+        logger.info(f"Generated response with {len(ranked_chunks)} context chunks")
+        return answer
+    except Exception as e:
+        logger.error(f"Response generation failed: {e}")
+        return f"Erro ao gerar resposta: {str(e)}"
+
+class HybridSearchQuery(BaseModel):
+    question: str
+    case_id: Optional[str] = None
+    top_k: int = 5
+
+@app.post("/hybrid_search")
+async def hybrid_search_endpoint(query: HybridSearchQuery):
+    """
+    Hybrid search endpoint combining FTS5 and VSS search with AI response generation.
+    
+    Flow:
+    1. Expand question using AI
+    2. Parallel FTS5 + VSS search
+    3. RRF ranking of results
+    4. Generate response with context
+    """
+    logger.info(f"Hybrid search request: {query.question[:100]}...")
+    
+    try:
+        # Step 1: Expand query
+        expanded = expand_query(query.question)
+        
+        # Step 2: Parallel hybrid search
+        search_results = hybrid_search(
+            keywords=expanded["keywords"],
+            semantic_query=expanded["semantic_query"],
+            case_id=query.case_id,
+            limit=query.top_k * 2  # Fetch more for ranking
+        )
+        
+        # Step 3: Rank results
+        ranked_chunks = rank_results(
+            fts_results=search_results["fts_results"],
+            vss_results=search_results["vss_results"],
+            top_k=query.top_k
+        )
+        
+        # Step 4: Generate response
+        answer = generate_response_with_context(query.question, ranked_chunks)
+        
+        # Build sources list
+        sources = [
+            {
+                "rowid": chunk["rowid"],
+                "filename": chunk["filename"],
+                "page": chunk["page"],
+                "score": round(chunk["rrf_score"], 6)
+            }
+            for chunk in ranked_chunks
+        ]
+        
+        return {
+            "answer": answer,
+            "sources": sources,
+            "query_expansion": {
+                "keywords": expanded["keywords"],
+                "semantic_query": expanded["semantic_query"]
+            },
+            "stats": {
+                "fts_results": len(search_results["fts_results"]),
+                "vss_results": len(search_results["vss_results"]),
+                "final_results": len(ranked_chunks)
+            }
+        }
+    except Exception as e:
+        logger.error(f"Hybrid search failed: {e}")
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
+
+# Update existing /ask_ia to optionally use hybrid search
+
+@app.post("/ask_ia")
+async def ask_ia(
+    case_id: str = Form(...), 
+    question: str = Form(...), 
+    provider: str = Form("openrouter"),
+    use_hybrid: bool = Form(False)
+):
+    """
+    Endpoint para perguntas à IA com suporte a OpenRouter com fallback de modelos.
+    
+    Args:
+        case_id: ID do caso/processual
+        question: Pergunta do usuário
+        provider: Provedor de IA (openrouter ou gemini)
+        use_hybrid: Se True, usa hybrid search em vez de FTS5 puro
+    """
+    if use_hybrid and provider == "openrouter":
+        # Use new hybrid search endpoint logic
+        logger.info(f"Using hybrid search for ask_ia: {question[:50]}...")
+        
+        # Expand query
+        expanded = expand_query(question)
+        
+        # Hybrid search
+        search_results = hybrid_search(
+            keywords=expanded["keywords"],
+            semantic_query=expanded["semantic_query"],
+            case_id=case_id,
+            limit=10
+        )
+        
+        # Rank results
+        ranked_chunks = rank_results(
+            fts_results=search_results["fts_results"],
+            vss_results=search_results["vss_results"],
+            top_k=5
+        )
+        
+        # Generate response
+        answer = generate_response_with_context(question, ranked_chunks)
+        
+        return {
+            "answer": answer,
+            "hybrid_mode": True,
+            "sources": [
+                {
+                    "rowid": chunk["rowid"],
+                    "filename": chunk["filename"],
+                    "page": chunk["page"]
+                }
+                for chunk in ranked_chunks
+            ]
+        }
+    
+    # Original FTS5-only behavior
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT content FROM documents_fts WHERE case_id = ? AND documents_fts MATCH ? LIMIT 3", 
+                  (case_id, question))
+    context = "\n".join([r[0] for r in cursor.fetchall()])
+    conn.close()
+
+    prompt = f"Contexto:\n{context}\n\nPergunta: {question}"
+    
+    if provider == "openrouter":
+        return await ask_with_openrouter(prompt)
+    elif provider == "gemini":
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+        response = requests.post(url, json={"contents": [{"parts": [{"text": prompt}]}]})
+        return response.json()
+    
+    return {"error": "Provider not configured"}
 async def process_document(case_id: str = Form(...), file: UploadFile = File(...)):
     """
     Endpoint unificado para processar documentos de qualquer formato suportado.
