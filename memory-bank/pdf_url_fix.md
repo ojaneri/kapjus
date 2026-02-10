@@ -21,7 +21,7 @@ viewer.src = 'https://mozilla.github.io/pdf.js/web/viewer.html?file=' + encodeUR
 
 ## Result
 - PDF URL now correctly resolves to `https://kapjus.kaponline.com.br/storage/uploads/...`
-- Commit: `4872525`
+- Commit: `8ef0aed`
 
 ## Date
 2026-02-09

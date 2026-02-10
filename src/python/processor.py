@@ -763,63 +763,91 @@ async def hybrid_search_endpoint(query: HybridSearchQuery):
             content={"error": str(e)}
         )
 
-# Update existing /ask_ia to optionally use hybrid search
-
 @app.post("/ask_ia")
-async def ask_ia(
+async def ask_ia_v2(
     case_id: str = Form(...), 
     question: str = Form(...), 
     provider: str = Form("openrouter"),
-    use_hybrid: bool = Form(False)
+    use_hybrid: bool = Form(True)  # DEFAULT TO HYBRID
 ):
     """
-    Endpoint para perguntas à IA com suporte a OpenRouter com fallback de modelos.
+    Unified endpoint for AI questions using hybrid search pipeline by default.
+    
+    Flow:
+    1. Query expansion (keywords + semantic_query) via AI
+    2. Parallel FTS5 + VSS search
+    3. RRF ranking
+    4. Response generation with context
     
     Args:
         case_id: ID do caso/processual
         question: Pergunta do usuário
         provider: Provedor de IA (openrouter ou gemini)
-        use_hybrid: Se True, usa hybrid search em vez de FTS5 puro
+        use_hybrid: Se True (default), usa hybrid search; se False, usa FTS5 puro
     """
-    if use_hybrid and provider == "openrouter":
-        # Use new hybrid search endpoint logic
-        logger.info(f"Using hybrid search for ask_ia: {question[:50]}...")
+    logger.info(f"=== /ask_ia DIAGNOSTIC ===")
+    logger.info(f"  case_id: {case_id}")
+    logger.info(f"  question: {question[:100]}...")
+    logger.info(f"  use_hybrid: {use_hybrid}")
+    logger.info(f"  provider: {provider}")
+    
+    if use_hybrid:
+        logger.info(f"Using HYBRID search pipeline for ask_ia")
         
-        # Expand query
+        # Step 1: Expand query
         expanded = expand_query(question)
+        logger.info(f"  Query expansion: {len(expanded['keywords'])} keywords, semantic: '{expanded['semantic_query'][:50]}...'")
         
-        # Hybrid search
+        # Step 2: Parallel hybrid search
         search_results = hybrid_search(
             keywords=expanded["keywords"],
             semantic_query=expanded["semantic_query"],
             case_id=case_id,
             limit=10
         )
+        logger.info(f"  FTS5 results: {len(search_results['fts_results'])}, VSS results: {len(search_results['vss_results'])}")
         
-        # Rank results
+        # Step 3: Rank results with RRF
         ranked_chunks = rank_results(
             fts_results=search_results["fts_results"],
             vss_results=search_results["vss_results"],
             top_k=5
         )
+        logger.info(f"  Ranked chunks: {len(ranked_chunks)}")
         
-        # Generate response
+        # Step 4: Generate response
         answer = generate_response_with_context(question, ranked_chunks)
         
-        return {
+        # Build response with sources
+        sources = [
+            {
+                "rowid": chunk["rowid"],
+                "filename": chunk["filename"],
+                "page": chunk["page"],
+                "score": round(chunk["rrf_score"], 6)
+            }
+            for chunk in ranked_chunks
+        ]
+        
+        response = {
             "answer": answer,
             "hybrid_mode": True,
-            "sources": [
-                {
-                    "rowid": chunk["rowid"],
-                    "filename": chunk["filename"],
-                    "page": chunk["page"]
-                }
-                for chunk in ranked_chunks
-            ]
+            "query_expansion": {
+                "keywords": expanded["keywords"],
+                "semantic_query": expanded["semantic_query"]
+            },
+            "sources": sources,
+            "stats": {
+                "fts_results": len(search_results["fts_results"]),
+                "vss_results": len(search_results["vss_results"]),
+                "final_results": len(ranked_chunks)
+            }
         }
+        logger.info(f"  Response generated with {len(sources)} sources")
+        return response
     
-    # Original FTS5-only behavior
+    # Legacy FTS5-only mode
+    logger.info(f"Using LEGACY FTS5-only search (use_hybrid=False)")
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT content FROM documents_fts WHERE case_id = ? AND documents_fts MATCH ? LIMIT 3", 
@@ -837,23 +865,7 @@ async def ask_ia(
         return response.json()
     
     return {"error": "Provider not configured"}
-async def process_document(case_id: str = Form(...), file: UploadFile = File(...)):
-    """
-    Endpoint unificado para processar documentos de qualquer formato suportado.
-    """
-    os.makedirs(UPLOAD_DIR, exist_ok=True)
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
-    
-    with open(file_path, "wb") as buffer:
-        buffer.write(await file.read())
-    
-    # Extrair texto baseado no tipo de arquivo
-    pages = extract_text_from_document(file_path)
-    
-    # Armezenar no banco de dados
-    store_document(case_id, file.filename, pages)
-    
-    return {"status": "success", "pages": len(pages), "filename": file.filename}
+
 
 @app.post("/process_pdf")
 async def process_pdf(case_id: str = Form(...), file: UploadFile = File(...)):
@@ -901,25 +913,6 @@ async def search(query: SearchQuery):
     conn.close()
     return [{"filename": r[0], "page": r[1], "content": r[2], "snippet": r[3]} for r in results]
 
-@app.post("/ask_ia")
-async def ask_ia(case_id: str = Form(...), question: str = Form(...), provider: str = Form("openrouter")):
-    """
-    Endpoint para perguntas à IA com suporte a OpenRouter com fallback de modelos.
-    """
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT content FROM documents_fts WHERE case_id = ? AND documents_fts MATCH ? LIMIT 3", (case_id, question))
-    context = "\n".join([r[0] for r in cursor.fetchall()])
-    conn.close()
-
-    prompt = f"Contexto:\n{context}\n\nPergunta: {question}"
-    
-    if provider == "openrouter":
-        return await ask_with_openrouter(prompt)
-    elif provider == "gemini":
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
-        response = requests.post(url, json={"contents": [{"parts": [{"text": prompt}]}]})
-        return response.json()
     
     return {"error": "Provider not configured"}
 
@@ -927,6 +920,7 @@ async def ask_ia(case_id: str = Form(...), question: str = Form(...), provider: 
 async def ask_with_openrouter(prompt: str) -> Dict:
     """
     Faz pergunta à IA usando OpenRouter com fallback automático entre modelos.
+    Returns dict with 'answer' field for frontend compatibility.
     """
     for model in OPENROUTER_MODELS:
         try:
@@ -942,23 +936,16 @@ async def ask_with_openrouter(prompt: str) -> Dict:
                 temperature=0.7
             )
             
-            # Format response similar to Gemini API structure
-            result = {
-                "candidates": [
-                    {
-                        "content": {
-                            "parts": [
-                                {"text": response.choices[0].message.content}
-                            ]
-                        },
-                        "model": model,
-                        "provider": "openrouter"
-                    }
-                ]
-            }
+            # Extract answer text from response
+            answer_text = response.choices[0].message.content
+            logger.info(f"Model {model} succeeded, response length: {len(answer_text)}")
             
-            logger.info(f"Successfully used model: {model}")
-            return result
+            # Return format with 'answer' field for frontend compatibility
+            return {
+                "answer": answer_text,
+                "model": model,
+                "provider": "openrouter"
+            }
             
         except Exception as e:
             logger.warning(f"Model {model} failed: {str(e)}")
@@ -970,26 +957,6 @@ async def ask_with_openrouter(prompt: str) -> Dict:
 class DeleteFileQuery(BaseModel):
     case_id: str
     filename: str
-
-@app.post("/delete_file")
-async def delete_file(query: DeleteFileQuery):
-    """Delete a file from uploads directory and database"""
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()    
-    # Delete from documents table
-    cursor.execute("DELETE FROM documents WHERE case_id = ? AND filename = ?", (query.case_id, query.filename))
-    # Delete from documents_fts index
-    cursor.execute("DELETE FROM documents_fts WHERE case_id = ? AND filename = ?", (query.case_id, query.filename))
-    conn.commit()
-    conn.close()
-    
-    # Delete file from filesystem
-    file_path = os.path.join(UPLOAD_DIR, query.filename)
-    if os.path.exists(file_path):
-        os.remove(file_path)
-        return {"status": "success", "message": "File deleted successfully"}
-    else:
-        return {"status": "warning", "message": "File removed from database but not found in uploads directory"}
 
 # ==================== CHUNKED UPLOAD ENDPOINTS ====================
 
