@@ -603,7 +603,7 @@ async def vss_status():
 
 # ==================== HYBRID SEARCH PHASE 2 ====================
 
-def expand_query(question: str) -> Dict[str, any]:
+def expand_query(question: str, provider: str = None) -> Dict[str, any]:
     """
     Expand user question into keywords for FTS5 and semantic query for VSS.
     Uses AI to generate optimized search terms.
@@ -623,7 +623,7 @@ def expand_query(question: str) -> Dict[str, any]:
     log_step("EXPAND", f"Prompt gerado para IA", {"prompt": prompt[:300]})
     
     try:
-        content = call_ai(prompt)
+        content = call_ai(prompt, provider)
         log_step("EXPAND", f"Resposta raw da IA", {"content": content[:500]})
         
         # Clean up if model adds markdown formatting
@@ -813,7 +813,7 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     
     return final_results
 
-def generate_response_with_context(question: str, ranked_chunks: List[Dict]) -> str:
+def generate_response_with_context(question: str, ranked_chunks: List[Dict], provider: str = None) -> str:
     """
     Generate AI response using the ranked context chunks.
     """
@@ -844,7 +844,7 @@ PERGUNTA: > {question}
 Resposta (cite as fontes utilizadas):"""
     
     try:
-        answer = call_ai(prompt)
+        answer = call_ai(prompt, provider)
         log_step("RESPONSE", f"Resposta gerada pela IA", {"answer_length": len(answer), "answer_preview": answer[:200]})
         
         return answer
@@ -953,7 +953,7 @@ async def ask_ia_v2(
         log_step("ASK_IA", "Modo: HYBRID search pipeline")
         
         # Step 1: Expand query
-        expanded = expand_query(question)
+        expanded = expand_query(question, effective_provider)
         log_step("ASK_IA", f"Expansao: keywords={expanded['keywords']}, semantic={expanded['semantic_query'][:50]}...")
         
         # Step 2: Parallel hybrid search
@@ -974,7 +974,7 @@ async def ask_ia_v2(
         log_step("ASK_IA", f"Ranking: {len(ranked_chunks)} chunks selecionados")
         
         # Step 4: Generate response
-        answer = generate_response_with_context(question, ranked_chunks)
+        answer = generate_response_with_context(question, ranked_chunks, effective_provider)
         
         # Build response with sources
         sources = [

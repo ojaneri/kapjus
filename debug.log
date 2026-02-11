@@ -2995,3 +2995,99 @@
 [2026-02-10T21:34:38.850792] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
 [2026-02-10T21:34:38.851008] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
 [2026-02-10T21:34:38.851209] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:37:57] [INFO] Checking Python service status...
+[2026-02-11 00:37:57] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:37:57] [DEBUG] Initializing database...
+[2026-02-11 00:37:57] [DEBUG] Database initialized successfully
+[2026-02-11 00:37:57] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryQqXqJU5JNAB4n4EN","content_length":"249"}
+[2026-02-11 00:37:57] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:37:57] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:37:57.484827] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "gemini", "use_hybrid": true}
+[2026-02-10T21:37:57.485258] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:37:57.485476] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:37:57.485705] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:37:57.485968] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 304}
+[2026-02-10T21:37:57.535998] [KAPJUS-AI] Gemini error | Params: {"error": "Gemini response error: {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}"}
+[2026-02-10T21:37:57.536435] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Gemini response error: {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}"}
+[2026-02-10T21:37:57.536781] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:37:57.536895] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:37:57.537187] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:37:57.537904] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:37:57.538020] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:37:57.538105] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:37:57.538229] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:37:57.538346] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:37:57.538424] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:37:57.538514] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:37:57.538582] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:37:57.538663] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:37:57.538764] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:37:57.538835] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:39:24] [INFO] Checking Python service status...
+[2026-02-11 00:39:24] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:39:24] [DEBUG] Initializing database...
+[2026-02-11 00:39:24] [DEBUG] Database initialized successfully
+[2026-02-11 00:39:24] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 00:39:24] [INFO] Checking Python service status...
+[2026-02-11 00:39:24] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:39:24] [DEBUG] Initializing database...
+[2026-02-11 00:39:24] [DEBUG] Database initialized successfully
+[2026-02-11 00:39:24] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:39:24] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:39:24] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:39:29] [INFO] Checking Python service status...
+[2026-02-11 00:39:29] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:39:29] [DEBUG] Initializing database...
+[2026-02-11 00:39:29] [DEBUG] Database initialized successfully
+[2026-02-11 00:39:29] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryeu5WSB0WltQ7dnK7","content_length":"354"}
+[2026-02-11 00:39:29] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:39:29] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:39:29.339966] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:39:29.340267] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:39:29.340484] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:39:29.340723] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:39:29.340964] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 304}
+[2026-02-10T21:39:29.392922] [KAPJUS-AI] Gemini error | Params: {"error": "Gemini response error: {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}"}
+[2026-02-10T21:39:29.393308] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Gemini response error: {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}"}
+[2026-02-10T21:39:29.394085] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:39:29.394368] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:39:29.395015] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:39:29.395914] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:39:29.396209] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:39:29.396464] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:39:29.396755] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:39:29.397003] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:39:29.397219] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:39:29.397476] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:39:29.397689] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:39:29.397938] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:39:29.398203] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:39:29.398520] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:39:56] [INFO] Checking Python service status...
+[2026-02-11 00:39:56] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:39:56] [DEBUG] Initializing database...
+[2026-02-11 00:39:56] [DEBUG] Database initialized successfully
+[2026-02-11 00:39:56] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarykXKC6FplhsKUBUBa","content_length":"354"}
+[2026-02-11 00:39:56] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:39:56] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:39:56.755177] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:39:56.756238] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:39:56.756679] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:39:56.757428] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:39:56.758004] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 304}
+[2026-02-10T21:39:56.809366] [KAPJUS-AI] Gemini error | Params: {"error": "Gemini response error: {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}"}
+[2026-02-10T21:39:56.810366] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Gemini response error: {'error': {'code': 400, 'message': 'API key not valid. Please pass a valid API key.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.ErrorInfo', 'reason': 'API_KEY_INVALID', 'domain': 'googleapis.com', 'metadata': {'service': 'generativelanguage.googleapis.com'}}, {'@type': 'type.googleapis.com/google.rpc.LocalizedMessage', 'locale': 'en-US', 'message': 'API key not valid. Please pass a valid API key.'}]}}"}
+[2026-02-10T21:39:56.810807] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:39:56.811083] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:39:56.811403] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:39:56.812085] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:39:56.812325] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:39:56.812549] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:39:56.812903] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:39:56.813159] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:39:56.813374] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:39:56.813583] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:39:56.813831] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:39:56.814084] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:39:56.814405] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:39:56.814643] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
