@@ -1015,11 +1015,12 @@ async function askIA() {
         const formData = new FormData();
         formData.append('case_id', '<?php echo $case_id; ?>');
         formData.append('question', question);
+        formData.append('provider', 'gemini'); // Usa Gemini por padrão
         
         const response = await fetch('/api/ask_ia', { method: 'POST', body: formData });
         const data = await response.json();
         
-        let answer = data.candidates ? data.candidates[0].content.parts[0].text : "Erro ao processar resposta.";
+        let answer = data.answer || (data.candidates ? data.candidates[0].content.parts[0].text : "Erro ao processar resposta.");
         chatBox.innerHTML += `<div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm text-sm text-slate-700 leading-relaxed mr-10">${answer}</div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
     } catch (e) { console.error(e); }

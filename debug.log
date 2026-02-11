@@ -1977,3 +1977,824 @@
 [2026-02-10 10:16:29] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
 [2026-02-10 10:16:29] [DEBUG] socket_client.php START {"action":"search"}
 [2026-02-10 10:16:29] [DEBUG] Processing action {"action":"search"}
+[2026-02-10 10:24:03] [INFO] Checking Python service status...
+[2026-02-10 10:24:03] [DEBUG] Socket available on attempt 1
+[2026-02-10 10:24:03] [DEBUG] Initializing database...
+[2026-02-10 10:24:03] [DEBUG] Database initialized successfully
+[2026-02-10 10:24:03] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-10 10:24:03] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-10 10:24:03] [DEBUG] Processing action {"action":"search"}
+[2026-02-10 10:24:09] [INFO] Checking Python service status...
+[2026-02-10 10:24:09] [DEBUG] Socket available on attempt 1
+[2026-02-10 10:24:09] [DEBUG] Initializing database...
+[2026-02-10 10:24:09] [DEBUG] Database initialized successfully
+[2026-02-10 10:24:09] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryLQXnmUPGC4JdmUDe","content_length":"241"}
+[2026-02-10 10:24:09] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-10 10:24:09] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10 10:25:14] [INFO] Checking Python service status...
+[2026-02-10 10:25:14] [DEBUG] Socket available on attempt 1
+[2026-02-10 10:25:14] [DEBUG] Initializing database...
+[2026-02-10 10:25:14] [DEBUG] Database initialized successfully
+[2026-02-10 10:25:14] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-10 10:25:14] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-10 10:25:14] [DEBUG] Processing action {"action":"search"}
+[2026-02-10 11:05:11] [INFO] Checking Python service status...
+[2026-02-10 11:05:11] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:05:11] [DEBUG] Initializing database...
+[2026-02-10 11:05:11] [DEBUG] Database initialized successfully
+[2026-02-10 11:05:11] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-10 11:05:11] [INFO] Checking Python service status...
+[2026-02-10 11:05:11] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:05:11] [DEBUG] Initializing database...
+[2026-02-10 11:05:11] [DEBUG] Database initialized successfully
+[2026-02-10 11:05:11] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-10 11:05:11] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-10 11:05:11] [DEBUG] Processing action {"action":"documents"}
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: Home
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: 404 {"path":"\/wlwmanifest.xml"}
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: Home
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:56] [INFO] Checking Python service status...
+[2026-02-10 11:26:56] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:56] [DEBUG] Initializing database...
+[2026-02-10 11:26:56] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:56] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 11:26:57] [INFO] Checking Python service status...
+[2026-02-10 11:26:57] [DEBUG] Socket available on attempt 1
+[2026-02-10 11:26:57] [DEBUG] Initializing database...
+[2026-02-10 11:26:57] [DEBUG] Database initialized successfully
+[2026-02-10 11:26:57] [INFO] Page Request: 404 {"path":"\/wp-includes\/wlwmanifest.xml"}
+[2026-02-10 19:10:46] [INFO] Checking Python service status...
+[2026-02-10 19:10:46] [DEBUG] Socket available on attempt 1
+[2026-02-10 19:10:46] [DEBUG] Initializing database...
+[2026-02-10 19:10:46] [DEBUG] Database initialized successfully
+[2026-02-10 19:10:46] [INFO] Page Request: Home
+[2026-02-10 19:10:52] [INFO] Checking Python service status...
+[2026-02-10 19:10:52] [DEBUG] Socket available on attempt 1
+[2026-02-10 19:10:52] [DEBUG] Initializing database...
+[2026-02-10 19:10:52] [DEBUG] Database initialized successfully
+[2026-02-10 19:10:52] [INFO] Page Request: 404 {"path":"\/css\/support_parent.css"}
+[2026-02-10 19:10:52] [INFO] Checking Python service status...
+[2026-02-10 19:10:52] [DEBUG] Socket available on attempt 1
+[2026-02-10 19:10:52] [DEBUG] Initializing database...
+[2026-02-10 19:10:52] [DEBUG] Database initialized successfully
+[2026-02-10 19:10:52] [INFO] Page Request: 404 {"path":"\/js\/twint_ch.js"}
+[2026-02-10 20:28:55] [INFO] Checking Python service status...
+[2026-02-10 20:28:55] [DEBUG] Socket available on attempt 1
+[2026-02-10 20:28:55] [DEBUG] Initializing database...
+[2026-02-10 20:28:55] [DEBUG] Database initialized successfully
+[2026-02-10 20:28:55] [INFO] Page Request: Home
+[2026-02-10 23:19:50] [INFO] Checking Python service status...
+[2026-02-10 23:19:50] [DEBUG] Socket available on attempt 1
+[2026-02-10 23:19:50] [DEBUG] Initializing database...
+[2026-02-10 23:19:50] [DEBUG] Database initialized successfully
+[2026-02-10 23:19:50] [INFO] Page Request: Home
+[2026-02-10 23:19:50] [INFO] Checking Python service status...
+[2026-02-10 23:19:50] [DEBUG] Socket available on attempt 1
+[2026-02-10 23:19:50] [DEBUG] Initializing database...
+[2026-02-10 23:19:50] [DEBUG] Database initialized successfully
+[2026-02-10 23:19:50] [INFO] Page Request: 404 {"path":"\/robots.txt"}
+[2026-02-10 23:19:53] [INFO] Checking Python service status...
+[2026-02-10 23:19:53] [DEBUG] Socket available on attempt 1
+[2026-02-10 23:19:53] [DEBUG] Initializing database...
+[2026-02-10 23:19:53] [DEBUG] Database initialized successfully
+[2026-02-10 23:19:53] [INFO] Page Request: Case Detail {"case_id":2}
+[2026-02-10 23:19:55] [INFO] Checking Python service status...
+[2026-02-10 23:19:55] [DEBUG] Socket available on attempt 1
+[2026-02-10 23:19:55] [DEBUG] Initializing database...
+[2026-02-10 23:19:55] [DEBUG] Database initialized successfully
+[2026-02-10 23:19:55] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 00:01:07] [INFO] Checking Python service status...
+[2026-02-11 00:01:07] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:01:07] [DEBUG] Initializing database...
+[2026-02-11 00:01:07] [DEBUG] Database initialized successfully
+[2026-02-11 00:01:07] [INFO] Page Request: Home
+[2026-02-11 00:01:08] [INFO] Checking Python service status...
+[2026-02-11 00:01:08] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:01:08] [DEBUG] Initializing database...
+[2026-02-11 00:01:08] [DEBUG] Database initialized successfully
+[2026-02-11 00:01:08] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-11 00:01:11] [INFO] Checking Python service status...
+[2026-02-11 00:01:11] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:01:11] [DEBUG] Initializing database...
+[2026-02-11 00:01:11] [DEBUG] Database initialized successfully
+[2026-02-11 00:01:11] [INFO] Page Request: Home
+[2026-02-11 00:01:15] [INFO] Checking Python service status...
+[2026-02-11 00:01:15] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:01:15] [DEBUG] Initializing database...
+[2026-02-11 00:01:15] [DEBUG] Database initialized successfully
+[2026-02-11 00:01:15] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 00:01:16] [INFO] Checking Python service status...
+[2026-02-11 00:01:16] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:01:16] [DEBUG] Initializing database...
+[2026-02-11 00:01:16] [DEBUG] Database initialized successfully
+[2026-02-11 00:01:16] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:01:16] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:01:16] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:01:44] [INFO] Checking Python service status...
+[2026-02-11 00:01:44] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:01:44] [DEBUG] Initializing database...
+[2026-02-11 00:01:44] [DEBUG] Database initialized successfully
+[2026-02-11 00:01:44] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 00:01:44] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:01:44] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:02:18] [INFO] Checking Python service status...
+[2026-02-11 00:02:18] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:18] [DEBUG] Initializing database...
+[2026-02-11 00:02:18] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:18] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"114"}
+[2026-02-11 00:02:18] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-11 00:02:18] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-11 00:02:18] [INFO] Checking Python service status...
+[2026-02-11 00:02:18] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:18] [DEBUG] Initializing database...
+[2026-02-11 00:02:18] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:18] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=9cbdf7d0-3f9f-4d56-9504-670df7014474","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-11 00:02:18] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-11 00:02:18] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-11 00:02:19] [INFO] Checking Python service status...
+[2026-02-11 00:02:19] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:19] [DEBUG] Initializing database...
+[2026-02-11 00:02:19] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:19] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarysprccERmIWOvbs13","content_length":"369017"}
+[2026-02-11 00:02:19] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:02:19] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-11 00:02:19] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:02:19] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-11 00:02:19] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:02:19] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-11 00:02:20] [INFO] Checking Python service status...
+[2026-02-11 00:02:20] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:20] [DEBUG] Initializing database...
+[2026-02-11 00:02:20] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:20] [INFO] API Request START {"path":"\/api\/upload_complete","method":"POST","query_string":"","content_type":"application\/json","content_length":"66"}
+[2026-02-11 00:02:20] [DEBUG] socket_client.php START {"action":"upload_complete"}
+[2026-02-11 00:02:20] [DEBUG] Processing action {"action":"upload_complete"}
+[2026-02-11 00:02:20] [INFO] Checking Python service status...
+[2026-02-11 00:02:20] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:20] [DEBUG] Initializing database...
+[2026-02-11 00:02:20] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:20] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:02:20] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:02:20] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:02:28] [INFO] Checking Python service status...
+[2026-02-11 00:02:28] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:28] [DEBUG] Initializing database...
+[2026-02-11 00:02:28] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:28] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 00:02:28] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:02:28] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:02:38] [INFO] Checking Python service status...
+[2026-02-11 00:02:38] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:38] [DEBUG] Initializing database...
+[2026-02-11 00:02:38] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:38] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 00:02:38] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:02:38] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:02:43] [INFO] Checking Python service status...
+[2026-02-11 00:02:43] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:43] [DEBUG] Initializing database...
+[2026-02-11 00:02:43] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:43] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"32"}
+[2026-02-11 00:02:43] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:02:43] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:02:50] [INFO] Checking Python service status...
+[2026-02-11 00:02:50] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:50] [DEBUG] Initializing database...
+[2026-02-11 00:02:50] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:50] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 00:02:50] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:02:50] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:02:59] [INFO] Checking Python service status...
+[2026-02-11 00:02:59] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:02:59] [DEBUG] Initializing database...
+[2026-02-11 00:02:59] [DEBUG] Database initialized successfully
+[2026-02-11 00:02:59] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"31"}
+[2026-02-11 00:02:59] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:02:59] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:03:09] [INFO] Checking Python service status...
+[2026-02-11 00:03:09] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:03:09] [DEBUG] Initializing database...
+[2026-02-11 00:03:09] [DEBUG] Database initialized successfully
+[2026-02-11 00:03:09] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"44"}
+[2026-02-11 00:03:09] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:03:09] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:03:40] [INFO] Checking Python service status...
+[2026-02-11 00:03:40] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:03:40] [DEBUG] Initializing database...
+[2026-02-11 00:03:40] [DEBUG] Database initialized successfully
+[2026-02-11 00:03:40] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 00:03:40] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:03:40] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:03:53] [INFO] Checking Python service status...
+[2026-02-11 00:03:53] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:03:53] [DEBUG] Initializing database...
+[2026-02-11 00:03:53] [DEBUG] Database initialized successfully
+[2026-02-11 00:03:53] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryseA7XjwcrW1qBwF1","content_length":"249"}
+[2026-02-11 00:03:53] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:03:53] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-11 00:11:45] [INFO] Checking Python service status...
+[2026-02-11 00:11:45] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:11:45] [DEBUG] Initializing database...
+[2026-02-11 00:11:45] [DEBUG] Database initialized successfully
+[2026-02-11 00:11:45] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"77"}
+[2026-02-11 00:11:45] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:11:45] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:11:48] [INFO] Checking Python service status...
+[2026-02-11 00:11:48] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:11:48] [DEBUG] Initializing database...
+[2026-02-11 00:11:48] [DEBUG] Database initialized successfully
+[2026-02-11 00:11:48] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"101"}
+[2026-02-11 00:11:48] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:11:48] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:11:56] [INFO] Checking Python service status...
+[2026-02-11 00:11:56] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:11:56] [DEBUG] Initializing database...
+[2026-02-11 00:11:56] [DEBUG] Database initialized successfully
+[2026-02-11 00:11:56] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"101"}
+[2026-02-11 00:11:56] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:11:56] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:12:45] [INFO] Checking Python service status...
+[2026-02-11 00:12:45] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:45] [DEBUG] Initializing database...
+[2026-02-11 00:12:45] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:45] [INFO] API Request START {"path":"\/api\/upload_init","method":"POST","query_string":"","content_type":"application\/json","content_length":"112"}
+[2026-02-11 00:12:45] [DEBUG] socket_client.php START {"action":"upload_init"}
+[2026-02-11 00:12:45] [DEBUG] Processing action {"action":"upload_init"}
+[2026-02-11 00:12:46] [INFO] Checking Python service status...
+[2026-02-11 00:12:46] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:46] [DEBUG] Initializing database...
+[2026-02-11 00:12:46] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:46] [INFO] API Request START {"path":"\/api\/upload_status","method":"GET","query_string":"upload_id=bf383d26-ca42-43e6-929a-d612c63058d1","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-11 00:12:46] [DEBUG] socket_client.php START {"action":"upload_status"}
+[2026-02-11 00:12:46] [DEBUG] Processing action {"action":"upload_status"}
+[2026-02-11 00:12:48] [INFO] Checking Python service status...
+[2026-02-11 00:12:48] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:48] [DEBUG] Initializing database...
+[2026-02-11 00:12:48] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:48] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryQZPyKZrpNCEiVh4V","content_length":"1049235"}
+[2026-02-11 00:12:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:48] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-11 00:12:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:48] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-11 00:12:48] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:48] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-11 00:12:51] [INFO] Checking Python service status...
+[2026-02-11 00:12:51] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:51] [DEBUG] Initializing database...
+[2026-02-11 00:12:51] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:51] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryLmaiEttaXY3B4tNO","content_length":"1049235"}
+[2026-02-11 00:12:51] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:51] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-11 00:12:51] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:51] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-11 00:12:51] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:51] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-11 00:12:53] [INFO] Checking Python service status...
+[2026-02-11 00:12:53] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:53] [DEBUG] Initializing database...
+[2026-02-11 00:12:53] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:53] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarynqj2smbXqBrGENL2","content_length":"1049235"}
+[2026-02-11 00:12:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:53] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-11 00:12:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:53] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-11 00:12:53] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:53] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-11 00:12:55] [INFO] Checking Python service status...
+[2026-02-11 00:12:55] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:55] [DEBUG] Initializing database...
+[2026-02-11 00:12:55] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:55] [INFO] API Request START {"path":"\/api\/upload_chunk","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryWkD1lLPN5pz3wBwa","content_length":"705413"}
+[2026-02-11 00:12:55] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:55] [UPLOAD_CHUNK_REQUEST] Array
+[2026-02-11 00:12:55] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:55] [UPLOAD_CHUNK_PARAMS] Array
+[2026-02-11 00:12:55] [ERROR] PHP Error Array to string conversion in /var/www/html/kapjus.kaponline.com.br/public/index.php:27
+[2026-02-11 00:12:55] [UPLOAD_CHUNK_RESPONSE] Array
+[2026-02-11 00:12:55] [INFO] Checking Python service status...
+[2026-02-11 00:12:55] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:55] [DEBUG] Initializing database...
+[2026-02-11 00:12:55] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:55] [INFO] API Request START {"path":"\/api\/upload_complete","method":"POST","query_string":"","content_type":"application\/json","content_length":"66"}
+[2026-02-11 00:12:55] [DEBUG] socket_client.php START {"action":"upload_complete"}
+[2026-02-11 00:12:55] [DEBUG] Processing action {"action":"upload_complete"}
+[2026-02-11 00:12:58] [INFO] Checking Python service status...
+[2026-02-11 00:12:58] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:12:58] [DEBUG] Initializing database...
+[2026-02-11 00:12:58] [DEBUG] Database initialized successfully
+[2026-02-11 00:12:58] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:12:58] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:12:58] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:13:05] [INFO] Checking Python service status...
+[2026-02-11 00:13:05] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:13:05] [DEBUG] Initializing database...
+[2026-02-11 00:13:05] [DEBUG] Database initialized successfully
+[2026-02-11 00:13:05] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"35"}
+[2026-02-11 00:13:05] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:13:05] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:13:11] [INFO] Checking Python service status...
+[2026-02-11 00:13:11] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:13:11] [DEBUG] Initializing database...
+[2026-02-11 00:13:11] [DEBUG] Database initialized successfully
+[2026-02-11 00:13:11] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"29"}
+[2026-02-11 00:13:11] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:13:11] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:13:18] [INFO] Checking Python service status...
+[2026-02-11 00:13:18] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:13:18] [DEBUG] Initializing database...
+[2026-02-11 00:13:18] [DEBUG] Database initialized successfully
+[2026-02-11 00:13:18] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"29"}
+[2026-02-11 00:13:18] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:13:18] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:13:32] [INFO] Checking Python service status...
+[2026-02-11 00:13:32] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:13:32] [DEBUG] Initializing database...
+[2026-02-11 00:13:32] [DEBUG] Database initialized successfully
+[2026-02-11 00:13:32] [INFO] Page Request: 404 {"path":"\/storage\/uploads\/1.%20DXC%20Code%20of%20Conduct%20English_encrypted_.pdf"}
+[2026-02-11 00:14:44] [INFO] Checking Python service status...
+[2026-02-11 00:14:44] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:14:44] [DEBUG] Initializing database...
+[2026-02-11 00:14:44] [DEBUG] Database initialized successfully
+[2026-02-11 00:14:44] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"74"}
+[2026-02-11 00:14:44] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:14:44] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:14:51] [INFO] Checking Python service status...
+[2026-02-11 00:14:51] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:14:51] [DEBUG] Initializing database...
+[2026-02-11 00:14:51] [DEBUG] Database initialized successfully
+[2026-02-11 00:14:51] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"77"}
+[2026-02-11 00:14:51] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:14:51] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:15:25] [INFO] Checking Python service status...
+[2026-02-11 00:15:25] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:15:25] [DEBUG] Initializing database...
+[2026-02-11 00:15:25] [DEBUG] Database initialized successfully
+[2026-02-11 00:15:25] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 00:15:26] [INFO] Checking Python service status...
+[2026-02-11 00:15:26] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:15:26] [DEBUG] Initializing database...
+[2026-02-11 00:15:26] [DEBUG] Database initialized successfully
+[2026-02-11 00:15:26] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:15:26] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:15:26] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:15:30] [INFO] Checking Python service status...
+[2026-02-11 00:15:30] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:15:30] [DEBUG] Initializing database...
+[2026-02-11 00:15:30] [DEBUG] Database initialized successfully
+[2026-02-11 00:15:30] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"74"}
+[2026-02-11 00:15:30] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:15:30] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:15:37] [INFO] Checking Python service status...
+[2026-02-11 00:15:37] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:15:37] [DEBUG] Initializing database...
+[2026-02-11 00:15:37] [DEBUG] Database initialized successfully
+[2026-02-11 00:15:37] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryUoOadWScjkG7sikG","content_length":"249"}
+[2026-02-11 00:15:37] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:15:37] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:15:37.107976] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 osvaldo", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:15:37.108352] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:15:37.108468] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 osvaldo"}
+[2026-02-10T21:15:37.108579] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 osvaldo', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:15:37.533504] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:15:37.533822] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'osvaldo'], semantic=quem é osvaldo...
+[2026-02-10T21:15:37.533952] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "osvaldo"], "semantic_query": "quem \u00e9 osvaldo", "case_id": "1", "limit": 10}
+[2026-02-10T21:15:37.534599] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 osvaldo*"}
+[2026-02-10T21:15:37.535458] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 1}
+[2026-02-10T21:15:37.535738] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:15:37.536094] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:15:37.536391] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 1, "vss_count": 0}
+[2026-02-10T21:15:37.536646] [KAPJUS-ASK_IA] Busca: FTS5=1, VSS=0
+[2026-02-10T21:15:37.536880] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 1, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:15:37.537128] [KAPJUS-RANK] Apos FTS5: 1 items unicos
+[2026-02-10T21:15:37.537362] [KAPJUS-RANK] Apos VSS: 1 items unicos
+[2026-02-10T21:15:37.537603] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 1}
+[2026-02-10T21:15:37.537881] [KAPJUS-RANK]   Pos 1: rowid=465, score=0.016393, file=PROCURACAO LALIANI OSVALDO JANERI criminal 2.pdf:1
+[2026-02-10T21:15:37.538171] [KAPJUS-RANK] Top-K final | Params: {"count": 1}
+[2026-02-10T21:15:37.538466] [KAPJUS-ASK_IA] Ranking: 1 chunks selecionados
+[2026-02-10T21:15:37.539410] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 osvaldo", "chunks_count": 1}
+[2026-02-10T21:15:37.540430] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 1, "context_length": 1072}
+[2026-02-10T21:15:37.557939] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:15:37.558265] [KAPJUS-ASK_IA] Resposta gerada: sources=1, final_results=1
+[2026-02-11 00:17:05] [INFO] Checking Python service status...
+[2026-02-11 00:17:05] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:17:05] [DEBUG] Initializing database...
+[2026-02-11 00:17:05] [DEBUG] Database initialized successfully
+[2026-02-11 00:17:05] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"74"}
+[2026-02-11 00:17:05] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:17:05] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:17:08] [INFO] Checking Python service status...
+[2026-02-11 00:17:08] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:17:08] [DEBUG] Initializing database...
+[2026-02-11 00:17:08] [DEBUG] Database initialized successfully
+[2026-02-11 00:17:08] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 00:17:08] [INFO] Checking Python service status...
+[2026-02-11 00:17:08] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:17:08] [DEBUG] Initializing database...
+[2026-02-11 00:17:08] [DEBUG] Database initialized successfully
+[2026-02-11 00:17:08] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:17:08] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:17:08] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:17:21] [INFO] Checking Python service status...
+[2026-02-11 00:17:21] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:17:21] [DEBUG] Initializing database...
+[2026-02-11 00:17:21] [DEBUG] Database initialized successfully
+[2026-02-11 00:17:21] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"74"}
+[2026-02-11 00:17:21] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:17:21] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:17:24] [INFO] Checking Python service status...
+[2026-02-11 00:17:24] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:17:24] [DEBUG] Initializing database...
+[2026-02-11 00:17:24] [DEBUG] Database initialized successfully
+[2026-02-11 00:17:24] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"77"}
+[2026-02-11 00:17:24] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:17:24] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-11 00:17:59] [INFO] Checking Python service status...
+[2026-02-11 00:17:59] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:17:59] [DEBUG] Initializing database...
+[2026-02-11 00:17:59] [DEBUG] Database initialized successfully
+[2026-02-11 00:17:59] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 00:17:59] [INFO] Checking Python service status...
+[2026-02-11 00:17:59] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:17:59] [DEBUG] Initializing database...
+[2026-02-11 00:17:59] [DEBUG] Database initialized successfully
+[2026-02-11 00:17:59] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:17:59] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:17:59] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:18:01] [INFO] Checking Python service status...
+[2026-02-11 00:18:01] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:18:01] [DEBUG] Initializing database...
+[2026-02-11 00:18:01] [DEBUG] Database initialized successfully
+[2026-02-11 00:18:01] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"74"}
+[2026-02-11 00:18:01] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:18:01] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-10T21:18:01.888368] [KAPJUS-DELETE] Requested document deletion | Params: {"case_id": "1", "filename": "1. DXC Code of Conduct English_encrypted_.pdf"}
+[2026-02-10T21:18:01.891999] [KAPJUS-DELETE] Deleting database entries | Params: {"ids": [1016, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 1036, 1037, 1038, 1039, 1040, 1041, 1042, 1043, 1044, 1045, 1046, 1047, 1048, 1049, 1050, 1051, 1052, 1053, 1054, 1055, 1056, 1057, 1058, 1059, 1060, 1061, 1062, 1063, 1064, 1065, 1066, 1067, 1068, 1069, 1070, 1071, 1072, 1073, 1074, 1075, 1076, 1077, 1078, 1079, 1080, 1081, 1082, 1083, 1084, 1085, 1086, 1087, 1088, 1089, 1090, 1091, 1092, 1093, 1094, 1095, 1096, 1097, 1098, 1099, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1111, 1112, 1113, 1114, 1115, 1116, 1117, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127, 1128, 1129, 1130, 1131, 1132, 1133, 1134, 1135, 1136, 1137, 1138, 1139]}
+[2026-02-10T21:18:01.908047] [KAPJUS-DELETE] Database cleanup completed | Params: {"deleted": 124}
+[2026-02-10T21:18:01.909831] [KAPJUS-DELETE] Arquivo físico removido | Params: {"path": "/var/www/html/kapjus.kaponline.com.br/storage/uploads/1. DXC Code of Conduct English_encrypted_.pdf"}
+[2026-02-10T21:18:01.910621] [KAPJUS-DELETE] Documento excluído com sucesso | Params: {"case_id": "1", "filename": "1. DXC Code of Conduct English_encrypted_.pdf"}
+[2026-02-11 00:18:02] [INFO] Checking Python service status...
+[2026-02-11 00:18:02] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:18:02] [DEBUG] Initializing database...
+[2026-02-11 00:18:02] [DEBUG] Database initialized successfully
+[2026-02-11 00:18:02] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:18:02] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:18:02] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:18:05] [INFO] Checking Python service status...
+[2026-02-11 00:18:05] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:18:05] [DEBUG] Initializing database...
+[2026-02-11 00:18:05] [DEBUG] Database initialized successfully
+[2026-02-11 00:18:05] [INFO] API Request START {"path":"\/api\/delete_file","method":"POST","query_string":"","content_type":"application\/json","content_length":"77"}
+[2026-02-11 00:18:05] [DEBUG] socket_client.php START {"action":"delete_file"}
+[2026-02-11 00:18:05] [DEBUG] Processing action {"action":"delete_file"}
+[2026-02-10T21:18:05.594605] [KAPJUS-DELETE] Requested document deletion | Params: {"case_id": "1", "filename": "PROCURACAO LALIANI OSVALDO JANERI criminal 2.pdf"}
+[2026-02-10T21:18:05.595516] [KAPJUS-DELETE] Deleting database entries | Params: {"ids": [1015]}
+[2026-02-10T21:18:05.600502] [KAPJUS-DELETE] Database cleanup completed | Params: {"deleted": 1}
+[2026-02-10T21:18:05.601157] [KAPJUS-DELETE] Arquivo físico removido | Params: {"path": "/var/www/html/kapjus.kaponline.com.br/storage/uploads/PROCURACAO LALIANI OSVALDO JANERI criminal 2.pdf"}
+[2026-02-10T21:18:05.601302] [KAPJUS-DELETE] Documento excluído com sucesso | Params: {"case_id": "1", "filename": "PROCURACAO LALIANI OSVALDO JANERI criminal 2.pdf"}
+[2026-02-11 00:18:05] [INFO] Checking Python service status...
+[2026-02-11 00:18:05] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:18:05] [DEBUG] Initializing database...
+[2026-02-11 00:18:05] [DEBUG] Database initialized successfully
+[2026-02-11 00:18:05] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:18:05] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:18:05] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:18:12] [INFO] Checking Python service status...
+[2026-02-11 00:18:12] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:18:12] [DEBUG] Initializing database...
+[2026-02-11 00:18:12] [DEBUG] Database initialized successfully
+[2026-02-11 00:18:12] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 00:18:12] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:18:12] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:18:18] [INFO] Checking Python service status...
+[2026-02-11 00:18:18] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:18:18] [DEBUG] Initializing database...
+[2026-02-11 00:18:18] [DEBUG] Database initialized successfully
+[2026-02-11 00:18:18] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary8j8IxcaHuvtzAJxv","content_length":"241"}
+[2026-02-11 00:18:18] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:18:18] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:18:18.598883] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "pericia", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:18:18.599257] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:18:18.599405] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "pericia"}
+[2026-02-10T21:18:18.599731] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'pericia', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicional."}
+[2026-02-10T21:18:18.953333] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:18:18.953698] [KAPJUS-ASK_IA] Expansao: keywords=['pericia'], semantic=pericia...
+[2026-02-10T21:18:18.953828] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["pericia"], "semantic_query": "pericia", "case_id": "1", "limit": 10}
+[2026-02-10T21:18:18.954059] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "pericia*"}
+[2026-02-10T21:18:18.955308] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T21:18:18.955483] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:18:18.955644] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:18:18.955834] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T21:18:18.955972] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T21:18:18.956097] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:18:18.956243] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T21:18:18.956362] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T21:18:18.956486] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T21:18:18.956621] [KAPJUS-RANK]   Pos 1: rowid=311, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:311
+[2026-02-10T21:18:18.956759] [KAPJUS-RANK]   Pos 2: rowid=423, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:423
+[2026-02-10T21:18:18.956892] [KAPJUS-RANK]   Pos 3: rowid=277, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:277
+[2026-02-10T21:18:18.957014] [KAPJUS-RANK]   Pos 4: rowid=297, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:297
+[2026-02-10T21:18:18.957134] [KAPJUS-RANK]   Pos 5: rowid=323, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:323
+[2026-02-10T21:18:18.957250] [KAPJUS-RANK]   Pos 6: rowid=296, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:296
+[2026-02-10T21:18:18.957371] [KAPJUS-RANK]   Pos 7: rowid=318, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:318
+[2026-02-10T21:18:18.957487] [KAPJUS-RANK]   Pos 8: rowid=310, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:310
+[2026-02-10T21:18:18.957604] [KAPJUS-RANK]   Pos 9: rowid=267, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:267
+[2026-02-10T21:18:18.957723] [KAPJUS-RANK]   Pos 10: rowid=417, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:417
+[2026-02-10T21:18:18.957967] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T21:18:18.958102] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T21:18:18.958215] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "pericia", "chunks_count": 5}
+[2026-02-10T21:18:18.958352] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 5498}
+[2026-02-10T21:18:18.971835] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:18:18.972238] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-11 00:18:37] [INFO] Checking Python service status...
+[2026-02-11 00:18:37] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:18:37] [DEBUG] Initializing database...
+[2026-02-11 00:18:37] [DEBUG] Database initialized successfully
+[2026-02-11 00:18:37] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryFl6Ff2BGIxADYb2H","content_length":"249"}
+[2026-02-11 00:18:37] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:18:37] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:18:37.442945] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 osvaldo", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:18:37.443136] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:18:37.443219] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 osvaldo"}
+[2026-02-10T21:18:37.443300] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 osvaldo', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:18:37.472255] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:18:37.472732] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'osvaldo'], semantic=quem é osvaldo...
+[2026-02-10T21:18:37.472936] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "osvaldo"], "semantic_query": "quem \u00e9 osvaldo", "case_id": "1", "limit": 10}
+[2026-02-10T21:18:37.473228] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 osvaldo*"}
+[2026-02-10T21:18:37.473963] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 1}
+[2026-02-10T21:18:37.474191] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:18:37.474408] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:18:37.474735] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 1, "vss_count": 0}
+[2026-02-10T21:18:37.475005] [KAPJUS-ASK_IA] Busca: FTS5=1, VSS=0
+[2026-02-10T21:18:37.475264] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 1, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:18:37.475526] [KAPJUS-RANK] Apos FTS5: 1 items unicos
+[2026-02-10T21:18:37.475746] [KAPJUS-RANK] Apos VSS: 1 items unicos
+[2026-02-10T21:18:37.475915] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 1}
+[2026-02-10T21:18:37.476094] [KAPJUS-RANK]   Pos 1: rowid=465, score=0.016393, file=PROCURACAO LALIANI OSVALDO JANERI criminal 2.pdf:1
+[2026-02-10T21:18:37.476251] [KAPJUS-RANK] Top-K final | Params: {"count": 1}
+[2026-02-10T21:18:37.476423] [KAPJUS-ASK_IA] Ranking: 1 chunks selecionados
+[2026-02-10T21:18:37.476583] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 osvaldo", "chunks_count": 1}
+[2026-02-10T21:18:37.476761] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 1, "context_length": 1072}
+[2026-02-10T21:18:37.493364] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:18:37.493711] [KAPJUS-ASK_IA] Resposta gerada: sources=1, final_results=1
+[2026-02-11 00:19:15] [INFO] Checking Python service status...
+[2026-02-11 00:19:15] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:19:15] [DEBUG] Initializing database...
+[2026-02-11 00:19:15] [DEBUG] Database initialized successfully
+[2026-02-11 00:19:15] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarysZtzGAAWgrZ7nAKi","content_length":"249"}
+[2026-02-11 00:19:15] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:19:15] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:19:15.146885] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 osvaldo", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:19:15.147294] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:19:15.147507] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 osvaldo"}
+[2026-02-10T21:19:15.147751] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 osvaldo', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:19:15.185455] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:19:15.185665] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'osvaldo'], semantic=quem é osvaldo...
+[2026-02-10T21:19:15.185742] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "osvaldo"], "semantic_query": "quem \u00e9 osvaldo", "case_id": "1", "limit": 10}
+[2026-02-10T21:19:15.185923] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 osvaldo*"}
+[2026-02-10T21:19:15.186489] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 1}
+[2026-02-10T21:19:15.186585] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:19:15.186692] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:19:15.186817] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 1, "vss_count": 0}
+[2026-02-10T21:19:15.186897] [KAPJUS-ASK_IA] Busca: FTS5=1, VSS=0
+[2026-02-10T21:19:15.186957] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 1, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:19:15.187039] [KAPJUS-RANK] Apos FTS5: 1 items unicos
+[2026-02-10T21:19:15.187099] [KAPJUS-RANK] Apos VSS: 1 items unicos
+[2026-02-10T21:19:15.187158] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 1}
+[2026-02-10T21:19:15.187231] [KAPJUS-RANK]   Pos 1: rowid=465, score=0.016393, file=PROCURACAO LALIANI OSVALDO JANERI criminal 2.pdf:1
+[2026-02-10T21:19:15.187290] [KAPJUS-RANK] Top-K final | Params: {"count": 1}
+[2026-02-10T21:19:15.187355] [KAPJUS-ASK_IA] Ranking: 1 chunks selecionados
+[2026-02-10T21:19:15.187409] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 osvaldo", "chunks_count": 1}
+[2026-02-10T21:19:15.187478] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 1, "context_length": 1072}
+[2026-02-10T21:19:15.203888] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:19:15.204082] [KAPJUS-ASK_IA] Resposta gerada: sources=1, final_results=1
+[2026-02-11 00:19:20] [INFO] Checking Python service status...
+[2026-02-11 00:19:20] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:19:20] [DEBUG] Initializing database...
+[2026-02-11 00:19:20] [DEBUG] Database initialized successfully
+[2026-02-11 00:19:20] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarylr1EcGbTWmQn4gDF","content_length":"249"}
+[2026-02-11 00:19:20] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:19:20] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:19:20.187129] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:19:20.187276] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:19:20.187344] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:19:20.187413] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:19:20.207431] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:19:20.207680] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:19:20.207794] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:19:20.208062] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:19:20.208712] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:19:20.208849] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:19:20.208983] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:19:20.209183] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:19:20.209338] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:19:20.209487] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:19:20.209636] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:19:20.209753] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:19:20.209891] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:19:20.210023] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:19:20.210149] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:19:34] [INFO] Checking Python service status...
+[2026-02-11 00:19:34] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:19:34] [DEBUG] Initializing database...
+[2026-02-11 00:19:34] [DEBUG] Database initialized successfully
+[2026-02-11 00:19:34] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 00:19:34] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 00:19:34] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 00:19:40] [INFO] Checking Python service status...
+[2026-02-11 00:19:40] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:19:40] [DEBUG] Initializing database...
+[2026-02-11 00:19:40] [DEBUG] Database initialized successfully
+[2026-02-11 00:19:40] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarydsBpMv4DZbgsrISm","content_length":"249"}
+[2026-02-11 00:19:40] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:19:40] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:19:40.468141] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:19:40.468423] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:19:40.468619] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:19:40.468886] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:19:40.495260] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:19:40.495609] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:19:40.495729] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:19:40.495939] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:19:40.496503] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:19:40.496655] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:19:40.496775] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:19:40.496935] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:19:40.497080] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:19:40.497205] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:19:40.497316] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:19:40.497422] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:19:40.497541] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:19:40.497651] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:19:40.497751] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:21:32] [INFO] Checking Python service status...
+[2026-02-11 00:21:32] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:21:32] [DEBUG] Initializing database...
+[2026-02-11 00:21:32] [DEBUG] Database initialized successfully
+[2026-02-11 00:21:32] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryUhafynxyAIm5f2BS","content_length":"249"}
+[2026-02-11 00:21:32] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:21:32] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:21:32.573747] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "gemini", "use_hybrid": true}
+[2026-02-10T21:21:32.574058] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:21:32.574232] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:21:32.574388] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:21:32.892727] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:21:32.893006] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:21:32.893125] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:21:32.893351] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:21:32.893958] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:21:32.894101] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:21:32.894250] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:21:32.894432] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:21:32.894541] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:21:32.894658] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:21:32.894759] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:21:32.894817] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:21:32.894873] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:21:32.894932] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:21:32.895017] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:21:49] [INFO] Checking Python service status...
+[2026-02-11 00:21:49] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:21:49] [DEBUG] Initializing database...
+[2026-02-11 00:21:49] [DEBUG] Database initialized successfully
+[2026-02-11 00:21:49] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryGSXS0vQJlRWDJ9FT","content_length":"263"}
+[2026-02-11 00:21:49] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:21:49] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:21:49.365900] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quantas paginas tem o arquivo", "provider": "gemini", "use_hybrid": true}
+[2026-02-10T21:21:49.366164] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:21:49.366384] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quantas paginas tem o arquivo"}
+[2026-02-10T21:21:49.366603] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quantas paginas tem o arquivo', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem fo"}
+[2026-02-10T21:21:49.406559] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:21:49.407443] [KAPJUS-ASK_IA] Expansao: keywords=['quantas', 'paginas', 'tem', 'o', 'arquivo'], semantic=quantas paginas tem o arquivo...
+[2026-02-10T21:21:49.407728] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quantas", "paginas", "tem", "o", "arquivo"], "semantic_query": "quantas paginas tem o arquivo", "case_id": "1", "limit": 10}
+[2026-02-10T21:21:49.408132] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quantas paginas tem o arquivo*"}
+[2026-02-10T21:21:49.408958] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:21:49.409240] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:21:49.409505] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:21:49.409816] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:21:49.410078] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:21:49.410329] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:21:49.410646] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:21:49.410908] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:21:49.411204] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quantas paginas tem o arquivo", "chunks_count": 0}
+[2026-02-10T21:21:49.411463] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:21:49.411980] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:23:06] [INFO] Checking Python service status...
+[2026-02-11 00:23:06] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:23:06] [DEBUG] Initializing database...
+[2026-02-11 00:23:06] [DEBUG] Database initialized successfully
+[2026-02-11 00:23:06] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 00:23:06] [INFO] Checking Python service status...
+[2026-02-11 00:23:06] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:23:06] [DEBUG] Initializing database...
+[2026-02-11 00:23:06] [DEBUG] Database initialized successfully
+[2026-02-11 00:23:06] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 00:23:06] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 00:23:06] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 00:23:12] [INFO] Checking Python service status...
+[2026-02-11 00:23:12] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:23:12] [DEBUG] Initializing database...
+[2026-02-11 00:23:12] [DEBUG] Database initialized successfully
+[2026-02-11 00:23:12] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryHjCtTD0yAvQ6LvAL","content_length":"249"}
+[2026-02-11 00:23:12] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:23:12] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:23:12.797838] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "gemini", "use_hybrid": true}
+[2026-02-10T21:23:12.798028] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:23:12.798119] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:23:12.798233] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:23:12.829225] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:23:12.829439] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:23:12.829518] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:23:12.829708] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:23:12.830259] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:23:12.830400] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:23:12.830511] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:23:12.830662] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:23:12.830755] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:23:12.830823] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:23:12.830897] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:23:12.831071] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:23:12.831188] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:23:12.831318] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:23:12.831436] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0

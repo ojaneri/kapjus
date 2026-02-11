@@ -1,5 +1,9 @@
 import fitz  # PyMuPDF
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
 import json
 import sqlite3
 import requests
@@ -23,6 +27,70 @@ from openai import OpenAI
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+# Debug log file path (for PHP compatibility)
+DEBUG_LOG_PATH = "/var/www/html/kapjus.kaponline.com.br/debug.log"
+
+def debug_log(step: str, message: str, params: dict = None):
+    """Write to debug.log for PHP compatibility"""
+    import datetime
+    timestamp = datetime.datetime.now().isoformat()
+    params_str = f" | Params: {json.dumps(params)}" if params else ""
+    log_entry = f"[{timestamp}] [KAPJUS-{step}] {message}{params_str}\n"
+    try:
+        with open(DEBUG_LOG_PATH, 'a') as f:
+            f.write(log_entry)
+    except Exception:
+        pass  # Ignore logging errors
+
+def log_step(step: str, message: str, params: dict = None):
+    """Log to both logger and debug.log"""
+    logger.info(f"[{step}] {message}")
+    debug_log(step, message, params)
+
+
+def call_ai(prompt: str, provider: str = None) -> str:
+    """Call AI with the specified or default provider. Returns the response text."""
+    effective_provider = provider if provider else IA_PROVIDER
+    log_step("AI", f"Calling AI with provider: {effective_provider}", {"prompt_length": len(prompt)})
+    
+    if effective_provider == "openrouter":
+        try:
+            response = openrouter_client.chat.completions.create(
+                model="deepseek/deepseek-r1:free",
+                messages=[
+                    {"role": "system", "content": "Você é um assistente jurídico helpful."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=2048,
+                temperature=0.7
+            )
+            answer = response.choices[0].message.content
+            log_step("AI", f"OpenRouter response", {"length": len(answer)})
+            return answer
+        except Exception as e:
+            log_step("AI", f"OpenRouter error", {"error": str(e)})
+            raise e
+    elif effective_provider == "gemini":
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+            response = requests.post(url, json={
+                "contents": [{"parts": [{"text": prompt}]}]
+            })
+            data = response.json()
+            if "candidates" in data:
+                answer = data["candidates"][0]["content"]["parts"][0]["text"]
+                log_step("AI", f"Gemini response", {"length": len(answer)})
+                return answer
+            else:
+                raise Exception(f"Gemini response error: {data}")
+        except Exception as e:
+            log_step("AI", f"Gemini error", {"error": str(e)})
+            raise e
+    else:
+        raise Exception(f"Unknown provider: {effective_provider}")
+
+
+
 # Configurações de Caminhos (must be defined first)
 BASE_DIR = "/var/www/html/kapjus.kaponline.com.br"
 UPLOAD_DIR = os.path.join(BASE_DIR, "storage/uploads")
@@ -41,6 +109,7 @@ os.makedirs(CHUNKS_DIR, exist_ok=True)
 # Configurações de IA (Devem ser configuradas no ambiente)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+IA_PROVIDER = os.getenv("IA_PROVIDER", "gemini").lower()  # Options: gemini, openrouter
 
 # OpenRouter Model Fallback Chain (best to worst)
 OPENROUTER_MODELS = [
@@ -235,6 +304,71 @@ def extract_text_from_document(file_path: str) -> List[Dict]:
     else:
         return [{"page": 1, "content": f"[Unsupported format: {ext}]"}]
 
+
+def is_section_heading(line: str) -> bool:
+    """
+    Determina se uma linha em maiúsculas representa um título/seção lógica.
+    """
+    stripped = line.strip()
+    if len(stripped) < 5:
+        return False
+
+    letters = sum(ch.isalpha() for ch in stripped)
+    if letters < 4:
+        return False
+
+    uppercase_letters = sum(1 for ch in stripped if ch.isalpha() and ch.isupper())
+    if uppercase_letters < 3:
+        return False
+
+    ratio = uppercase_letters / letters if letters else 0
+    return ratio >= 0.7
+
+
+def split_page_into_sections(page_content: str, page_number: int) -> List[Dict]:
+    """
+    Divide o texto de uma página em blocos baseados em títulos/sessões em maiúsculas.
+    """
+    sections = []
+    buffer = []
+    current_heading = None
+
+    for line in page_content.splitlines():
+        stripped_line = line.strip()
+        if is_section_heading(stripped_line):
+            if buffer:
+                chunk_text = "\n".join(buffer).strip()
+                if chunk_text:
+                    sections.append({"page": page_number, "content": chunk_text, "heading": current_heading})
+            current_heading = stripped_line
+            buffer = [stripped_line]
+            continue
+
+        buffer.append(line)
+
+    if buffer:
+        chunk_text = "\n".join(buffer).strip()
+        if chunk_text:
+            sections.append({"page": page_number, "content": chunk_text, "heading": current_heading})
+
+    return sections
+
+
+def prepare_logical_chunks(pages: List[Dict]) -> List[Dict]:
+    """
+    Agrupa todas as páginas em chunks lógicos (títulos em maiúsculas, se disponíveis).
+    """
+    logical_chunks = []
+    for page in pages:
+        content = page.get("content", "")
+        if not content.strip():
+            continue
+
+        sections = split_page_into_sections(content, page["page"])
+        logical_chunks.extend(sections or [{"page": page["page"], "content": content.strip(), "heading": None}])
+
+    return logical_chunks
+
 def store_document(case_id: str, filename: str, pages: List[Dict]):
     """
     Armezena o conteúdo extraído no banco de dados SQLite.
@@ -244,9 +378,13 @@ def store_document(case_id: str, filename: str, pages: List[Dict]):
     cursor.execute("CREATE TABLE IF NOT EXISTS documents (id INTEGER PRIMARY KEY AUTOINCREMENT, case_id TEXT, filename TEXT, page_number INTEGER, content TEXT)")
     cursor.execute("CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(content, case_id UNINDEXED, filename UNINDEXED, page_number UNINDEXED)")
 
-    for p in pages:
-        cursor.execute("INSERT INTO documents (case_id, filename, page_number, content) VALUES (?, ?, ?, ?)", (case_id, filename, p['page'], p['content']))
-        cursor.execute("INSERT INTO documents_fts (content, case_id, filename, page_number) VALUES (?, ?, ?, ?)", (p['content'], case_id, filename, p['page']))
+    chunks = prepare_logical_chunks(pages)
+    logger.info(f"Storing {filename} ({len(chunks)} logical chunks)")
+
+    for chunk in chunks:
+        chunk_content = chunk["content"]
+        cursor.execute("INSERT INTO documents (case_id, filename, page_number, content) VALUES (?, ?, ?, ?)", (case_id, filename, chunk['page'], chunk_content))
+        cursor.execute("INSERT INTO documents_fts (content, case_id, filename, page_number) VALUES (?, ?, ?, ?)", (chunk_content, case_id, filename, chunk['page']))
     
     conn.commit()
     conn.close()
@@ -301,9 +439,12 @@ def store_document_with_embedding(case_id: str, filename: str, pages: List[Dict]
     cursor.execute("CREATE TABLE IF NOT EXISTS documents (id INTEGER PRIMARY KEY AUTOINCREMENT, case_id TEXT, filename TEXT, page_number INTEGER, content TEXT)")
     cursor.execute("CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(content, case_id UNINDEXED, filename UNINDEXED, page_number UNINDEXED)")
 
-    for p in pages:
-        content = p['content']
-        page_num = p['page']
+    chunks = prepare_logical_chunks(pages)
+    logger.info(f"Storing embeddings for {filename} ({len(chunks)} logical chunks)")
+
+    for chunk in chunks:
+        content = chunk['content']
+        page_num = chunk['page']
         
         # Store text in documents and FTS tables
         cursor.execute("INSERT INTO documents (case_id, filename, page_number, content) VALUES (?, ?, ?, ?)", 
@@ -467,7 +608,10 @@ def expand_query(question: str) -> Dict[str, any]:
     Expand user question into keywords for FTS5 and semantic query for VSS.
     Uses AI to generate optimized search terms.
     """
+    log_step("EXPAND", f"Iniciando expansao da pergunta", {"question": question[:200]})
+    
     if not question or not question.strip():
+        log_step("EXPAND", "Pergunta vazia recebida", {"keywords": [], "semantic_query": ""})
         return {"keywords": [], "semantic_query": ""}
     
     prompt = f""" Dada a pergunta do usuário: '{question}', retorne um JSON com:
@@ -476,33 +620,32 @@ def expand_query(question: str) -> Dict[str, any]:
     
     Responda APENAS com o JSON, sem formatação adicional."""
     
+    log_step("EXPAND", f"Prompt gerado para IA", {"prompt": prompt[:300]})
+    
     try:
-        response = openrouter_client.chat.completions.create(
-            model="deepseek/deepseek-r1:free",
-            messages=[
-                {"role": "system", "content": "Você é um assistente de busca jurídica. Retorne JSON válido."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=512,
-            temperature=0.3
-        )
+        content = call_ai(prompt)
+        log_step("EXPAND", f"Resposta raw da IA", {"content": content[:500]})
         
-        content = response.choices[0].message.content.strip()
         # Clean up if model adds markdown formatting
         if content.startswith("```"):
             content = "\n".join(content.split("\n")[1:-1])
         
         result = json.loads(content)
-        logger.info(f"Query expanded: {len(result.get('keywords', []))} keywords, semantic: '{result.get('semantic_query', '')[:50]}...'")
+        keywords = result.get('keywords', [])
+        semantic_query = result.get('semantic_query', '')
+        
+        log_step("EXPAND", f"Expansao concluida", {"keywords": keywords, "semantic_query": semantic_query[:200]})
+        
         return {
-            "keywords": result.get("keywords", []),
-            "semantic_query": result.get("semantic_query", question)
+            "keywords": keywords,
+            "semantic_query": semantic_query if semantic_query else question
         }
     except Exception as e:
-        logger.warning(f"Query expansion failed, using fallback: {e}")
+        log_step("EXPAND", f"Erro na expansao, usando fallback", {"error": str(e)})
         # Fallback: use question as-is
+        fallback_keywords = question.split()[:10]
         return {
-            "keywords": question.split()[:10],
+            "keywords": fallback_keywords,
             "semantic_query": question
         }
 
@@ -511,6 +654,8 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
     Execute parallel hybrid search using FTS5 and VSS.
     Returns dict with 'fts_results' and 'vss_results'.
     """
+    log_step("HYBRID", f"Iniciando busca hibrida", {"keywords": keywords, "semantic_query": semantic_query[:200], "case_id": case_id, "limit": limit})
+    
     fts_results = []
     vss_results = []
     
@@ -522,6 +667,8 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
         if keywords:
             # Build FTS5 query with OR operator
             fts_query = " ".join(keywords) + "*"
+            log_step("HYBRID-FTS5", f"Executando busca FTS5", {"query": fts_query})
+            
             if case_id:
                 cursor.execute("""
                     SELECT rowid, content, filename, page_number,
@@ -550,19 +697,21 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
                     "rank": row[4]
                 })
         
-        logger.info(f"FTS5 search returned {len(fts_results)} results")
+        log_step("HYBRID-FTS5", f"Resultados FTS5 encontrados", {"count": len(fts_results)})
     except Exception as e:
-        logger.warning(f"FTS5 search failed: {e}")
+        log_step("HYBRID-FTS5", f"Erro na busca FTS5", {"error": str(e)})
     
     # VSS Query (Vector Similarity Search)
     try:
         if _vss_available and semantic_query:
-            # Generate embedding for semantic query
+            log_step("HYBRID-VSS", f"Gerando embedding para busca vetorial", {"query": semantic_query[:200]})
             embedding = get_embedding(semantic_query)
             
             if embedding:
+                log_step("HYBRID-VSS", f"Embedding gerado", {"dimension": len(embedding)})
+                
                 if case_id:
-                    # VSS with case_id filter - need to join with documents table
+                    log_step("HYBRID-VSS", f"Executando VSS com filtro case_id", {"case_id": case_id})
                     cursor.execute("""
                         SELECT v.rowid, d.content, d.filename, d.page_number,
                                vss_distance(v.embedding, ?)
@@ -573,6 +722,7 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
                         LIMIT ?
                     """, (embedding, case_id, embedding, limit))
                 else:
+                    log_step("HYBRID-VSS", "Executando VSS sem filtro")
                     cursor.execute("""
                         SELECT v.rowid, d.content, d.filename, d.page_number,
                                vss_distance(v.embedding, ?)
@@ -590,12 +740,16 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
                         "page": row[3],
                         "distance": row[4]
                     })
+        else:
+            log_step("HYBRID-VSS", f"VSS pulado", {"vss_available": _vss_available, "has_query": bool(semantic_query)})
         
-        logger.info(f"VSS search returned {len(vss_results)} results")
+        log_step("HYBRID-VSS", f"Resultados VSS encontrados", {"count": len(vss_results)})
     except Exception as e:
-        logger.warning(f"VSS search failed: {e}")
+        log_step("HYBRID-VSS", f"Erro na busca VSS", {"error": str(e)})
     
     conn.close()
+    
+    log_step("HYBRID", f"Busca hibrida concluida", {"fts_count": len(fts_results), "vss_count": len(vss_results)})
     
     return {
         "fts_results": fts_results,
@@ -607,7 +761,10 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     Merge and rank results using Reciprocal Rank Fusion (RRF).
     score = 1 / (rank * 60 + position)
     """
+    log_step("RANK", f"Iniciando ranking de resultados", {"fts_count": len(fts_results), "vss_count": len(vss_results), "top_k": top_k})
+    
     if not fts_results and not vss_results:
+        log_step("RANK", "Sem resultados para ranquear")
         return []
     
     ranked_items = {}
@@ -615,7 +772,6 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     # Process FTS5 results with RRF
     for position, item in enumerate(fts_results):
         rowid = item["rowid"]
-        # FTS5 rank is lower is better, convert to position-based rank
         rank = position + 1
         rrf_score = 1.0 / (rank * 60 + position + 1)
         
@@ -624,9 +780,10 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
                                    "filename": item["filename"], "page": item["page"],
                                    "fts_rank": rank, "vss_rank": None, "rrf_score": rrf_score}
         else:
-            # Item exists, combine scores
             ranked_items[rowid]["rrf_score"] += rrf_score
             ranked_items[rowid]["fts_rank"] = min(ranked_items[rowid].get("fts_rank"), rank)
+    
+    log_step("RANK", f"Apos FTS5: {len(ranked_items)} items unicos")
     
     # Process VSS results with RRF
     for position, item in enumerate(vss_results):
@@ -642,17 +799,28 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
             ranked_items[rowid]["rrf_score"] += rrf_score
             ranked_items[rowid]["vss_rank"] = min(ranked_items[rowid].get("vss_rank"), rank)
     
+    log_step("RANK", f"Apos VSS: {len(ranked_items)} items unicos")
+    
     # Sort by combined RRF score and return top-k
     sorted_results = sorted(ranked_items.values(), key=lambda x: x["rrf_score"], reverse=True)
     
-    logger.info(f"RRF merged {len(sorted_results)} unique documents, returning top {top_k}")
-    return sorted_results[:top_k]
+    log_step("RANK", f"Resultados ranqueados", {"total": len(sorted_results)})
+    for i, item in enumerate(sorted_results[:10]):
+        log_step("RANK", f"  Pos {i+1}: rowid={item['rowid']}, score={item['rrf_score']:.6f}, file={item['filename']}:{item['page']}")
+    
+    final_results = sorted_results[:top_k]
+    log_step("RANK", f"Top-K final", {"count": len(final_results)})
+    
+    return final_results
 
 def generate_response_with_context(question: str, ranked_chunks: List[Dict]) -> str:
     """
     Generate AI response using the ranked context chunks.
     """
+    log_step("RESPONSE", f"Iniciando geracao de resposta", {"question": question[:200], "chunks_count": len(ranked_chunks)})
+    
     if not ranked_chunks:
+        log_step("RESPONSE", "Sem chunks para gerar resposta")
         return "Não foi possível encontrar informações relevantes para responder à pergunta."
     
     # Build context from chunks
@@ -663,6 +831,7 @@ def generate_response_with_context(question: str, ranked_chunks: List[Dict]) -> 
         context_parts.append(f"--- Fonte {i} {source_info} ---\n{content}")
     
     context = "\n\n".join(context_parts)
+    log_step("RESPONSE", f"Contexto construido", {"chunks": len(context_parts), "context_length": len(context)})
     
     prompt = f"""Você é um assistente técnico jurídico. Abaixo estão trechos recuperados de documentos. 
 Utilize-os estritamente para responder à pergunta final. Se houver contradição, priorize os trechos mais relevantes.
@@ -675,21 +844,12 @@ PERGUNTA: > {question}
 Resposta (cite as fontes utilizadas):"""
     
     try:
-        response = openrouter_client.chat.completions.create(
-            model="deepseek/deepseek-r1:free",
-            messages=[
-                {"role": "system", "content": "Você é um assistente jurídico helpful. Responda em português brasileiro, cite as fontes utilizadas."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=2048,
-            temperature=0.7
-        )
+        answer = call_ai(prompt)
+        log_step("RESPONSE", f"Resposta gerada pela IA", {"answer_length": len(answer), "answer_preview": answer[:200]})
         
-        answer = response.choices[0].message.content
-        logger.info(f"Generated response with {len(ranked_chunks)} context chunks")
         return answer
     except Exception as e:
-        logger.error(f"Response generation failed: {e}")
+        log_step("RESPONSE", f"Erro ao gerar resposta", {"error": str(e)})
         return f"Erro ao gerar resposta: {str(e)}"
 
 class HybridSearchQuery(BaseModel):
@@ -767,7 +927,7 @@ async def hybrid_search_endpoint(query: HybridSearchQuery):
 async def ask_ia_v2(
     case_id: str = Form(...), 
     question: str = Form(...), 
-    provider: str = Form("openrouter"),
+    provider: str = Form(None),
     use_hybrid: bool = Form(True)  # DEFAULT TO HYBRID
 ):
     """
@@ -782,21 +942,19 @@ async def ask_ia_v2(
     Args:
         case_id: ID do caso/processual
         question: Pergunta do usuário
-        provider: Provedor de IA (openrouter ou gemini)
+        provider: Provedor de IA (openrouter ou gemini). Se não informado, usa IA_PROVIDER do .env
         use_hybrid: Se True (default), usa hybrid search; se False, usa FTS5 puro
     """
-    logger.info(f"=== /ask_ia DIAGNOSTIC ===")
-    logger.info(f"  case_id: {case_id}")
-    logger.info(f"  question: {question[:100]}...")
-    logger.info(f"  use_hybrid: {use_hybrid}")
-    logger.info(f"  provider: {provider}")
+    # Use provider from request, or fall back to environment variable
+    effective_provider = provider if provider else IA_PROVIDER
+    log_step("ASK_IA", f"Requisicao recebida", {"case_id": case_id, "question": question[:100], "provider": effective_provider, "use_hybrid": use_hybrid})
     
     if use_hybrid:
-        logger.info(f"Using HYBRID search pipeline for ask_ia")
+        log_step("ASK_IA", "Modo: HYBRID search pipeline")
         
         # Step 1: Expand query
         expanded = expand_query(question)
-        logger.info(f"  Query expansion: {len(expanded['keywords'])} keywords, semantic: '{expanded['semantic_query'][:50]}...'")
+        log_step("ASK_IA", f"Expansao: keywords={expanded['keywords']}, semantic={expanded['semantic_query'][:50]}...")
         
         # Step 2: Parallel hybrid search
         search_results = hybrid_search(
@@ -805,7 +963,7 @@ async def ask_ia_v2(
             case_id=case_id,
             limit=10
         )
-        logger.info(f"  FTS5 results: {len(search_results['fts_results'])}, VSS results: {len(search_results['vss_results'])}")
+        log_step("ASK_IA", f"Busca: FTS5={len(search_results['fts_results'])}, VSS={len(search_results['vss_results'])}")
         
         # Step 3: Rank results with RRF
         ranked_chunks = rank_results(
@@ -813,7 +971,7 @@ async def ask_ia_v2(
             vss_results=search_results["vss_results"],
             top_k=5
         )
-        logger.info(f"  Ranked chunks: {len(ranked_chunks)}")
+        log_step("ASK_IA", f"Ranking: {len(ranked_chunks)} chunks selecionados")
         
         # Step 4: Generate response
         answer = generate_response_with_context(question, ranked_chunks)
@@ -843,11 +1001,12 @@ async def ask_ia_v2(
                 "final_results": len(ranked_chunks)
             }
         }
-        logger.info(f"  Response generated with {len(sources)} sources")
+        
+        log_step("ASK_IA", f"Resposta gerada: sources={len(response['sources'])}, final_results={response['stats']['final_results']}")
         return response
     
     # Legacy FTS5-only mode
-    logger.info(f"Using LEGACY FTS5-only search (use_hybrid=False)")
+    log_step("ASK_IA", "Modo: LEGACY FTS5-only search")
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT content FROM documents_fts WHERE case_id = ? AND documents_fts MATCH ? LIMIT 3", 
@@ -857,14 +1016,14 @@ async def ask_ia_v2(
 
     prompt = f"Contexto:\n{context}\n\nPergunta: {question}"
     
-    if provider == "openrouter":
+    if effective_provider == "openrouter":
         return await ask_with_openrouter(prompt)
-    elif provider == "gemini":
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+    elif effective_provider == "gemini":
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
         response = requests.post(url, json={"contents": [{"parts": [{"text": prompt}]}]})
         return response.json()
     
-    return {"error": "Provider not configured"}
+    return {"error": f"Provider {effective_provider} not configured"}
 
 
 @app.post("/process_pdf")
@@ -886,6 +1045,10 @@ class DocumentsQuery(BaseModel):
     case_id: str
     top_k: int = 100
 
+class DeleteFileQuery(BaseModel):
+    case_id: str
+    filename: str
+
 @app.post("/documents")
 async def get_documents(query: DocumentsQuery):
     """Get list of documents for a case"""
@@ -903,6 +1066,56 @@ async def get_documents(query: DocumentsQuery):
     results = cursor.fetchall()
     conn.close()
     return [{"filename": r[0], "page_count": r[1]} for r in results]
+
+
+@app.post("/delete_file")
+async def delete_file(request: DeleteFileQuery):
+    """Remove a processed document (file + metadata) for a case."""
+    filename = os.path.basename(request.filename)
+    log_step("DELETE", "Requested document deletion", {"case_id": request.case_id, "filename": filename})
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT id FROM documents WHERE case_id = ? AND filename = ?", (request.case_id, filename))
+        rows = cursor.fetchall()
+
+        if not rows:
+            log_step("DELETE", "Document not found for deletion", {"case_id": request.case_id, "filename": filename})
+            raise HTTPException(status_code=404, detail="Documento não encontrado")
+
+        doc_ids = [row[0] for row in rows]
+        log_step("DELETE", "Deleting database entries", {"ids": doc_ids})
+
+        cursor.executemany("DELETE FROM documents WHERE id = ?", [(doc_id,) for doc_id in doc_ids])
+        cursor.executemany("DELETE FROM documents_fts WHERE rowid = ?", [(doc_id,) for doc_id in doc_ids])
+
+        if _vss_available:
+            cursor.executemany("DELETE FROM vss_chunks WHERE rowid = ?", [(doc_id,) for doc_id in doc_ids])
+
+        conn.commit()
+        log_step("DELETE", "Database cleanup completed", {"deleted": len(doc_ids)})
+    except HTTPException:
+        raise
+    except Exception as exc:
+        log_step("DELETE", "Database error during delete", {"error": str(exc)})
+        raise HTTPException(status_code=500, detail=f"Erro ao remover metadados: {exc}")
+    finally:
+        conn.close()
+
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            log_step("DELETE", "Arquivo físico removido", {"path": file_path})
+        else:
+            log_step("DELETE", "Arquivo físico não encontrado (ignorado)", {"path": file_path})
+    except Exception as exc:
+        log_step("DELETE", "Erro ao remover arquivo físico", {"error": str(exc)})
+        raise HTTPException(status_code=500, detail=f"Erro ao remover arquivo: {exc}")
+
+    log_step("DELETE", "Documento excluído com sucesso", {"case_id": request.case_id, "filename": filename})
+    return {"status": "success", "message": "Arquivo excluído com sucesso"}
 
 @app.post("/search")
 async def search(query: SearchQuery):
@@ -953,10 +1166,6 @@ async def ask_with_openrouter(prompt: str) -> Dict:
     
     logger.error("All OpenRouter models failed")
     return {"error": "All models failed", "details": "Unable to get response from any OpenRouter model"}
-
-class DeleteFileQuery(BaseModel):
-    case_id: str
-    filename: str
 
 # ==================== CHUNKED UPLOAD ENDPOINTS ====================
 
