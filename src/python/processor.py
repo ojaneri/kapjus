@@ -1,6 +1,10 @@
 import fitz  # PyMuPDF
 import os
 import re
+import smtplib
+import socket
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
 # Load environment variables from .env file (go up 3 levels: src/python -> src -> project root)
@@ -50,6 +54,131 @@ def log_step(step: str, message: str, params: dict = None):
     """Log to both logger and debug.log"""
     logger.info(f"[{step}] {message}")
     debug_log(step, message, params)
+
+
+def send_invitation_email(to_email: str, case_id: str, magic_link: str, inviter_name: str = "Um advogado") -> bool:
+    """Send invitation email via localhost SMTP (port 25, no auth)."""
+    
+    # Email configuration
+    SMTP_HOST = os.getenv("SMTP_HOST", "localhost")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", "25"))
+    SMTP_FROM = os.getenv("SMTP_FROM", "KapJus <nao-responda@kapjus.com.br>")
+    
+    # Build HTML email
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {{ font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }}
+        .container {{ max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .header {{ background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 30px; text-align: center; }}
+        .header h1 {{ margin: 0; font-size: 28px; }}
+        .header p {{ margin: 10px 0 0; opacity: 0.9; font-size: 14px; }}
+        .content {{ padding: 30px; color: #333; line-height: 1.7; }}
+        .content h2 {{ color: #1a237e; font-size: 20px; margin-top: 0; }}
+        .content p {{ margin-bottom: 20px; }}
+        .features {{ background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0; }}
+        .features ul {{ margin: 0; padding-left: 20px; }}
+        .features li {{ margin: 8px 0; color: #555; }}
+        .features li strong {{ color: #1a237e; }}
+        .button {{ display: inline-block; background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin: 20px 0; }}
+        .button:hover {{ opacity: 0.9; }}
+        .footer {{ background: #f5f5f5; padding: 20px; text-align: center; font-size: 12px; color: #888; }}
+        .warning {{ background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 20px 0; font-size: 13px; color: #856404; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ KapJus</h1>
+            <p>Sua Inteligência Artificial Jurídica</p>
+        </div>
+        <div class="content">
+            <h2>Olá!</h2>
+            <p><strong>{inviter_name}</strong> convidou você para acessar um processo jurídico no <strong>KapJus</strong>.</p>
+            
+            <div class="features">
+                <strong>O que você pode fazer no KapJus:</strong>
+                <ul>
+                    <li><strong>🔍 Busca Rápida</strong> - Encontre qualquer termo, pessoa ou fato em segundos</li>
+                    <li><strong>📱 Acesse do Celular</strong> - Interface responsiva para usar em qualquer lugar</li>
+                    <li><strong>🤖 AI Jurídica</strong> - Tire dúvidas sobre o processo com inteligência artificial</li>
+                    <li><strong>📄 Análise de Documentos</strong> - Extração automática de texto e dados</li>
+                </ul>
+            </div>
+            
+            <p style="text-align: center;">
+                <a href="{magic_link}" class="button">Acessar Processo</a>
+            </p>
+            
+            <div class="warning">
+                ⚠️ Este link expira em 48 horas e é único. Não compartilhe com terceiros.
+            </div>
+            
+            <p style="font-size: 13px; color: #888;">
+                Se você não solicitou este acesso, ignore este email.
+            </p>
+        </div>
+        <div class="footer">
+            KapJus © 2024 - Inteligência Artificial para o Direito<br>
+            Este é um email automático, não responda.
+        </div>
+    </div>
+</body>
+</html>"""
+    
+    # Plain text version
+    text_content = f"""KapJus - Sua Inteligência Jurídica
+
+Olá!
+
+{inviter_name} convidou você para acessar um processo jurídico no KapJus.
+
+O que você pode fazer:
+- Busca Rápida: Encontre qualquer termo, pessoa ou fato em segundos
+- Acesse do Celular: Interface responsiva para usar em qualquer lugar
+- AI Jurídica: Tire dúvidas sobre o processo com inteligência artificial
+- Análise de Documentos: Extração automática de texto e dados
+
+Acesse aqui: {magic_link}
+
+Este link expira em 48 horas e é único. Não compartilhe com terceiros.
+
+-- 
+KapJus © 2024 - Inteligência Artificial para o Direito
+"""
+    
+    try:
+        # Create message
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = f"Convite para acessar processo no KapJus - Caso {case_id}"
+        msg['From'] = SMTP_FROM
+        msg['To'] = to_email
+        
+        # Attach both versions
+        text_part = MIMEText(text_content, 'plain', 'utf-8')
+        html_part = MIMEText(html_content, 'html', 'utf-8')
+        msg.attach(text_part)
+        msg.attach(html_part)
+        
+        # Send via localhost SMTP
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            # No authentication for localhost
+            server.send_message(msg)
+        
+        log_step("EMAIL", f"Invitation email sent to {to_email} via {SMTP_HOST}:{SMTP_PORT}")
+        return True
+        
+    except smtplib.SMTPException as e:
+        log_step("EMAIL", f"SMTP error sending to {to_email}: {e}")
+        return False
+    except socket.error as e:
+        log_step("EMAIL", f"Connection error to SMTP {SMTP_HOST}:{SMTP_PORT}: {e}")
+        return False
+    except Exception as e:
+        log_step("EMAIL", f"Error sending to {to_email}: {e}")
+        return False
 
 
 def call_ai(prompt: str, provider: str = None) -> str:
@@ -831,16 +960,29 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
         "vss_results": vss_results
     }
 
-def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 5) -> List[Dict]:
+def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 5, case_id: str = None) -> List[Dict]:
     """
     Merge and rank results using Reciprocal Rank Fusion (RRF).
     score = 1 / (rank * 60 + position)
+    If case_id is provided, validate that all rowids belong to it.
     """
-    log_step("RANK", f"Iniciando ranking de resultados", {"fts_count": len(fts_results), "vss_count": len(vss_results), "top_k": top_k})
+    log_step("RANK", f"Iniciando ranking de resultados", {"fts_count": len(fts_results), "vss_count": len(vss_results), "top_k": top_k, "case_id": case_id})
     
     if not fts_results and not vss_results:
         log_step("RANK", "Sem resultados para ranquear")
         return []
+    
+    # Validate rowids against case_id if provided
+    if case_id:
+        conn = sqlite3.connect(DB_PATH)
+        cursor = conn.cursor()
+        cursor.execute("SELECT id FROM documents WHERE case_id = ?", (case_id,))
+        valid_rowids = set(row[0] for row in cursor.fetchall())
+        conn.close()
+        
+        fts_results = [r for r in fts_results if r.get("rowid") in valid_rowids]
+        vss_results = [r for r in vss_results if r.get("rowid") in valid_rowids]
+        log_step("RANK", f"Apos validacao case_id: fts={len(fts_results)}, vss={len(vss_results)}")
     
     ranked_items = {}
     
@@ -889,18 +1031,24 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     return final_results
 
 
-def select_final_context_chunks(question: str, candidates: List[Dict]) -> List[Dict]:
+def select_final_context_chunks(question: str, candidates: List[Dict], case_id: str = None) -> List[Dict]:
     """Re-rank candidates via cross-encoder and trim/pad to final context size."""
+    # Filter candidates by case_id if provided
+    if case_id:
+        candidates = [c for c in candidates if c.get("case_id") == case_id]
+    
     final_chunks = cross_encoder_rerank(question, candidates, FINAL_CONTEXT_CHUNKS)
 
     if len(final_chunks) < MIN_FINAL_CONTEXT_CHUNKS:
         needed = MIN_FINAL_CONTEXT_CHUNKS - len(final_chunks)
         for chunk in candidates:
             if chunk not in final_chunks:
-                final_chunks.append(chunk)
-                needed -= 1
-                if needed == 0:
-                    break
+                # Only add chunks from the correct case_id
+                if case_id is None or chunk.get("case_id") == case_id:
+                    final_chunks.append(chunk)
+                    needed -= 1
+                    if needed == 0:
+                        break
 
     return final_chunks[:FINAL_CONTEXT_CHUNKS]
 
@@ -1031,10 +1179,11 @@ async def hybrid_search_endpoint(query: HybridSearchQuery):
         ranked_candidates = rank_results(
             fts_results=search_results["fts_results"],
             vss_results=search_results["vss_results"],
-            top_k=RETRIEVE_CHUNK_COUNT
+            top_k=RETRIEVE_CHUNK_COUNT,
+            case_id=query.case_id
         )
 
-        final_chunks = select_final_context_chunks(query.question, ranked_candidates)
+        final_chunks = select_final_context_chunks(query.question, ranked_candidates, query.case_id)
 
         # Step 4: Generate response
         answer = generate_response_with_context(query.question, final_chunks)
@@ -1117,9 +1266,10 @@ async def ask_ia_v2(
         ranked_candidates = rank_results(
             fts_results=search_results["fts_results"],
             vss_results=search_results["vss_results"],
-            top_k=RETRIEVE_CHUNK_COUNT
+            top_k=RETRIEVE_CHUNK_COUNT,
+            case_id=case_id
         )
-        final_chunks = select_final_context_chunks(question, ranked_candidates)
+        final_chunks = select_final_context_chunks(question, ranked_candidates, case_id)
         log_step("ASK_IA", f"Ranking: {len(final_chunks)} chunks selecionados")
         
         # Step 4: Generate response
@@ -1483,7 +1633,9 @@ async def upload_complete(request: UploadCompleteRequest):
                 outfile.write(infile.read())
     
     # Process the uploaded file
-    case_id = request.case_id or metadata["case_id"]
+    case_id = request.case_id
+    if not case_id:
+        raise HTTPException(status_code=400, detail="case_id is required")
     filename = metadata["filename"]
     
     try:
@@ -1676,6 +1828,9 @@ async def invite_lawyer(request: InviteLawyerRequest):
         
         magic_link = f"{MAGIC_LINK_BASE_URL}/magic-login?token={raw_token}&case_id={request.case_id}"
         
+        # Send invitation email
+        email_sent = send_invitation_email(request.invitee_email, request.case_id, magic_link, request.inviter_email)
+        
         log_step("INVITE", f"Invitation created", {"invitation_id": invitation_id, "expires_at": expires_at})
         
         return {
@@ -1841,7 +1996,7 @@ async def access_history(request: AccessHistoryRequest):
     
     try:
         cursor.execute("""
-            SELECT al.id, al.lawyer_email, al.lawyer_name, al.action, al.ip_address, 
+            SELECT al.id, al.lawyer_email, al.action, al.ip_address,
                    al.user_agent, al.created_at, li.invitee_name
             FROM lawyer_access_logs al
             LEFT JOIN lawyer_invitations li ON al.invitation_id = li.id
@@ -1857,11 +2012,11 @@ async def access_history(request: AccessHistoryRequest):
             logs.append({
                 "id": row[0],
                 "lawyer_email": row[1],
-                "lawyer_name": row[6] if row[6] else row[2],  # Use invitation name if available
-                "action": row[3],
-                "ip_address": row[4],
-                "user_agent": row[5],
-                "accessed_at": row[6]
+                "lawyer_name": row[6] if row[6] else row[1],
+                "action": row[2],
+                "ip_address": row[3],
+                "user_agent": row[4],
+                "accessed_at": row[5]
             })
         
         return {"status": "success", "logs": logs}
