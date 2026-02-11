@@ -1,9 +1,10 @@
 import fitz  # PyMuPDF
 import os
+import re
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env"))
+# Load environment variables from .env file (go up 3 levels: src/python -> src -> project root)
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".env"))
 import json
 import sqlite3
 import requests
@@ -13,6 +14,9 @@ import uuid
 import time
 import shutil
 import threading
+import secrets
+import hashlib
+import datetime
 from typing import List, Dict, Optional
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
@@ -54,22 +58,24 @@ def call_ai(prompt: str, provider: str = None) -> str:
     log_step("AI", f"Calling AI with provider: {effective_provider}", {"prompt_length": len(prompt)})
     
     if effective_provider == "openrouter":
-        try:
-            response = openrouter_client.chat.completions.create(
-                model="deepseek/deepseek-r1:free",
-                messages=[
-                    {"role": "system", "content": "Você é um assistente jurídico helpful."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=2048,
-                temperature=0.7
-            )
-            answer = response.choices[0].message.content
-            log_step("AI", f"OpenRouter response", {"length": len(answer)})
-            return answer
-        except Exception as e:
-            log_step("AI", f"OpenRouter error", {"error": str(e)})
-            raise e
+        for model in OPENROUTER_MODELS:
+            try:
+                response = openrouter_client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": "Você é um assistente jurídico helpful."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    max_tokens=2048,
+                    temperature=0.7
+                )
+                answer = response.choices[0].message.content
+                log_step("AI", f"OpenRouter response with {model}", {"length": len(answer)})
+                return answer
+            except Exception as e:
+                log_step("AI", f"Model {model} failed, trying next", {"error": str(e)})
+                continue
+        raise Exception("All OpenRouter models failed")
     elif effective_provider == "gemini":
         try:
             url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
@@ -109,10 +115,27 @@ os.makedirs(CHUNKS_DIR, exist_ok=True)
 # Configurações de IA (Devem ser configuradas no ambiente)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+
+RETRIEVE_CHUNK_COUNT = 30
+FINAL_CONTEXT_CHUNKS = 7
+MIN_FINAL_CONTEXT_CHUNKS = 5
+
+def _mask_api_key(key: str) -> str:
+    """Mask sensitive key for logging."""
+    if not key:
+        return ""
+    prefix = key[:6]
+    suffix = key[-4:]
+    return f"{prefix}…{suffix}"
+
+log_step("ENV", "Environment variables loaded", {
+    "openrouter_key": _mask_api_key(OPENROUTER_API_KEY),
+    "gemini_key": _mask_api_key(GEMINI_API_KEY)
+})
 IA_PROVIDER = os.getenv("IA_PROVIDER", "gemini").lower()  # Options: gemini, openrouter
 
 # OpenRouter Model Fallback Chain (best to worst)
-OPENROUTER_MODELS = [
+OPENROUTER_MODELS_DEFAULT = [
     "deepseek/deepseek-r1:free",
     "meta-llama/llama-3.3-70b-instruct:free",
     "tngtech/deepseek-r1t2-chimera:free",
@@ -130,6 +153,12 @@ OPENROUTER_MODELS = [
     "venice/venice-uncensored:free",
     "liquid/lfm2.5-1.2b-instruct:free",
 ]
+
+models_env = os.getenv("OPENROUTER_MODELS") or os.getenv("openrouter_models")
+if models_env:
+    OPENROUTER_MODELS = [model.strip() for model in models_env.split(",") if model.strip()]
+else:
+    OPENROUTER_MODELS = OPENROUTER_MODELS_DEFAULT
 
 # Create OpenRouter client
 openrouter_client = OpenAI(
@@ -368,6 +397,20 @@ def prepare_logical_chunks(pages: List[Dict]) -> List[Dict]:
         logical_chunks.extend(sections or [{"page": page["page"], "content": content.strip(), "heading": None}])
 
     return logical_chunks
+
+
+def sanitize_for_fts(term: str) -> Optional[str]:
+    """
+    Remove caracteres inválidos e normaliza termos para consultas FTS5.
+    """
+    if not term or not term.strip():
+        return None
+
+    cleaned = re.sub(r"[^\wÀ-ÖØ-öø-ÿ]+", " ", term, flags=re.UNICODE).strip()
+    cleaned = re.sub(r"\s+", " ", cleaned)
+
+    return cleaned.lower() if cleaned else None
+
 
 def store_document(case_id: str, filename: str, pages: List[Dict]):
     """
@@ -614,11 +657,21 @@ def expand_query(question: str, provider: str = None) -> Dict[str, any]:
         log_step("EXPAND", "Pergunta vazia recebida", {"keywords": [], "semantic_query": ""})
         return {"keywords": [], "semantic_query": ""}
     
-    prompt = f""" Dada a pergunta do usuário: '{question}', retorne um JSON com:
-    - keywords: Lista de termos técnicos e sinônimos para busca por palavra-chave (FTS5)
-    - semantic_query: Uma frase otimizada para busca vetorial que capture a intenção
-    
-    Responda APENAS com o JSON, sem formatação adicional."""
+    prompt = f"""###
+Você é um especialista em Recuperação de Informação (IR) aplicado ao Direito e Perícia Digital. Analise a pergunta do usuário e retorne um JSON estruturado para uma busca híbrida (FTS5 + Vetorial).
+
+Instruções para Keywords (FTS5):
+- Inclua termos técnicos (jurídicos e forenses) relacionados ao tema.
+- Adicione variações de gênero e número, além de sinônimos verbais e substantivos.
+- Inclua termos que costumam aparecer em cabeçalhos ou rodapés de documentos similares (ex: 'conclui-se', 'ante o exposto').
+
+Instruções para Semantic Query:
+- Transforme a dúvida em uma afirmação técnica densa que descreva o conteúdo esperado na resposta, simulando a escrita de um perito ou magistrado.
+
+Pergunta do Usuário: '{question}'
+
+Responda APENAS o JSON, sem markdown ou textos explicativos: {{ "keywords": [], "semantic_query": "" }}
+"""
     
     log_step("EXPAND", f"Prompt gerado para IA", {"prompt": prompt[:300]})
     
@@ -649,7 +702,7 @@ def expand_query(question: str, provider: str = None) -> Dict[str, any]:
             "semantic_query": question
         }
 
-def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[str] = None, limit: int = 5) -> Dict[str, List[Dict]]:
+def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[str] = None, limit: int = 5, original_question: str = None) -> Dict[str, List[Dict]]:
     """
     Execute parallel hybrid search using FTS5 and VSS.
     Returns dict with 'fts_results' and 'vss_results'.
@@ -659,15 +712,37 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
     fts_results = []
     vss_results = []
     
+    # Sanitize keywords before building FTS queries
+    sanitized_keywords = []
+    for term in keywords:
+        sanitized = sanitize_for_fts(term)
+        if sanitized:
+            sanitized_keywords.append(sanitized)
+
+    original_terms = []
+    if original_question:
+        for term in original_question.split():
+            sanitized = sanitize_for_fts(term)
+            if sanitized and len(sanitized) > 2:
+                original_terms.append(sanitized)
+
+    all_keywords = original_terms + sanitized_keywords
+    seen = set()
+    all_keywords = [x for x in all_keywords if not (x in seen or seen.add(x))]
+
+    log_step("HYBRID", "Sanitized keywords for FTS5", {"sanitized": sanitized_keywords, "original_terms": original_terms})
+    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
     # FTS5 Query
     try:
-        if keywords:
-            # Build FTS5 query with OR operator
-            fts_query = " ".join(keywords) + "*"
-            log_step("HYBRID-FTS5", f"Executando busca FTS5", {"query": fts_query})
+        if all_keywords:
+            # Build FTS5 query with OR operator for broader matching
+            # Each term with prefix matching for flexibility
+            fts_query_terms = [term + "*" for term in all_keywords]
+            fts_query = " OR ".join(fts_query_terms)
+            log_step("HYBRID-FTS5", f"Executando busca FTS5", {"query": fts_query, "original_terms": original_terms if original_question else []})
             
             if case_id:
                 cursor.execute("""
@@ -813,6 +888,75 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     
     return final_results
 
+
+def select_final_context_chunks(question: str, candidates: List[Dict]) -> List[Dict]:
+    """Re-rank candidates via cross-encoder and trim/pad to final context size."""
+    final_chunks = cross_encoder_rerank(question, candidates, FINAL_CONTEXT_CHUNKS)
+
+    if len(final_chunks) < MIN_FINAL_CONTEXT_CHUNKS:
+        needed = MIN_FINAL_CONTEXT_CHUNKS - len(final_chunks)
+        for chunk in candidates:
+            if chunk not in final_chunks:
+                final_chunks.append(chunk)
+                needed -= 1
+                if needed == 0:
+                    break
+
+    return final_chunks[:FINAL_CONTEXT_CHUNKS]
+
+
+def cross_encoder_rerank(question: str, candidates: List[Dict], top_k: int) -> List[Dict]:
+    """
+    Use the AI to act as a cross-encoder and select the most relevant chunks.
+    """
+    if not candidates:
+        return []
+
+    prompt_chunks = []
+    for idx, chunk in enumerate(candidates):
+        snippet = chunk.get("content", "").replace("\n", " ")[:400]
+        prompt_chunks.append({
+            "idx": idx,
+            "source": f"{chunk.get('filename', 'unknown')} (pg {chunk.get('page', '?')})",
+            "excerpt": snippet
+        })
+
+    prompt = f"""Você é um cross-encoder jurídico. Dada a pergunta '{question}', ordene os trechos abaixo por relevância.
+Retorne apenas JSON no formato {{ "order": [índices], "scores": {{ "índice": nota, ... }} }} onde 'order' é a ordem decrescente de relevância
+e cada índice corresponde ao chunk original explicado em `prompt_chunks`.
+
+Chunks:
+{json.dumps(prompt_chunks, ensure_ascii=False)}
+"""
+
+    try:
+        response = call_ai(prompt, "openrouter")
+        content = response.strip()
+        if content.startswith("```"):
+            content = "\n".join(content.split("\n")[1:-1])
+        data = json.loads(content)
+        order = data.get("order", [])
+    except Exception as e:
+        log_step("RERANK", "Cross-encoder falhou, mantendo ordem original", {"error": str(e)})
+        order = []
+
+    ordered = []
+    for idx in order:
+        if isinstance(idx, int) and 0 <= idx < len(candidates):
+            ordered.append(candidates[idx])
+        if len(ordered) == top_k:
+            break
+
+    if len(ordered) < top_k:
+        for chunk in candidates:
+            if chunk not in ordered:
+                ordered.append(chunk)
+            if len(ordered) == top_k:
+                break
+
+    log_step("RERANK", "Cross-encoder selected chunks", {"selected": len(ordered), "top_k": top_k})
+    return ordered
+
 def generate_response_with_context(question: str, ranked_chunks: List[Dict], provider: str = None) -> str:
     """
     Generate AI response using the ranked context chunks.
@@ -879,19 +1023,22 @@ async def hybrid_search_endpoint(query: HybridSearchQuery):
             keywords=expanded["keywords"],
             semantic_query=expanded["semantic_query"],
             case_id=query.case_id,
-            limit=query.top_k * 2  # Fetch more for ranking
+            limit=RETRIEVE_CHUNK_COUNT,
+            original_question=query.question
         )
-        
+
         # Step 3: Rank results
-        ranked_chunks = rank_results(
+        ranked_candidates = rank_results(
             fts_results=search_results["fts_results"],
             vss_results=search_results["vss_results"],
-            top_k=query.top_k
+            top_k=RETRIEVE_CHUNK_COUNT
         )
-        
+
+        final_chunks = select_final_context_chunks(query.question, ranked_candidates)
+
         # Step 4: Generate response
-        answer = generate_response_with_context(query.question, ranked_chunks)
-        
+        answer = generate_response_with_context(query.question, final_chunks)
+
         # Build sources list
         sources = [
             {
@@ -900,7 +1047,7 @@ async def hybrid_search_endpoint(query: HybridSearchQuery):
                 "page": chunk["page"],
                 "score": round(chunk["rrf_score"], 6)
             }
-            for chunk in ranked_chunks
+            for chunk in final_chunks
         ]
         
         return {
@@ -913,7 +1060,7 @@ async def hybrid_search_endpoint(query: HybridSearchQuery):
             "stats": {
                 "fts_results": len(search_results["fts_results"]),
                 "vss_results": len(search_results["vss_results"]),
-                "final_results": len(ranked_chunks)
+                "final_results": len(final_chunks)
             }
         }
     except Exception as e:
@@ -961,20 +1108,22 @@ async def ask_ia_v2(
             keywords=expanded["keywords"],
             semantic_query=expanded["semantic_query"],
             case_id=case_id,
-            limit=10
+            limit=RETRIEVE_CHUNK_COUNT,
+            original_question=question
         )
         log_step("ASK_IA", f"Busca: FTS5={len(search_results['fts_results'])}, VSS={len(search_results['vss_results'])}")
         
         # Step 3: Rank results with RRF
-        ranked_chunks = rank_results(
+        ranked_candidates = rank_results(
             fts_results=search_results["fts_results"],
             vss_results=search_results["vss_results"],
-            top_k=5
+            top_k=RETRIEVE_CHUNK_COUNT
         )
-        log_step("ASK_IA", f"Ranking: {len(ranked_chunks)} chunks selecionados")
+        final_chunks = select_final_context_chunks(question, ranked_candidates)
+        log_step("ASK_IA", f"Ranking: {len(final_chunks)} chunks selecionados")
         
         # Step 4: Generate response
-        answer = generate_response_with_context(question, ranked_chunks, effective_provider)
+        answer = generate_response_with_context(question, final_chunks, effective_provider)
         
         # Build response with sources
         sources = [
@@ -984,7 +1133,7 @@ async def ask_ia_v2(
                 "page": chunk["page"],
                 "score": round(chunk["rrf_score"], 6)
             }
-            for chunk in ranked_chunks
+            for chunk in final_chunks
         ]
         
         response = {
@@ -998,7 +1147,7 @@ async def ask_ia_v2(
             "stats": {
                 "fts_results": len(search_results["fts_results"]),
                 "vss_results": len(search_results["vss_results"]),
-                "final_results": len(ranked_chunks)
+                "final_results": len(final_chunks)
             }
         }
         
@@ -1375,6 +1524,353 @@ async def cancel_upload(upload_id: str):
         return {"status": "success", "message": "Upload cancelled"}
     
     return JSONResponse(status_code=404, content={"status": "error", "message": "Upload session not found"})
+
+
+# ==================== LAWYER INVITATION ENDPOINTS ====================
+
+# Invitation configuration
+INVITATION_EXPIRY_HOURS = 48
+MAGIC_LINK_BASE_URL = os.getenv("MAGIC_LINK_BASE_URL", "https://kapjus.kaponline.com.br")
+
+
+def generate_secure_token(length: int = 64) -> str:
+    """Generate a cryptographically secure URL-safe token."""
+    return secrets.token_urlsafe(length)
+
+
+def hash_token(token: str) -> str:
+    """Hash a token for secure storage."""
+    return hashlib.sha256(token.encode()).hexdigest()
+
+
+def get_invitation_expiry() -> str:
+    """Get expiration datetime for invitation."""
+    return (datetime.datetime.utcnow() + datetime.timedelta(hours=INVITATION_EXPIRY_HOURS)).isoformat()
+
+
+def init_invitation_tables(conn: sqlite3.Connection):
+    """Initialize lawyer invitation tables if they don't exist."""
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS lawyer_invitations (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            case_id TEXT NOT NULL,
+            inviter_email TEXT NOT NULL,
+            invitee_email TEXT NOT NULL,
+            invitee_name TEXT,
+            token TEXT NOT NULL UNIQUE,
+            token_hash TEXT NOT NULL,
+            role TEXT DEFAULT 'viewer',
+            status TEXT DEFAULT 'pending',
+            expires_at TEXT NOT NULL,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+            accepted_at TEXT,
+            revoked_at TEXT,
+            access_history TEXT
+        )
+    """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS lawyer_access_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            invitation_id INTEGER NOT NULL,
+            lawyer_email TEXT NOT NULL,
+            action TEXT NOT NULL,
+            ip_address TEXT,
+            user_agent TEXT,
+            metadata TEXT,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    # Create indexes
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_token ON lawyer_invitations(token)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_email ON lawyer_invitations(invitee_email)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_case ON lawyer_invitations(case_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_status ON lawyer_invitations(status)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_access_logs_invitation ON lawyer_access_logs(invitation_id)")
+    conn.commit()
+
+
+class InviteLawyerRequest(BaseModel):
+    case_id: str
+    inviter_email: str
+    invitee_email: str
+    invitee_name: Optional[str] = None
+    role: str = "viewer"
+
+
+class VerifyInvitationRequest(BaseModel):
+    token: str
+    case_id: str
+
+
+class RevokeInvitationRequest(BaseModel):
+    invitation_id: int
+    case_id: str
+
+
+class ListInvitationsRequest(BaseModel):
+    case_id: str
+
+
+class AccessHistoryRequest(BaseModel):
+    case_id: str
+
+@app.post("/invite_lawyer")
+async def invite_lawyer(request: InviteLawyerRequest):
+    """Send a lawyer invitation with magic link."""
+    log_step("INVITE", f"Creating invitation for {request.invitee_email}", {"case_id": request.case_id})
+    
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        # Check for existing pending invitation
+        cursor.execute("""
+            SELECT id FROM lawyer_invitations 
+            WHERE case_id = ? AND invitee_email = ? AND status = 'pending'
+            AND expires_at > datetime('now')
+        """, (request.case_id, request.invitee_email))
+        existing = cursor.fetchone()
+        
+        if existing:
+            # Return existing invitation
+            cursor.execute("""
+                SELECT id, token, expires_at FROM lawyer_invitations WHERE id = ?
+            """, (existing[0],))
+            row = cursor.fetchone()
+            conn.close()
+            magic_link = f"{MAGIC_LINK_BASE_URL}/magic-login?token={row[1]}&case_id={request.case_id}"
+            log_step("INVITE", "Returning existing pending invitation", {"invitation_id": row[0]})
+            return {
+                "status": "success",
+                "message": "Convite pendente já existe",
+                "invitation_id": row[0],
+                "magic_link": magic_link,
+                "expires_at": row[2]
+            }
+        
+        # Generate new token
+        raw_token = generate_secure_token()
+        token_hash = hash_token(raw_token)
+        expires_at = get_invitation_expiry()
+        
+        # Insert invitation
+        cursor.execute("""
+            INSERT INTO lawyer_invitations 
+            (case_id, inviter_email, invitee_email, invitee_name, token, token_hash, role, status, expires_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?)
+        """, (
+            request.case_id, 
+            request.inviter_email,
+            request.invitee_email,
+            request.invitee_name,
+            raw_token,
+            token_hash,
+            request.role,
+            expires_at
+        ))
+        
+        invitation_id = cursor.lastrowid
+        conn.commit()
+        
+        magic_link = f"{MAGIC_LINK_BASE_URL}/magic-login?token={raw_token}&case_id={request.case_id}"
+        
+        log_step("INVITE", f"Invitation created", {"invitation_id": invitation_id, "expires_at": expires_at})
+        
+        return {
+            "status": "success",
+            "message": "Convite enviado com sucesso",
+            "invitation_id": invitation_id,
+            "magic_link": magic_link,
+            "expires_at": expires_at
+        }
+        
+    except Exception as e:
+        log_step("INVITE", f"Error creating invitation", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=f"Erro ao criar convite: {str(e)}")
+    finally:
+        conn.close()
+
+
+@app.post("/verify_invitation")
+async def verify_invitation(request: VerifyInvitationRequest):
+    """Verify a magic link token and return invitation status."""
+    token_hash = hash_token(request.token)
+    
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("""
+            SELECT id, case_id, invitee_email, invitee_name, role, status, expires_at
+            FROM lawyer_invitations
+            WHERE token_hash = ? AND case_id = ?
+        """, (token_hash, request.case_id))
+        
+        row = cursor.fetchone()
+        
+        if not row:
+            raise HTTPException(status_code=404, detail="Convite não encontrado")
+        
+        invitation_id, case_id, email, name, role, status, expires_at = row
+        
+        if status == 'revoked':
+            raise HTTPException(status_code=400, detail="Convite foi revogado")
+        
+        if status == 'accepted':
+            raise HTTPException(status_code=400, detail="Convite já foi aceito")
+        
+        if datetime.datetime.fromisoformat(expires_at) < datetime.datetime.utcnow():
+            raise HTTPException(status_code=400, detail="Convite expirou")
+        
+        # Generate session token for the lawyer
+        session_token = generate_secure_token(32)
+        session_hash = hash_token(session_token)
+        
+        # Update invitation with accepted status
+        cursor.execute("""
+            UPDATE lawyer_invitations 
+            SET status = 'accepted', accepted_at = ?
+            WHERE id = ?
+        """, (datetime.datetime.utcnow().isoformat(), invitation_id))
+        
+        conn.commit()
+        
+        log_step("VERIFY", f"Invitation verified and accepted", {"invitation_id": invitation_id})
+        
+        return {
+            "status": "valid",
+            "invitation_id": invitation_id,
+            "case_id": case_id,
+            "lawyer_email": email,
+            "lawyer_name": name,
+            "role": role,
+            "session_token": session_token,
+            "expires_at": expires_at
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log_step("VERIFY", f"Error verifying invitation", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
+
+
+@app.post("/revoke_invitation")
+async def revoke_invitation(request: RevokeInvitationRequest):
+    """Revoke a pending invitation."""
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("""
+            UPDATE lawyer_invitations 
+            SET status = 'revoked', revoked_at = ?
+            WHERE id = ? AND case_id = ? AND status = 'pending'
+        """, (datetime.datetime.utcnow().isoformat(), request.invitation_id, request.case_id))
+        
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Convite não encontrado ou já processado")
+        
+        conn.commit()
+        
+        log_step("REVOKE", f"Invitation revoked", {"invitation_id": request.invitation_id})
+        
+        return {"status": "success", "message": "Convite revogado com sucesso"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log_step("REVOKE", f"Error revoking invitation", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
+
+
+@app.post("/invitations")
+async def list_invitations(request: ListInvitationsRequest):
+    """List all invitations for a case."""
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("""
+            SELECT id, invitee_email, invitee_name, role, status, 
+                   created_at, expires_at, accepted_at
+            FROM lawyer_invitations
+            WHERE case_id = ?
+            ORDER BY created_at DESC
+        """, (request.case_id,))
+        
+        rows = cursor.fetchall()
+        
+        invitations = []
+        for row in rows:
+            invitations.append({
+                "id": row[0],
+                "invitee_email": row[1],
+                "invitee_name": row[2],
+                "role": row[3],
+                "status": row[4],
+                "created_at": row[5],
+                "expires_at": row[6],
+                "accepted_at": row[7]
+            })
+        
+        return {"status": "success", "invitations": invitations}
+        
+    except Exception as e:
+        log_step("INVITATIONS", f"Error listing invitations", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
+
+
+@app.post("/access_history")
+async def access_history(request: AccessHistoryRequest):
+    """Get access history for a case."""
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute("""
+            SELECT al.id, al.lawyer_email, al.lawyer_name, al.action, al.ip_address, 
+                   al.user_agent, al.created_at, li.invitee_name
+            FROM lawyer_access_logs al
+            LEFT JOIN lawyer_invitations li ON al.invitation_id = li.id
+            WHERE li.case_id = ?
+            ORDER BY al.created_at DESC
+            LIMIT 100
+        """, (request.case_id,))
+        
+        rows = cursor.fetchall()
+        
+        logs = []
+        for row in rows:
+            logs.append({
+                "id": row[0],
+                "lawyer_email": row[1],
+                "lawyer_name": row[6] if row[6] else row[2],  # Use invitation name if available
+                "action": row[3],
+                "ip_address": row[4],
+                "user_agent": row[5],
+                "accessed_at": row[6]
+            })
+        
+        return {"status": "success", "logs": logs}
+        
+    except Exception as e:
+        log_step("ACCESS_HISTORY", f"Error getting access history", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
 
 
 @app.get("/health")

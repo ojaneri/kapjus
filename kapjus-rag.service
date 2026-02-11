@@ -2,12 +2,12 @@
 Description=KapJus RAG Backend (FastAPI via Unix Socket)
 After=network.target
 
+# Service uses env file with actual API keys
 [Service]
 User=www-data
 Group=www-data
 WorkingDirectory=/var/www/html/kapjus.kaponline.com.br
-Environment="OPENROUTER_API_KEY=SUA_CHAVE_AQUI"
-Environment="GEMINI_API_KEY=SUA_CHAVE_AQUI"
+EnvironmentFile=/var/www/html/kapjus.kaponline.com.br/.env
 # Inicia o uvicorn escutando no Unix Socket para evitar overhead e portas abertas
 ExecStart=/usr/bin/python3 src/python/processor.py
 Restart=always

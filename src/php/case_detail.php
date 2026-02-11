@@ -139,6 +139,107 @@ if (!$case) { echo "Caso não encontrado."; exit; }
     </div>
 </div>
 
+<!-- Lawyer Invitation Modal -->
+<div id="invitation-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="invitation-modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeInvitationModal()"></div>
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl transform transition-all">
+                <!-- Modal Header -->
+                <div class="px-8 py-6 border-b border-slate-100">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-user-plus text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black text-slate-900">CONVIDAR ADVOGADO</h3>
+                                <p class="text-sm text-slate-500">Compartilhe este caso com um colega advogado</p>
+                            </div>
+                        </div>
+                        <button onclick="closeInvitationModal()" class="text-slate-400 hover:text-slate-600 transition-colors">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="px-8 py-6 space-y-6">
+                    <!-- Invite Form -->
+                    <div id="invite-form-section">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block">Nome do Advogado</label>
+                                <input type="text" id="invitee-name" placeholder="Dr. João Silva" 
+                                    class="w-full px-5 py-4 bg-white border-2 border-slate-200 rounded-xl text-lg font-medium text-slate-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block">E-mail</label>
+                                <input type="email" id="invitee-email" placeholder="joao@email.com" 
+                                    class="w-full px-5 py-4 bg-white border-2 border-slate-200 rounded-xl text-lg font-medium text-slate-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <label class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 block">Cargo/Permissão</label>
+                            <select id="invitee-role" class="w-full px-5 py-4 bg-white border-2 border-slate-200 rounded-xl text-lg font-medium text-slate-900 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all">
+                                <option value="viewer">Visualizador - Pode apenas visualizar documentos</option>
+                                <option value="commenter">Colaborador - Pode visualizar e comentar</option>
+                                <option value="editor">Editor - Pode gerenciar documentos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mt-4 p-4 bg-amber-50 rounded-xl border border-amber-200">
+                            <p class="text-sm text-amber-700"><i class="fas fa-info-circle mr-2"></i>O advogado receberá um link mágico por e-mail com validade de 48 horas.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Invitations List -->
+                    <div id="invitations-list-section" class="hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-lg font-bold text-slate-900">Convites Enviados</h4>
+                            <button onclick="showInviteForm()" class="px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-700 transition-colors">
+                                <i class="fas fa-plus mr-2"></i>Novo Convite
+                            </button>
+                        </div>
+                        <div id="invitations-list" class="space-y-3 max-h-[300px] overflow-y-auto">
+                            <!-- Invitations will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Access History -->
+                    <div id="access-history-section" class="hidden">
+                        <h4 class="text-lg font-bold text-slate-900 mb-4">Histórico de Acessos</h4>
+                        <div id="access-history-list" class="space-y-3 max-h-[300px] overflow-y-auto">
+                            <!-- Access logs will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="px-8 py-6 border-t border-slate-100 flex justify-between items-center">
+                    <div class="flex space-x-3">
+                        <button onclick="showInvitationsList()" class="px-4 py-2 text-slate-600 font-medium hover:text-slate-800 transition-colors">
+                            <i class="fas fa-list mr-2"></i>Convites
+                        </button>
+                        <button onclick="showAccessHistory()" class="px-4 py-2 text-slate-600 font-medium hover:text-slate-800 transition-colors">
+                            <i class="fas fa-history mr-2"></i>Histórico
+                        </button>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button onclick="closeInvitationModal()" class="px-6 py-3 text-slate-600 font-medium hover:text-slate-800 transition-colors">
+                            Fechar
+                        </button>
+                        <button onclick="sendInvitation()" class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
+                            <i class="fas fa-paper-plane mr-2"></i>ENVIAR CONVITE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="min-h-screen bg-[#f8fafc]">
     <!-- Navbar -->
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
@@ -153,7 +254,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                     <span class="font-bold text-slate-600 truncate max-w-[200px]"><?php echo htmlspecialchars($case['name']); ?></span>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button class="inline-flex items-center px-4 py-2 border border-indigo-100 text-sm font-bold rounded-xl text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">
+                    <button onclick="openInvitationModal()" class="inline-flex items-center px-4 py-2 border border-indigo-100 text-sm font-bold rounded-xl text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">
                         <i class="fas fa-user-plus mr-2"></i> Convidar Advogado
                     </button>
                 </div>
@@ -284,7 +385,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
 /* Modal animations */
-#pdf-modal, #interactive-search-modal {
+#pdf-modal, #interactive-search-modal, #invitation-modal {
     animation: fadeIn 0.2s ease-out;
 }
 @keyframes fadeIn {
@@ -1031,4 +1132,207 @@ document.getElementById('interactive-search-input').addEventListener('input', up
 
 // Load documents on page load
 fetchDocuments();
+
+// ==================== LAWYER INVITATION FUNCTIONS ====================
+
+function openInvitationModal() {
+    document.getElementById('invitation-modal').classList.remove('hidden');
+    showInviteForm();
+}
+
+function closeInvitationModal() {
+    document.getElementById('invitation-modal').classList.add('hidden');
+}
+
+function showInviteForm() {
+    document.getElementById('invite-form-section').classList.remove('hidden');
+    document.getElementById('invitations-list-section').classList.add('hidden');
+    document.getElementById('access-history-section').classList.add('hidden');
+    // Clear form
+    document.getElementById('invitee-name').value = '';
+    document.getElementById('invitee-email').value = '';
+    document.getElementById('invitee-role').value = 'viewer';
+}
+
+function showInvitationsList() {
+    document.getElementById('invite-form-section').classList.add('hidden');
+    document.getElementById('invitations-list-section').classList.remove('hidden');
+    document.getElementById('access-history-section').classList.add('hidden');
+    loadInvitations();
+}
+
+function showAccessHistory() {
+    document.getElementById('invite-form-section').classList.add('hidden');
+    document.getElementById('invitations-list-section').classList.add('hidden');
+    document.getElementById('access-history-section').classList.remove('hidden');
+    loadAccessHistory();
+}
+
+async function sendInvitation() {
+    const name = document.getElementById('invitee-name').value.trim();
+    const email = document.getElementById('invitee-email').value.trim();
+    const role = document.getElementById('invitee-role').value;
+    
+    if (!name || !email) {
+        alert('Por favor, preencha o nome e o e-mail do advogado.');
+        return;
+    }
+    
+    if (!email.includes('@')) {
+        alert('Por favor, insira um e-mail válido.');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/invite_lawyer', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                case_id: CASE_ID,
+                invitee_name: name,
+                invitee_email: email,
+                role: role
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            alert('Convite enviado com sucesso!\n\nO advogado receberá um link mágico por e-mail.');
+            showInviteForm();
+        } else {
+            alert('Erro ao enviar convite: ' + (data.message || 'Erro desconhecido'));
+        }
+    } catch (e) {
+        alert('Erro ao comunicar com o servidor: ' + e.message);
+    }
+}
+
+async function loadInvitations() {
+    const list = document.getElementById('invitations-list');
+    list.innerHTML = '<div class="flex items-center justify-center p-4"><i class="fas fa-circle-notch fa-spin text-indigo-600"></i></div>';
+    
+    try {
+        const response = await fetch('/api/invitations', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ case_id: CASE_ID })
+        });
+        
+        const invitations = await response.json();
+        
+        if (invitations.length === 0) {
+            list.innerHTML = '<p class="text-sm text-slate-400 text-center py-4">Nenhum convite enviado ainda.</p>';
+            return;
+        }
+        
+        list.innerHTML = invitations.map(inv => {
+            const statusClass = {
+                'pending': 'bg-amber-100 text-amber-700',
+                'accepted': 'bg-emerald-100 text-emerald-700',
+                'revoked': 'bg-red-100 text-red-700',
+                'expired': 'bg-slate-100 text-slate-700'
+            }[inv.status] || 'bg-slate-100 text-slate-700';
+            
+            const statusLabel = {
+                'pending': 'Pendente',
+                'accepted': 'Aceito',
+                'revoked': 'Revogado',
+                'expired': 'Expirado'
+            }[inv.status] || inv.status;
+            
+            const roleLabel = {
+                'viewer': 'Visualizador',
+                'commenter': 'Colaborador',
+                'editor': 'Editor'
+            }[inv.role] || inv.role;
+            
+            const actions = inv.status === 'pending' ? `
+                <button onclick="revokeInvitation('${inv.id}')" class="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-lg hover:bg-red-200 transition-colors">
+                    <i class="fas fa-times mr-1"></i>Revogar
+                </button>
+            ` : '';
+            
+            return `
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-slate-900">${escapeHtml(inv.invitee_name)}</p>
+                            <p class="text-sm text-slate-500">${escapeHtml(inv.invitee_email)}</p>
+                            <p class="text-xs text-slate-400 mt-1">${roleLabel} • Enviado em ${inv.created_at}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-1 ${statusClass} text-xs font-bold rounded">${statusLabel}</span>
+                            ${actions}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } catch (e) {
+        list.innerHTML = '<p class="text-sm text-red-400 text-center py-4">Erro ao carregar convites.</p>';
+    }
+}
+
+async function revokeInvitation(invitationId) {
+    if (!confirm('Tem certeza que deseja revogar este convite?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/revoke_invitation', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ invitation_id: invitationId })
+        });
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            loadInvitations();
+            alert('Convite revogado com sucesso.');
+        } else {
+            alert('Erro ao revogar convite: ' + (data.message || 'Erro desconhecido'));
+        }
+    } catch (e) {
+        alert('Erro ao comunicar com o servidor: ' + e.message);
+    }
+}
+
+async function loadAccessHistory() {
+    const list = document.getElementById('access-history-list');
+    list.innerHTML = '<div class="flex items-center justify-center p-4"><i class="fas fa-circle-notch fa-spin text-indigo-600"></i></div>';
+    
+    try {
+        const response = await fetch('/api/access_history', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ case_id: CASE_ID })
+        });
+        
+        const logs = await response.json();
+        
+        if (logs.length === 0) {
+            list.innerHTML = '<p class="text-sm text-slate-400 text-center py-4">Nenhum registro de acesso.</p>';
+            return;
+        }
+        
+        list.innerHTML = logs.map(log => `
+            <div class="p-4 bg-slate-50 rounded-xl">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="font-bold text-slate-900">${escapeHtml(log.lawyer_name)}</p>
+                        <p class="text-sm text-slate-500">${escapeHtml(log.lawyer_email)}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-slate-400">${log.accessed_at}</p>
+                        <p class="text-xs font-bold text-indigo-600">${log.action}</p>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    } catch (e) {
+        list.innerHTML = '<p class="text-sm text-red-400 text-center py-4">Erro ao carregar histórico.</p>';
+    }
+}
 </script>

@@ -224,6 +224,62 @@ function cancel_upload($upload_id) {
     return json_decode($body, true);
 }
 
+// ==================== LAWYER INVITATION FUNCTIONS ====================
+
+/**
+ * Send a lawyer invitation with magic link
+ */
+function invite_lawyer($case_id, $inviter_email, $invitee_email, $invitee_name = null, $role = 'viewer') {
+    $data = [
+        'case_id' => $case_id,
+        'inviter_email' => $inviter_email,
+        'invitee_email' => $invitee_email,
+        'invitee_name' => $invitee_name,
+        'role' => $role
+    ];
+    
+    $response = call_python_api('/invite_lawyer', $data);
+    return json_decode($response, true);
+}
+
+/**
+ * Verify a magic link token
+ */
+function verify_invitation($token, $case_id) {
+    $data = [
+        'token' => $token,
+        'case_id' => $case_id
+    ];
+    
+    $response = call_python_api('/verify_invitation', $data);
+    return json_decode($response, true);
+}
+
+/**
+ * Revoke a pending invitation
+ */
+function revoke_invitation($invitation_id, $case_id) {
+    $data = [
+        'invitation_id' => $invitation_id,
+        'case_id' => $case_id
+    ];
+    
+    $response = call_python_api('/revoke_invitation', $data);
+    return json_decode($response, true);
+}
+
+/**
+ * List all invitations for a case
+ */
+function list_invitations($case_id) {
+    $data = [
+        'case_id' => $case_id
+    ];
+    
+    $response = call_python_api('/invitations', $data);
+    return json_decode($response, true);
+}
+
 // Handler para requisições AJAX do frontend
 // Direct debug logging since index.php debug_log may not be available in this scope
 $debug_file = '/var/www/html/kapjus.kaponline.com.br/debug.log';
@@ -333,6 +389,21 @@ if (isset($_GET['action'])) {
     } elseif ($action == 'upload_status') {
         $upload_id = $_GET['upload_id'] ?? '';
         echo json_encode(get_upload_status($upload_id));
+    } elseif ($action == 'invite_lawyer') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        echo call_python_api('/invite_lawyer', $input);
+    } elseif ($action == 'verify_invitation') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        echo call_python_api('/verify_invitation', $input);
+    } elseif ($action == 'revoke_invitation') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        echo call_python_api('/revoke_invitation', $input);
+    } elseif ($action == 'invitations') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        echo call_python_api('/invitations', $input);
+    } elseif ($action == 'access_history') {
+        $input = json_decode(file_get_contents('php://input'), true);
+        echo call_python_api('/access_history', $input);
     }
     exit;
 }

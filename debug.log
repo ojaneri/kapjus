@@ -3091,3 +3091,1087 @@
 [2026-02-10T21:39:56.814084] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
 [2026-02-10T21:39:56.814405] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
 [2026-02-10T21:39:56.814643] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:41:33] [INFO] Checking Python service status...
+[2026-02-11 00:41:33] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:41:33] [DEBUG] Initializing database...
+[2026-02-11 00:41:33] [DEBUG] Database initialized successfully
+[2026-02-11 00:41:33] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarywfXPqVlE0eY3BhAW","content_length":"354"}
+[2026-02-11 00:41:33] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:41:33] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:41:33.162791] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:41:33.163120] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:41:33.163256] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:41:33.163473] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:41:33.163720] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T21:41:33.496182] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:41:33.496598] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:41:33.496863] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:41:33.497071] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:41:33.497471] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:41:33.498357] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:41:33.498623] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:41:33.498863] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:41:33.499178] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:41:33.499429] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:41:33.499692] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:41:33.499921] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:41:33.500143] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:41:33.500360] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:41:33.500598] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:41:33.500826] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:44:36] [INFO] Checking Python service status...
+[2026-02-11 00:44:36] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:44:36] [DEBUG] Initializing database...
+[2026-02-11 00:44:36] [DEBUG] Database initialized successfully
+[2026-02-11 00:44:36] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryPEmQAfMFIBjxtkUg","content_length":"354"}
+[2026-02-11 00:44:36] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:44:36] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:44:36.934397] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:44:36.934684] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:44:36.934796] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:44:36.934900] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:44:36.935017] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T21:44:37.298469] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:44:37.298703] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:44:37.298818] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:44:37.298905] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:44:37.299105] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:44:37.299781] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:44:37.299914] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:44:37.300004] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:44:37.300130] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:44:37.300221] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:44:37.300294] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:44:37.300375] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:44:37.300458] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:44:37.300528] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:44:37.300606] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:44:37.300677] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T21:46:15.796765] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "SUA_CH\u2026AQUI", "gemini_key": "SUA_CH\u2026AQUI"}
+[2026-02-10T21:46:17.963973] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "SUA_CH\u2026AQUI", "gemini_key": "SUA_CH\u2026AQUI"}
+[2026-02-10T21:47:40.255470] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "SUA_CH\u2026AQUI", "gemini_key": "SUA_CH\u2026AQUI"}
+[2026-02-10T21:47:42.491294] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "SUA_CH\u2026AQUI", "gemini_key": "SUA_CH\u2026AQUI"}
+[2026-02-10T21:48:35.489860] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "SUA_CH\u2026AQUI", "gemini_key": "SUA_CH\u2026AQUI"}
+[2026-02-11 00:57:14] [INFO] Checking Python service status...
+[2026-02-11 00:57:14] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:57:14] [DEBUG] Initializing database...
+[2026-02-11 00:57:14] [DEBUG] Database initialized successfully
+[2026-02-11 00:57:14] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary4YCbLQRiummktBBh","content_length":"354"}
+[2026-02-11 00:57:14] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:57:14] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:57:14.724402] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:57:14.724635] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:57:14.724772] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T21:57:14.725038] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T21:57:14.725262] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T21:57:15.057435] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:15.057732] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:15.057906] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T21:57:15.058038] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:57:15.058302] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T21:57:15.059003] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T21:57:15.059174] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:57:15.059314] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:57:15.059495] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:57:15.059661] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:57:15.059786] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:57:15.060002] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:57:15.060187] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:57:15.060345] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T21:57:15.060501] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:57:15.060625] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 00:57:27] [INFO] Checking Python service status...
+[2026-02-11 00:57:27] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:57:27] [DEBUG] Initializing database...
+[2026-02-11 00:57:27] [DEBUG] Database initialized successfully
+[2026-02-11 00:57:27] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary0J13aNFDC6jVbYbD","content_length":"346"}
+[2026-02-11 00:57:27] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:57:27] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:57:27.148183] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:57:27.148397] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:57:27.148467] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "joelson"}
+[2026-02-10T21:57:27.148562] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicional."}
+[2026-02-10T21:57:27.148646] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 297}
+[2026-02-10T21:57:27.173887] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:27.174296] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:27.174494] [KAPJUS-ASK_IA] Expansao: keywords=['joelson'], semantic=joelson...
+[2026-02-10T21:57:27.174652] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["joelson"], "semantic_query": "joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:57:27.174949] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "joelson*"}
+[2026-02-10T21:57:27.175730] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T21:57:27.175933] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:57:27.176107] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:57:27.176314] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T21:57:27.176513] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T21:57:27.176676] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:57:27.176854] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T21:57:27.177010] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T21:57:27.177172] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T21:57:27.177380] [KAPJUS-RANK]   Pos 1: rowid=369, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:369
+[2026-02-10T21:57:27.177583] [KAPJUS-RANK]   Pos 2: rowid=384, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:384
+[2026-02-10T21:57:27.177761] [KAPJUS-RANK]   Pos 3: rowid=360, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:360
+[2026-02-10T21:57:27.177918] [KAPJUS-RANK]   Pos 4: rowid=345, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:345
+[2026-02-10T21:57:27.178078] [KAPJUS-RANK]   Pos 5: rowid=290, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:290
+[2026-02-10T21:57:27.178240] [KAPJUS-RANK]   Pos 6: rowid=355, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:355
+[2026-02-10T21:57:27.178397] [KAPJUS-RANK]   Pos 7: rowid=363, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:363
+[2026-02-10T21:57:27.178562] [KAPJUS-RANK]   Pos 8: rowid=392, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:392
+[2026-02-10T21:57:27.178718] [KAPJUS-RANK]   Pos 9: rowid=418, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:418
+[2026-02-10T21:57:27.178872] [KAPJUS-RANK]   Pos 10: rowid=391, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:391
+[2026-02-10T21:57:27.179285] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T21:57:27.179473] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T21:57:27.179663] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "joelson", "chunks_count": 5}
+[2026-02-10T21:57:27.179944] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 2984}
+[2026-02-10T21:57:27.180121] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 3271}
+[2026-02-10T21:57:27.196010] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:27.196336] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:27.196526] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-11 00:57:57] [INFO] Checking Python service status...
+[2026-02-11 00:57:57] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:57:57] [DEBUG] Initializing database...
+[2026-02-11 00:57:57] [DEBUG] Database initialized successfully
+[2026-02-11 00:57:57] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryEcHLDUMrIvyIo7od","content_length":"346"}
+[2026-02-11 00:57:57] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:57:57] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:57:57.707006] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "osvaldo", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:57:57.707174] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:57:57.707243] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "osvaldo"}
+[2026-02-10T21:57:57.707313] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'osvaldo', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicional."}
+[2026-02-10T21:57:57.707396] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 297}
+[2026-02-10T21:57:57.737131] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:57.737606] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:57.737805] [KAPJUS-ASK_IA] Expansao: keywords=['osvaldo'], semantic=osvaldo...
+[2026-02-10T21:57:57.737962] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["osvaldo"], "semantic_query": "osvaldo", "case_id": "1", "limit": 10}
+[2026-02-10T21:57:57.738240] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "osvaldo*"}
+[2026-02-10T21:57:57.738899] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 1}
+[2026-02-10T21:57:57.739094] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:57:57.739270] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:57:57.739475] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 1, "vss_count": 0}
+[2026-02-10T21:57:57.739667] [KAPJUS-ASK_IA] Busca: FTS5=1, VSS=0
+[2026-02-10T21:57:57.739826] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 1, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:57:57.739992] [KAPJUS-RANK] Apos FTS5: 1 items unicos
+[2026-02-10T21:57:57.740137] [KAPJUS-RANK] Apos VSS: 1 items unicos
+[2026-02-10T21:57:57.740288] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 1}
+[2026-02-10T21:57:57.740448] [KAPJUS-RANK]   Pos 1: rowid=465, score=0.016393, file=PROCURACAO LALIANI OSVALDO JANERI criminal 2.pdf:1
+[2026-02-10T21:57:57.740596] [KAPJUS-RANK] Top-K final | Params: {"count": 1}
+[2026-02-10T21:57:57.740749] [KAPJUS-ASK_IA] Ranking: 1 chunks selecionados
+[2026-02-10T21:57:57.740895] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "osvaldo", "chunks_count": 1}
+[2026-02-10T21:57:57.741076] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 1, "context_length": 1072}
+[2026-02-10T21:57:57.741273] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 1359}
+[2026-02-10T21:57:57.758772] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:57.759030] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:57:57.759267] [KAPJUS-ASK_IA] Resposta gerada: sources=1, final_results=1
+[2026-02-11 00:58:03] [INFO] Checking Python service status...
+[2026-02-11 00:58:03] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:58:03] [DEBUG] Initializing database...
+[2026-02-11 00:58:03] [DEBUG] Database initialized successfully
+[2026-02-11 00:58:03] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryPHOTCxzf3V2eTxBj","content_length":"345"}
+[2026-02-11 00:58:03] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:58:03] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:58:03.178865] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "joels*", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:58:03.179383] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:58:03.179728] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "joels*"}
+[2026-02-10T21:58:03.180389] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'joels*', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicional."}
+[2026-02-10T21:58:03.181219] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 296}
+[2026-02-10T21:58:03.221054] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:58:03.222435] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:58:03.222996] [KAPJUS-ASK_IA] Expansao: keywords=['joels*'], semantic=joels*...
+[2026-02-10T21:58:03.223488] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["joels*"], "semantic_query": "joels*", "case_id": "1", "limit": 10}
+[2026-02-10T21:58:03.224276] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "joels**"}
+[2026-02-10T21:58:03.225300] [KAPJUS-HYBRID-FTS5] Erro na busca FTS5 | Params: {"error": "fts5: syntax error near \"*\""}
+[2026-02-10T21:58:03.225841] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:58:03.226343] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:58:03.226960] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T21:58:03.228065] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T21:58:03.229282] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:58:03.229779] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T21:58:03.230244] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T21:58:03.230725] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "joels*", "chunks_count": 0}
+[2026-02-10T21:58:03.231229] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T21:58:03.231747] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T21:58:40.397005] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "SUA_CH\u2026AQUI", "gemini_key": "SUA_CH\u2026AQUI"}
+[2026-02-11 00:59:09] [INFO] Checking Python service status...
+[2026-02-11 00:59:09] [DEBUG] Socket available on attempt 1
+[2026-02-11 00:59:09] [DEBUG] Initializing database...
+[2026-02-11 00:59:09] [DEBUG] Database initialized successfully
+[2026-02-11 00:59:09] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary8DMKgEQe01EcTvA7","content_length":"346"}
+[2026-02-11 00:59:09] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 00:59:09] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T21:59:09.956289] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "Joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T21:59:09.956554] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T21:59:09.956712] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "Joelson"}
+[2026-02-10T21:59:09.956872] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'Joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicional."}
+[2026-02-10T21:59:09.957064] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 297}
+[2026-02-10T21:59:10.268767] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:59:10.268985] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:59:10.269090] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson'], semantic=Joelson...
+[2026-02-10T21:59:10.269165] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson"], "semantic_query": "Joelson", "case_id": "1", "limit": 10}
+[2026-02-10T21:59:10.269430] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "Joelson*"}
+[2026-02-10T21:59:10.270268] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T21:59:10.270432] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T21:59:10.270542] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T21:59:10.270705] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T21:59:10.270824] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T21:59:10.270943] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T21:59:10.271032] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T21:59:10.271103] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T21:59:10.271174] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T21:59:10.271267] [KAPJUS-RANK]   Pos 1: rowid=369, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:369
+[2026-02-10T21:59:10.271328] [KAPJUS-RANK]   Pos 2: rowid=384, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:384
+[2026-02-10T21:59:10.271391] [KAPJUS-RANK]   Pos 3: rowid=360, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:360
+[2026-02-10T21:59:10.271455] [KAPJUS-RANK]   Pos 4: rowid=345, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:345
+[2026-02-10T21:59:10.271519] [KAPJUS-RANK]   Pos 5: rowid=290, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:290
+[2026-02-10T21:59:10.271619] [KAPJUS-RANK]   Pos 6: rowid=355, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:355
+[2026-02-10T21:59:10.271717] [KAPJUS-RANK]   Pos 7: rowid=363, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:363
+[2026-02-10T21:59:10.271785] [KAPJUS-RANK]   Pos 8: rowid=392, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:392
+[2026-02-10T21:59:10.271849] [KAPJUS-RANK]   Pos 9: rowid=418, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:418
+[2026-02-10T21:59:10.271964] [KAPJUS-RANK]   Pos 10: rowid=391, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:391
+[2026-02-10T21:59:10.272069] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T21:59:10.272153] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T21:59:10.272225] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "Joelson", "chunks_count": 5}
+[2026-02-10T21:59:10.272317] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 2984}
+[2026-02-10T21:59:10.272388] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 3271}
+[2026-02-10T21:59:10.286984] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:59:10.287181] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 401 - {'error': {'message': 'No cookie auth credentials found', 'code': 401}}"}
+[2026-02-10T21:59:10.287302] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-10T22:01:12.368654] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "SUA_CH\u2026AQUI", "gemini_key": "SUA_CH\u2026AQUI"}
+[2026-02-10T22:01:59.570342] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:02:18] [INFO] Checking Python service status...
+[2026-02-11 01:02:18] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:02:18] [DEBUG] Initializing database...
+[2026-02-11 01:02:18] [DEBUG] Database initialized successfully
+[2026-02-11 01:02:18] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryqztlRwHbyVciaAXL","content_length":"354"}
+[2026-02-11 01:02:18] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:02:18] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:02:18.201802] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:02:18.202031] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:02:18.202147] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:02:18.202280] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:02:18.202387] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:02:18.636958] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 404 - {'error': {'message': 'No endpoints found for deepseek/deepseek-r1:free.', 'code': 404}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-10T22:02:18.637400] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 404 - {'error': {'message': 'No endpoints found for deepseek/deepseek-r1:free.', 'code': 404}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-10T22:02:18.637786] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T22:02:18.637900] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:02:18.638110] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T22:02:18.638728] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:02:18.638835] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:02:18.638910] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:02:18.639020] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:02:18.639102] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:02:18.639170] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:02:18.639246] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:02:18.639361] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:02:18.639449] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:02:18.639530] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:02:18.639688] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:03:02] [INFO] Checking Python service status...
+[2026-02-11 01:03:02] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:03:02] [DEBUG] Initializing database...
+[2026-02-11 01:03:02] [DEBUG] Database initialized successfully
+[2026-02-11 01:03:02] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryerTibgyOgwpivuzH","content_length":"354"}
+[2026-02-11 01:03:02] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:03:02] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:03:02.596015] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:03:02.596235] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:03:02.596384] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:03:02.596542] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:03:02.596701] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:03:02.650671] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 404 - {'error': {'message': 'No endpoints found for deepseek/deepseek-r1:free.', 'code': 404}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-10T22:03:02.651189] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 404 - {'error': {'message': 'No endpoints found for deepseek/deepseek-r1:free.', 'code': 404}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-10T22:03:02.651530] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T22:03:02.651782] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:03:02.652178] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T22:03:02.652964] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:03:02.653143] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:03:02.653289] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:03:02.653493] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:03:02.653687] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:03:02.653830] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:03:02.653974] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:03:02.654102] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:03:02.654229] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:03:02.654375] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:03:02.654505] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:04:28] [INFO] Checking Python service status...
+[2026-02-11 01:04:28] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:04:28] [DEBUG] Initializing database...
+[2026-02-11 01:04:28] [DEBUG] Database initialized successfully
+[2026-02-11 01:04:28] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryDp7qOANna1r26Ott","content_length":"354"}
+[2026-02-11 01:04:28] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:04:28] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:04:28.919827] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:04:28.920061] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:04:28.920162] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:04:28.920272] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:04:28.920392] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:04:29.008777] [KAPJUS-AI] OpenRouter error | Params: {"error": "Error code: 404 - {'error': {'message': 'No endpoints found for deepseek/deepseek-r1:free.', 'code': 404}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-10T22:04:29.009013] [KAPJUS-EXPAND] Erro na expansao, usando fallback | Params: {"error": "Error code: 404 - {'error': {'message': 'No endpoints found for deepseek/deepseek-r1:free.', 'code': 404}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-10T22:04:29.009152] [KAPJUS-ASK_IA] Expansao: keywords=['quem', 'é', 'joelson'], semantic=quem é joelson...
+[2026-02-10T22:04:29.009280] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["quem", "\u00e9", "joelson"], "semantic_query": "quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:04:29.009517] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem \u00e9 joelson*"}
+[2026-02-10T22:04:29.010135] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:04:29.010265] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:04:29.010351] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:04:29.010473] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:04:29.010556] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:04:29.010630] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:04:29.010703] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:04:29.010771] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:04:29.010834] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:04:29.010938] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:04:29.011016] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T22:07:44.575849] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:07:51] [INFO] Checking Python service status...
+[2026-02-11 01:07:51] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:07:51] [DEBUG] Initializing database...
+[2026-02-11 01:07:51] [DEBUG] Database initialized successfully
+[2026-02-11 01:07:51] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryhguzVLoLWduZlBbl","content_length":"354"}
+[2026-02-11 01:07:51] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:07:51] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:07:51.599755] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:07:51.600010] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:07:51.600144] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:07:51.600256] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:07:51.600539] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:07:53.050594] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 112}
+[2026-02-10T22:07:53.051576] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"Joelson\", \"Joelson name\", \"person named Joelson\"],\n    \"semantic_query\": \"Who is Joelson?\"\n}"}
+[2026-02-10T22:07:53.052009] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "Joelson name", "person named Joelson"], "semantic_query": "Who is Joelson?"}
+[2026-02-10T22:07:53.052368] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'Joelson name', 'person named Joelson'], semantic=Who is Joelson?...
+[2026-02-10T22:07:53.052689] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "Joelson name", "person named Joelson"], "semantic_query": "Who is Joelson?", "case_id": "1", "limit": 10}
+[2026-02-10T22:07:53.053212] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "Joelson Joelson name person named Joelson*"}
+[2026-02-10T22:07:53.054226] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:07:53.054601] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:07:53.054938] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:07:53.055316] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:07:53.055695] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:07:53.056419] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:07:53.056987] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:07:53.057496] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:07:53.057635] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:07:53.058001] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:07:53.058178] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:08:14] [INFO] Checking Python service status...
+[2026-02-11 01:08:14] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:08:14] [DEBUG] Initializing database...
+[2026-02-11 01:08:14] [DEBUG] Database initialized successfully
+[2026-02-11 01:08:14] [INFO] API Request START {"path":"\/api\/search","method":"POST","query_string":"","content_type":"application\/json","content_length":"33"}
+[2026-02-11 01:08:14] [DEBUG] socket_client.php START {"action":"search"}
+[2026-02-11 01:08:14] [DEBUG] Processing action {"action":"search"}
+[2026-02-11 01:08:18] [INFO] Checking Python service status...
+[2026-02-11 01:08:18] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:08:18] [DEBUG] Initializing database...
+[2026-02-11 01:08:18] [DEBUG] Database initialized successfully
+[2026-02-11 01:08:18] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryB816nIw2sRBgUT5T","content_length":"354"}
+[2026-02-11 01:08:18] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:08:18] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:08:18.607801] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:08:18.608239] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:08:18.608681] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:08:18.609014] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:08:18.609340] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:08:21.407642] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 205}
+[2026-02-10T22:08:21.407852] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"Joelson\", \"Joelson da Silva\", \"Joelson Santos\", \"Joelson Pereira\", \"Joelson Costa\"],\n    \"semantic_query\": \"informa\u00e7\u00f5es sobre Joelson, biografia de Joelson, dados pessoais de Joelson\"\n}"}
+[2026-02-10T22:08:21.407952] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "Joelson da Silva", "Joelson Santos", "Joelson Pereira", "Joelson Costa"], "semantic_query": "informa\u00e7\u00f5es sobre Joelson, biografia de Joelson, dados pessoais de Joelson"}
+[2026-02-10T22:08:21.408041] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'Joelson da Silva', 'Joelson Santos', 'Joelson Pereira', 'Joelson Costa'], semantic=informações sobre Joelson, biografia de Joelson, d...
+[2026-02-10T22:08:21.408104] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "Joelson da Silva", "Joelson Santos", "Joelson Pereira", "Joelson Costa"], "semantic_query": "informa\u00e7\u00f5es sobre Joelson, biografia de Joelson, dados pessoais de Joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:08:21.408291] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "Joelson Joelson da Silva Joelson Santos Joelson Pereira Joelson Costa*"}
+[2026-02-10T22:08:21.409276] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:08:21.409608] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:08:21.409914] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:08:21.410250] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:08:21.410536] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:08:21.410726] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:08:21.410932] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:08:21.411116] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:08:21.411320] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:08:21.411518] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:08:21.411728] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:10:41] [INFO] Checking Python service status...
+[2026-02-11 01:10:41] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:10:41] [DEBUG] Initializing database...
+[2026-02-11 01:10:41] [DEBUG] Database initialized successfully
+[2026-02-11 01:10:41] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryuUhPvDa5WbkmLidB","content_length":"354"}
+[2026-02-11 01:10:41] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:10:41] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:10:41.907477] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:10:41.907730] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:10:41.907825] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:10:41.907925] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:10:41.908075] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:10:44.369490] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 123}
+[2026-02-10T22:10:44.369797] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\"Joelson\", \"nome pr\u00f3prio\", \"pessoa\"],\n  \"semantic_query\": \"Informa\u00e7\u00f5es sobre uma pessoa chamada Joelson\"\n}"}
+[2026-02-10T22:10:44.369980] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "pessoa"], "semantic_query": "Informa\u00e7\u00f5es sobre uma pessoa chamada Joelson"}
+[2026-02-10T22:10:44.370179] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'nome próprio', 'pessoa'], semantic=Informações sobre uma pessoa chamada Joelson...
+[2026-02-10T22:10:44.370341] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "pessoa"], "semantic_query": "Informa\u00e7\u00f5es sobre uma pessoa chamada Joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:10:44.370606] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "Joelson nome pr\u00f3prio pessoa*"}
+[2026-02-10T22:10:44.371425] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:10:44.371739] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:10:44.372022] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:10:44.372439] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:10:44.372765] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:10:44.373070] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:10:44.373395] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:10:44.373707] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:10:44.374009] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:10:44.374338] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:10:44.374631] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:11:02] [INFO] Checking Python service status...
+[2026-02-11 01:11:02] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:11:02] [DEBUG] Initializing database...
+[2026-02-11 01:11:02] [DEBUG] Database initialized successfully
+[2026-02-11 01:11:02] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryLWAN61jiBpxwVZD7","content_length":"354"}
+[2026-02-11 01:11:02] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:11:02] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:11:02.761884] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:11:02.762119] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:11:02.762243] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:11:02.762397] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:11:02.762494] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:11:04.728977] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 217}
+[2026-02-10T22:11:04.729209] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"Joelson\", \"Joelson Direito\", \"Joelson Advogado\", \"Joelson OAB\", \"Joelson OABRJ\"],\n    \"semantic_query\": \"informa\u00e7\u00f5es sobre Joelson, incluindo sua forma\u00e7\u00e3o, especializa\u00e7\u00f5es e atua\u00e7\u00e3o profissional\"\n}"}
+[2026-02-10T22:11:04.729343] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "Joelson Direito", "Joelson Advogado", "Joelson OAB", "Joelson OABRJ"], "semantic_query": "informa\u00e7\u00f5es sobre Joelson, incluindo sua forma\u00e7\u00e3o, especializa\u00e7\u00f5es e atua\u00e7\u00e3o profissional"}
+[2026-02-10T22:11:04.729451] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'Joelson Direito', 'Joelson Advogado', 'Joelson OAB', 'Joelson OABRJ'], semantic=informações sobre Joelson, incluindo sua formação,...
+[2026-02-10T22:11:04.729527] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "Joelson Direito", "Joelson Advogado", "Joelson OAB", "Joelson OABRJ"], "semantic_query": "informa\u00e7\u00f5es sobre Joelson, incluindo sua forma\u00e7\u00e3o, especializa\u00e7\u00f5es e atua\u00e7\u00e3o profissional", "case_id": "1", "limit": 10}
+[2026-02-10T22:11:04.730057] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "Joelson Joelson Direito Joelson Advogado Joelson OAB Joelson OABRJ*"}
+[2026-02-10T22:11:04.730745] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:11:04.730975] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:11:04.731242] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:11:04.731631] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:11:04.731893] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:11:04.732118] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:11:04.732397] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:11:04.732619] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:11:04.732862] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:11:04.733140] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:11:04.733407] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:11:45] [INFO] Checking Python service status...
+[2026-02-11 01:11:45] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:11:45] [DEBUG] Initializing database...
+[2026-02-11 01:11:45] [DEBUG] Database initialized successfully
+[2026-02-11 01:11:45] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarygEr9qXr6FxiJiGpT","content_length":"354"}
+[2026-02-11 01:11:45] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:11:45] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:11:45.349237] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:11:45.349443] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:11:45.349591] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:11:45.349723] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:11:45.349853] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:11:47.480036] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 154}
+[2026-02-10T22:11:47.480302] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"Joelson\", \"pessoa\", \"identidade\", \"nome pr\u00f3prio\", \"indiv\u00edduo\"],\n    \"semantic_query\": \"informa\u00e7\u00f5es sobre uma pessoa chamada Joelson\"\n}"}
+[2026-02-10T22:11:47.480435] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "pessoa", "identidade", "nome pr\u00f3prio", "indiv\u00edduo"], "semantic_query": "informa\u00e7\u00f5es sobre uma pessoa chamada Joelson"}
+[2026-02-10T22:11:47.480533] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'pessoa', 'identidade', 'nome próprio', 'indivíduo'], semantic=informações sobre uma pessoa chamada Joelson...
+[2026-02-10T22:11:47.480608] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "pessoa", "identidade", "nome pr\u00f3prio", "indiv\u00edduo"], "semantic_query": "informa\u00e7\u00f5es sobre uma pessoa chamada Joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:11:47.480799] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "Joelson pessoa identidade nome pr\u00f3prio indiv\u00edduo*"}
+[2026-02-10T22:11:47.481303] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:11:47.481416] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:11:47.481494] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:11:47.481612] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:11:47.481848] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:11:47.481930] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:11:47.482028] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:11:47.482115] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:11:47.482211] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:11:47.482280] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:11:47.482345] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T22:12:46.622974] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:12:53] [INFO] Checking Python service status...
+[2026-02-11 01:12:53] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:12:53] [DEBUG] Initializing database...
+[2026-02-11 01:12:53] [DEBUG] Database initialized successfully
+[2026-02-11 01:12:53] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryfoThufVH8u6RhwRK","content_length":"354"}
+[2026-02-11 01:12:53] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:12:53] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:12:53.585818] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:12:53.586638] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:12:53.587382] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:12:53.587725] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:12:53.588040] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:12:58.227035] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 204}
+[2026-02-10T22:12:58.227543] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"Joelson\", \"nome pr\u00f3prio\", \"identidade\", \"pessoa\", \"indiv\u00edduo\"],\n    \"semantic_query\": \"Informa\u00e7\u00f5es sobre uma pessoa chamada Joelson, incluindo identidade, caracter\u00edsticas e contexto\"\n}"}
+[2026-02-10T22:12:58.227854] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "identidade", "pessoa", "indiv\u00edduo"], "semantic_query": "Informa\u00e7\u00f5es sobre uma pessoa chamada Joelson, incluindo identidade, caracter\u00edsticas e contexto"}
+[2026-02-10T22:12:58.228134] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'nome próprio', 'identidade', 'pessoa', 'indivíduo'], semantic=Informações sobre uma pessoa chamada Joelson, incl...
+[2026-02-10T22:12:58.228387] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "identidade", "pessoa", "indiv\u00edduo"], "semantic_query": "Informa\u00e7\u00f5es sobre uma pessoa chamada Joelson, incluindo identidade, caracter\u00edsticas e contexto", "case_id": "1", "limit": 10}
+[2026-02-10T22:12:58.228808] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem joelson Joelson nome pr\u00f3prio identidade pessoa indiv\u00edduo*", "original_terms": ["quem", "joelson"]}
+[2026-02-10T22:12:58.229724] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:12:58.230041] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:12:58.230331] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:12:58.230651] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:12:58.230914] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:12:58.231152] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:12:58.231398] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:12:58.231655] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:12:58.231892] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:12:58.232139] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:12:58.232375] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:13:20] [INFO] Checking Python service status...
+[2026-02-11 01:13:20] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:13:20] [DEBUG] Initializing database...
+[2026-02-11 01:13:20] [DEBUG] Database initialized successfully
+[2026-02-11 01:13:20] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarytVrSqpD74ukm2PvQ","content_length":"354"}
+[2026-02-11 01:13:20] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:13:20] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:13:20.907188] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:13:20.907373] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:13:20.907466] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:13:20.907547] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:13:20.907678] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:13:24.437086] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 125}
+[2026-02-10T22:13:24.437343] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"Joelson\", \"nome pr\u00f3prio\", \"pessoa\"],\n    \"semantic_query\": \"informa\u00e7\u00f5es sobre a pessoa chamada Joelson\"\n}"}
+[2026-02-10T22:13:24.437470] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "pessoa"], "semantic_query": "informa\u00e7\u00f5es sobre a pessoa chamada Joelson"}
+[2026-02-10T22:13:24.437769] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'nome próprio', 'pessoa'], semantic=informações sobre a pessoa chamada Joelson...
+[2026-02-10T22:13:24.438007] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "pessoa"], "semantic_query": "informa\u00e7\u00f5es sobre a pessoa chamada Joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:13:24.438455] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem joelson Joelson nome pr\u00f3prio pessoa*", "original_terms": ["quem", "joelson"]}
+[2026-02-10T22:13:24.440023] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:13:24.440346] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:13:24.440589] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:13:24.440874] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:13:24.441126] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:13:24.441367] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:13:24.441600] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:13:24.441824] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:13:24.442045] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:13:24.442304] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:13:24.442532] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T22:15:46.904465] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:18:14] [INFO] Checking Python service status...
+[2026-02-11 01:18:14] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:18:14] [DEBUG] Initializing database...
+[2026-02-11 01:18:14] [DEBUG] Database initialized successfully
+[2026-02-11 01:18:14] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryAj3Pu2HJntOj6AGv","content_length":"354"}
+[2026-02-11 01:18:14] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:18:14] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:18:14.569026] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:18:14.569552] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:18:14.569808] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:18:14.569994] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:18:14.570194] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:18:17.092118] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 220}
+[2026-02-10T22:18:17.092604] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\"Joelson\", \"advogado\", \"advogada\", \"profissional do direito\", \"nome pr\u00f3prio\", \"pessoa f\u00edsica\"],\n  \"semantic_query\": \"informa\u00e7\u00f5es sobre a pessoa chamada Joelson, buscando identifica\u00e7\u00e3o e dados pessoais\"\n}"}
+[2026-02-10T22:18:17.092892] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "advogado", "advogada", "profissional do direito", "nome pr\u00f3prio", "pessoa f\u00edsica"], "semantic_query": "informa\u00e7\u00f5es sobre a pessoa chamada Joelson, buscando identifica\u00e7\u00e3o e dados pessoais"}
+[2026-02-10T22:18:17.093124] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'advogado', 'advogada', 'profissional do direito', 'nome próprio', 'pessoa física'], semantic=informações sobre a pessoa chamada Joelson, buscan...
+[2026-02-10T22:18:17.093313] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "advogado", "advogada", "profissional do direito", "nome pr\u00f3prio", "pessoa f\u00edsica"], "semantic_query": "informa\u00e7\u00f5es sobre a pessoa chamada Joelson, buscando identifica\u00e7\u00e3o e dados pessoais", "case_id": "1", "limit": 10}
+[2026-02-10T22:18:17.093630] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem* joelson* Joelson* advogado* advogada* profissional do direito* nome pr\u00f3prio* pessoa f\u00edsica*", "original_terms": ["quem", "joelson"]}
+[2026-02-10T22:18:17.094428] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:18:17.094685] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:18:17.094887] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:18:17.095156] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:18:17.095399] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:18:17.095633] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:18:17.095850] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:18:17.096076] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:18:17.096286] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:18:17.096480] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:18:17.096832] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:20:26] [INFO] Checking Python service status...
+[2026-02-11 01:20:26] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:20:26] [DEBUG] Initializing database...
+[2026-02-11 01:20:26] [DEBUG] Database initialized successfully
+[2026-02-11 01:20:26] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryAMMVZAnAF46ABOAm","content_length":"354"}
+[2026-02-11 01:20:26] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:20:26] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:20:26.521638] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:20:26.521840] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:20:26.521931] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:20:26.522019] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:20:26.522102] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:20:28.882046] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 129}
+[2026-02-10T22:20:28.882302] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"Joelson\", \"nome pr\u00f3prio\", \"identidade\", \"pessoa\"],\n    \"semantic_query\": \"informa\u00e7\u00f5es sobre quem \u00e9 joelson\"\n}"}
+[2026-02-10T22:20:28.882881] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "identidade", "pessoa"], "semantic_query": "informa\u00e7\u00f5es sobre quem \u00e9 joelson"}
+[2026-02-10T22:20:28.883185] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'nome próprio', 'identidade', 'pessoa'], semantic=informações sobre quem é joelson...
+[2026-02-10T22:20:28.883462] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "identidade", "pessoa"], "semantic_query": "informa\u00e7\u00f5es sobre quem \u00e9 joelson", "case_id": "1", "limit": 10}
+[2026-02-10T22:20:28.883780] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem* joelson* Joelson* nome pr\u00f3prio* identidade* pessoa*", "original_terms": ["quem", "joelson"]}
+[2026-02-10T22:20:28.884560] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 0}
+[2026-02-10T22:20:28.884837] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:20:28.885063] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:20:28.885249] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:20:28.885468] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:20:28.885691] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:20:28.885948] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:20:28.886076] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:20:28.886283] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 0}
+[2026-02-10T22:20:28.886572] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:20:28.886703] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T22:21:37.724907] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:21:48] [INFO] Checking Python service status...
+[2026-02-11 01:21:48] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:21:48] [DEBUG] Initializing database...
+[2026-02-11 01:21:48] [DEBUG] Database initialized successfully
+[2026-02-11 01:21:48] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarysOG9kZKmDXBGiPnr","content_length":"354"}
+[2026-02-11 01:21:48] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:21:48] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:21:48.474880] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 joelson", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:21:48.475236] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:21:48.475473] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 joelson"}
+[2026-02-10T22:21:48.475772] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'quem \u00e9 joelson', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem formata\u00e7\u00e3o adicio"}
+[2026-02-10T22:21:48.476068] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 304}
+[2026-02-10T22:21:51.447872] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 130}
+[2026-02-10T22:21:51.448289] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\"Joelson\", \"nome pr\u00f3prio\", \"pessoa\"],\n  \"semantic_query\": \"Informa\u00e7\u00f5es sobre Joelson, uma pessoa com esse nome\"\n}"}
+[2026-02-10T22:21:51.448533] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "pessoa"], "semantic_query": "Informa\u00e7\u00f5es sobre Joelson, uma pessoa com esse nome"}
+[2026-02-10T22:21:51.448787] [KAPJUS-ASK_IA] Expansao: keywords=['Joelson', 'nome próprio', 'pessoa'], semantic=Informações sobre Joelson, uma pessoa com esse nom...
+[2026-02-10T22:21:51.448981] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["Joelson", "nome pr\u00f3prio", "pessoa"], "semantic_query": "Informa\u00e7\u00f5es sobre Joelson, uma pessoa com esse nome", "case_id": "1", "limit": 10}
+[2026-02-10T22:21:51.449324] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem* OR joelson* OR Joelson* OR nome pr\u00f3prio* OR pessoa*", "original_terms": ["quem", "joelson"]}
+[2026-02-10T22:21:51.450700] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T22:21:51.450958] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:21:51.451212] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:21:51.451527] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T22:21:51.451812] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T22:21:51.452052] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:21:51.452323] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T22:21:51.452562] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T22:21:51.452805] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T22:21:51.453061] [KAPJUS-RANK]   Pos 1: rowid=2, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:2
+[2026-02-10T22:21:51.453302] [KAPJUS-RANK]   Pos 2: rowid=369, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:369
+[2026-02-10T22:21:51.453587] [KAPJUS-RANK]   Pos 3: rowid=384, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:384
+[2026-02-10T22:21:51.453826] [KAPJUS-RANK]   Pos 4: rowid=360, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:360
+[2026-02-10T22:21:51.454073] [KAPJUS-RANK]   Pos 5: rowid=345, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:345
+[2026-02-10T22:21:51.454315] [KAPJUS-RANK]   Pos 6: rowid=290, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:290
+[2026-02-10T22:21:51.454583] [KAPJUS-RANK]   Pos 7: rowid=355, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:355
+[2026-02-10T22:21:51.454866] [KAPJUS-RANK]   Pos 8: rowid=363, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:363
+[2026-02-10T22:21:51.455172] [KAPJUS-RANK]   Pos 9: rowid=419, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:419
+[2026-02-10T22:21:51.455452] [KAPJUS-RANK]   Pos 10: rowid=392, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:392
+[2026-02-10T22:21:51.455719] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T22:21:51.455980] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T22:21:51.456224] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 joelson", "chunks_count": 5}
+[2026-02-10T22:21:51.456489] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 3453}
+[2026-02-10T22:21:51.456749] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 3747}
+[2026-02-10T22:21:53.933803] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 264}
+[2026-02-10T22:21:53.934046] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 264, "answer_preview": "Com base nas fontes fornecidas, Joelson Zuchen \u00e9 identificado como o perito do processo 5089825-55.2024.4.02.5101. Ele foi intimado eletronicamente em v\u00e1rias ocasi\u00f5es, conforme indicado nos eventos 79"}
+[2026-02-10T22:21:53.934254] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-11 01:23:12] [INFO] Checking Python service status...
+[2026-02-11 01:23:12] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:23:12] [DEBUG] Initializing database...
+[2026-02-11 01:23:12] [DEBUG] Database initialized successfully
+[2026-02-11 01:23:12] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryEJWIxGPpw9Sso5Yt","content_length":"371"}
+[2026-02-11 01:23:12] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:23:12] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:23:12.072228] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "qual foi a conclus\u00e3o do perito?", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:23:12.072415] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:23:12.072554] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "qual foi a conclus\u00e3o do perito?"}
+[2026-02-10T22:23:12.072646] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'qual foi a conclus\u00e3o do perito?', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON, sem "}
+[2026-02-10T22:23:12.072735] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 321}
+[2026-02-10T22:23:14.667222] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 269}
+[2026-02-10T22:23:14.667448] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"conclus\u00e3o\", \"perito\", \"laudo\", \"parecer t\u00e9cnico\", \"parecer pericial\", \"relat\u00f3rio pericial\", \"parecer conclusivo\", \"avalia\u00e7\u00e3o pericial\", \"an\u00e1lise pericial\", \"opini\u00e3o do perito\"],\n    \"semantic_query\": \"Qual foi a conclus\u00e3o final do perito no caso?\"\n}"}
+[2026-02-10T22:23:14.667562] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["conclus\u00e3o", "perito", "laudo", "parecer t\u00e9cnico", "parecer pericial", "relat\u00f3rio pericial", "parecer conclusivo", "avalia\u00e7\u00e3o pericial", "an\u00e1lise pericial", "opini\u00e3o do perito"], "semantic_query": "Qual foi a conclus\u00e3o final do perito no caso?"}
+[2026-02-10T22:23:14.667730] [KAPJUS-ASK_IA] Expansao: keywords=['conclusão', 'perito', 'laudo', 'parecer técnico', 'parecer pericial', 'relatório pericial', 'parecer conclusivo', 'avaliação pericial', 'análise pericial', 'opinião do perito'], semantic=Qual foi a conclusão final do perito no caso?...
+[2026-02-10T22:23:14.667822] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["conclus\u00e3o", "perito", "laudo", "parecer t\u00e9cnico", "parecer pericial", "relat\u00f3rio pericial", "parecer conclusivo", "avalia\u00e7\u00e3o pericial", "an\u00e1lise pericial", "opini\u00e3o do perito"], "semantic_query": "Qual foi a conclus\u00e3o final do perito no caso?", "case_id": "1", "limit": 10}
+[2026-02-10T22:23:14.668174] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "qual* OR foi* OR conclus\u00e3o* OR perito?* OR perito* OR laudo* OR parecer t\u00e9cnico* OR parecer pericial* OR relat\u00f3rio pericial* OR parecer conclusivo* OR avalia\u00e7\u00e3o pericial* OR an\u00e1lise pericial* OR opini\u00e3o do perito*", "original_terms": ["qual", "foi", "conclus\u00e3o", "perito?"]}
+[2026-02-10T22:23:14.668795] [KAPJUS-HYBRID-FTS5] Erro na busca FTS5 | Params: {"error": "fts5: syntax error near \"?\""}
+[2026-02-10T22:23:14.669055] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:23:14.669314] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:23:14.669632] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:23:14.669889] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:23:14.670099] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:23:14.670319] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:23:14.670580] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:23:14.670781] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "qual foi a conclus\u00e3o do perito?", "chunks_count": 0}
+[2026-02-10T22:23:14.671051] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:23:14.671303] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:23:27] [INFO] Checking Python service status...
+[2026-02-11 01:23:27] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:23:27] [DEBUG] Initializing database...
+[2026-02-11 01:23:27] [DEBUG] Database initialized successfully
+[2026-02-11 01:23:27] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryiM1TosuAsCZTthQw","content_length":"376"}
+[2026-02-11 01:23:27] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:23:27] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:23:27.042273] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "qual foi resultado do laudo pericial?", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:23:27.042893] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:23:27.043173] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "qual foi resultado do laudo pericial?"}
+[2026-02-10T22:23:27.043707] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'qual foi resultado do laudo pericial?', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON"}
+[2026-02-10T22:23:27.044155] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 327}
+[2026-02-10T22:23:29.128554] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 229}
+[2026-02-10T22:23:29.128795] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"laudo pericial\", \"resultado\", \"per\u00edcia\", \"perito\", \"avalia\u00e7\u00e3o\", \"parecer t\u00e9cnico\", \"an\u00e1lise\", \"investiga\u00e7\u00e3o\", \"exame\", \"vistoria\"],\n    \"semantic_query\": \"resultado final do laudo pericial e suas conclus\u00f5es\"\n}"}
+[2026-02-10T22:23:29.128903] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["laudo pericial", "resultado", "per\u00edcia", "perito", "avalia\u00e7\u00e3o", "parecer t\u00e9cnico", "an\u00e1lise", "investiga\u00e7\u00e3o", "exame", "vistoria"], "semantic_query": "resultado final do laudo pericial e suas conclus\u00f5es"}
+[2026-02-10T22:23:29.128999] [KAPJUS-ASK_IA] Expansao: keywords=['laudo pericial', 'resultado', 'perícia', 'perito', 'avaliação', 'parecer técnico', 'análise', 'investigação', 'exame', 'vistoria'], semantic=resultado final do laudo pericial e suas conclusõe...
+[2026-02-10T22:23:29.129074] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["laudo pericial", "resultado", "per\u00edcia", "perito", "avalia\u00e7\u00e3o", "parecer t\u00e9cnico", "an\u00e1lise", "investiga\u00e7\u00e3o", "exame", "vistoria"], "semantic_query": "resultado final do laudo pericial e suas conclus\u00f5es", "case_id": "1", "limit": 10}
+[2026-02-10T22:23:29.129282] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "qual* OR foi* OR resultado* OR laudo* OR pericial?* OR laudo pericial* OR per\u00edcia* OR perito* OR avalia\u00e7\u00e3o* OR parecer t\u00e9cnico* OR an\u00e1lise* OR investiga\u00e7\u00e3o* OR exame* OR vistoria*", "original_terms": ["qual", "foi", "resultado", "laudo", "pericial?"]}
+[2026-02-10T22:23:29.129711] [KAPJUS-HYBRID-FTS5] Erro na busca FTS5 | Params: {"error": "fts5: syntax error near \"?\""}
+[2026-02-10T22:23:29.129826] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:23:29.129915] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:23:29.130043] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:23:29.130139] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:23:29.130211] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:23:29.130285] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:23:29.130391] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:23:29.130462] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "qual foi resultado do laudo pericial?", "chunks_count": 0}
+[2026-02-10T22:23:29.130592] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:23:29.130739] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-11 01:27:41] [INFO] Checking Python service status...
+[2026-02-11 01:27:41] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:27:41] [DEBUG] Initializing database...
+[2026-02-11 01:27:41] [DEBUG] Database initialized successfully
+[2026-02-11 01:27:41] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarypIRFMWcgBegANMEu","content_length":"376"}
+[2026-02-11 01:27:41] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:27:41] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:27:41.724404] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "qual foi resultado do laudo pericial?", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:27:41.724561] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:27:41.724631] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "qual foi resultado do laudo pericial?"}
+[2026-02-10T22:27:41.724715] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": " Dada a pergunta do usu\u00e1rio: 'qual foi resultado do laudo pericial?', retorne um JSON com:\n    - keywords: Lista de termos t\u00e9cnicos e sin\u00f4nimos para busca por palavra-chave (FTS5)\n    - semantic_query: Uma frase otimizada para busca vetorial que capture a inten\u00e7\u00e3o\n    \n    Responda APENAS com o JSON"}
+[2026-02-10T22:27:41.724809] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 327}
+[2026-02-10T22:27:44.815012] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 174}
+[2026-02-10T22:27:44.815210] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n    \"keywords\": [\"laudo pericial\", \"resultado\", \"per\u00edcia\", \"parecer t\u00e9cnico\", \"avalia\u00e7\u00e3o\"],\n    \"semantic_query\": \"Quais foram as conclus\u00f5es do laudo pericial realizado?\"\n}"}
+[2026-02-10T22:27:44.815305] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["laudo pericial", "resultado", "per\u00edcia", "parecer t\u00e9cnico", "avalia\u00e7\u00e3o"], "semantic_query": "Quais foram as conclus\u00f5es do laudo pericial realizado?"}
+[2026-02-10T22:27:44.815393] [KAPJUS-ASK_IA] Expansao: keywords=['laudo pericial', 'resultado', 'perícia', 'parecer técnico', 'avaliação'], semantic=Quais foram as conclusões do laudo pericial realiz...
+[2026-02-10T22:27:44.815458] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["laudo pericial", "resultado", "per\u00edcia", "parecer t\u00e9cnico", "avalia\u00e7\u00e3o"], "semantic_query": "Quais foram as conclus\u00f5es do laudo pericial realizado?", "case_id": "1", "limit": 10}
+[2026-02-10T22:27:44.815670] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "qual* OR foi* OR resultado* OR laudo* OR pericial?* OR laudo pericial* OR per\u00edcia* OR parecer t\u00e9cnico* OR avalia\u00e7\u00e3o*", "original_terms": ["qual", "foi", "resultado", "laudo", "pericial?"]}
+[2026-02-10T22:27:44.816087] [KAPJUS-HYBRID-FTS5] Erro na busca FTS5 | Params: {"error": "fts5: syntax error near \"?\""}
+[2026-02-10T22:27:44.816259] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:27:44.816347] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:27:44.816461] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:27:44.816563] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:27:44.816637] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:27:44.816710] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:27:44.816780] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:27:44.816839] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "qual foi resultado do laudo pericial?", "chunks_count": 0}
+[2026-02-10T22:27:44.816906] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:27:44.816975] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T22:27:55.319832] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:28:02] [INFO] Checking Python service status...
+[2026-02-11 01:28:02] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:28:02] [DEBUG] Initializing database...
+[2026-02-11 01:28:02] [DEBUG] Database initialized successfully
+[2026-02-11 01:28:02] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryGcd5K9oFBZNc7uD9","content_length":"376"}
+[2026-02-11 01:28:02] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:28:02] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:28:02.777452] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "qual foi resultado do laudo pericial?", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:28:02.777830] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:28:02.778010] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "qual foi resultado do laudo pericial?"}
+[2026-02-10T22:28:02.778228] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-10T22:28:02.778459] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 859}
+[2026-02-10T22:28:10.273415] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 472}
+[2026-02-10T22:28:10.273883] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{ \"keywords\": [\"laudo pericial\", \"resultado laudo\", \"conclus\u00f5es periciais\", \"parecer t\u00e9cnico\", \"avalia\u00e7\u00e3o pericial\", \"exame pericial\", \"investiga\u00e7\u00e3o forense\", \"an\u00e1lise t\u00e9cnica\", \"conclui-se que\", \"ante o exposto\"], \"semantic_query\": \"O laudo pericial foi conclu\u00eddo com base em an\u00e1lise t\u00e9cnica especializada, apresentando resultados conclusivos sobre a mat\u00e9ria objeto da per\u00edcia, incluindo eventuais constata\u00e7\u00f5es, conclus\u00f5es e recomenda\u00e7\u00f5es t\u00e9cnicas pertinentes ao caso.\" }"}
+[2026-02-10T22:28:10.274528] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["laudo pericial", "resultado laudo", "conclus\u00f5es periciais", "parecer t\u00e9cnico", "avalia\u00e7\u00e3o pericial", "exame pericial", "investiga\u00e7\u00e3o forense", "an\u00e1lise t\u00e9cnica", "conclui-se que", "ante o exposto"], "semantic_query": "O laudo pericial foi conclu\u00eddo com base em an\u00e1lise t\u00e9cnica especializada, apresentando resultados conclusivos sobre a mat\u00e9ria objeto da per\u00edcia, incluindo eventuais constata\u00e7\u00f5es, conclus\u00f5es e recomend"}
+[2026-02-10T22:28:10.274883] [KAPJUS-ASK_IA] Expansao: keywords=['laudo pericial', 'resultado laudo', 'conclusões periciais', 'parecer técnico', 'avaliação pericial', 'exame pericial', 'investigação forense', 'análise técnica', 'conclui-se que', 'ante o exposto'], semantic=O laudo pericial foi concluído com base em análise...
+[2026-02-10T22:28:10.275195] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["laudo pericial", "resultado laudo", "conclus\u00f5es periciais", "parecer t\u00e9cnico", "avalia\u00e7\u00e3o pericial", "exame pericial", "investiga\u00e7\u00e3o forense", "an\u00e1lise t\u00e9cnica", "conclui-se que", "ante o exposto"], "semantic_query": "O laudo pericial foi conclu\u00eddo com base em an\u00e1lise t\u00e9cnica especializada, apresentando resultados conclusivos sobre a mat\u00e9ria objeto da per\u00edcia, incluindo eventuais constata\u00e7\u00f5es, conclus\u00f5es e recomend", "case_id": "1", "limit": 10}
+[2026-02-10T22:28:10.275681] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "qual* OR foi* OR resultado* OR laudo* OR pericial?* OR laudo pericial* OR resultado laudo* OR conclus\u00f5es periciais* OR parecer t\u00e9cnico* OR avalia\u00e7\u00e3o pericial* OR exame pericial* OR investiga\u00e7\u00e3o forense* OR an\u00e1lise t\u00e9cnica* OR conclui-se que* OR ante o exposto*", "original_terms": ["qual", "foi", "resultado", "laudo", "pericial?"]}
+[2026-02-10T22:28:10.276504] [KAPJUS-HYBRID-FTS5] Erro na busca FTS5 | Params: {"error": "fts5: syntax error near \"?\""}
+[2026-02-10T22:28:10.276774] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:28:10.277028] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:28:10.277314] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 0, "vss_count": 0}
+[2026-02-10T22:28:10.277621] [KAPJUS-ASK_IA] Busca: FTS5=0, VSS=0
+[2026-02-10T22:28:10.277946] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 0, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:28:10.278230] [KAPJUS-RANK] Sem resultados para ranquear
+[2026-02-10T22:28:10.278574] [KAPJUS-ASK_IA] Ranking: 0 chunks selecionados
+[2026-02-10T22:28:10.279038] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "qual foi resultado do laudo pericial?", "chunks_count": 0}
+[2026-02-10T22:28:10.279287] [KAPJUS-RESPONSE] Sem chunks para gerar resposta
+[2026-02-10T22:28:10.279499] [KAPJUS-ASK_IA] Resposta gerada: sources=0, final_results=0
+[2026-02-10T22:30:53.072349] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-10T22:31:09.567308] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:31:19] [INFO] Checking Python service status...
+[2026-02-11 01:31:19] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:31:19] [DEBUG] Initializing database...
+[2026-02-11 01:31:19] [DEBUG] Database initialized successfully
+[2026-02-11 01:31:19] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryCUo3tZHaMSl6gVdV","content_length":"376"}
+[2026-02-11 01:31:19] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:31:19] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:31:19.700991] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "qual foi resultado do laudo pericial?", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:31:19.701456] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:31:19.701613] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "qual foi resultado do laudo pericial?"}
+[2026-02-10T22:31:19.701746] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-10T22:31:19.701896] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 859}
+[2026-02-10T22:31:27.857172] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 470}
+[2026-02-10T22:31:27.858099] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\"laudo pericial\", \"resultado\", \"conclus\u00e3o\", \"per\u00edcia\", \"perito\", \"parecer t\u00e9cnico\", \"exame pericial\", \"avalia\u00e7\u00e3o pericial\", \"an\u00e1lise pericial\", \"parecer conclusivo\", \"parecer pericial\", \"resultado da per\u00edcia\", \"resultado do laudo\", \"conclui-se\", \"ante o exposto\"],\n  \"semantic_query\": \"O laudo pericial resultou na conclus\u00e3o t\u00e9cnica sobre os fatos investigados, apresentando o parecer do perito sobre as evid\u00eancias coletadas e analisadas no processo.\"\n}"}
+[2026-02-10T22:31:27.858529] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["laudo pericial", "resultado", "conclus\u00e3o", "per\u00edcia", "perito", "parecer t\u00e9cnico", "exame pericial", "avalia\u00e7\u00e3o pericial", "an\u00e1lise pericial", "parecer conclusivo", "parecer pericial", "resultado da per\u00edcia", "resultado do laudo", "conclui-se", "ante o exposto"], "semantic_query": "O laudo pericial resultou na conclus\u00e3o t\u00e9cnica sobre os fatos investigados, apresentando o parecer do perito sobre as evid\u00eancias coletadas e analisadas no processo."}
+[2026-02-10T22:31:27.858906] [KAPJUS-ASK_IA] Expansao: keywords=['laudo pericial', 'resultado', 'conclusão', 'perícia', 'perito', 'parecer técnico', 'exame pericial', 'avaliação pericial', 'análise pericial', 'parecer conclusivo', 'parecer pericial', 'resultado da perícia', 'resultado do laudo', 'conclui-se', 'ante o exposto'], semantic=O laudo pericial resultou na conclusão técnica sob...
+[2026-02-10T22:31:27.859199] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["laudo pericial", "resultado", "conclus\u00e3o", "per\u00edcia", "perito", "parecer t\u00e9cnico", "exame pericial", "avalia\u00e7\u00e3o pericial", "an\u00e1lise pericial", "parecer conclusivo", "parecer pericial", "resultado da per\u00edcia", "resultado do laudo", "conclui-se", "ante o exposto"], "semantic_query": "O laudo pericial resultou na conclus\u00e3o t\u00e9cnica sobre os fatos investigados, apresentando o parecer do perito sobre as evid\u00eancias coletadas e analisadas no processo.", "case_id": "1", "limit": 10}
+[2026-02-10T22:31:27.859854] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["laudo pericial", "resultado", "conclus\u00e3o", "per\u00edcia", "perito", "parecer t\u00e9cnico", "exame pericial", "avalia\u00e7\u00e3o pericial", "an\u00e1lise pericial", "parecer conclusivo", "parecer pericial", "resultado da per\u00edcia", "resultado do laudo", "conclui se", "ante o exposto"], "original_terms": ["qual", "foi", "resultado", "laudo", "pericial"]}
+[2026-02-10T22:31:27.860286] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "qual* OR foi* OR resultado* OR laudo* OR pericial* OR laudo pericial* OR conclus\u00e3o* OR per\u00edcia* OR perito* OR parecer t\u00e9cnico* OR exame pericial* OR avalia\u00e7\u00e3o pericial* OR an\u00e1lise pericial* OR parecer conclusivo* OR parecer pericial* OR resultado da per\u00edcia* OR resultado do laudo* OR conclui se* OR ante o exposto*", "original_terms": ["qual", "foi", "resultado", "laudo", "pericial"]}
+[2026-02-10T22:31:27.866848] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T22:31:27.867545] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:31:27.867967] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:31:27.868373] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T22:31:27.868653] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T22:31:27.869016] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:31:27.872497] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T22:31:27.872780] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T22:31:27.872987] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T22:31:27.873434] [KAPJUS-RANK]   Pos 1: rowid=311, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:311
+[2026-02-10T22:31:27.873655] [KAPJUS-RANK]   Pos 2: rowid=323, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:323
+[2026-02-10T22:31:27.874221] [KAPJUS-RANK]   Pos 3: rowid=297, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:297
+[2026-02-10T22:31:27.874469] [KAPJUS-RANK]   Pos 4: rowid=458, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:458
+[2026-02-10T22:31:27.874675] [KAPJUS-RANK]   Pos 5: rowid=310, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:310
+[2026-02-10T22:31:27.874926] [KAPJUS-RANK]   Pos 6: rowid=134, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:134
+[2026-02-10T22:31:27.875123] [KAPJUS-RANK]   Pos 7: rowid=419, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:419
+[2026-02-10T22:31:27.875313] [KAPJUS-RANK]   Pos 8: rowid=293, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:293
+[2026-02-10T22:31:27.875523] [KAPJUS-RANK]   Pos 9: rowid=417, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:417
+[2026-02-10T22:31:27.875808] [KAPJUS-RANK]   Pos 10: rowid=451, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:451
+[2026-02-10T22:31:27.876089] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T22:31:27.876355] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T22:31:27.876557] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "qual foi resultado do laudo pericial?", "chunks_count": 5}
+[2026-02-10T22:31:27.876791] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 5498}
+[2026-02-10T22:31:27.877155] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 5815}
+[2026-02-10T22:31:30.212974] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 352}
+[2026-02-10T22:31:30.213430] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 352, "answer_preview": "Com base nas fontes fornecidas, o resultado do laudo pericial n\u00e3o est\u00e1 explicitamente mencionado. As fontes tratam principalmente sobre a fixa\u00e7\u00e3o dos honor\u00e1rios periciais, com a CEF solicitando a redu"}
+[2026-02-10T22:31:30.213622] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-11 01:31:45] [INFO] Checking Python service status...
+[2026-02-11 01:31:45] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:31:45] [DEBUG] Initializing database...
+[2026-02-11 01:31:45] [DEBUG] Database initialized successfully
+[2026-02-11 01:31:45] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryu3xlSW1rkUFZNo1X","content_length":"371"}
+[2026-02-11 01:31:45] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:31:45] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:31:45.959336] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "o que o perito joelson concluiu?", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:31:45.959506] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:31:45.959666] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "o que o perito joelson concluiu?"}
+[2026-02-10T22:31:45.959846] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-10T22:31:45.959935] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 854}
+[2026-02-10T22:31:50.108241] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 486}
+[2026-02-10T22:31:50.108501] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\"perito\", \"joelson\", \"conclus\u00e3o\", \"concluiu\", \"per\u00edcia\", \"laudo\", \"parecer\", \"exame\", \"investiga\u00e7\u00e3o\", \"an\u00e1lise\", \"forense\", \"digital\", \"t\u00e9cnico\", \"provas\", \"evid\u00eancias\", \"ante o exposto\", \"conclui-se\", \"em face do exposto\"],\n  \"semantic_query\": \"O perito Joelson, em seu laudo pericial, apresentou conclus\u00f5es t\u00e9cnicas sobre o objeto da per\u00edcia, fundamentando suas conclus\u00f5es com base nos exames realizados e nas evid\u00eancias coletadas durante o processo investigativo.\"\n}"}
+[2026-02-10T22:31:50.108648] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["perito", "joelson", "conclus\u00e3o", "concluiu", "per\u00edcia", "laudo", "parecer", "exame", "investiga\u00e7\u00e3o", "an\u00e1lise", "forense", "digital", "t\u00e9cnico", "provas", "evid\u00eancias", "ante o exposto", "conclui-se", "em face do exposto"], "semantic_query": "O perito Joelson, em seu laudo pericial, apresentou conclus\u00f5es t\u00e9cnicas sobre o objeto da per\u00edcia, fundamentando suas conclus\u00f5es com base nos exames realizados e nas evid\u00eancias coletadas durante o pro"}
+[2026-02-10T22:31:50.108810] [KAPJUS-ASK_IA] Expansao: keywords=['perito', 'joelson', 'conclusão', 'concluiu', 'perícia', 'laudo', 'parecer', 'exame', 'investigação', 'análise', 'forense', 'digital', 'técnico', 'provas', 'evidências', 'ante o exposto', 'conclui-se', 'em face do exposto'], semantic=O perito Joelson, em seu laudo pericial, apresento...
+[2026-02-10T22:31:50.108989] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["perito", "joelson", "conclus\u00e3o", "concluiu", "per\u00edcia", "laudo", "parecer", "exame", "investiga\u00e7\u00e3o", "an\u00e1lise", "forense", "digital", "t\u00e9cnico", "provas", "evid\u00eancias", "ante o exposto", "conclui-se", "em face do exposto"], "semantic_query": "O perito Joelson, em seu laudo pericial, apresentou conclus\u00f5es t\u00e9cnicas sobre o objeto da per\u00edcia, fundamentando suas conclus\u00f5es com base nos exames realizados e nas evid\u00eancias coletadas durante o pro", "case_id": "1", "limit": 10}
+[2026-02-10T22:31:50.109312] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["perito", "joelson", "conclus\u00e3o", "concluiu", "per\u00edcia", "laudo", "parecer", "exame", "investiga\u00e7\u00e3o", "an\u00e1lise", "forense", "digital", "t\u00e9cnico", "provas", "evid\u00eancias", "ante o exposto", "conclui se", "em face do exposto"], "original_terms": ["que", "perito", "joelson", "concluiu"]}
+[2026-02-10T22:31:50.109598] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "que* OR perito* OR joelson* OR concluiu* OR conclus\u00e3o* OR per\u00edcia* OR laudo* OR parecer* OR exame* OR investiga\u00e7\u00e3o* OR an\u00e1lise* OR forense* OR digital* OR t\u00e9cnico* OR provas* OR evid\u00eancias* OR ante o exposto* OR conclui se* OR em face do exposto*", "original_terms": ["que", "perito", "joelson", "concluiu"]}
+[2026-02-10T22:31:50.114290] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T22:31:50.114557] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:31:50.114692] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:31:50.114916] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T22:31:50.115056] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T22:31:50.115167] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:31:50.115319] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T22:31:50.115609] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T22:31:50.115830] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T22:31:50.116073] [KAPJUS-RANK]   Pos 1: rowid=277, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:277
+[2026-02-10T22:31:50.116269] [KAPJUS-RANK]   Pos 2: rowid=311, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:311
+[2026-02-10T22:31:50.116484] [KAPJUS-RANK]   Pos 3: rowid=134, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:134
+[2026-02-10T22:31:50.116675] [KAPJUS-RANK]   Pos 4: rowid=450, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:450
+[2026-02-10T22:31:50.116870] [KAPJUS-RANK]   Pos 5: rowid=293, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:293
+[2026-02-10T22:31:50.117108] [KAPJUS-RANK]   Pos 6: rowid=31, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:31
+[2026-02-10T22:31:50.117326] [KAPJUS-RANK]   Pos 7: rowid=451, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:451
+[2026-02-10T22:31:50.117568] [KAPJUS-RANK]   Pos 8: rowid=417, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:417
+[2026-02-10T22:31:50.117809] [KAPJUS-RANK]   Pos 9: rowid=281, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:281
+[2026-02-10T22:31:50.118052] [KAPJUS-RANK]   Pos 10: rowid=418, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:418
+[2026-02-10T22:31:50.118328] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T22:31:50.118681] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T22:31:50.118970] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "o que o perito joelson concluiu?", "chunks_count": 5}
+[2026-02-10T22:31:50.119226] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 5178}
+[2026-02-10T22:31:50.119468] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 5490}
+[2026-02-10T22:31:54.426135] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 333}
+[2026-02-10T22:31:54.426506] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 333, "answer_preview": "O perito Joelson concluiu que, sem adentrar em quest\u00f5es de m\u00e9rito, de julgamento ou jur\u00eddicas, que fogem completamente \u00e0 compet\u00eancia deste Perito, analisou a conta corrente do autor, esclarecimentos a"}
+[2026-02-10T22:31:54.426731] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-11 01:32:50] [INFO] Checking Python service status...
+[2026-02-11 01:32:50] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:32:50] [DEBUG] Initializing database...
+[2026-02-11 01:32:50] [DEBUG] Database initialized successfully
+[2026-02-11 01:32:50] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarys42vMB38LBkHgm1Z","content_length":"364"}
+[2026-02-11 01:32:50] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:32:50] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:32:50.630308] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 o autor da a\u00e7\u00e3o", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:32:50.630541] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:32:50.630617] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 o autor da a\u00e7\u00e3o"}
+[2026-02-10T22:32:50.630694] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-10T22:32:50.630769] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 844}
+[2026-02-10T22:33:05.331781] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 774}
+[2026-02-10T22:33:05.332044] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"autor da a\u00e7\u00e3o\",\n    \"parte autora\",\n    \"requerente\",\n    \"demandante\",\n    \"iniciante do processo\",\n    \"quem move a a\u00e7\u00e3o\",\n    \"quem prop\u00f5e a demanda\",\n    \"sujeito ativo do processo\",\n    \"quem busca o provimento jurisdicional\",\n    \"parte que ingressa com a demanda\",\n    \"quem d\u00e1 in\u00edcio \u00e0 lide\",\n    \"iniciante do feito\",\n    \"quem provoca a jurisdi\u00e7\u00e3o\",\n    \"sujeito que formula o pedido\",\n    \"quem busca tutela jurisdicional\",\n    \"ante o exposto\",\n    \"conclui-se\"\n  ]"}
+[2026-02-10T22:33:05.332176] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["autor da a\u00e7\u00e3o", "parte autora", "requerente", "demandante", "iniciante do processo", "quem move a a\u00e7\u00e3o", "quem prop\u00f5e a demanda", "sujeito ativo do processo", "quem busca o provimento jurisdicional", "parte que ingressa com a demanda", "quem d\u00e1 in\u00edcio \u00e0 lide", "iniciante do feito", "quem provoca a jurisdi\u00e7\u00e3o", "sujeito que formula o pedido", "quem busca tutela jurisdicional", "ante o exposto", "conclui-se"], "semantic_query": "A identifica\u00e7\u00e3o do sujeito que figura como autor da a\u00e7\u00e3o, ou seja, a parte que prop\u00f5e a demanda judicial e busca o provimento jurisdicional, \u00e9 fundamental para a correta caracteriza\u00e7\u00e3o da rela\u00e7\u00e3o proc"}
+[2026-02-10T22:33:05.332716] [KAPJUS-ASK_IA] Expansao: keywords=['autor da ação', 'parte autora', 'requerente', 'demandante', 'iniciante do processo', 'quem move a ação', 'quem propõe a demanda', 'sujeito ativo do processo', 'quem busca o provimento jurisdicional', 'parte que ingressa com a demanda', 'quem dá início à lide', 'iniciante do feito', 'quem provoca a jurisdição', 'sujeito que formula o pedido', 'quem busca tutela jurisdicional', 'ante o exposto', 'conclui-se'], semantic=A identificação do sujeito que figura como autor d...
+[2026-02-10T22:33:05.332843] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["autor da a\u00e7\u00e3o", "parte autora", "requerente", "demandante", "iniciante do processo", "quem move a a\u00e7\u00e3o", "quem prop\u00f5e a demanda", "sujeito ativo do processo", "quem busca o provimento jurisdicional", "parte que ingressa com a demanda", "quem d\u00e1 in\u00edcio \u00e0 lide", "iniciante do feito", "quem provoca a jurisdi\u00e7\u00e3o", "sujeito que formula o pedido", "quem busca tutela jurisdicional", "ante o exposto", "conclui-se"], "semantic_query": "A identifica\u00e7\u00e3o do sujeito que figura como autor da a\u00e7\u00e3o, ou seja, a parte que prop\u00f5e a demanda judicial e busca o provimento jurisdicional, \u00e9 fundamental para a correta caracteriza\u00e7\u00e3o da rela\u00e7\u00e3o proc", "case_id": "1", "limit": 10}
+[2026-02-10T22:33:05.333360] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["autor da a\u00e7\u00e3o", "parte autora", "requerente", "demandante", "iniciante do processo", "quem move a a\u00e7\u00e3o", "quem prop\u00f5e a demanda", "sujeito ativo do processo", "quem busca o provimento jurisdicional", "parte que ingressa com a demanda", "quem d\u00e1 in\u00edcio \u00e0 lide", "iniciante do feito", "quem provoca a jurisdi\u00e7\u00e3o", "sujeito que formula o pedido", "quem busca tutela jurisdicional", "ante o exposto", "conclui se"], "original_terms": ["quem", "autor", "a\u00e7\u00e3o"]}
+[2026-02-10T22:33:05.333700] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem* OR autor* OR a\u00e7\u00e3o* OR autor da a\u00e7\u00e3o* OR parte autora* OR requerente* OR demandante* OR iniciante do processo* OR quem move a a\u00e7\u00e3o* OR quem prop\u00f5e a demanda* OR sujeito ativo do processo* OR quem busca o provimento jurisdicional* OR parte que ingressa com a demanda* OR quem d\u00e1 in\u00edcio \u00e0 lide* OR iniciante do feito* OR quem provoca a jurisdi\u00e7\u00e3o* OR sujeito que formula o pedido* OR quem busca tutela jurisdicional* OR ante o exposto* OR conclui se*", "original_terms": ["quem", "autor", "a\u00e7\u00e3o"]}
+[2026-02-10T22:33:05.338337] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T22:33:05.338714] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:33:05.338977] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:33:05.339332] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T22:33:05.339660] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T22:33:05.339920] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:33:05.340202] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T22:33:05.340496] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T22:33:05.340753] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T22:33:05.341177] [KAPJUS-RANK]   Pos 1: rowid=19, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:19
+[2026-02-10T22:33:05.341472] [KAPJUS-RANK]   Pos 2: rowid=99, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:99
+[2026-02-10T22:33:05.341747] [KAPJUS-RANK]   Pos 3: rowid=282, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:282
+[2026-02-10T22:33:05.342033] [KAPJUS-RANK]   Pos 4: rowid=209, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:209
+[2026-02-10T22:33:05.342326] [KAPJUS-RANK]   Pos 5: rowid=196, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:196
+[2026-02-10T22:33:05.342628] [KAPJUS-RANK]   Pos 6: rowid=277, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:277
+[2026-02-10T22:33:05.342904] [KAPJUS-RANK]   Pos 7: rowid=134, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:134
+[2026-02-10T22:33:05.343218] [KAPJUS-RANK]   Pos 8: rowid=419, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:419
+[2026-02-10T22:33:05.343510] [KAPJUS-RANK]   Pos 9: rowid=266, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:266
+[2026-02-10T22:33:05.343838] [KAPJUS-RANK]   Pos 10: rowid=363, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:363
+[2026-02-10T22:33:05.344128] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T22:33:05.344422] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T22:33:05.344727] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 o autor da a\u00e7\u00e3o", "chunks_count": 5}
+[2026-02-10T22:33:05.345067] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 5496}
+[2026-02-10T22:33:05.345338] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 5798}
+[2026-02-10T22:33:08.539365] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 367}
+[2026-02-10T22:33:08.539639] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 367, "answer_preview": "Com base nos trechos fornecidos, os autores da a\u00e7\u00e3o s\u00e3o:\n\nCristina Lucia Pereira de Farias e Carlos Eduardo Moreira Ferreira.\n\nEssa informa\u00e7\u00e3o pode ser encontrada nos seguintes trechos:\n\nFonte 2: \"AUT"}
+[2026-02-10T22:33:08.539769] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-11 01:33:24] [INFO] Checking Python service status...
+[2026-02-11 01:33:24] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:33:24] [DEBUG] Initializing database...
+[2026-02-11 01:33:24] [DEBUG] Database initialized successfully
+[2026-02-11 01:33:24] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarymgTFtfIozMVmcdYI","content_length":"365"}
+[2026-02-11 01:33:24] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:33:24] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:33:24.803118] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "Sobre o que fala a a\u00e7\u00e3o?", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:33:24.803319] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:33:24.803395] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "Sobre o que fala a a\u00e7\u00e3o?"}
+[2026-02-10T22:33:24.803475] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-10T22:33:24.803556] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 846}
+[2026-02-10T22:33:40.963133] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 1196}
+[2026-02-10T22:33:40.963381] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"a\u00e7\u00e3o judicial\",\n    \"processo civil\",\n    \"partes\",\n    \"autor\",\n    \"r\u00e9u\",\n    \"pedido\",\n    \"causa de pedir\",\n    \"peti\u00e7\u00e3o inicial\",\n    \"contesta\u00e7\u00e3o\",\n    \"senten\u00e7a\",\n    \"decis\u00e3o\",\n    \"provas\",\n    \"documentos\",\n    \"testemunhas\",\n    \"perito\",\n    \"laudo\",\n    \"dilig\u00eancias\",\n    \"conclus\u00e3o\",\n    \"ante o exposto\",\n    \"assim sendo\",\n    \"conclui-se\",\n    \"decis\u00e3o judicial\",\n    \"tutela\",\n    \"indeniza\u00e7\u00e3o\",\n    \"repara\u00e7\u00e3o\",\n    \"danos\",\n    \"responsabilidade\",\n    \"con"}
+[2026-02-10T22:33:40.963512] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["a\u00e7\u00e3o judicial", "processo civil", "partes", "autor", "r\u00e9u", "pedido", "causa de pedir", "peti\u00e7\u00e3o inicial", "contesta\u00e7\u00e3o", "senten\u00e7a", "decis\u00e3o", "provas", "documentos", "testemunhas", "perito", "laudo", "dilig\u00eancias", "conclus\u00e3o", "ante o exposto", "assim sendo", "conclui-se", "decis\u00e3o judicial", "tutela", "indeniza\u00e7\u00e3o", "repara\u00e7\u00e3o", "danos", "responsabilidade", "contrato", "obriga\u00e7\u00e3o", "viola\u00e7\u00e3o", "direito", "lei", "c\u00f3digo", "jurisprud\u00eancia"], "semantic_query": "A a\u00e7\u00e3o judicial \u00e9 o instrumento processual pelo qual uma parte (autor) busca a tutela jurisdicional do Estado para a satisfa\u00e7\u00e3o de um direito material, mediante a formula\u00e7\u00e3o de um pedido fundamentado "}
+[2026-02-10T22:33:40.963660] [KAPJUS-ASK_IA] Expansao: keywords=['ação judicial', 'processo civil', 'partes', 'autor', 'réu', 'pedido', 'causa de pedir', 'petição inicial', 'contestação', 'sentença', 'decisão', 'provas', 'documentos', 'testemunhas', 'perito', 'laudo', 'diligências', 'conclusão', 'ante o exposto', 'assim sendo', 'conclui-se', 'decisão judicial', 'tutela', 'indenização', 'reparação', 'danos', 'responsabilidade', 'contrato', 'obrigação', 'violação', 'direito', 'lei', 'código', 'jurisprudência'], semantic=A ação judicial é o instrumento processual pelo qu...
+[2026-02-10T22:33:40.963741] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["a\u00e7\u00e3o judicial", "processo civil", "partes", "autor", "r\u00e9u", "pedido", "causa de pedir", "peti\u00e7\u00e3o inicial", "contesta\u00e7\u00e3o", "senten\u00e7a", "decis\u00e3o", "provas", "documentos", "testemunhas", "perito", "laudo", "dilig\u00eancias", "conclus\u00e3o", "ante o exposto", "assim sendo", "conclui-se", "decis\u00e3o judicial", "tutela", "indeniza\u00e7\u00e3o", "repara\u00e7\u00e3o", "danos", "responsabilidade", "contrato", "obriga\u00e7\u00e3o", "viola\u00e7\u00e3o", "direito", "lei", "c\u00f3digo", "jurisprud\u00eancia"], "semantic_query": "A a\u00e7\u00e3o judicial \u00e9 o instrumento processual pelo qual uma parte (autor) busca a tutela jurisdicional do Estado para a satisfa\u00e7\u00e3o de um direito material, mediante a formula\u00e7\u00e3o de um pedido fundamentado ", "case_id": "1", "limit": 10}
+[2026-02-10T22:33:40.963985] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["a\u00e7\u00e3o judicial", "processo civil", "partes", "autor", "r\u00e9u", "pedido", "causa de pedir", "peti\u00e7\u00e3o inicial", "contesta\u00e7\u00e3o", "senten\u00e7a", "decis\u00e3o", "provas", "documentos", "testemunhas", "perito", "laudo", "dilig\u00eancias", "conclus\u00e3o", "ante o exposto", "assim sendo", "conclui se", "decis\u00e3o judicial", "tutela", "indeniza\u00e7\u00e3o", "repara\u00e7\u00e3o", "danos", "responsabilidade", "contrato", "obriga\u00e7\u00e3o", "viola\u00e7\u00e3o", "direito", "lei", "c\u00f3digo", "jurisprud\u00eancia"], "original_terms": ["sobre", "que", "fala", "a\u00e7\u00e3o"]}
+[2026-02-10T22:33:40.964205] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "sobre* OR que* OR fala* OR a\u00e7\u00e3o* OR a\u00e7\u00e3o judicial* OR processo civil* OR partes* OR autor* OR r\u00e9u* OR pedido* OR causa de pedir* OR peti\u00e7\u00e3o inicial* OR contesta\u00e7\u00e3o* OR senten\u00e7a* OR decis\u00e3o* OR provas* OR documentos* OR testemunhas* OR perito* OR laudo* OR dilig\u00eancias* OR conclus\u00e3o* OR ante o exposto* OR assim sendo* OR conclui se* OR decis\u00e3o judicial* OR tutela* OR indeniza\u00e7\u00e3o* OR repara\u00e7\u00e3o* OR danos* OR responsabilidade* OR contrato* OR obriga\u00e7\u00e3o* OR viola\u00e7\u00e3o* OR direito* OR lei* OR c\u00f3digo* OR jurisprud\u00eancia*", "original_terms": ["sobre", "que", "fala", "a\u00e7\u00e3o"]}
+[2026-02-10T22:33:40.969290] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T22:33:40.969498] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:33:40.969586] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:33:40.969774] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T22:33:40.969878] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T22:33:40.969953] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:33:40.970045] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T22:33:40.970109] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T22:33:40.970179] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T22:33:40.970263] [KAPJUS-RANK]   Pos 1: rowid=134, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:134
+[2026-02-10T22:33:40.970330] [KAPJUS-RANK]   Pos 2: rowid=276, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:276
+[2026-02-10T22:33:40.970399] [KAPJUS-RANK]   Pos 3: rowid=297, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:297
+[2026-02-10T22:33:40.970501] [KAPJUS-RANK]   Pos 4: rowid=260, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:260
+[2026-02-10T22:33:40.970569] [KAPJUS-RANK]   Pos 5: rowid=18, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:18
+[2026-02-10T22:33:40.970629] [KAPJUS-RANK]   Pos 6: rowid=298, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:298
+[2026-02-10T22:33:40.971234] [KAPJUS-RANK]   Pos 7: rowid=247, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:247
+[2026-02-10T22:33:40.971375] [KAPJUS-RANK]   Pos 8: rowid=19, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:19
+[2026-02-10T22:33:40.971512] [KAPJUS-RANK]   Pos 9: rowid=293, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:293
+[2026-02-10T22:33:40.971949] [KAPJUS-RANK]   Pos 10: rowid=450, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:450
+[2026-02-10T22:33:40.972097] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T22:33:40.972246] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T22:33:40.972372] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "Sobre o que fala a a\u00e7\u00e3o?", "chunks_count": 5}
+[2026-02-10T22:33:40.972529] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 5497}
+[2026-02-10T22:33:40.972672] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 5801}
+[2026-02-10T22:33:45.707855] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 677}
+[2026-02-10T22:33:45.708075] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 677, "answer_preview": "A a\u00e7\u00e3o trata de uma disputa entre a CAIXA SEGURADORA S/A e os autores CARLOS EDUARDO MOREIRA FERREIRA e CRISTINA LUCIA PEREIRA DE FARIAS. Os autores alegam que houve cobran\u00e7a indevida de valores do sa"}
+[2026-02-10T22:33:45.708257] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-11 01:34:21] [INFO] Checking Python service status...
+[2026-02-11 01:34:21] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:34:21] [DEBUG] Initializing database...
+[2026-02-11 01:34:21] [DEBUG] Database initialized successfully
+[2026-02-11 01:34:21] [INFO] Page Request: Case Detail {"case_id":2}
+[2026-02-11 01:34:21] [INFO] Checking Python service status...
+[2026-02-11 01:34:21] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:34:21] [DEBUG] Initializing database...
+[2026-02-11 01:34:21] [DEBUG] Database initialized successfully
+[2026-02-11 01:34:21] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 01:34:21] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 01:34:21] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 01:34:24] [INFO] Checking Python service status...
+[2026-02-11 01:34:24] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:34:24] [DEBUG] Initializing database...
+[2026-02-11 01:34:24] [DEBUG] Database initialized successfully
+[2026-02-11 01:34:24] [INFO] Page Request: Home
+[2026-02-11 01:34:38] [INFO] Checking Python service status...
+[2026-02-11 01:34:38] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:34:38] [DEBUG] Initializing database...
+[2026-02-11 01:34:38] [DEBUG] Database initialized successfully
+[2026-02-11 01:34:38] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 01:34:38] [INFO] Checking Python service status...
+[2026-02-11 01:34:38] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:34:38] [DEBUG] Initializing database...
+[2026-02-11 01:34:38] [DEBUG] Database initialized successfully
+[2026-02-11 01:34:38] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 01:34:38] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 01:34:38] [DEBUG] Processing action {"action":"documents"}
+[2026-02-11 01:35:50] [INFO] Checking Python service status...
+[2026-02-11 01:35:50] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:35:50] [DEBUG] Initializing database...
+[2026-02-11 01:35:50] [DEBUG] Database initialized successfully
+[2026-02-11 01:35:50] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryUsiBqwrbuq1NYPo6","content_length":"364"}
+[2026-02-11 01:35:50] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:35:50] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:35:50.454090] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 o autor da a\u00e7\u00e3o", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:35:50.454500] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:35:50.454731] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 o autor da a\u00e7\u00e3o"}
+[2026-02-10T22:35:50.454885] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-10T22:35:50.454987] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 844}
+[2026-02-10T22:35:57.323213] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 776}
+[2026-02-10T22:35:57.323412] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"autor da a\u00e7\u00e3o\",\n    \"parte autora\",\n    \"promovente\",\n    \"demandante\",\n    \"querellante\",\n    \"acusador\",\n    \"requerente\",\n    \"iniciante do processo\",\n    \"quem prop\u00f4s a a\u00e7\u00e3o\",\n    \"sujeito ativo da demanda\",\n    \"parte que move a a\u00e7\u00e3o\",\n    \"iniciativa processual\",\n    \"peticionante\",\n    \"autor da demanda\",\n    \"promotor da a\u00e7\u00e3o\",\n    \"parte que ingressa com a a\u00e7\u00e3o\",\n    \"sujeito que busca tutela jurisdicional\",\n    \"iniciante da demanda judicial\",\n    \"parte que exer"}
+[2026-02-10T22:35:57.323546] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["autor da a\u00e7\u00e3o", "parte autora", "promovente", "demandante", "querellante", "acusador", "requerente", "iniciante do processo", "quem prop\u00f4s a a\u00e7\u00e3o", "sujeito ativo da demanda", "parte que move a a\u00e7\u00e3o", "iniciativa processual", "peticionante", "autor da demanda", "promotor da a\u00e7\u00e3o", "parte que ingressa com a a\u00e7\u00e3o", "sujeito que busca tutela jurisdicional", "iniciante da demanda judicial", "parte que exerce o direito de a\u00e7\u00e3o"], "semantic_query": "O autor da a\u00e7\u00e3o \u00e9 a parte que prop\u00f5e a demanda judicial, exercendo o direito de a\u00e7\u00e3o para buscar tutela jurisdicional, sendo o sujeito ativo do processo e aquele que inicia o procedimento litigioso pe"}
+[2026-02-10T22:35:57.323697] [KAPJUS-ASK_IA] Expansao: keywords=['autor da ação', 'parte autora', 'promovente', 'demandante', 'querellante', 'acusador', 'requerente', 'iniciante do processo', 'quem propôs a ação', 'sujeito ativo da demanda', 'parte que move a ação', 'iniciativa processual', 'peticionante', 'autor da demanda', 'promotor da ação', 'parte que ingressa com a ação', 'sujeito que busca tutela jurisdicional', 'iniciante da demanda judicial', 'parte que exerce o direito de ação'], semantic=O autor da ação é a parte que propõe a demanda jud...
+[2026-02-10T22:35:57.323784] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["autor da a\u00e7\u00e3o", "parte autora", "promovente", "demandante", "querellante", "acusador", "requerente", "iniciante do processo", "quem prop\u00f4s a a\u00e7\u00e3o", "sujeito ativo da demanda", "parte que move a a\u00e7\u00e3o", "iniciativa processual", "peticionante", "autor da demanda", "promotor da a\u00e7\u00e3o", "parte que ingressa com a a\u00e7\u00e3o", "sujeito que busca tutela jurisdicional", "iniciante da demanda judicial", "parte que exerce o direito de a\u00e7\u00e3o"], "semantic_query": "O autor da a\u00e7\u00e3o \u00e9 a parte que prop\u00f5e a demanda judicial, exercendo o direito de a\u00e7\u00e3o para buscar tutela jurisdicional, sendo o sujeito ativo do processo e aquele que inicia o procedimento litigioso pe", "case_id": "1", "limit": 10}
+[2026-02-10T22:35:57.324132] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["autor da a\u00e7\u00e3o", "parte autora", "promovente", "demandante", "querellante", "acusador", "requerente", "iniciante do processo", "quem prop\u00f4s a a\u00e7\u00e3o", "sujeito ativo da demanda", "parte que move a a\u00e7\u00e3o", "iniciativa processual", "peticionante", "autor da demanda", "promotor da a\u00e7\u00e3o", "parte que ingressa com a a\u00e7\u00e3o", "sujeito que busca tutela jurisdicional", "iniciante da demanda judicial", "parte que exerce o direito de a\u00e7\u00e3o"], "original_terms": ["quem", "autor", "a\u00e7\u00e3o"]}
+[2026-02-10T22:35:57.324393] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem* OR autor* OR a\u00e7\u00e3o* OR autor da a\u00e7\u00e3o* OR parte autora* OR promovente* OR demandante* OR querellante* OR acusador* OR requerente* OR iniciante do processo* OR quem prop\u00f4s a a\u00e7\u00e3o* OR sujeito ativo da demanda* OR parte que move a a\u00e7\u00e3o* OR iniciativa processual* OR peticionante* OR autor da demanda* OR promotor da a\u00e7\u00e3o* OR parte que ingressa com a a\u00e7\u00e3o* OR sujeito que busca tutela jurisdicional* OR iniciante da demanda judicial* OR parte que exerce o direito de a\u00e7\u00e3o*", "original_terms": ["quem", "autor", "a\u00e7\u00e3o"]}
+[2026-02-10T22:35:57.327205] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 10}
+[2026-02-10T22:35:57.327353] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:35:57.327483] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:35:57.327665] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 10, "vss_count": 0}
+[2026-02-10T22:35:57.327784] [KAPJUS-ASK_IA] Busca: FTS5=10, VSS=0
+[2026-02-10T22:35:57.327859] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 10, "vss_count": 0, "top_k": 5}
+[2026-02-10T22:35:57.327945] [KAPJUS-RANK] Apos FTS5: 10 items unicos
+[2026-02-10T22:35:57.328006] [KAPJUS-RANK] Apos VSS: 10 items unicos
+[2026-02-10T22:35:57.328134] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 10}
+[2026-02-10T22:35:57.328280] [KAPJUS-RANK]   Pos 1: rowid=99, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:99
+[2026-02-10T22:35:57.328474] [KAPJUS-RANK]   Pos 2: rowid=133, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:133
+[2026-02-10T22:35:57.328568] [KAPJUS-RANK]   Pos 3: rowid=282, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:282
+[2026-02-10T22:35:57.328637] [KAPJUS-RANK]   Pos 4: rowid=209, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:209
+[2026-02-10T22:35:57.328700] [KAPJUS-RANK]   Pos 5: rowid=196, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:196
+[2026-02-10T22:35:57.328765] [KAPJUS-RANK]   Pos 6: rowid=419, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:419
+[2026-02-10T22:35:57.328835] [KAPJUS-RANK]   Pos 7: rowid=266, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:266
+[2026-02-10T22:35:57.328898] [KAPJUS-RANK]   Pos 8: rowid=363, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:363
+[2026-02-10T22:35:57.328961] [KAPJUS-RANK]   Pos 9: rowid=2, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:2
+[2026-02-10T22:35:57.329023] [KAPJUS-RANK]   Pos 10: rowid=355, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:355
+[2026-02-10T22:35:57.329089] [KAPJUS-RANK] Top-K final | Params: {"count": 5}
+[2026-02-10T22:35:57.329165] [KAPJUS-ASK_IA] Ranking: 5 chunks selecionados
+[2026-02-10T22:35:57.329231] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 o autor da a\u00e7\u00e3o", "chunks_count": 5}
+[2026-02-10T22:35:57.329331] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 5, "context_length": 5497}
+[2026-02-10T22:35:57.329418] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 5799}
+[2026-02-10T22:36:00.568800] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 104}
+[2026-02-10T22:36:00.569097] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 104, "answer_preview": "O autor da a\u00e7\u00e3o \u00e9 CRISTINA LUCIA PEREIRA DE FARIAS e CARLOS EDUARDO MOREIRA FERREIRA. (Fonte 1, Fonte 5)"}
+[2026-02-10T22:36:00.569278] [KAPJUS-ASK_IA] Resposta gerada: sources=5, final_results=5
+[2026-02-10T22:36:10.750162] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-11 01:37:12] [INFO] Checking Python service status...
+[2026-02-11 01:37:12] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:37:12] [DEBUG] Initializing database...
+[2026-02-11 01:37:12] [DEBUG] Database initialized successfully
+[2026-02-11 01:37:12] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryQmJ0VfeAsXm20bg0","content_length":"364"}
+[2026-02-11 01:37:12] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-11 01:37:12] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-10T22:37:12.266053] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "1", "question": "quem \u00e9 o autor da a\u00e7\u00e3o", "provider": "openrouter", "use_hybrid": true}
+[2026-02-10T22:37:12.266560] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-10T22:37:12.266873] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quem \u00e9 o autor da a\u00e7\u00e3o"}
+[2026-02-10T22:37:12.267181] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-10T22:37:12.267441] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 844}
+[2026-02-10T22:37:16.791351] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 429}
+[2026-02-10T22:37:16.791655] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\"autor da a\u00e7\u00e3o\", \"parte autora\", \"iniciante do processo\", \"querela\", \"a\u00e7\u00e3o judicial\", \"iniciativa processual\", \"provid\u00eancia inicial\", \"provocar a jurisdi\u00e7\u00e3o\", \"iniciativa de demanda\"],\n  \"semantic_query\": \"O autor da a\u00e7\u00e3o \u00e9 a parte que prop\u00f5e a demanda judicial, exercendo o direito de a\u00e7\u00e3o para buscar tutela jurisdicional, sendo o sujeito ativo do processo e aquele que formula o pedido ao Poder Judici\u00e1rio.\"\n}"}
+[2026-02-10T22:37:16.791815] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["autor da a\u00e7\u00e3o", "parte autora", "iniciante do processo", "querela", "a\u00e7\u00e3o judicial", "iniciativa processual", "provid\u00eancia inicial", "provocar a jurisdi\u00e7\u00e3o", "iniciativa de demanda"], "semantic_query": "O autor da a\u00e7\u00e3o \u00e9 a parte que prop\u00f5e a demanda judicial, exercendo o direito de a\u00e7\u00e3o para buscar tutela jurisdicional, sendo o sujeito ativo do processo e aquele que formula o pedido ao Poder Judici\u00e1r"}
+[2026-02-10T22:37:16.791967] [KAPJUS-ASK_IA] Expansao: keywords=['autor da ação', 'parte autora', 'iniciante do processo', 'querela', 'ação judicial', 'iniciativa processual', 'providência inicial', 'provocar a jurisdição', 'iniciativa de demanda'], semantic=O autor da ação é a parte que propõe a demanda jud...
+[2026-02-10T22:37:16.792084] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["autor da a\u00e7\u00e3o", "parte autora", "iniciante do processo", "querela", "a\u00e7\u00e3o judicial", "iniciativa processual", "provid\u00eancia inicial", "provocar a jurisdi\u00e7\u00e3o", "iniciativa de demanda"], "semantic_query": "O autor da a\u00e7\u00e3o \u00e9 a parte que prop\u00f5e a demanda judicial, exercendo o direito de a\u00e7\u00e3o para buscar tutela jurisdicional, sendo o sujeito ativo do processo e aquele que formula o pedido ao Poder Judici\u00e1r", "case_id": "1", "limit": 30}
+[2026-02-10T22:37:16.792453] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["autor da a\u00e7\u00e3o", "parte autora", "iniciante do processo", "querela", "a\u00e7\u00e3o judicial", "iniciativa processual", "provid\u00eancia inicial", "provocar a jurisdi\u00e7\u00e3o", "iniciativa de demanda"], "original_terms": ["quem", "autor", "a\u00e7\u00e3o"]}
+[2026-02-10T22:37:16.792696] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quem* OR autor* OR a\u00e7\u00e3o* OR autor da a\u00e7\u00e3o* OR parte autora* OR iniciante do processo* OR querela* OR a\u00e7\u00e3o judicial* OR iniciativa processual* OR provid\u00eancia inicial* OR provocar a jurisdi\u00e7\u00e3o* OR iniciativa de demanda*", "original_terms": ["quem", "autor", "a\u00e7\u00e3o"]}
+[2026-02-10T22:37:16.795451] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 30}
+[2026-02-10T22:37:16.795676] [KAPJUS-HYBRID-VSS] VSS pulado | Params: {"vss_available": false, "has_query": true}
+[2026-02-10T22:37:16.795834] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-10T22:37:16.796041] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 30, "vss_count": 0}
+[2026-02-10T22:37:16.796201] [KAPJUS-ASK_IA] Busca: FTS5=30, VSS=0
+[2026-02-10T22:37:16.796340] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 30, "vss_count": 0, "top_k": 30}
+[2026-02-10T22:37:16.796519] [KAPJUS-RANK] Apos FTS5: 30 items unicos
+[2026-02-10T22:37:16.796655] [KAPJUS-RANK] Apos VSS: 30 items unicos
+[2026-02-10T22:37:16.796794] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 30}
+[2026-02-10T22:37:16.796948] [KAPJUS-RANK]   Pos 1: rowid=99, score=0.016393, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:99
+[2026-02-10T22:37:16.797080] [KAPJUS-RANK]   Pos 2: rowid=282, score=0.008197, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:282
+[2026-02-10T22:37:16.797212] [KAPJUS-RANK]   Pos 3: rowid=209, score=0.005464, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:209
+[2026-02-10T22:37:16.797341] [KAPJUS-RANK]   Pos 4: rowid=196, score=0.004098, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:196
+[2026-02-10T22:37:16.797469] [KAPJUS-RANK]   Pos 5: rowid=419, score=0.003279, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:419
+[2026-02-10T22:37:16.797599] [KAPJUS-RANK]   Pos 6: rowid=266, score=0.002732, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:266
+[2026-02-10T22:37:16.797744] [KAPJUS-RANK]   Pos 7: rowid=363, score=0.002342, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:363
+[2026-02-10T22:37:16.797881] [KAPJUS-RANK]   Pos 8: rowid=2, score=0.002049, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:2
+[2026-02-10T22:37:16.798011] [KAPJUS-RANK]   Pos 9: rowid=355, score=0.001821, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:355
+[2026-02-10T22:37:16.798139] [KAPJUS-RANK]   Pos 10: rowid=392, score=0.001639, file=RJ-50898255520244025101-2026-2-9-17-45-150898255520244025101_PARTE_1.pdf:392
+[2026-02-10T22:37:16.798319] [KAPJUS-RANK] Top-K final | Params: {"count": 30}
+[2026-02-10T22:37:16.798750] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 16011}
+[2026-02-10T22:37:30.089139] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 735}
+[2026-02-10T22:37:30.089856] [KAPJUS-RERANK] Cross-encoder selected chunks | Params: {"selected": 7, "top_k": 7}
+[2026-02-10T22:37:30.090459] [KAPJUS-ASK_IA] Ranking: 7 chunks selecionados
+[2026-02-10T22:37:30.090577] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quem \u00e9 o autor da a\u00e7\u00e3o", "chunks_count": 7}
+[2026-02-10T22:37:30.090754] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 7, "context_length": 7697}
+[2026-02-10T22:37:30.090874] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 7999}
+[2026-02-10T22:37:36.620647] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 119}
+[2026-02-10T22:37:36.620879] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 119, "answer_preview": "Os autores da a\u00e7\u00e3o s\u00e3o CRISTINA LUCIA PEREIRA DE FARIAS e CARLOS EDUARDO MOREIRA FERREIRA. (Fontes 1, 2, 3, 4, 5, 6, 7)"}
+[2026-02-10T22:37:36.621015] [KAPJUS-ASK_IA] Resposta gerada: sources=7, final_results=7
+[2026-02-11 01:37:54] [INFO] Checking Python service status...
+[2026-02-11 01:37:54] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:37:54] [DEBUG] Initializing database...
+[2026-02-11 01:37:54] [DEBUG] Database initialized successfully
+[2026-02-11 01:37:54] [INFO] Page Request: Case Detail {"case_id":1}
+[2026-02-11 01:37:55] [INFO] Checking Python service status...
+[2026-02-11 01:37:55] [DEBUG] Socket available on attempt 1
+[2026-02-11 01:37:55] [DEBUG] Initializing database...
+[2026-02-11 01:37:55] [DEBUG] Database initialized successfully
+[2026-02-11 01:37:55] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-11 01:37:55] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-11 01:37:55] [DEBUG] Processing action {"action":"documents"}
