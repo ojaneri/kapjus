@@ -242,46 +242,48 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 
 <div class="min-h-screen bg-[#f8fafc]">
     <!-- Navbar -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center space-x-3">
-                    <a href="/" class="flex items-center space-x-3 group">
+            <div class="flex justify-between h-16 items-center gap-2">
+                <div class="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+                    <a href="/" class="flex items-center space-x-2 sm:space-x-3 group flex-shrink-0">
                         <img src="https://kaponline.com.br/logo.jpeg" alt="KapOnline" class="h-8 w-8 rounded-lg shadow-sm group-hover:opacity-80 transition-opacity">
-                        <span class="text-xl font-black tracking-tighter text-slate-900 uppercase">KAP<span class="text-indigo-600">JUS</span></span>
+                        <span class="text-lg sm:text-xl font-black tracking-tighter text-slate-900 uppercase">KAP<span class="text-indigo-600">JUS</span></span>
                     </a>
-                    <span class="text-slate-300 mx-2">/</span>
-                    <span class="font-bold text-slate-600 truncate max-w-[200px]"><?php echo htmlspecialchars($case['name']); ?></span>
+                    <span class="text-slate-300 mx-1 hidden sm:inline">/</span>
+                    <span class="font-bold text-slate-600 truncate text-sm sm:text-base"><?php echo htmlspecialchars($case['name']); ?></span>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <button onclick="openInvitationModal()" class="inline-flex items-center px-4 py-2 border border-indigo-100 text-sm font-bold rounded-xl text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">
-                        <i class="fas fa-user-plus mr-2"></i> Convidar Advogado
+                <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+                    <button onclick="openInvitationModal()" class="inline-flex items-center px-3 sm:px-4 py-2 border border-indigo-100 text-xs sm:text-sm font-bold rounded-xl text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">
+                        <i class="fas fa-user-plus sm:mr-2"></i> <span class="hidden sm:inline">Convidar Advogado</span>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-0">
+        <div class="md:block">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
             
             <!-- Sidebar (4 colunas) -->
-            <div class="lg:col-span-4 space-y-6">
+            <div class="lg:col-span-4 space-y-4 sm:space-y-6">
                 <!-- Upload Card -->
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
-                    <h3 class="text-lg font-black text-slate-900 mb-4 flex items-center">
+                <div class="mobile-tab-panel" data-mobile-section="enviar">
+                <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
+                    <h3 class="text-base sm:text-lg font-black text-slate-900 mb-4 flex items-center">
                         <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center mr-3 text-xs">
                             <i class="fas fa-cloud-upload-alt"></i>
                         </span>
                         ENVIAR DOCUMENTOS
                     </h3>
-                    <div class="group relative border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center hover:border-indigo-400 hover:bg-indigo-50/30 transition-all cursor-pointer" onclick="document.getElementById('pdf-input').click()">
+                    <div class="group relative border-2 border-dashed border-slate-200 rounded-2xl p-6 sm:p-8 text-center hover:border-indigo-400 hover:bg-indigo-50/30 transition-all cursor-pointer" onclick="document.getElementById('pdf-input').click()">
                         <div class="space-y-2">
-                            <i class="fas fa-file-pdf text-4xl text-slate-300 group-hover:text-indigo-400 transition-colors"></i>
-                            <p class="text-sm font-bold text-slate-500 group-hover:text-indigo-600">Arraste seus PDFs aqui</p>
+                            <i class="fas fa-file-pdf text-3xl sm:text-4xl text-slate-300 group-hover:text-indigo-400 transition-colors"></i>
+                            <p class="text-xs sm:text-sm font-bold text-slate-500 group-hover:text-indigo-600">Arraste seus PDFs aqui</p>
                             <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">ou clique para selecionar</p>
                         </div>
-                        <input type="file" id="pdf-input" class="hidden" multiple onchange="handleFiles(this.files)">
+                        <input type="file" id="pdf-input" class="hidden" multiple onchange="handleFiles(this.files)" accept=".pdf">
                     </div>
                     
                     <!-- Chunked Upload Progress Container -->
@@ -292,83 +294,131 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                         <i class="fas fa-sync fa-spin mr-2"></i> PROCESSANDO DOCUMENTOS...
                     </div>
                 </div>
+                </div>
 
                 <!-- Document List Card -->
-                <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-6">
-                    <h3 class="text-lg font-black text-slate-900 mb-4 flex items-center">
+                <div class="mobile-tab-panel" data-mobile-section="arquivos">
+                <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
+                    <h3 class="text-base sm:text-lg font-black text-slate-900 mb-4 flex items-center">
                         <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center mr-3 text-xs">
                             <i class="fas fa-folder-open"></i>
                         </span>
                         ARQUIVOS DO CASO
                     </h3>
-                    <div id="doc-list" class="space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                    <div id="doc-list" class="space-y-2 max-h-[300px] sm:max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                         <p class="text-sm text-slate-400 font-medium italic">Nenhum documento processado.</p>
                     </div>
+                </div>
                 </div>
             </div>
 
             <!-- Main Content (8 colunas) -->
-            <div class="lg:col-span-8 space-y-6">
-                <!-- Search Bar -->
-                <div class="bg-white p-3 rounded-3xl shadow-xl border border-slate-200 flex gap-3 items-center">
-                    <div class="flex-1 relative">
-                        <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                        <input type="text" id="search-input" placeholder="Pesquise fatos, nomes ou termos jurídicos..." class="w-full pl-14 pr-6 py-4 bg-slate-50 border-0 rounded-2xl text-slate-900 font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
-                    </div>
-                    <button onclick="performSearch()" class="bg-slate-900 text-white px-6 py-4 rounded-2xl font-bold text-sm tracking-widest hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200 whitespace-nowrap">
-                        <i class="fas fa-search mr-2"></i>BUSCAR
-                    </button>
-                    <button onclick="openInteractiveSearchModal()" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-4 rounded-2xl font-bold text-sm tracking-wider hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg shadow-indigo-200 whitespace-nowrap">
-                        <i class="fas fa-sliders-h mr-2"></i>INTERATIVO
-                    </button>
-                </div>
-
-                <!-- Search Results & AI Chat -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Results -->
-                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col h-[600px]">
-                        <div class="p-6 border-b border-slate-100 flex justify-between items-center">
-                            <h3 class="text-sm font-black text-slate-900 tracking-widest uppercase">RESULTADOS</h3>
-                            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">HÍBRIDO</span>
-                        </div>
-                        <div id="search-results" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
-                            <div class="flex flex-col items-center justify-center h-full text-center space-y-4">
-                                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-slate-200">
-                                    <i class="fas fa-search text-3xl"></i>
+            <div class="lg:col-span-8 space-y-4 sm:space-y-6">
+                <div x-data="{ drJusMinimized: false }" class="relative">
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                        <div>
+                            <div class="mobile-tab-panel" data-mobile-section="busca">
+                                <div class="space-y-4">
+                                    <div class="bg-white p-2 sm:p-3 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200 flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch sm:items-center">
+                                        <div class="flex-1 relative">
+                                            <i class="fas fa-search absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                            <input type="text" id="search-input" placeholder="Pesquise fatos, nomes ou termos jurídicos..." class="w-full pl-10 sm:pl-14 pr-4 sm:pr-6 py-3 sm:py-4 bg-slate-50 border-0 rounded-xl sm:rounded-2xl text-sm sm:text-base text-slate-900 font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition-all" @keydown.enter="performSearch()">
+                                        </div>
+                                        <div class="flex gap-2 sm:gap-3">
+                                            <button onclick="performSearch()" class="flex-1 sm:flex-none bg-slate-900 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm tracking-widest hover:bg-indigo-600 transition-all shadow-lg shadow-slate-200 whitespace-nowrap active:scale-95">
+                                                <i class="fas fa-search mr-2"></i><span class="hidden sm:inline">BUSCAR</span><span class="sm:hidden">OK</span>
+                                            </button>
+                                            <button onclick="openInteractiveSearchModal()" class="flex-1 sm:flex-none bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm tracking-wider hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg shadow-indigo-200 whitespace-nowrap active:scale-95">
+                                                <i class="fas fa-sliders-h mr-2"></i><span class="hidden sm:inline">INTERATIVO</span><span class="sm:hidden">ADV</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col h-[600px]">
+                                        <div class="p-4 sm:p-6 border-b border-slate-100 flex justify-between items-center">
+                                            <h3 class="text-xs sm:text-sm font-black text-slate-900 tracking-widest uppercase">RESULTADOS</h3>
+                                            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">HÍBRIDO</span>
+                                        </div>
+                                        <div id="search-results" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 custom-scrollbar">
+                                            <div class="flex flex-col items-center justify-center h-full text-center space-y-4">
+                                                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-slate-200">
+                                                    <i class="fas fa-search text-3xl"></i>
+                                                </div>
+                                                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Aguardando pesquisa...</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="text-sm font-bold text-slate-400 uppercase tracking-widest">Aguardando pesquisa...</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mobile-tab-panel active" data-mobile-section="chat">
+                                <div x-show="!drJusMinimized" x-transition class="flex flex-col bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden min-h-[420px] md:min-h-[600px]">
+                                    <div class="p-4 sm:p-6 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white flex justify-between items-center">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center text-xs backdrop-blur-sm">
+                                                <i class="fas fa-user-md"></i>
+                                            </div>
+                                            <h3 class="text-xs sm:text-sm font-black tracking-widest uppercase">Dr. Jus</h3>
+                                        </div>
+                                        <div class="flex items-center space-x-3">
+                                            <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                            <button @click="drJusMinimized = true" class="p-2 hover:bg-white/20 rounded-lg transition-colors" title="Minimizar">
+                                                <i class="fas fa-minus text-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="chat-box" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-slate-50 custom-scrollbar">
+                                        <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100">
+                                            <p class="text-sm text-slate-700 leading-relaxed">Olá, Osvaldo. Sou o <strong>Dr. Jus</strong>. Posso analisar os documentos deste caso e extrair informações críticas. Como posso ajudar?</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 bg-white border-t border-slate-100">
+                                        <div class="relative flex items-center">
+                                            <input type="text" id="chat-input" placeholder="Pergunte ao Dr. Jus..." class="w-full pl-5 pr-14 py-4 bg-slate-50 border-0 rounded-2xl text-sm font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition-all" @keydown.enter="askIA()">
+                                            <button onclick="askIA()" class="absolute right-2 p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all active:scale-95">
+                                                <i class="fas fa-paper-plane"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- AI Chat -->
-                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col h-[600px] overflow-hidden">
-                        <div class="p-6 bg-slate-900 text-white flex justify-between items-center">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center text-xs">
-                                    <i class="fas fa-robot"></i>
-                                </div>
-                                <h3 class="text-sm font-black tracking-widest uppercase">ANALISTA JUS</h3>
+                    <!-- Dr. Jus Minimized Button - Floating -->
+                    <div x-show="drJusMinimized" x-transition class="fixed bottom-6 right-6 z-50">
+                        <button @click="drJusMinimized = false" class="group bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-5 py-4 rounded-2xl shadow-2xl hover:shadow-indigo-500/50 transition-all flex items-center space-x-3 hover:scale-105 active:scale-95">
+                            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="hidden sm:block">
+                                <p class="text-xs font-black tracking-widest uppercase">Dr. Jus</p>
+                                <p class="text-[10px] text-indigo-200">Clique para expandir</p>
                             </div>
                             <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        </div>
-                        <div id="chat-box" class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50 custom-scrollbar">
-                            <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100">
-                                <p class="text-sm text-slate-700 leading-relaxed">Olá, Osvaldo. Sou o <strong>Analista JUS</strong>. Posso analisar os documentos deste caso e extrair informações críticas. Como posso ajudar?</p>
-                            </div>
-                        </div>
-                        <div class="p-4 bg-white border-t border-slate-100">
-                            <div class="relative flex items-center">
-                                <input type="text" id="chat-input" placeholder="Pergunte ao JUS..." class="w-full pl-5 pr-14 py-4 bg-slate-50 border-0 rounded-2xl text-sm font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition-all">
-                                <button onclick="askIA()" class="absolute right-2 p-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+        <nav id="mobile-tab-bar" class="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white shadow-lg flex justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+            <button data-mobile-tab-btn data-tab="chat" class="flex-1 py-3 flex flex-col items-center justify-center gap-1 transition-colors">
+                <i class="fas fa-comments text-lg"></i>
+                <span>Chat</span>
+            </button>
+            <button data-mobile-tab-btn data-tab="busca" class="flex-1 py-3 flex flex-col items-center justify-center gap-1 transition-colors">
+                <i class="fas fa-search text-lg"></i>
+                <span>Busca</span>
+            </button>
+            <button data-mobile-tab-btn data-tab="arquivos" class="flex-1 py-3 flex flex-col items-center justify-center gap-1 transition-colors">
+                <i class="fas fa-folder-open text-lg"></i>
+                <span>Arquivos</span>
+            </button>
+            <button data-mobile-tab-btn data-tab="enviar" class="flex-1 py-3 flex flex-col items-center justify-center gap-1 transition-colors">
+                <i class="fas fa-cloud-upload-alt text-lg"></i>
+                <span>Enviar</span>
+            </button>
+        </nav>
     </main>
 </div>
 
@@ -384,6 +434,35 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
+@media (max-width: 767px) {
+    .mobile-tab-panel {
+        display: none;
+    }
+
+    .mobile-tab-panel.active {
+        display: block;
+    }
+
+    #mobile-tab-bar button.active {
+        color: #312e81;
+    }
+
+    #mobile-tab-bar button.active i {
+        color: #312e81;
+    }
+}
+
+#mobile-tab-bar button:hover {
+    background: #f8fafc;
+}
+
+#mobile-tab-bar {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
 /* Modal animations */
 #pdf-modal, #interactive-search-modal, #invitation-modal {
     animation: fadeIn 0.2s ease-out;
@@ -397,6 +476,57 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 .pdf-search-highlight {
     background-color: yellow;
     color: black;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: 1rem;
+    background: #ffffff;
+    border: 1px solid #e4e7ec;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.typing-indicator strong {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.typing-dots {
+    display: flex;
+    gap: 0.45rem;
+}
+
+.typing-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: #4338ca;
+    animation: typingPulse 1s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: 0.13s;
+}
+
+.typing-dot:nth-child(3) {
+    animation-delay: 0.26s;
+}
+
+@keyframes typingPulse {
+    0%,
+    100% {
+        transform: scale(0.76);
+        opacity: 0.4;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 </style>
 
@@ -560,6 +690,21 @@ function downloadPdf() {
     link.click();
 }
 
+function focusDocument(encodedFilename, page = null) {
+    const docList = document.getElementById('doc-list');
+    if (!docList) return;
+
+    const target = docList.querySelector(`[data-doc-filename="${encodedFilename}"]`);
+    document.getElementById('doc-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    if (target) {
+        target.classList.add('ring-2', 'ring-indigo-400', 'ring-offset-1', 'ring-offset-white');
+        setTimeout(() => {
+            target.classList.remove('ring-2', 'ring-indigo-400', 'ring-offset-1', 'ring-offset-white');
+        }, 2200);
+    }
+}
+
 // PDF.js search functionality
 async function findTextInPdf() {
     const searchInput = document.getElementById('pdf-search-input');
@@ -676,7 +821,7 @@ async function fetchDocuments() {
             const isPdf = filename.toLowerCase().endsWith('.pdf');
 
             return `
-                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl hover:bg-indigo-50 transition-colors group">
+                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl hover:bg-indigo-50 transition-colors group" data-doc-filename="${encodedFilename}">
                     <div class="flex items-center space-x-3">
                         <i class="fas fa-file-pdf ${isPdf ? 'text-red-500' : 'text-slate-400'}"></i>
                         <span class="text-sm font-medium text-slate-700 truncate max-w-[120px]">${safeFilename}</span>
@@ -1102,15 +1247,56 @@ async function performSearch() {
     } catch (e) { resultsDiv.innerHTML = '<p class="text-red-500">Erro na busca.</p>'; }
 }
 
+function appendChatBubble(chatBox, html) {
+    chatBox.insertAdjacentHTML('beforeend', html);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function updateTypingIndicatorText(text) {
+    const indicator = document.getElementById('drjus-typing-indicator');
+    if (!indicator) return;
+    const textEl = indicator.querySelector('[data-typing-text]');
+    if (textEl) {
+        textEl.textContent = text;
+    }
+}
+
+function removeTypingIndicator() {
+    const indicator = document.getElementById('drjus-typing-indicator');
+    if (indicator) {
+        indicator.remove();
+    }
+}
+
+function showTypingIndicator(chatBox) {
+    removeTypingIndicator();
+    const indicatorHtml = `
+        <div id="drjus-typing-indicator" class="typing-indicator">
+            <div class="typing-dots">
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+                <span class="typing-dot"></span>
+            </div>
+            <strong data-typing-text>...</strong>
+        </div>
+    `;
+    appendChatBubble(chatBox, indicatorHtml);
+    updateTypingIndicatorText('...');
+}
+
 async function askIA() {
     const input = document.getElementById('chat-input');
-    const question = input.value;
-    if (!question) return;
-    
     const chatBox = document.getElementById('chat-box');
-    chatBox.innerHTML += `<div class="bg-indigo-600 p-4 rounded-2xl rounded-tr-none text-white text-sm font-medium self-end ml-10 shadow-lg shadow-indigo-100">${question}</div>`;
+    const question = input?.value?.trim();
+    
+    if (!question || !chatBox) return;
+    
+    const userMessageHtml = `<div class="bg-indigo-600 p-4 rounded-2xl rounded-tr-none text-white text-sm font-medium self-end ml-10 shadow-lg shadow-indigo-100">${escapeHtml(question)}</div>`;
+    appendChatBubble(chatBox, userMessageHtml);
     input.value = '';
-    chatBox.scrollTop = chatBox.scrollHeight;
+    showTypingIndicator(chatBox);
     
     try {
         const formData = new FormData();
@@ -1120,11 +1306,40 @@ async function askIA() {
         
         const response = await fetch('/api/ask_ia', { method: 'POST', body: formData });
         const data = await response.json();
-        
+        const sources = data.sources || [];
+        let sourceInfoHtml = '';
+
+        const sourcesLabel = sources.length
+            ? `${sources.length} fonte${sources.length > 1 ? 's' : ''} encontrada${sources.length > 1 ? 's' : ''}`
+            : 'Nenhuma fonte encontrada';
+        updateTypingIndicatorText(sourcesLabel);
+        await wait(200);
+        updateTypingIndicatorText('Preparando resposta');
+        await wait(220);
+        updateTypingIndicatorText('...');
+        await wait(120);
+
+        if (sources.length) {
+            const linkHtml = sources.map((source, index) => {
+                const encoded = encodeURIComponent(source.filename || '');
+                const safeName = escapeHtml(source.filename || 'Arquivo desconhecido');
+                const pageLabel = source.page ? `p. ${source.page}` : 'p. ?';
+                return `<button type="button" class="text-[10px] text-slate-500 underline hover:text-indigo-600 transition-colors" onclick="focusDocument('${encoded}', ${source.page || 0})">${safeName} • ${pageLabel}</button>`;
+            }).join('<span class="text-slate-300">·</span>');
+
+            sourceInfoHtml = `<div class="text-[11px] text-slate-500 mt-2 flex flex-wrap items-center gap-2">Fonte${sources.length > 1 ? 's' : ''}: ${linkHtml}</div>`;
+        }
+
         let answer = data.answer || (data.candidates ? data.candidates[0].content.parts[0].text : "Erro ao processar resposta.");
-        chatBox.innerHTML += `<div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm text-sm text-slate-700 leading-relaxed mr-10">${answer}</div>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-    } catch (e) { console.error(e); }
+        const answerHtml = `<div class="bg-white p-4 rounded-2xl rounded-tl-none border border-slate-100 shadow-sm text-sm text-slate-700 leading-relaxed mr-10">${answer}${sourceInfoHtml}</div>`;
+        removeTypingIndicator();
+        appendChatBubble(chatBox, answerHtml);
+    } catch (e) {
+        console.error(e);
+        removeTypingIndicator();
+        const errorHtml = `<div class="bg-red-50 p-4 rounded-2xl rounded-tl-none border border-red-100 text-sm text-red-700 leading-relaxed mr-10">Erro ao processar sua pergunta. Tente novamente.</div>`;
+        appendChatBubble(chatBox, errorHtml);
+    }
 }
 
 // Update query preview when typing
@@ -1197,11 +1412,12 @@ async function sendInvitation() {
         
         const data = await response.json();
         
-        if (data.status === 'success') {
+        if (response.ok && data.status === 'success') {
             alert('Convite enviado com sucesso!\n\nO advogado receberá um link mágico por e-mail.');
             showInviteForm();
         } else {
-            alert('Erro ao enviar convite: ' + (data.message || 'Erro desconhecido'));
+            const detail = data.message || data.error?.message || data.detail || 'Erro desconhecido';
+            alert('Erro ao enviar convite: ' + detail);
         }
     } catch (e) {
         alert('Erro ao comunicar com o servidor: ' + e.message);
@@ -1335,4 +1551,29 @@ async function loadAccessHistory() {
         list.innerHTML = '<p class="text-sm text-red-400 text-center py-4">Erro ao carregar histórico.</p>';
     }
 }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileTabButtons = document.querySelectorAll('[data-mobile-tab-btn]');
+    const mobilePanels = document.querySelectorAll('[data-mobile-section]');
+
+    function setActiveMobileTab(tab) {
+        mobilePanels.forEach(panel => {
+            panel.classList.toggle('active', panel.dataset.mobileSection === tab);
+        });
+
+        mobileTabButtons.forEach(button => {
+            button.classList.toggle('active', button.dataset.tab === tab);
+        });
+    }
+
+    mobileTabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            setActiveMobileTab(button.dataset.tab);
+        });
+    });
+
+    setActiveMobileTab('chat');
+});
 </script>

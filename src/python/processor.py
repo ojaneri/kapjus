@@ -1085,8 +1085,9 @@ Chunks:
         data = json.loads(content)
         order = data.get("order", [])
     except Exception as e:
-        log_step("RERANK", "Cross-encoder falhou, mantendo ordem original", {"error": str(e)})
-        order = []
+        log_step("RERANK", "Cross-encoder falhou, usando ordem original", {"error": str(e)})
+        # Fallback: retornar candidatos na ordem original se order estiver vazio
+        return candidates[:top_k]
 
     ordered = []
     for idx in order:
