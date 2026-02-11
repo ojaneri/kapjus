@@ -1015,7 +1015,7 @@ async function askIA() {
         const formData = new FormData();
         formData.append('case_id', '<?php echo $case_id; ?>');
         formData.append('question', question);
-        formData.append('provider', 'gemini'); // Usa Gemini por padrão
+        formData.append('provider', 'openrouter'); // Usa OpenRouter por padrão
         
         const response = await fetch('/api/ask_ia', { method: 'POST', body: formData });
         const data = await response.json();
