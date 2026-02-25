@@ -90,19 +90,29 @@ header('Content-Type: text/html; charset=utf-8');
             <div class="flex gap-4 items-center">
                 <select id="modelSelect" class="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white font-mono focus:ring-2 focus:ring-indigo-500 outline-none">
                     <option value="">Selecione um modelo...</option>
-                    <optgroup label="Gemini 2.0">
-                        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-                        <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
-                        <option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
+                    <optgroup label="Gemini 3.x (Latest Previews)">
+                        <option value="gemini-3.1-pro-preview">gemini-3.1-pro-preview</option>
+                        <option value="gemini-3-flash-preview">gemini-3-flash-preview</option>
+                        <option value="gemini-3-pro-preview">gemini-3-pro-preview</option>
                     </optgroup>
-                    <optgroup label="Gemini 1.5">
+                    <optgroup label="Gemini 2.5 (Stable/Main)">
+                        <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+                        <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+                        <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
+                    </optgroup>
+                    <optgroup label="Gemini 2.0 (Legacy Stable)">
+                        <option value="gemini-2.0-flash-001">gemini-2.0-flash-001</option>
+                        <option value="gemini-2.0-flash-lite-001">gemini-2.0-flash-lite-001</option>
+                    </optgroup>
+                    <optgroup label="Specialized & Multimodal">
+                        <option value="deep-research-pro-preview-12-2025">deep-research-pro-preview</option>
+                        <option value="gemini-2.5-computer-use-preview-10-2025">gemini-2.5-computer-use-preview</option>
+                        <option value="imagen-4.0-generate-001">imagen-4.0-generate-001</option>
+                    </optgroup>
+                    <optgroup label="Gemini 1.5 (Legado)">
                         <option value="gemini-1.5-flash">gemini-1.5-flash</option>
                         <option value="gemini-1.5-flash-8b">gemini-1.5-flash-8b</option>
                         <option value="gemini-1.5-pro">gemini-1.5-pro</option>
-                    </optgroup>
-                    <optgroup label="Gemini 1.0 (Legado)">
-                        <option value="gemini-pro">gemini-pro</option>
-                        <option value="gemini-pro-vision">gemini-pro-vision</option>
                     </optgroup>
                     <optgroup label="Embeddings">
                         <option value="text-embedding-004">text-embedding-004</option>
@@ -131,15 +141,38 @@ header('Content-Type: text/html; charset=utf-8');
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
-                    <h3 class="font-bold text-green-400 mb-2">Gemini 2.0 (Mais recentes)</h3>
+                    <h3 class="font-bold text-purple-400 mb-2">Gemini 3.x (Latest Previews)</h3>
                     <ul class="space-y-1 text-slate-300 font-mono">
-                        <li>gemini-2.0-flash</li>
-                        <li>gemini-2.0-flash-lite</li>
-                        <li>gemini-2.0-pro-exp</li>
+                        <li>gemini-3.1-pro-preview</li>
+                        <li>gemini-3-flash-preview</li>
+                        <li>gemini-3-pro-preview</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-bold text-blue-400 mb-2">Gemini 1.5 (Estáveis)</h3>
+                    <h3 class="font-bold text-indigo-400 mb-2">Gemini 2.5 (Stable/Main)</h3>
+                    <ul class="space-y-1 text-slate-300 font-mono">
+                        <li>gemini-2.5-pro</li>
+                        <li>gemini-2.5-flash</li>
+                        <li>gemini-2.5-flash-lite</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-blue-400 mb-2">Gemini 2.0 (Legacy Stable)</h3>
+                    <ul class="space-y-1 text-slate-300 font-mono">
+                        <li>gemini-2.0-flash-001</li>
+                        <li>gemini-2.0-flash-lite-001</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-green-400 mb-2">Specialized & Multimodal</h3>
+                    <ul class="space-y-1 text-slate-300 font-mono">
+                        <li>deep-research-pro</li>
+                        <li>gemini-2.5-computer-use</li>
+                        <li>imagen-4.0-generate</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-amber-400 mb-2">Gemini 1.5 (Legado)</h3>
                     <ul class="space-y-1 text-slate-300 font-mono">
                         <li>gemini-1.5-flash</li>
                         <li>gemini-1.5-flash-8b</li>
@@ -147,18 +180,11 @@ header('Content-Type: text/html; charset=utf-8');
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-bold text-purple-400 mb-2">Embeddings</h3>
+                    <h3 class="font-bold text-pink-400 mb-2">Embeddings</h3>
                     <ul class="space-y-1 text-slate-300 font-mono">
                         <li>text-embedding-004</li>
                         <li>text-embedding-3-small</li>
                         <li>text-embedding-3-large</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="font-bold text-amber-400 mb-2">Gemini 1.0 (Legado)</h3>
-                    <ul class="space-y-1 text-slate-300 font-mono">
-                        <li>gemini-pro</li>
-                        <li>gemini-pro-vision</li>
                     </ul>
                 </div>
             </div>
