@@ -427,6 +427,16 @@ $user = current_user();
             <?php endif; ?>
         </div>
         
+        <!-- Snippet Display -->
+        <div id="snippet-display" style="padding: 12px; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; background: #fefce8; display: none;">
+            <div style="font-size: 11px; color: #64748b; margin-bottom: 6px;">
+                <i class="fas fa-quote-left mr-1"></i>
+                Trecho de referência
+            </div>
+            <div id="snippet-text" style="font-size: 12px; color: #1e293b; line-height: 1.5; max-height: 80px; overflow-y: auto;">
+            </div>
+        </div>
+        
         <!-- Note Form -->
         <div class="note-form">
             <textarea id="note-text" rows="2" placeholder="Criar nota sobre esta página..."></textarea>
@@ -465,6 +475,11 @@ $user = current_user();
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
             await loadPdf();
+            
+            // Show initial snippet if available
+            if (currentSource.snippet) {
+                updateSnippetDisplay();
+            }
             
             // Auto-search if term provided
             if (searchTerm) {
@@ -569,8 +584,28 @@ $user = current_user();
             document.getElementById('search-input').value = currentSource.snippet;
             searchTerm = currentSource.snippet;
             
+            // Update snippet display
+            updateSnippetDisplay();
+            
             // Render page
             renderPage(page);
+        }
+        
+        function updateSnippetDisplay() {
+            const display = document.getElementById('snippet-display');
+            const text = document.getElementById('snippet-text');
+            
+            if (currentSource.snippet && currentSource.snippet.trim()) {
+                // Truncate to ~200 chars if too long
+                let snippetText = currentSource.snippet.trim();
+                if (snippetText.length > 200) {
+                    snippetText = snippetText.substring(0, 200) + '...';
+                }
+                text.textContent = snippetText;
+                display.style.display = 'block';
+            } else {
+                display.style.display = 'none';
+            }
         }
         
         function updateActiveSource() {
