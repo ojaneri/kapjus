@@ -17418,3 +17418,584 @@
 [2026-02-25 03:35:05] [DEBUG] Database initialized successfully
 [2026-02-25 03:35:05] [INFO] Page Request: Home
 [2026-02-25T00:37:01.994594] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026fDb8"}
+[2026-02-25 03:41:32] [INFO] Checking Python service status...
+[2026-02-25 03:41:32] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:41:32] [DEBUG] Initializing database...
+[2026-02-25 03:41:32] [DEBUG] Database initialized successfully
+[2026-02-25 03:41:32] [INFO] Page Request: Home
+[2026-02-25 03:41:35] [INFO] Checking Python service status...
+[2026-02-25 03:41:35] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:41:35] [DEBUG] Initializing database...
+[2026-02-25 03:41:35] [DEBUG] Database initialized successfully
+[2026-02-25 03:41:35] [INFO] Page Request: Home
+[2026-02-25 03:41:38] [INFO] Checking Python service status...
+[2026-02-25 03:41:38] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:41:38] [DEBUG] Initializing database...
+[2026-02-25 03:41:38] [DEBUG] Database initialized successfully
+[2026-02-25 03:41:38] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 03:41:39] [INFO] Checking Python service status...
+[2026-02-25 03:41:39] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:41:39] [DEBUG] Initializing database...
+[2026-02-25 03:41:39] [DEBUG] Database initialized successfully
+[2026-02-25 03:41:39] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 03:41:39] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 03:41:39] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 03:41:53] [INFO] Checking Python service status...
+[2026-02-25 03:41:53] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:41:53] [DEBUG] Initializing database...
+[2026-02-25 03:41:53] [DEBUG] Database initialized successfully
+[2026-02-25 03:41:53] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary0I6OHuBY0A5Wm8TV","content_length":"344"}
+[2026-02-25 03:41:53] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 03:41:53] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T00:41:53.540004] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "6", "question": "teste", "provider": "openrouter", "use_hybrid": true}
+[2026-02-25T00:41:53.540255] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T00:41:53.540391] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "teste"}
+[2026-02-25T00:41:53.540543] [KAPJUS-EXPAND] Query simples — expansao via LLM ignorada | Params: {"question": "teste"}
+[2026-02-25T00:41:53.540714] [KAPJUS-ASK_IA] Expansao: keywords=['teste'], semantic=teste...
+[2026-02-25T00:41:53.540844] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["teste"], "semantic_query": "teste", "case_id": "6", "limit": 50}
+[2026-02-25T00:41:53.541168] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["teste"], "original_terms": ["teste"]}
+[2026-02-25T00:41:53.541437] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "teste*", "original_terms": ["teste"]}
+[2026-02-25T00:41:53.542684] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 23}
+[2026-02-25T00:41:53.542868] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "teste"}
+[2026-02-25T00:41:53.998754] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-25T00:41:53.999141] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 23, "vss_count": 0}
+[2026-02-25T00:41:53.999271] [KAPJUS-ASK_IA] Busca: FTS5=23, VSS=0
+[2026-02-25T00:41:53.999408] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 23, "vss_count": 0, "top_k": 50, "case_id": "6"}
+[2026-02-25T00:41:54.000973] [KAPJUS-RANK] Apos validacao case_id: fts=23, vss=0
+[2026-02-25T00:41:54.001105] [KAPJUS-RANK] Apos FTS5: 23 items unicos
+[2026-02-25T00:41:54.001183] [KAPJUS-RANK] Apos VSS: 23 items unicos
+[2026-02-25T00:41:54.001263] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 23}
+[2026-02-25T00:41:54.001356] [KAPJUS-RANK]   Pos 1: rowid=18636, score=0.016393, file=Safari-pages-3.pdf:274
+[2026-02-25T00:41:54.001426] [KAPJUS-RANK]   Pos 2: rowid=11963, score=0.016129, file=Safari-pages-1.pdf:85
+[2026-02-25T00:41:54.001488] [KAPJUS-RANK]   Pos 3: rowid=11832, score=0.015873, file=Safari-pages-1.pdf:61
+[2026-02-25T00:41:54.001553] [KAPJUS-RANK]   Pos 4: rowid=14775, score=0.015625, file=Safari-pages-4.pdf:192
+[2026-02-25T00:41:54.001612] [KAPJUS-RANK]   Pos 5: rowid=14312, score=0.015385, file=Safari-pages-4.pdf:128
+[2026-02-25T00:41:54.001677] [KAPJUS-RANK]   Pos 6: rowid=14899, score=0.015152, file=Safari-pages-4.pdf:220
+[2026-02-25T00:41:54.001742] [KAPJUS-RANK]   Pos 7: rowid=14714, score=0.014925, file=Safari-pages-4.pdf:179
+[2026-02-25T00:41:54.001806] [KAPJUS-RANK]   Pos 8: rowid=14772, score=0.014706, file=Safari-pages-4.pdf:191
+[2026-02-25T00:41:54.001875] [KAPJUS-RANK]   Pos 9: rowid=11310, score=0.014493, file=Safari-pages-1.pdf:1
+[2026-02-25T00:41:54.001945] [KAPJUS-RANK]   Pos 10: rowid=14900, score=0.014286, file=Safari-pages-4.pdf:221
+[2026-02-25T00:41:54.002010] [KAPJUS-RANK] Top-K final | Params: {"count": 23}
+[2026-02-25T00:41:54.002139] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=23, case_id=6
+[2026-02-25T00:41:54.002220] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 23 -> 23
+[2026-02-25T00:41:54.002291] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 23 candidates
+[2026-02-25T00:41:54.002361] [KAPJUS-CROSS] Loading local cross-encoder model...
+[2026-02-25T00:41:54.607639] [KAPJUS-CROSS] Local cross-encoder loaded successfully
+[2026-02-25T00:41:54.607810] [KAPJUS-RERANK] Using local cross-encoder for 23 candidates
+[2026-02-25T00:41:57.922912] [KAPJUS-RERANK] Local rerank finished in 3.31s
+[2026-02-25T00:41:57.923613] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T00:41:57.923916] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T00:41:57.924195] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "teste", "chunks_count": 12}
+[2026-02-25T00:41:57.924555] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 8219}
+[2026-02-25T00:41:57.924827] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 8504}
+[2026-02-25T00:42:04.252042] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 561}
+[2026-02-25T00:42:04.253489] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 561, "answer_preview": "Com base nos trechos fornecidos, a testemunha MARIA DE F\u00c1TIMA RODRIGUES DE OLIVEIRA declarou em ju\u00edzo que entrou em contato com a FLATED para fazer curso \u00e0 dist\u00e2ncia de especializa\u00e7\u00e3o, pagou o curso, "}
+[2026-02-25T00:42:04.254125] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25 03:42:37] [INFO] Checking Python service status...
+[2026-02-25 03:42:37] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:42:37] [DEBUG] Initializing database...
+[2026-02-25 03:42:37] [DEBUG] Database initialized successfully
+[2026-02-25 03:42:37] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarySqERzTuc7Bq6g7a4","content_length":"409"}
+[2026-02-25 03:42:37] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 03:42:37] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T00:42:37.524695] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "6", "question": "traga as teses defensivas que podemos fazer em favor de marcelo freire", "provider": "openrouter", "use_hybrid": true}
+[2026-02-25T00:42:37.524867] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T00:42:37.524942] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "traga as teses defensivas que podemos fazer em favor de marcelo freire"}
+[2026-02-25T00:42:37.525028] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T00:42:37.525104] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 892}
+[2026-02-25T00:42:52.802242] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 969}
+[2026-02-25T00:42:52.802469] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"defesa\", \"defensiva\", \"teses defensivas\", \"argui\u00e7\u00e3o\", \"recurso\", \"impugna\u00e7\u00e3o\",\n    \"Marcelo Freire\", \"Freire\", \"Marcelo\", \"Marcelo F.\", \"M. Freire\",\n    \"suspei\u00e7\u00e3o\", \"nulidade\", \"ilegalidade\", \"abuso de autoridade\",\n    \"viola\u00e7\u00e3o de direitos\", \"garantia constitucional\", \"devido processo legal\",\n    \"erro de fato\", \"erro de direito\", \"falta de provas\", \"insufici\u00eancia probat\u00f3ria\",\n    \"atipicidade\", \"excludente de ilicitude\", \"estado de necessidade\",\n    \"leg\u00edtima defesa\", \""}
+[2026-02-25T00:42:52.802573] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["defesa", "defensiva", "teses defensivas", "argui\u00e7\u00e3o", "recurso", "impugna\u00e7\u00e3o", "Marcelo Freire", "Freire", "Marcelo", "Marcelo F.", "M. Freire", "suspei\u00e7\u00e3o", "nulidade", "ilegalidade", "abuso de autoridade", "viola\u00e7\u00e3o de direitos", "garantia constitucional", "devido processo legal", "erro de fato", "erro de direito", "falta de provas", "insufici\u00eancia probat\u00f3ria", "atipicidade", "excludente de ilicitude", "estado de necessidade", "leg\u00edtima defesa", "estrito cumprimento do dever legal", "excesso", "constrangimento ilegal", "viola\u00e7\u00e3o de prerrogativas", "ante o exposto", "conclui-se", "requer-se", "acolhimento"], "semantic_query": "Elaborar teses defensivas em favor de Marcelo Freire, abordando nulidades processuais, ilegalidades, viola\u00e7\u00f5es de direitos fundamentais, falta de provas, atipicidade, excludentes de ilicitude, excesso"}
+[2026-02-25T00:42:52.802680] [KAPJUS-ASK_IA] Expansao: keywords=['defesa', 'defensiva', 'teses defensivas', 'arguição', 'recurso', 'impugnação', 'Marcelo Freire', 'Freire', 'Marcelo', 'Marcelo F.', 'M. Freire', 'suspeição', 'nulidade', 'ilegalidade', 'abuso de autoridade', 'violação de direitos', 'garantia constitucional', 'devido processo legal', 'erro de fato', 'erro de direito', 'falta de provas', 'insuficiência probatória', 'atipicidade', 'excludente de ilicitude', 'estado de necessidade', 'legítima defesa', 'estrito cumprimento do dever legal', 'excesso', 'constrangimento ilegal', 'violação de prerrogativas', 'ante o exposto', 'conclui-se', 'requer-se', 'acolhimento'], semantic=Elaborar teses defensivas em favor de Marcelo Frei...
+[2026-02-25T00:42:52.802774] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["defesa", "defensiva", "teses defensivas", "argui\u00e7\u00e3o", "recurso", "impugna\u00e7\u00e3o", "Marcelo Freire", "Freire", "Marcelo", "Marcelo F.", "M. Freire", "suspei\u00e7\u00e3o", "nulidade", "ilegalidade", "abuso de autoridade", "viola\u00e7\u00e3o de direitos", "garantia constitucional", "devido processo legal", "erro de fato", "erro de direito", "falta de provas", "insufici\u00eancia probat\u00f3ria", "atipicidade", "excludente de ilicitude", "estado de necessidade", "leg\u00edtima defesa", "estrito cumprimento do dever legal", "excesso", "constrangimento ilegal", "viola\u00e7\u00e3o de prerrogativas", "ante o exposto", "conclui-se", "requer-se", "acolhimento"], "semantic_query": "Elaborar teses defensivas em favor de Marcelo Freire, abordando nulidades processuais, ilegalidades, viola\u00e7\u00f5es de direitos fundamentais, falta de provas, atipicidade, excludentes de ilicitude, excesso", "case_id": "6", "limit": 50}
+[2026-02-25T00:42:52.803372] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["defesa", "defensiva", "teses defensivas", "argui\u00e7\u00e3o", "recurso", "impugna\u00e7\u00e3o", "marcelo freire", "freire", "marcelo", "marcelo f", "m freire", "suspei\u00e7\u00e3o", "nulidade", "ilegalidade", "abuso de autoridade", "viola\u00e7\u00e3o de direitos", "garantia constitucional", "devido processo legal", "erro de fato", "erro de direito", "falta de provas", "insufici\u00eancia probat\u00f3ria", "atipicidade", "excludente de ilicitude", "estado de necessidade", "leg\u00edtima defesa", "estrito cumprimento do dever legal", "excesso", "constrangimento ilegal", "viola\u00e7\u00e3o de prerrogativas", "ante o exposto", "conclui se", "requer se", "acolhimento"], "original_terms": ["traga", "teses", "defensivas", "que", "podemos", "fazer", "favor", "marcelo", "freire"]}
+[2026-02-25T00:42:52.803738] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "traga* OR teses* OR defensivas* OR que* OR podemos* OR fazer* OR favor* OR marcelo* OR freire* OR defesa* OR defensiva* OR teses defensivas* OR argui\u00e7\u00e3o* OR recurso* OR impugna\u00e7\u00e3o* OR marcelo freire* OR marcelo f* OR m freire* OR suspei\u00e7\u00e3o* OR nulidade* OR ilegalidade* OR abuso de autoridade* OR viola\u00e7\u00e3o de direitos* OR garantia constitucional* OR devido processo legal* OR erro de fato* OR erro de direito* OR falta de provas* OR insufici\u00eancia probat\u00f3ria* OR atipicidade* OR excludente de ilicitude* OR estado de necessidade* OR leg\u00edtima defesa* OR estrito cumprimento do dever legal* OR excesso* OR constrangimento ilegal* OR viola\u00e7\u00e3o de prerrogativas* OR ante o exposto* OR conclui se* OR requer se* OR acolhimento*", "original_terms": ["traga", "teses", "defensivas", "que", "podemos", "fazer", "favor", "marcelo", "freire"]}
+[2026-02-25T00:42:52.816907] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 50}
+[2026-02-25T00:42:52.817107] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "Elaborar teses defensivas em favor de Marcelo Freire, abordando nulidades processuais, ilegalidades, viola\u00e7\u00f5es de direitos fundamentais, falta de provas, atipicidade, excludentes de ilicitude, excesso"}
+[2026-02-25T00:42:52.827457] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-25T00:42:52.828028] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 50, "vss_count": 0}
+[2026-02-25T00:42:52.828176] [KAPJUS-ASK_IA] Busca: FTS5=50, VSS=0
+[2026-02-25T00:42:52.828259] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 50, "vss_count": 0, "top_k": 50, "case_id": "6"}
+[2026-02-25T00:42:52.829446] [KAPJUS-RANK] Apos validacao case_id: fts=50, vss=0
+[2026-02-25T00:42:52.829634] [KAPJUS-RANK] Apos FTS5: 50 items unicos
+[2026-02-25T00:42:52.829724] [KAPJUS-RANK] Apos VSS: 50 items unicos
+[2026-02-25T00:42:52.829811] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 50}
+[2026-02-25T00:42:52.829900] [KAPJUS-RANK]   Pos 1: rowid=14789, score=0.016393, file=Safari-pages-4.pdf:199
+[2026-02-25T00:42:52.829968] [KAPJUS-RANK]   Pos 2: rowid=14763, score=0.016129, file=Safari-pages-4.pdf:187
+[2026-02-25T00:42:52.830027] [KAPJUS-RANK]   Pos 3: rowid=12575, score=0.015873, file=Safari-pages-1.pdf:178
+[2026-02-25T00:42:52.830117] [KAPJUS-RANK]   Pos 4: rowid=14767, score=0.015625, file=Safari-pages-4.pdf:188
+[2026-02-25T00:42:52.830183] [KAPJUS-RANK]   Pos 5: rowid=13302, score=0.015385, file=Safari-pages-4.pdf:45
+[2026-02-25T00:42:52.830267] [KAPJUS-RANK]   Pos 6: rowid=11938, score=0.015152, file=Safari-pages-1.pdf:81
+[2026-02-25T00:42:52.830367] [KAPJUS-RANK]   Pos 7: rowid=18630, score=0.014925, file=Safari-pages-3.pdf:272
+[2026-02-25T00:42:52.830432] [KAPJUS-RANK]   Pos 8: rowid=11350, score=0.014706, file=Safari-pages-1.pdf:5
+[2026-02-25T00:42:52.830499] [KAPJUS-RANK]   Pos 9: rowid=14994, score=0.014493, file=Safari-pages-2.pdf:16
+[2026-02-25T00:42:52.830562] [KAPJUS-RANK]   Pos 10: rowid=12863, score=0.014286, file=Safari-pages-1.pdf:227
+[2026-02-25T00:42:52.830620] [KAPJUS-RANK] Top-K final | Params: {"count": 50}
+[2026-02-25T00:42:52.830757] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=50, case_id=6
+[2026-02-25T00:42:52.830850] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 50 -> 50
+[2026-02-25T00:42:52.830912] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 50 candidates
+[2026-02-25T00:42:52.830974] [KAPJUS-RERANK] Using local cross-encoder for 50 candidates
+[2026-02-25T00:42:58.487345] [KAPJUS-RERANK] Local rerank finished in 5.66s
+[2026-02-25T00:42:58.488312] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T00:42:58.489306] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T00:42:58.489717] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "traga as teses defensivas que podemos fazer em favor de marcelo freire", "chunks_count": 12}
+[2026-02-25T00:42:58.490173] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 9729}
+[2026-02-25T00:42:58.490547] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 10079}
+[2026-02-25T00:43:14.429711] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 1918}
+[2026-02-25T00:43:14.429918] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 1918, "answer_preview": "Com base nos documentos fornecidos, algumas teses defensivas que podem ser apresentadas em favor de Marcelo Freire s\u00e3o:\n\n1. Aus\u00eancia de provas concretas de organiza\u00e7\u00e3o criminosa estruturada e est\u00e1vel "}
+[2026-02-25T00:43:14.430056] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25 03:46:07] [INFO] Checking Python service status...
+[2026-02-25 03:46:07] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:46:07] [DEBUG] Initializing database...
+[2026-02-25 03:46:07] [DEBUG] Database initialized successfully
+[2026-02-25 03:46:07] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 03:46:08] [INFO] Checking Python service status...
+[2026-02-25 03:46:08] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:46:08] [DEBUG] Initializing database...
+[2026-02-25 03:46:08] [DEBUG] Database initialized successfully
+[2026-02-25 03:46:08] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 03:46:08] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 03:46:08] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 03:46:09] [INFO] Checking Python service status...
+[2026-02-25 03:46:09] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:46:09] [DEBUG] Initializing database...
+[2026-02-25 03:46:09] [DEBUG] Database initialized successfully
+[2026-02-25 03:46:09] [INFO] Page Request: Home
+[2026-02-25 03:46:11] [INFO] Checking Python service status...
+[2026-02-25 03:46:11] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:46:11] [DEBUG] Initializing database...
+[2026-02-25 03:46:11] [DEBUG] Database initialized successfully
+[2026-02-25 03:46:11] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 03:46:12] [INFO] Checking Python service status...
+[2026-02-25 03:46:12] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:46:12] [DEBUG] Initializing database...
+[2026-02-25 03:46:12] [DEBUG] Database initialized successfully
+[2026-02-25 03:46:12] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 03:46:12] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 03:46:12] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 03:46:20] [INFO] Checking Python service status...
+[2026-02-25 03:46:20] [DEBUG] Socket available on attempt 1
+[2026-02-25 03:46:20] [DEBUG] Initializing database...
+[2026-02-25 03:46:20] [DEBUG] Database initialized successfully
+[2026-02-25 03:46:20] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryyIPnETwJYCkT3VFL","content_length":"358"}
+[2026-02-25 03:46:20] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 03:46:20] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T00:46:20.651005] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "6", "question": "me traga um resumoi", "provider": "openrouter", "use_hybrid": true}
+[2026-02-25T00:46:20.651250] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T00:46:20.651402] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "me traga um resumoi"}
+[2026-02-25T00:46:20.651609] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T00:46:20.651823] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 841}
+[2026-02-25T00:46:31.352892] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 499}
+[2026-02-25T00:46:31.353129] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"resumo\", \"resumo de processo\", \"sum\u00e1rio\", \"extrato\", \"relat\u00f3rio sint\u00e9tico\",\n    \"conclus\u00e3o\", \"conclui-se\", \"s\u00edntese\", \"breve an\u00e1lise\", \"s\u00edntese executiva\",\n    \"decis\u00e3o sum\u00e1ria\", \"despacho\", \"decisum\", \"julgado\", \"senten\u00e7a\"\n  ],\n  \"semantic_query\": \"Elabore um resumo conciso e objetivo do processo, destacando os fatos relevantes, as quest\u00f5es jur\u00eddicas discutidas, as provas apresentadas e a decis\u00e3o proferida, de forma a permitir r\u00e1pida compreens\u00e3o do caso e do desfecho.\"\n}"}
+[2026-02-25T00:46:31.353243] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["resumo", "resumo de processo", "sum\u00e1rio", "extrato", "relat\u00f3rio sint\u00e9tico", "conclus\u00e3o", "conclui-se", "s\u00edntese", "breve an\u00e1lise", "s\u00edntese executiva", "decis\u00e3o sum\u00e1ria", "despacho", "decisum", "julgado", "senten\u00e7a"], "semantic_query": "Elabore um resumo conciso e objetivo do processo, destacando os fatos relevantes, as quest\u00f5es jur\u00eddicas discutidas, as provas apresentadas e a decis\u00e3o proferida, de forma a permitir r\u00e1pida compreens\u00e3o"}
+[2026-02-25T00:46:31.353443] [KAPJUS-ASK_IA] Expansao: keywords=['resumo', 'resumo de processo', 'sumário', 'extrato', 'relatório sintético', 'conclusão', 'conclui-se', 'síntese', 'breve análise', 'síntese executiva', 'decisão sumária', 'despacho', 'decisum', 'julgado', 'sentença'], semantic=Elabore um resumo conciso e objetivo do processo, ...
+[2026-02-25T00:46:31.353580] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["resumo", "resumo de processo", "sum\u00e1rio", "extrato", "relat\u00f3rio sint\u00e9tico", "conclus\u00e3o", "conclui-se", "s\u00edntese", "breve an\u00e1lise", "s\u00edntese executiva", "decis\u00e3o sum\u00e1ria", "despacho", "decisum", "julgado", "senten\u00e7a"], "semantic_query": "Elabore um resumo conciso e objetivo do processo, destacando os fatos relevantes, as quest\u00f5es jur\u00eddicas discutidas, as provas apresentadas e a decis\u00e3o proferida, de forma a permitir r\u00e1pida compreens\u00e3o", "case_id": "6", "limit": 50}
+[2026-02-25T00:46:31.353834] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["resumo", "resumo de processo", "sum\u00e1rio", "extrato", "relat\u00f3rio sint\u00e9tico", "conclus\u00e3o", "conclui se", "s\u00edntese", "breve an\u00e1lise", "s\u00edntese executiva", "decis\u00e3o sum\u00e1ria", "despacho", "decisum", "julgado", "senten\u00e7a"], "original_terms": ["traga", "resumoi"]}
+[2026-02-25T00:46:31.354198] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "traga* OR resumoi* OR resumo* OR resumo de processo* OR sum\u00e1rio* OR extrato* OR relat\u00f3rio sint\u00e9tico* OR conclus\u00e3o* OR conclui se* OR s\u00edntese* OR breve an\u00e1lise* OR s\u00edntese executiva* OR decis\u00e3o sum\u00e1ria* OR despacho* OR decisum* OR julgado* OR senten\u00e7a*", "original_terms": ["traga", "resumoi"]}
+[2026-02-25T00:46:31.359665] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 50}
+[2026-02-25T00:46:31.359900] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "Elabore um resumo conciso e objetivo do processo, destacando os fatos relevantes, as quest\u00f5es jur\u00eddicas discutidas, as provas apresentadas e a decis\u00e3o proferida, de forma a permitir r\u00e1pida compreens\u00e3o"}
+[2026-02-25T00:46:31.371731] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-25T00:46:31.372348] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 50, "vss_count": 0}
+[2026-02-25T00:46:31.372570] [KAPJUS-ASK_IA] Busca: FTS5=50, VSS=0
+[2026-02-25T00:46:31.372829] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 50, "vss_count": 0, "top_k": 50, "case_id": "6"}
+[2026-02-25T00:46:31.374279] [KAPJUS-RANK] Apos validacao case_id: fts=50, vss=0
+[2026-02-25T00:46:31.374598] [KAPJUS-RANK] Apos FTS5: 50 items unicos
+[2026-02-25T00:46:31.374733] [KAPJUS-RANK] Apos VSS: 50 items unicos
+[2026-02-25T00:46:31.374874] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 50}
+[2026-02-25T00:46:31.375041] [KAPJUS-RANK]   Pos 1: rowid=18197, score=0.016393, file=Safari-pages-3.pdf:238
+[2026-02-25T00:46:31.375167] [KAPJUS-RANK]   Pos 2: rowid=14914, score=0.016129, file=Safari-pages-4.pdf:226
+[2026-02-25T00:46:31.375287] [KAPJUS-RANK]   Pos 3: rowid=13145, score=0.015873, file=Safari-pages-4.pdf:9
+[2026-02-25T00:46:31.375453] [KAPJUS-RANK]   Pos 4: rowid=13186, score=0.015625, file=Safari-pages-4.pdf:21
+[2026-02-25T00:46:31.375613] [KAPJUS-RANK]   Pos 5: rowid=13170, score=0.015385, file=Safari-pages-4.pdf:15
+[2026-02-25T00:46:31.375741] [KAPJUS-RANK]   Pos 6: rowid=14162, score=0.015152, file=Safari-pages-4.pdf:104
+[2026-02-25T00:46:31.375871] [KAPJUS-RANK]   Pos 7: rowid=17687, score=0.014925, file=Safari-pages-3.pdf:170
+[2026-02-25T00:46:31.376004] [KAPJUS-RANK]   Pos 8: rowid=11468, score=0.014706, file=Safari-pages-1.pdf:21
+[2026-02-25T00:46:31.376173] [KAPJUS-RANK]   Pos 9: rowid=16142, score=0.014493, file=Safari-pages-2.pdf:264
+[2026-02-25T00:46:31.376362] [KAPJUS-RANK]   Pos 10: rowid=11328, score=0.014286, file=Safari-pages-1.pdf:3
+[2026-02-25T00:46:31.376513] [KAPJUS-RANK] Top-K final | Params: {"count": 50}
+[2026-02-25T00:46:31.376763] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=50, case_id=6
+[2026-02-25T00:46:31.376920] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 50 -> 50
+[2026-02-25T00:46:31.377043] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 50 candidates
+[2026-02-25T00:46:31.377162] [KAPJUS-RERANK] Using local cross-encoder for 50 candidates
+[2026-02-25T00:46:37.744077] [KAPJUS-RERANK] Local rerank finished in 6.37s
+[2026-02-25T00:46:37.744858] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T00:46:37.745257] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T00:46:37.745648] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "me traga um resumoi", "chunks_count": 12}
+[2026-02-25T00:46:37.746123] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 11809}
+[2026-02-25T00:46:37.746587] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 12108}
+[2026-02-25T00:46:44.930129] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 1338}
+[2026-02-25T00:46:44.930489] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 1338, "answer_preview": "Com base nos trechos fornecidos, posso elaborar um breve resumo sobre o caso:\n\nTrata-se de uma investiga\u00e7\u00e3o policial denominada \"Opera\u00e7\u00e3o Concurseiro\" que apura uma organiza\u00e7\u00e3o criminosa especializada"}
+[2026-02-25T00:46:44.930734] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25T00:53:02.862984] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k"}
+[2026-02-25 11:05:19] [INFO] Checking Python service status...
+[2026-02-25 11:05:19] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:05:19] [DEBUG] Initializing database...
+[2026-02-25 11:05:19] [DEBUG] Database initialized successfully
+[2026-02-25 11:05:19] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryTgpMHe7exMHbI6Ln","content_length":"352"}
+[2026-02-25 11:05:19] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 11:05:19] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T08:05:19.371750] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "6", "question": "resuma o caso", "provider": "openrouter", "use_hybrid": true}
+[2026-02-25T08:05:19.372051] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T08:05:19.372173] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "resuma o caso"}
+[2026-02-25T08:05:19.372417] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T08:05:19.372651] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 835, "model": null}
+[2026-02-25T08:05:23.508520] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 428}
+[2026-02-25T08:05:23.509404] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{ \"keywords\": [\"resumo\", \"s\u00edntese\", \"sum\u00e1rio\", \"breve relato\", \"fatos relevantes\", \"decis\u00e3o\", \"conclus\u00e3o\", \"ante o exposto\", \"conclui-se\", \"caso concreto\", \"processo judicial\", \"investiga\u00e7\u00e3o\", \"provas\", \"dilig\u00eancias\"], \"semantic_query\": \"Apresentar uma s\u00edntese concisa dos fatos, provas, decis\u00f5es e conclus\u00f5es relevantes do caso em an\u00e1lise, destacando os elementos essenciais para compreens\u00e3o do contexto jur\u00eddico e pericial.\" }"}
+[2026-02-25T08:05:23.509836] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["resumo", "s\u00edntese", "sum\u00e1rio", "breve relato", "fatos relevantes", "decis\u00e3o", "conclus\u00e3o", "ante o exposto", "conclui-se", "caso concreto", "processo judicial", "investiga\u00e7\u00e3o", "provas", "dilig\u00eancias"], "semantic_query": "Apresentar uma s\u00edntese concisa dos fatos, provas, decis\u00f5es e conclus\u00f5es relevantes do caso em an\u00e1lise, destacando os elementos essenciais para compreens\u00e3o do contexto jur\u00eddico e pericial."}
+[2026-02-25T08:05:23.510199] [KAPJUS-ASK_IA] Expansao: keywords=['resumo', 'síntese', 'sumário', 'breve relato', 'fatos relevantes', 'decisão', 'conclusão', 'ante o exposto', 'conclui-se', 'caso concreto', 'processo judicial', 'investigação', 'provas', 'diligências'], semantic=Apresentar uma síntese concisa dos fatos, provas, ...
+[2026-02-25T08:05:23.510429] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["resumo", "s\u00edntese", "sum\u00e1rio", "breve relato", "fatos relevantes", "decis\u00e3o", "conclus\u00e3o", "ante o exposto", "conclui-se", "caso concreto", "processo judicial", "investiga\u00e7\u00e3o", "provas", "dilig\u00eancias"], "semantic_query": "Apresentar uma s\u00edntese concisa dos fatos, provas, decis\u00f5es e conclus\u00f5es relevantes do caso em an\u00e1lise, destacando os elementos essenciais para compreens\u00e3o do contexto jur\u00eddico e pericial.", "case_id": "6", "limit": 50}
+[2026-02-25T08:05:23.510938] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["resumo", "s\u00edntese", "sum\u00e1rio", "breve relato", "fatos relevantes", "decis\u00e3o", "conclus\u00e3o", "ante o exposto", "conclui se", "caso concreto", "processo judicial", "investiga\u00e7\u00e3o", "provas", "dilig\u00eancias"], "original_terms": ["resuma", "caso"]}
+[2026-02-25T08:05:23.511252] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "resuma* OR caso* OR resumo* OR s\u00edntese* OR sum\u00e1rio* OR breve relato* OR fatos relevantes* OR decis\u00e3o* OR conclus\u00e3o* OR ante o exposto* OR conclui se* OR caso concreto* OR processo judicial* OR investiga\u00e7\u00e3o* OR provas* OR dilig\u00eancias*", "original_terms": ["resuma", "caso"]}
+[2026-02-25T08:05:23.530533] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 50}
+[2026-02-25T08:05:23.531330] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "Apresentar uma s\u00edntese concisa dos fatos, provas, decis\u00f5es e conclus\u00f5es relevantes do caso em an\u00e1lise, destacando os elementos essenciais para compreens\u00e3o do contexto jur\u00eddico e pericial."}
+[2026-02-25T08:05:23.631257] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-25T08:05:23.632061] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 50, "vss_count": 0}
+[2026-02-25T08:05:23.632334] [KAPJUS-ASK_IA] Busca: FTS5=50, VSS=0
+[2026-02-25T08:05:23.632751] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 50, "vss_count": 0, "top_k": 50, "case_id": "6"}
+[2026-02-25T08:05:23.634407] [KAPJUS-RANK] Apos validacao case_id: fts=50, vss=0
+[2026-02-25T08:05:23.634734] [KAPJUS-RANK] Apos FTS5: 50 items unicos
+[2026-02-25T08:05:23.634993] [KAPJUS-RANK] Apos VSS: 50 items unicos
+[2026-02-25T08:05:23.635272] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 50}
+[2026-02-25T08:05:23.635544] [KAPJUS-RANK]   Pos 1: rowid=12886, score=0.016393, file=Safari-pages-1.pdf:235
+[2026-02-25T08:05:23.635815] [KAPJUS-RANK]   Pos 2: rowid=12869, score=0.016129, file=Safari-pages-1.pdf:229
+[2026-02-25T08:05:23.636070] [KAPJUS-RANK]   Pos 3: rowid=12546, score=0.015873, file=Safari-pages-1.pdf:174
+[2026-02-25T08:05:23.636362] [KAPJUS-RANK]   Pos 4: rowid=13377, score=0.015625, file=Safari-pages-4.pdf:57
+[2026-02-25T08:05:23.636652] [KAPJUS-RANK]   Pos 5: rowid=14891, score=0.015385, file=Safari-pages-4.pdf:214
+[2026-02-25T08:05:23.636876] [KAPJUS-RANK]   Pos 6: rowid=14856, score=0.015152, file=Safari-pages-4.pdf:209
+[2026-02-25T08:05:23.637178] [KAPJUS-RANK]   Pos 7: rowid=13151, score=0.014925, file=Safari-pages-4.pdf:11
+[2026-02-25T08:05:23.637538] [KAPJUS-RANK]   Pos 8: rowid=12863, score=0.014706, file=Safari-pages-1.pdf:227
+[2026-02-25T08:05:23.637775] [KAPJUS-RANK]   Pos 9: rowid=18197, score=0.014493, file=Safari-pages-3.pdf:238
+[2026-02-25T08:05:23.638002] [KAPJUS-RANK]   Pos 10: rowid=11404, score=0.014286, file=Safari-pages-1.pdf:12
+[2026-02-25T08:05:23.638208] [KAPJUS-RANK] Top-K final | Params: {"count": 50}
+[2026-02-25T08:05:23.638486] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=50, case_id=6
+[2026-02-25T08:05:23.638743] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 50 -> 50
+[2026-02-25T08:05:23.638978] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 50 candidates
+[2026-02-25T08:05:23.639217] [KAPJUS-CROSS] Loading local cross-encoder model...
+[2026-02-25T08:05:24.456221] [KAPJUS-CROSS] Local cross-encoder loaded successfully
+[2026-02-25T08:05:24.456701] [KAPJUS-RERANK] Using local cross-encoder for 50 candidates
+[2026-02-25T08:05:31.279180] [KAPJUS-RERANK] Local rerank finished in 6.82s
+[2026-02-25T08:05:31.280185] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T08:05:31.280722] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T08:05:31.281040] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "resuma o caso", "chunks_count": 12}
+[2026-02-25T08:05:31.281512] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 10892}
+[2026-02-25T08:05:31.281887] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 11185, "model": null}
+[2026-02-25T08:05:42.053937] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 1403}
+[2026-02-25T08:05:42.054165] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 1403, "answer_preview": "O caso envolve uma investiga\u00e7\u00e3o sobre a venda ilegal de certificados e diplomas de cursos superiores e p\u00f3s-gradua\u00e7\u00e3o por uma faculdade chamada FLATED. Francisco Madeira e Thais Regina s\u00e3o os principai"}
+[2026-02-25T08:05:42.054299] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25 11:05:42] [INFO] Checking Python service status...
+[2026-02-25 11:05:42] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:05:42] [DEBUG] Initializing database...
+[2026-02-25 11:05:42] [DEBUG] Database initialized successfully
+[2026-02-25 11:05:42] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 11:05:42] [INFO] Checking Python service status...
+[2026-02-25 11:05:42] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:05:42] [DEBUG] Initializing database...
+[2026-02-25 11:05:42] [DEBUG] Database initialized successfully
+[2026-02-25 11:05:42] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 11:05:42] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 11:05:42] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25T08:08:25.809716] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k"}
+[2026-02-25T08:09:17.935453] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k"}
+[2026-02-25 11:12:04] [INFO] Checking Python service status...
+[2026-02-25 11:12:04] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:12:04] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:12:04] [INFO] Starting Python service...
+[2026-02-25 11:12:04] [INFO] Python service started with PID: 1555449
+
+[2026-02-25 11:12:04] [DEBUG] Waiting for socket... attempt 1/5
+[2026-02-25 11:12:05] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:12:05] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:12:05] [DEBUG] Waiting for socket... attempt 2/5
+[2026-02-25 11:12:06] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:12:06] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:12:06] [DEBUG] Waiting for socket... attempt 3/5
+[2026-02-25 11:12:07] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:12:07] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:12:07] [DEBUG] Waiting for socket... attempt 4/5
+[2026-02-25 11:12:08] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:12:08] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:12:08] [DEBUG] Waiting for socket... attempt 5/5
+[2026-02-25 11:12:09] [ERROR] Failed to start Python service after 5 retries
+[2026-02-25 11:21:06] [INFO] Checking Python service status...
+[2026-02-25 11:21:06] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:21:06] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:21:06] [INFO] Starting Python service...
+[2026-02-25 11:21:06] [INFO] Python service started with PID: 1557117
+
+[2026-02-25 11:21:06] [DEBUG] Waiting for socket... attempt 1/5
+[2026-02-25 11:21:07] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:21:07] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:21:07] [DEBUG] Waiting for socket... attempt 2/5
+[2026-02-25 11:21:08] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:21:08] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:21:08] [DEBUG] Waiting for socket... attempt 3/5
+[2026-02-25 11:21:09] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:21:09] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:21:09] [DEBUG] Waiting for socket... attempt 4/5
+[2026-02-25 11:21:10] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:21:10] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:21:10] [DEBUG] Waiting for socket... attempt 5/5
+[2026-02-25 11:21:11] [ERROR] Failed to start Python service after 5 retries
+[2026-02-25T08:28:36.235408] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-1.5-flash-8b", "gemini_pro": "gemini-1.5-pro"}
+[2026-02-25T08:29:03.034140] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-1.5-flash-8b", "gemini_pro": "gemini-1.5-pro"}
+[2026-02-25 11:30:33] [INFO] Checking Python service status...
+[2026-02-25 11:30:33] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:30:33] [DEBUG] Initializing database...
+[2026-02-25 11:30:33] [DEBUG] Database initialized successfully
+[2026-02-25 11:30:33] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryHu8sfFBuncaO3Ahy","content_length":"344"}
+[2026-02-25 11:30:33] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 11:30:33] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T08:30:33.139122] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "6", "question": "teste", "provider": "openrouter", "use_hybrid": true}
+[2026-02-25T08:30:33.139693] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T08:30:33.140028] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "teste"}
+[2026-02-25T08:30:33.140319] [KAPJUS-EXPAND] Query simples — expansao via LLM ignorada | Params: {"question": "teste"}
+[2026-02-25T08:30:33.140595] [KAPJUS-ASK_IA] Expansao: keywords=['teste'], semantic=teste...
+[2026-02-25T08:30:33.140854] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["teste"], "semantic_query": "teste", "case_id": "6", "limit": 50}
+[2026-02-25T08:30:33.141376] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["teste"], "original_terms": ["teste"]}
+[2026-02-25T08:30:33.141815] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "teste*", "original_terms": ["teste"]}
+[2026-02-25T08:30:33.143965] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 23}
+[2026-02-25T08:30:33.144804] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "teste"}
+[2026-02-25T08:30:33.309979] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-25T08:30:33.310926] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 23, "vss_count": 0}
+[2026-02-25T08:30:33.311300] [KAPJUS-ASK_IA] Busca: FTS5=23, VSS=0
+[2026-02-25T08:30:33.311675] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 23, "vss_count": 0, "top_k": 50, "case_id": "6"}
+[2026-02-25T08:30:33.313155] [KAPJUS-RANK] Apos validacao case_id: fts=23, vss=0
+[2026-02-25T08:30:33.319256] [KAPJUS-RANK] Apos FTS5: 23 items unicos
+[2026-02-25T08:30:33.319631] [KAPJUS-RANK] Apos VSS: 23 items unicos
+[2026-02-25T08:30:33.319964] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 23}
+[2026-02-25T08:30:33.320261] [KAPJUS-RANK]   Pos 1: rowid=18636, score=0.016393, file=Safari-pages-3.pdf:274
+[2026-02-25T08:30:33.320522] [KAPJUS-RANK]   Pos 2: rowid=11963, score=0.016129, file=Safari-pages-1.pdf:85
+[2026-02-25T08:30:33.320858] [KAPJUS-RANK]   Pos 3: rowid=11832, score=0.015873, file=Safari-pages-1.pdf:61
+[2026-02-25T08:30:33.321182] [KAPJUS-RANK]   Pos 4: rowid=14775, score=0.015625, file=Safari-pages-4.pdf:192
+[2026-02-25T08:30:33.321520] [KAPJUS-RANK]   Pos 5: rowid=14312, score=0.015385, file=Safari-pages-4.pdf:128
+[2026-02-25T08:30:33.321846] [KAPJUS-RANK]   Pos 6: rowid=14899, score=0.015152, file=Safari-pages-4.pdf:220
+[2026-02-25T08:30:33.322137] [KAPJUS-RANK]   Pos 7: rowid=14714, score=0.014925, file=Safari-pages-4.pdf:179
+[2026-02-25T08:30:33.322502] [KAPJUS-RANK]   Pos 8: rowid=14772, score=0.014706, file=Safari-pages-4.pdf:191
+[2026-02-25T08:30:33.322787] [KAPJUS-RANK]   Pos 9: rowid=11310, score=0.014493, file=Safari-pages-1.pdf:1
+[2026-02-25T08:30:33.323074] [KAPJUS-RANK]   Pos 10: rowid=14900, score=0.014286, file=Safari-pages-4.pdf:221
+[2026-02-25T08:30:33.323406] [KAPJUS-RANK] Top-K final | Params: {"count": 23}
+[2026-02-25T08:30:33.324265] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=23, case_id=6
+[2026-02-25T08:30:33.324734] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 23 -> 23
+[2026-02-25T08:30:33.325707] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 23 candidates
+[2026-02-25T08:30:33.326016] [KAPJUS-CROSS] Loading local cross-encoder model...
+[2026-02-25T08:30:35.124660] [KAPJUS-CROSS] Local cross-encoder loaded successfully
+[2026-02-25T08:30:35.124955] [KAPJUS-RERANK] Using local cross-encoder for 23 candidates
+[2026-02-25T08:30:41.888018] [KAPJUS-RERANK] Local rerank finished in 6.76s
+[2026-02-25T08:30:41.888560] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T08:30:41.888764] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T08:30:41.888960] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "teste", "chunks_count": 12}
+[2026-02-25T08:30:41.889424] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 8219}
+[2026-02-25T08:30:41.889623] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 8504, "model": "pro"}
+[2026-02-25T08:30:42.477088] [KAPJUS-AI] Model pro failed | Params: {"error": "Error code: 400 - {'error': {'message': 'pro is not a valid model ID', 'code': 400}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-25T08:30:42.478067] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 400 - {'error': {'message': 'pro is not a valid model ID', 'code': 400}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-25T08:30:42.478393] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25 11:30:44] [INFO] Checking Python service status...
+[2026-02-25 11:30:44] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:30:44] [DEBUG] Initializing database...
+[2026-02-25 11:30:44] [DEBUG] Database initialized successfully
+[2026-02-25 11:30:44] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryusA3nHZvpSlgjwfF","content_length":"345"}
+[2026-02-25 11:30:44] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 11:30:44] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T08:30:44.222859] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "6", "question": "resuma", "provider": "openrouter", "use_hybrid": true}
+[2026-02-25T08:30:44.223053] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T08:30:44.223133] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "resuma"}
+[2026-02-25T08:30:44.223239] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T08:30:44.223328] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 828, "model": null}
+[2026-02-25T08:30:52.853370] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 818}
+[2026-02-25T08:30:52.854458] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"resumo\", \"resumos\", \"s\u00edntese\", \"s\u00ednteses\", \"sintetizar\", \"sintetizados\", \"sintetizadas\",\n    \"concluir\", \"conclui-se\", \"conclus\u00e3o\", \"conclus\u00f5es\", \"sum\u00e1rio\", \"sum\u00e1rios\",\n    \"per\u00edcia\", \"periciais\", \"periciais\", \"laudo\", \"laudos\", \"relat\u00f3rio\", \"relat\u00f3rios\",\n    \"digital\", \"forense\", \"forenses\", \"investiga\u00e7\u00e3o\", \"investiga\u00e7\u00f5es\", \"evid\u00eancia\", \"evid\u00eancias\",\n    \"ante o exposto\", \"diante do exposto\", \"pelo exposto\", \"destarte\", \"portanto\", \"logo\"\n  ],\n  \"semantic_query\": \"A elabo"}
+[2026-02-25T08:30:52.854887] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["resumo", "resumos", "s\u00edntese", "s\u00ednteses", "sintetizar", "sintetizados", "sintetizadas", "concluir", "conclui-se", "conclus\u00e3o", "conclus\u00f5es", "sum\u00e1rio", "sum\u00e1rios", "per\u00edcia", "periciais", "periciais", "laudo", "laudos", "relat\u00f3rio", "relat\u00f3rios", "digital", "forense", "forenses", "investiga\u00e7\u00e3o", "investiga\u00e7\u00f5es", "evid\u00eancia", "evid\u00eancias", "ante o exposto", "diante do exposto", "pelo exposto", "destarte", "portanto", "logo"], "semantic_query": "A elabora\u00e7\u00e3o de um resumo t\u00e9cnico-jur\u00eddico em per\u00edcia digital deve contemplar a s\u00edntese objetiva dos elementos probat\u00f3rios, a an\u00e1lise cr\u00edtica das evid\u00eancias coletadas, a conclus\u00e3o fundamentada sobre o"}
+[2026-02-25T08:30:52.855268] [KAPJUS-ASK_IA] Expansao: keywords=['resumo', 'resumos', 'síntese', 'sínteses', 'sintetizar', 'sintetizados', 'sintetizadas', 'concluir', 'conclui-se', 'conclusão', 'conclusões', 'sumário', 'sumários', 'perícia', 'periciais', 'periciais', 'laudo', 'laudos', 'relatório', 'relatórios', 'digital', 'forense', 'forenses', 'investigação', 'investigações', 'evidência', 'evidências', 'ante o exposto', 'diante do exposto', 'pelo exposto', 'destarte', 'portanto', 'logo'], semantic=A elaboração de um resumo técnico-jurídico em perí...
+[2026-02-25T08:30:52.855675] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["resumo", "resumos", "s\u00edntese", "s\u00ednteses", "sintetizar", "sintetizados", "sintetizadas", "concluir", "conclui-se", "conclus\u00e3o", "conclus\u00f5es", "sum\u00e1rio", "sum\u00e1rios", "per\u00edcia", "periciais", "periciais", "laudo", "laudos", "relat\u00f3rio", "relat\u00f3rios", "digital", "forense", "forenses", "investiga\u00e7\u00e3o", "investiga\u00e7\u00f5es", "evid\u00eancia", "evid\u00eancias", "ante o exposto", "diante do exposto", "pelo exposto", "destarte", "portanto", "logo"], "semantic_query": "A elabora\u00e7\u00e3o de um resumo t\u00e9cnico-jur\u00eddico em per\u00edcia digital deve contemplar a s\u00edntese objetiva dos elementos probat\u00f3rios, a an\u00e1lise cr\u00edtica das evid\u00eancias coletadas, a conclus\u00e3o fundamentada sobre o", "case_id": "6", "limit": 50}
+[2026-02-25T08:30:52.856272] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["resumo", "resumos", "s\u00edntese", "s\u00ednteses", "sintetizar", "sintetizados", "sintetizadas", "concluir", "conclui se", "conclus\u00e3o", "conclus\u00f5es", "sum\u00e1rio", "sum\u00e1rios", "per\u00edcia", "periciais", "periciais", "laudo", "laudos", "relat\u00f3rio", "relat\u00f3rios", "digital", "forense", "forenses", "investiga\u00e7\u00e3o", "investiga\u00e7\u00f5es", "evid\u00eancia", "evid\u00eancias", "ante o exposto", "diante do exposto", "pelo exposto", "destarte", "portanto", "logo"], "original_terms": ["resuma"]}
+[2026-02-25T08:30:52.856851] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "resuma* OR resumo* OR resumos* OR s\u00edntese* OR s\u00ednteses* OR sintetizar* OR sintetizados* OR sintetizadas* OR concluir* OR conclui se* OR conclus\u00e3o* OR conclus\u00f5es* OR sum\u00e1rio* OR sum\u00e1rios* OR per\u00edcia* OR periciais* OR laudo* OR laudos* OR relat\u00f3rio* OR relat\u00f3rios* OR digital* OR forense* OR forenses* OR investiga\u00e7\u00e3o* OR investiga\u00e7\u00f5es* OR evid\u00eancia* OR evid\u00eancias* OR ante o exposto* OR diante do exposto* OR pelo exposto* OR destarte* OR portanto* OR logo*", "original_terms": ["resuma"]}
+[2026-02-25T08:30:52.878302] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 50}
+[2026-02-25T08:30:52.879272] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "A elabora\u00e7\u00e3o de um resumo t\u00e9cnico-jur\u00eddico em per\u00edcia digital deve contemplar a s\u00edntese objetiva dos elementos probat\u00f3rios, a an\u00e1lise cr\u00edtica das evid\u00eancias coletadas, a conclus\u00e3o fundamentada sobre o"}
+[2026-02-25T08:30:53.040364] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 0}
+[2026-02-25T08:30:53.041489] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 50, "vss_count": 0}
+[2026-02-25T08:30:53.042407] [KAPJUS-ASK_IA] Busca: FTS5=50, VSS=0
+[2026-02-25T08:30:53.042706] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 50, "vss_count": 0, "top_k": 50, "case_id": "6"}
+[2026-02-25T08:30:53.046064] [KAPJUS-RANK] Apos validacao case_id: fts=50, vss=0
+[2026-02-25T08:30:53.046285] [KAPJUS-RANK] Apos FTS5: 50 items unicos
+[2026-02-25T08:30:53.046373] [KAPJUS-RANK] Apos VSS: 50 items unicos
+[2026-02-25T08:30:53.046453] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 50}
+[2026-02-25T08:30:53.046561] [KAPJUS-RANK]   Pos 1: rowid=13042, score=0.016393, file=Safari-pages-1.pdf:275
+[2026-02-25T08:30:53.046621] [KAPJUS-RANK]   Pos 2: rowid=13082, score=0.016129, file=Safari-pages-1.pdf:287
+[2026-02-25T08:30:53.046682] [KAPJUS-RANK]   Pos 3: rowid=12886, score=0.015873, file=Safari-pages-1.pdf:235
+[2026-02-25T08:30:53.046739] [KAPJUS-RANK]   Pos 4: rowid=13151, score=0.015625, file=Safari-pages-4.pdf:11
+[2026-02-25T08:30:53.046796] [KAPJUS-RANK]   Pos 5: rowid=18202, score=0.015385, file=Safari-pages-3.pdf:239
+[2026-02-25T08:30:53.046887] [KAPJUS-RANK]   Pos 6: rowid=12481, score=0.015152, file=Safari-pages-1.pdf:162
+[2026-02-25T08:30:53.046939] [KAPJUS-RANK]   Pos 7: rowid=15784, score=0.014925, file=Safari-pages-2.pdf:190
+[2026-02-25T08:30:53.046991] [KAPJUS-RANK]   Pos 8: rowid=13377, score=0.014706, file=Safari-pages-4.pdf:57
+[2026-02-25T08:30:53.047050] [KAPJUS-RANK]   Pos 9: rowid=13029, score=0.014493, file=Safari-pages-1.pdf:269
+[2026-02-25T08:30:53.047101] [KAPJUS-RANK]   Pos 10: rowid=13195, score=0.014286, file=Safari-pages-4.pdf:25
+[2026-02-25T08:30:53.047163] [KAPJUS-RANK] Top-K final | Params: {"count": 50}
+[2026-02-25T08:30:53.048370] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=50, case_id=6
+[2026-02-25T08:30:53.048634] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 50 -> 50
+[2026-02-25T08:30:53.048895] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 50 candidates
+[2026-02-25T08:30:53.049146] [KAPJUS-RERANK] Using local cross-encoder for 50 candidates
+[2026-02-25T08:31:04.352653] [KAPJUS-RERANK] Local rerank finished in 11.30s
+[2026-02-25T08:31:04.353272] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T08:31:04.353699] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T08:31:04.353928] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "resuma", "chunks_count": 12}
+[2026-02-25T08:31:04.354206] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 10844}
+[2026-02-25T08:31:04.354455] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 11130, "model": "pro"}
+[2026-02-25T08:31:04.403163] [KAPJUS-AI] Model pro failed | Params: {"error": "Error code: 400 - {'error': {'message': 'pro is not a valid model ID', 'code': 400}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-25T08:31:04.403922] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 400 - {'error': {'message': 'pro is not a valid model ID', 'code': 400}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-25T08:31:04.404257] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25T08:34:20.505168] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-1.5-flash-8b", "gemini_pro": "gemini-1.5-pro"}
+[2026-02-25T08:34:40.873944] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-1.5-flash-8b", "gemini_pro": "gemini-1.5-pro"}
+[2026-02-25 11:41:23] [INFO] Checking Python service status...
+[2026-02-25 11:41:23] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:23] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:23] [INFO] Starting Python service...
+[2026-02-25 11:41:23] [INFO] Python service started with PID: 1562539
+
+[2026-02-25 11:41:23] [DEBUG] Waiting for socket... attempt 1/5
+[2026-02-25 11:41:23] [INFO] Checking Python service status...
+[2026-02-25 11:41:23] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:23] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:23] [INFO] Starting Python service...
+[2026-02-25 11:41:23] [INFO] Python service started with PID: 1562546
+
+[2026-02-25 11:41:23] [DEBUG] Waiting for socket... attempt 1/5
+[2026-02-25 11:41:24] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:24] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:24] [DEBUG] Waiting for socket... attempt 2/5
+[2026-02-25 11:41:24] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:24] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:24] [DEBUG] Waiting for socket... attempt 2/5
+[2026-02-25 11:41:25] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:25] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:25] [DEBUG] Waiting for socket... attempt 3/5
+[2026-02-25 11:41:25] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:25] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:25] [DEBUG] Waiting for socket... attempt 3/5
+[2026-02-25 11:41:26] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:26] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:26] [DEBUG] Waiting for socket... attempt 4/5
+[2026-02-25 11:41:26] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:26] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:26] [DEBUG] Waiting for socket... attempt 4/5
+[2026-02-25 11:41:27] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:27] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:27] [DEBUG] Waiting for socket... attempt 5/5
+[2026-02-25 11:41:27] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:27] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:27] [DEBUG] Waiting for socket... attempt 5/5
+[2026-02-25 11:41:28] [ERROR] Failed to start Python service after 5 retries
+[2026-02-25 11:41:28] [ERROR] Failed to start Python service after 5 retries
+[2026-02-25 11:41:29] [INFO] Checking Python service status...
+[2026-02-25 11:41:29] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:29] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:29] [INFO] Starting Python service...
+[2026-02-25 11:41:29] [INFO] Python service started with PID: 1562587
+
+[2026-02-25 11:41:29] [DEBUG] Waiting for socket... attempt 1/5
+[2026-02-25 11:41:30] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:30] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:30] [DEBUG] Waiting for socket... attempt 2/5
+[2026-02-25 11:41:31] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:31] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:31] [DEBUG] Waiting for socket... attempt 3/5
+[2026-02-25 11:41:32] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:32] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:32] [DEBUG] Waiting for socket... attempt 4/5
+[2026-02-25 11:41:33] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:33] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:33] [DEBUG] Waiting for socket... attempt 5/5
+[2026-02-25 11:41:34] [ERROR] Failed to start Python service after 5 retries
+[2026-02-25 11:41:35] [INFO] Checking Python service status...
+[2026-02-25 11:41:35] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:35] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:35] [INFO] Starting Python service...
+[2026-02-25 11:41:35] [INFO] Python service started with PID: 1562634
+
+[2026-02-25 11:41:35] [DEBUG] Waiting for socket... attempt 1/5
+[2026-02-25 11:41:36] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:36] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:36] [DEBUG] Waiting for socket... attempt 2/5
+[2026-02-25T08:41:37.200070] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
+[2026-02-25T08:41:37.291048] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
+[2026-02-25 11:41:37] [ERROR] PHP Error stream_socket_client(): Unable to connect to unix:///var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Connection refused) in /var/www/html/kapjus.kaponline.com.br/public/index.php:63
+[2026-02-25 11:41:37] [DEBUG] Cannot connect to socket: Connection refused
+[2026-02-25 11:41:37] [DEBUG] Waiting for socket... attempt 3/5
+[2026-02-25 11:41:38] [DEBUG] Socket available on attempt 4
+[2026-02-25 11:41:38] [DEBUG] Initializing database...
+[2026-02-25 11:41:38] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:38] [INFO] Checking Python service status...
+[2026-02-25 11:41:38] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:38] [DEBUG] Initializing database...
+[2026-02-25 11:41:38] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:39] [INFO] Checking Python service status...
+[2026-02-25 11:41:39] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:39] [DEBUG] Initializing database...
+[2026-02-25 11:41:39] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:39] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-25 11:41:40] [INFO] Checking Python service status...
+[2026-02-25 11:41:40] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:40] [DEBUG] Initializing database...
+[2026-02-25 11:41:40] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:40] [INFO] Checking Python service status...
+[2026-02-25 11:41:40] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:40] [DEBUG] Initializing database...
+[2026-02-25 11:41:40] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:43] [INFO] Checking Python service status...
+[2026-02-25 11:41:43] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:43] [DEBUG] Initializing database...
+[2026-02-25 11:41:43] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:44] [INFO] Checking Python service status...
+[2026-02-25 11:41:44] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:44] [DEBUG] Initializing database...
+[2026-02-25 11:41:44] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:44] [INFO] Page Request: Home
+[2026-02-25T08:41:45.120709] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
+[2026-02-25T08:41:45.647915] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
+[2026-02-25T08:41:47.421492] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
+[2026-02-25 11:41:47] [INFO] Checking Python service status...
+[2026-02-25 11:41:47] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:47] [DEBUG] Initializing database...
+[2026-02-25 11:41:47] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:47] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 11:41:48] [INFO] Checking Python service status...
+[2026-02-25 11:41:48] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:48] [DEBUG] Initializing database...
+[2026-02-25 11:41:48] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:48] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 11:41:48] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 11:41:48] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 11:41:54] [INFO] Checking Python service status...
+[2026-02-25 11:41:54] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:54] [DEBUG] Initializing database...
+[2026-02-25 11:41:54] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:54] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 11:41:54] [INFO] Checking Python service status...
+[2026-02-25 11:41:54] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:41:54] [DEBUG] Initializing database...
+[2026-02-25 11:41:54] [DEBUG] Database initialized successfully
+[2026-02-25 11:41:54] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 11:41:54] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 11:41:54] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 11:42:41] [INFO] Checking Python service status...
+[2026-02-25 11:42:41] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:42:41] [DEBUG] Initializing database...
+[2026-02-25 11:42:41] [DEBUG] Database initialized successfully
+[2026-02-25 11:42:41] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 11:42:41] [INFO] Checking Python service status...
+[2026-02-25 11:42:41] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:42:41] [DEBUG] Initializing database...
+[2026-02-25 11:42:41] [DEBUG] Database initialized successfully
+[2026-02-25 11:42:41] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 11:42:41] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 11:42:41] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 11:47:04] [INFO] Checking Python service status...
+[2026-02-25 11:47:04] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:47:04] [DEBUG] Initializing database...
+[2026-02-25 11:47:04] [DEBUG] Database initialized successfully
+[2026-02-25 11:47:04] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 11:47:04] [INFO] Checking Python service status...
+[2026-02-25 11:47:04] [DEBUG] Socket available on attempt 1
+[2026-02-25 11:47:04] [DEBUG] Initializing database...
+[2026-02-25 11:47:04] [DEBUG] Database initialized successfully
+[2026-02-25 11:47:04] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 11:47:04] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 11:47:04] [DEBUG] Processing action {"action":"documents"}

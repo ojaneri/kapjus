@@ -254,6 +254,58 @@ if (!$case) { echo "Caso não encontrado."; exit; }
     </div>
 </div>
 
+<!-- Notes Modal -->
+<div id="notes-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="notes-modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="closeNotesModal()"></div>
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl transform transition-all max-h-[90vh] flex flex-col">
+                <!-- Modal Header -->
+                <div class="px-6 py-4 border-b border-slate-100 flex-shrink-0">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-sticky-note"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900">Notas do Caso</h3>
+                                <p class="text-xs text-slate-500">Gerencie suas anotações</p>
+                            </div>
+                        </div>
+                        <button onclick="closeNotesModal()" class="text-slate-400 hover:text-slate-600 transition-colors p-2">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- Note Creation Form -->
+                    <form id="note-form-modal" onsubmit="createNote(event)" class="bg-slate-50 p-4 rounded-2xl space-y-3">
+                        <textarea id="note-text-modal" rows="2" placeholder="Nova nota..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-700 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none resize-none" required></textarea>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-1">
+                                <button type="button" onclick="setNoteColor('red')" class="note-color-btn w-6 h-6 rounded-full bg-red-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="red" title="Vermelho"></button>
+                                <button type="button" onclick="setNoteColor('yellow')" class="note-color-btn w-6 h-6 rounded-full bg-yellow-400 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="yellow" title="Amarelo"></button>
+                                <button type="button" onclick="setNoteColor('green')" class="note-color-btn w-6 h-6 rounded-full bg-emerald-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="green" title="Verde"></button>
+                                <button type="button" onclick="setNoteColor('blue')" class="note-color-btn w-6 h-6 rounded-full bg-blue-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="blue" title="Azul"></button>
+                            </div>
+                            <button type="submit" class="px-4 py-2 bg-amber-500 text-white text-sm font-bold rounded-xl hover:bg-amber-600 transition-colors">
+                                <i class="fas fa-plus mr-1"></i>Adicionar
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Notes List -->
+                    <div id="notes-list-modal" class="space-y-3">
+                        <!-- Notes will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="h-screen overflow-hidden flex flex-col bg-[#f8fafc]">
     <!-- Navbar -->
     <nav class="bg-white border-b border-slate-200 flex-shrink-0 z-50 shadow-sm">
@@ -281,6 +333,10 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                     </form>
                 </div>
                 <div class="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+                    <!-- Notes Icon Button -->
+                    <button onclick="openNotesModal()" class="inline-flex items-center px-3 sm:px-4 py-2 border border-amber-100 text-xs sm:text-sm font-semibold rounded-xl text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors" title="Notas do caso">
+                        <i class="fas fa-sticky-note sm:mr-2"></i> <span class="hidden sm:inline">Notas</span>
+                    </button>
                     <button onclick="openInvitationModal()" class="inline-flex items-center px-3 sm:px-4 py-2 border border-indigo-100 text-xs sm:text-sm font-semibold rounded-xl text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition-colors">
                         <i class="fas fa-user-plus sm:mr-2"></i> <span class="hidden sm:inline">Convidar advogado</span>
                     </button>
@@ -293,8 +349,8 @@ if (!$case) { echo "Caso não encontrado."; exit; }
         <div class="h-full">
             <div class="grid grid-cols-12 gap-4 h-full p-4">
             
-            <!-- Sidebar (3 colunas - Documentos) -->
-            <div class="col-span-3 flex flex-col gap-4 overflow-hidden">
+            <!-- Sidebar (Documentos) -->
+            <div class="hidden md:flex col-span-3 flex-col gap-4 overflow-hidden">
                 <!-- Upload Card -->
                 <div class="mobile-tab-panel" data-mobile-section="enviar">
                 <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
@@ -346,8 +402,8 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                 </div>
             </div>
 
-            <!-- Centro (6 colunas - Chat/Busca) -->
-            <div class="col-span-6 flex flex-col overflow-hidden">
+            <!-- Centro (Chat/Busca) -->
+            <div class="col-span-12 md:col-span-9 flex flex-col overflow-hidden">
                 <div class="mobile-tab-panel active flex-1 flex flex-col overflow-hidden" data-mobile-section="busca">
                     <div class="space-y-4 flex-1 flex flex-col overflow-hidden">
                         <!-- Unified search bar with mode toggle -->
@@ -440,39 +496,6 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                         </div>
                     </div>
                 </div>
-                <!-- Direita (3 colunas - Notas do Caso) -->
-            <div class="col-span-3 flex flex-col overflow-hidden bg-white rounded-2xl border border-slate-200">
-                <div class="p-4 border-b border-slate-100 flex-shrink-0">
-                    <h3 class="text-xs font-black text-slate-900 flex items-center tracking-widest uppercase">
-                        <span class="w-8 h-8 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center mr-3 text-xs">
-                            <i class="fas fa-sticky-note"></i>
-                        </span>
-                        Notas do Caso
-                    </h3>
-                </div>
-                
-                <!-- Note Creation Form -->
-                <div class="p-4 border-b border-slate-100 flex-shrink-0 bg-slate-50">
-                    <form id="note-form" onsubmit="createNote(event)" class="space-y-3">
-                        <textarea id="note-text" rows="2" placeholder="Nova nota..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none resize-none" required></textarea>
-                        <div class="flex items-center justify-between">
-                            <div class="flex gap-1">
-                                <button type="button" onclick="setNoteColor('red')" class="note-color-btn w-6 h-6 rounded-full bg-red-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="red" title="Vermelho"></button>
-                                <button type="button" onclick="setNoteColor('yellow')" class="note-color-btn w-6 h-6 rounded-full bg-yellow-400 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="yellow" title="Amarelo"></button>
-                                <button type="button" onclick="setNoteColor('green')" class="note-color-btn w-6 h-6 rounded-full bg-emerald-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="green" title="Verde"></button>
-                                <button type="button" onclick="setNoteColor('blue')" class="note-color-btn w-6 h-6 rounded-full bg-blue-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="blue" title="Azul"></button>
-                            </div>
-                            <button type="submit" class="px-3 py-1.5 bg-amber-500 text-white text-xs font-bold rounded-lg hover:bg-amber-600 transition-colors">
-                                <i class="fas fa-plus mr-1"></i>Adicionar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                
-                <!-- Notes List -->
-                <div id="notes-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
-                    <!-- Notes will be rendered here -->
-                </div>
             </div>
         </div>
         
@@ -522,7 +545,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 }
 
 /* Modal animations */
-#pdf-modal, #interactive-search-modal, #invitation-modal {
+#pdf-modal, #interactive-search-modal, #invitation-modal, #notes-modal {
     animation: fadeIn 0.2s ease-out;
 }
 @keyframes fadeIn {
@@ -1733,7 +1756,20 @@ function initNotes() {
             notes = [];
         }
     }
-    renderNotes();
+    renderNotesModal();
+}
+
+// Open Notes Modal
+function openNotesModal() {
+    document.getElementById('notes-modal').classList.remove('hidden');
+    renderNotesModal();
+    // Set initial color selection
+    setNoteColor(selectedNoteColor);
+}
+
+// Close Notes Modal
+function closeNotesModal() {
+    document.getElementById('notes-modal').classList.add('hidden');
 }
 
 // Save notes to localStorage
@@ -1756,7 +1792,7 @@ function setNoteColor(color) {
 // Create a new note
 function createNote(event) {
     event.preventDefault();
-    const textEl = document.getElementById('note-text');
+    const textEl = document.getElementById('note-text-modal');
     const text = textEl.value.trim();
     if (!text) return;
     
@@ -1770,7 +1806,7 @@ function createNote(event) {
     
     notes.unshift(note);
     saveNotes();
-    renderNotes();
+    renderNotesModal();
     textEl.value = '';
 }
 
@@ -1788,7 +1824,7 @@ async function deleteNote(noteId) {
     
     notes = notes.filter(n => n.id !== noteId);
     saveNotes();
-    renderNotes();
+    renderNotesModal();
 }
 
 // Edit a note - show inline edit
@@ -1839,7 +1875,7 @@ function saveEditNote(noteId) {
     }
     
     saveNotes();
-    renderNotes();
+    renderNotesModal();
 }
 
 // Format date for display
@@ -1866,19 +1902,19 @@ function getNoteColorClasses(color) {
     return colors[color] || colors.yellow;
 }
 
-// Render all notes
-function renderNotes() {
-    const container = document.getElementById('notes-list');
+// Render all notes (modal version)
+function renderNotesModal() {
+    const container = document.getElementById('notes-list-modal');
     if (!container) return;
     
     if (notes.length === 0) {
         container.innerHTML = `
-            <div class="flex flex-col items-center justify-center h-full text-center space-y-3 py-8">
+            <div class="flex flex-col items-center justify-center h-40 text-center space-y-3">
                 <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
                     <i class="fas fa-sticky-note text-xl text-slate-300"></i>
                 </div>
-                <p class="text-xs font-medium text-slate-400">Nenhuma nota ainda</p>
-                <p class="text-[10px] text-slate-300">Crie uma nota acima</p>
+                <p class="text-sm font-medium text-slate-400">Nenhuma nota ainda</p>
+                <p class="text-xs text-slate-300">Crie uma nota acima</p>
             </div>`;
         return;
     }
@@ -1899,10 +1935,10 @@ function renderNotes() {
                             </button>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHtml(note.text)}</p>
+                    <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHtml(note.text)}</p>
                     <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
-                        <span class="text-[10px] font-medium text-slate-500">${escapeHtml(note.author)}</span>
-                        <span class="text-[10px] text-slate-400">${formatNoteDate(note.createdAt)}</span>
+                        <span class="text-xs font-medium text-slate-500">${escapeHtml(note.author)}</span>
+                        <span class="text-xs text-slate-400">${formatNoteDate(note.createdAt)}</span>
                     </div>
                 </div>
             </div>`;
