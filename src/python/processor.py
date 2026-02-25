@@ -3,6 +3,7 @@ import os
 import re
 import smtplib
 import socket
+import unicodedata
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
@@ -11,6 +12,11 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), ".env"))
 import json
 import sqlite3
+import sqlite_vss
+try:
+    import sqlite_vec
+except ImportError:
+    sqlite_vec = None
 import requests
 import uvicorn
 import logging
@@ -30,6 +36,11 @@ import pytesseract
 from docx import Document as DocxDocument
 from openpyxl import load_workbook
 from openai import OpenAI
+try:
+    from sentence_transformers import CrossEncoder
+    _cross_encoder_available = True
+except ImportError:
+    _cross_encoder_available = False
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -56,13 +67,29 @@ def log_step(step: str, message: str, params: dict = None):
     debug_log(step, message, params)
 
 
-def send_invitation_email(to_email: str, case_id: str, magic_link: str, inviter_name: str = "Um advogado") -> bool:
+def send_invitation_email(to_email: str, case_id: str, magic_link: str, inviter_name: str = "Um advogado", case_name: str = "", case_description: str = "") -> bool:
     """Send invitation email via localhost SMTP (port 25, no auth)."""
     
     # Email configuration
     SMTP_HOST = os.getenv("SMTP_HOST", "localhost")
     SMTP_PORT = int(os.getenv("SMTP_PORT", "25"))
-    SMTP_FROM = os.getenv("SMTP_FROM", "KapJus <nao-responda@kapjus.com.br>")
+    SMTP_FROM = os.getenv("SMTP_FROM", "KapJus <noreply@janeri.com.br>")
+    
+    # Build case info for email
+    case_info_html = ""
+    case_info_text = ""
+    if case_name:
+        case_info_html = f"""
+            <div class="case-info" style="background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                <p style="margin: 0; color: #1a237e; font-size: 16px; font-weight: bold;">📁 Processo: {case_name}</p>
+                {f'<p style="margin: 10px 0 0; color: #555;">{case_description}</p>' if case_description else ''}
+            </div>
+        """
+        case_info_text = f"""
+Processo: {case_name}
+{f'Descrição: {case_description}' if case_description else ''}
+
+"""
     
     # Build HTML email
     html_content = f"""<!DOCTYPE html>
@@ -97,6 +124,8 @@ def send_invitation_email(to_email: str, case_id: str, magic_link: str, inviter_
         <div class="content">
             <h2>Olá!</h2>
             <p><strong>{inviter_name}</strong> convidou você para acessar um processo jurídico no <strong>KapJus</strong>.</p>
+            
+            {case_info_html}
             
             <div class="features">
                 <strong>O que você pode fazer no KapJus:</strong>
@@ -135,7 +164,7 @@ Olá!
 
 {inviter_name} convidou você para acessar um processo jurídico no KapJus.
 
-O que você pode fazer:
+{case_info_text}O que você pode fazer:
 - Busca Rápida: Encontre qualquer termo, pessoa ou fato em segundos
 - Acesse do Celular: Interface responsiva para usar em qualquer lugar
 - AI Jurídica: Tire dúvidas sobre o processo com inteligência artificial
@@ -245,9 +274,9 @@ os.makedirs(CHUNKS_DIR, exist_ok=True)
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
-RETRIEVE_CHUNK_COUNT = 30
-FINAL_CONTEXT_CHUNKS = 7
-MIN_FINAL_CONTEXT_CHUNKS = 5
+RETRIEVE_CHUNK_COUNT = 50
+FINAL_CONTEXT_CHUNKS = 12
+MIN_FINAL_CONTEXT_CHUNKS = 8
 
 def _mask_api_key(key: str) -> str:
     """Mask sensitive key for logging."""
@@ -299,27 +328,40 @@ app = FastAPI()
 
 # Enable VSS extension for vector similarity search
 def enable_vss_extension(conn):
-    """Load sqlite-vss extension for vector search capabilities."""
+    """Load sqlite-vss or sqlite-vec extension for vector search capabilities."""
+    # Try sqlite-vec first (modern replacement)
+    if sqlite_vec:
+        try:
+            conn.enable_load_extension(True)
+            sqlite_vec.load(conn)
+            conn.enable_load_extension(False)
+            logger.info("sqlite-vec extension loaded successfully")
+            return "vec"
+        except Exception as e:
+            logger.warning(f"sqlite-vec not available: {e}")
+    
+    # Fallback to sqlite-vss
     try:
         conn.enable_load_extension(True)
-        conn.load_extension("vss0")
+        sqlite_vss.load(conn)
         conn.enable_load_extension(False)
-        logger.info("VSS extension loaded successfully")
-        return True
+        logger.info("sqlite-vss extension loaded successfully")
+        return "vss"
     except Exception as e:
         logger.warning(f"VSS extension not available: {e}")
         return False
 
 # Test VSS availability on module load
-_vss_available = False
+_vss_mode = False
 try:
     _test_conn = sqlite3.connect(DB_PATH)
-    _vss_available = enable_vss_extension(_test_conn)
+    _vss_mode = enable_vss_extension(_test_conn)
     _test_conn.close()
 except Exception:
     pass
 
-logger.info(f"VSS extension available: {_vss_available}")
+_vss_available = bool(_vss_mode)
+logger.info(f"VSS extension available: {_vss_available} (Mode: {_vss_mode})")
 
 # Cleanup stale uploads (older than UPLOAD_TIMEOUT)
 def cleanup_stale_uploads():
@@ -342,7 +384,10 @@ cleanup_stale_uploads()
 class SearchQuery(BaseModel):
     case_id: str
     query: str
-    top_k: int = 5
+    top_k: int = 20
+    offset: int = 0
+    filename_filter: Optional[str] = None   # filtrar por nome de arquivo (substring)
+    file_type_filter: Optional[str] = None  # filtrar por extensão: "pdf", "docx", "txt", etc.
 
 def extract_text_from_pdf(pdf_path: str) -> List[Dict]:
     """
@@ -369,8 +414,8 @@ def extract_text_from_pdf(pdf_path: str) -> List[Dict]:
             except Exception as ocr_error:
                 text = f"[OCR Error: {str(ocr_error)}]"
         
-        pages_content.append({"page": page_num + 1, "content": text})
-    
+        pages_content.append({"page": page_num + 1, "content": normalize_text(text)})
+
     return pages_content
 
 def extract_text_from_image(image_path: str) -> List[Dict]:
@@ -380,7 +425,7 @@ def extract_text_from_image(image_path: str) -> List[Dict]:
     try:
         img = Image.open(image_path)
         text = pytesseract.image_to_string(img, lang='por')
-        return [{"page": 1, "content": text}]
+        return [{"page": 1, "content": normalize_text(text)}]
     except Exception as e:
         return [{"page": 1, "content": f"[OCR Error: {str(e)}]"}]
 
@@ -401,7 +446,7 @@ def extract_text_from_docx(docx_path: str) -> List[Dict]:
                     full_text.append(cell.text)
         
         text = "\n".join(full_text)
-        return [{"page": 1, "content": text}]
+        return [{"page": 1, "content": normalize_text(text)}]
     except Exception as e:
         return [{"page": 1, "content": f"[DOCX Error: {str(e)}]"}]
 
@@ -412,7 +457,7 @@ def extract_text_from_txt(txt_path: str) -> List[Dict]:
     try:
         with open(txt_path, 'r', encoding='utf-8') as f:
             text = f.read()
-        return [{"page": 1, "content": text}]
+        return [{"page": 1, "content": normalize_text(text)}]
     except Exception as e:
         return [{"page": 1, "content": f"[TXT Error: {str(e)}]"}]
 
@@ -528,6 +573,13 @@ def prepare_logical_chunks(pages: List[Dict]) -> List[Dict]:
     return logical_chunks
 
 
+def normalize_text(text: str) -> str:
+    """Normaliza texto para Unicode NFC, garantindo consistência de diacríticos."""
+    if not text:
+        return text
+    return unicodedata.normalize('NFC', text)
+
+
 def sanitize_for_fts(term: str) -> Optional[str]:
     """
     Remove caracteres inválidos e normaliza termos para consultas FTS5.
@@ -556,7 +608,8 @@ def store_document(case_id: str, filename: str, pages: List[Dict]):
     for chunk in chunks:
         chunk_content = chunk["content"]
         cursor.execute("INSERT INTO documents (case_id, filename, page_number, content) VALUES (?, ?, ?, ?)", (case_id, filename, chunk['page'], chunk_content))
-        cursor.execute("INSERT INTO documents_fts (content, case_id, filename, page_number) VALUES (?, ?, ?, ?)", (chunk_content, case_id, filename, chunk['page']))
+        doc_id = cursor.lastrowid
+        cursor.execute("INSERT INTO documents_fts (rowid, content, case_id, filename, page_number) VALUES (?, ?, ?, ?, ?)", (doc_id, chunk_content, case_id, filename, chunk['page']))
     
     conn.commit()
     conn.close()
@@ -566,21 +619,30 @@ def store_document(case_id: str, filename: str, pages: List[Dict]):
 def create_vss_table(conn):
     """Create VSS virtual table for vector similarity search."""
     if not _vss_available:
-        logger.warning("VSS extension not available, skipping vss_chunks table creation")
+        logger.warning("VSS extension not available, skipping table creation")
         return False
     
     cursor = conn.cursor()
     try:
-        cursor.execute("""
-            CREATE VIRTUAL TABLE IF NOT EXISTS vss_chunks USING vss0(
-                embedding(1536)  -- OpenAI text-embedding-3-small dimension
-            )
-        """)
+        if _vss_mode == "vec":
+            cursor.execute("""
+                CREATE VIRTUAL TABLE IF NOT EXISTS vec_chunks USING vec0(
+                    rowid INTEGER PRIMARY KEY,
+                    embedding FLOAT[1536]
+                )
+            """)
+            logger.info("sqlite-vec vec_chunks virtual table created/verified")
+        else:
+            cursor.execute("""
+                CREATE VIRTUAL TABLE IF NOT EXISTS vss_chunks USING vss0(
+                    embedding(1536)  -- OpenAI text-embedding-3-small dimension
+                )
+            """)
+            logger.info("sqlite-vss vss_chunks virtual table created/verified")
         conn.commit()
-        logger.info("VSS vss_chunks virtual table created/verified")
         return True
     except Exception as e:
-        logger.error(f"Failed to create vss_chunks table: {e}")
+        logger.error(f"Failed to create vector table: {e}")
         return False
 
 def get_embedding(text: str, model: str = "text-embedding-3-small") -> Optional[List[float]]:
@@ -600,12 +662,16 @@ def get_embedding(text: str, model: str = "text-embedding-3-small") -> Optional[
         logger.error(f"Failed to generate embedding: {e}")
         return None
 
+# Table name based on available extension
+VEC_TABLE = "vec_chunks" if _vss_mode == "vec" else "vss_chunks"
+
 def store_document_with_embedding(case_id: str, filename: str, pages: List[Dict]):
     """Store document with both text and vector embeddings."""
     conn = sqlite3.connect(DB_PATH)
     
     if _vss_available:
         create_vss_table(conn)
+        enable_vss_extension(conn) # Ensure extension is loaded for this connection
     
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS documents (id INTEGER PRIMARY KEY AUTOINCREMENT, case_id TEXT, filename TEXT, page_number INTEGER, content TEXT)")
@@ -622,16 +688,24 @@ def store_document_with_embedding(case_id: str, filename: str, pages: List[Dict]
         cursor.execute("INSERT INTO documents (case_id, filename, page_number, content) VALUES (?, ?, ?, ?)", 
                       (case_id, filename, page_num, content))
         doc_id = cursor.lastrowid
-        cursor.execute("INSERT INTO documents_fts (content, case_id, filename, page_number) VALUES (?, ?, ?, ?)", 
-                      (content, case_id, filename, page_num))
+        cursor.execute("INSERT INTO documents_fts (rowid, content, case_id, filename, page_number) VALUES (?, ?, ?, ?, ?)", 
+                      (doc_id, content, case_id, filename, page_num))
         
         # Generate and store embedding if VSS is available
         if _vss_available:
             embedding = get_embedding(content)
             if embedding:
                 try:
-                    cursor.execute("INSERT INTO vss_chunks (rowid, embedding) VALUES (?, ?)", 
-                                  (doc_id, embedding))
+                    if _vss_mode == "vec":
+                        # sqlite-vec needs the embedding as a blob/bytes or JSON string depending on how it was created
+                        # For float[1536], it accepts bytes
+                        import array
+                        embedding_bytes = array.array('f', embedding).tobytes()
+                        cursor.execute(f"INSERT INTO {VEC_TABLE} (rowid, embedding) VALUES (?, ?)", 
+                                      (doc_id, embedding_bytes))
+                    else:
+                        cursor.execute(f"INSERT INTO {VEC_TABLE} (rowid, embedding) VALUES (?, ?)", 
+                                      (doc_id, json.dumps(embedding)))
                     logger.debug(f"Stored embedding for {filename} page {page_num}")
                 except Exception as e:
                     logger.warning(f"Failed to store embedding for {filename} page {page_num}: {e}")
@@ -646,6 +720,9 @@ def index_document_embeddings(conn: sqlite3.Connection, case_id: str = None):
         logger.warning("VSS extension not available, skipping embedding indexing")
         return 0
     
+    # Ensure extension is loaded for this connection
+    enable_vss_extension(conn)
+    
     cursor = conn.cursor()
     
     # Create vss_chunks table if it doesn't exist
@@ -653,18 +730,18 @@ def index_document_embeddings(conn: sqlite3.Connection, case_id: str = None):
     
     # Find documents without embeddings
     if case_id:
-        cursor.execute("""
+        cursor.execute(f"""
             SELECT d.id, d.case_id, d.filename, d.page_number, d.content
             FROM documents d
-            LEFT JOIN vss_chunks v ON d.id = v.rowid
+            LEFT JOIN {VEC_TABLE} v ON d.id = v.rowid
             WHERE v.rowid IS NULL AND d.case_id = ?
             ORDER BY d.id
         """, (case_id,))
     else:
-        cursor.execute("""
+        cursor.execute(f"""
             SELECT d.id, d.case_id, d.filename, d.page_number, d.content
             FROM documents d
-            LEFT JOIN vss_chunks v ON d.id = v.rowid
+            LEFT JOIN {VEC_TABLE} v ON d.id = v.rowid
             WHERE v.rowid IS NULL
             ORDER BY d.id
         """)
@@ -675,7 +752,7 @@ def index_document_embeddings(conn: sqlite3.Connection, case_id: str = None):
         logger.info("No documents need embedding indexing")
         return 0
     
-    logger.info(f"Indexing {len(docs_to_index)} documents for vector search")
+    logger.info(f"Indexing {len(docs_to_index)} documents for vector search using {VEC_TABLE}")
     indexed_count = 0
     
     for doc in docs_to_index:
@@ -683,8 +760,14 @@ def index_document_embeddings(conn: sqlite3.Connection, case_id: str = None):
         embedding = get_embedding(content)
         if embedding:
             try:
-                cursor.execute("INSERT INTO vss_chunks (rowid, embedding) VALUES (?, ?)", 
-                              (doc_id, embedding))
+                if _vss_mode == "vec":
+                    import array
+                    embedding_bytes = array.array('f', embedding).tobytes()
+                    cursor.execute(f"INSERT INTO {VEC_TABLE} (rowid, embedding) VALUES (?, ?)", 
+                                  (doc_id, embedding_bytes))
+                else:
+                    cursor.execute(f"INSERT INTO {VEC_TABLE} (rowid, embedding) VALUES (?, ?)", 
+                                  (doc_id, json.dumps(embedding)))
                 indexed_count += 1
                 logger.debug(f"Indexed embedding for {filename} page {page_num}")
             except Exception as e:
@@ -699,41 +782,45 @@ class SetupVSSQuery(BaseModel):
 
 @app.post("/setup_vss")
 async def setup_vss(query: SetupVSSQuery):
-    """Setup VSS infrastructure: create vss_chunks table and index existing documents."""
+    """Setup VSS infrastructure: create vector table and index existing documents."""
     if not _vss_available:
         return JSONResponse(
             status_code=503,
-            content={"status": "error", "message": "VSS extension not available"}
+            content={"status": "error", "message": "VSS/Vector extension not available"}
         )
     
     conn = sqlite3.connect(DB_PATH)
     
     try:
-        # Create vss_chunks table
+        # Load extension for this connection
+        enable_vss_extension(conn)
+
+        # Create table
         table_created = create_vss_table(conn)
         
         if not table_created:
-            raise Exception("Failed to create vss_chunks table")
+            raise Exception(f"Failed to create {VEC_TABLE} table")
         
         # Index existing documents
         indexed = index_document_embeddings(conn, query.case_id)
         
         # Get stats
         cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM vss_chunks")
+        cursor.execute(f"SELECT COUNT(*) FROM {VEC_TABLE}")
         total_embeddings = cursor.fetchone()[0]
         
         return {
             "status": "success",
-            "message": "VSS infrastructure setup complete",
+            "message": "Vector infrastructure setup complete",
             "vss_available": _vss_available,
-            "table_created": True,
+            "vss_mode": _vss_mode,
+            "table_name": VEC_TABLE,
             "indexed_documents": indexed,
             "total_embeddings": total_embeddings
         }
     
     except Exception as e:
-        logger.error(f"VSS setup failed: {e}")
+        logger.error(f"Vector setup failed: {e}")
         return JSONResponse(
             status_code=500,
             content={"status": "error", "message": str(e)}
@@ -743,31 +830,36 @@ async def setup_vss(query: SetupVSSQuery):
 
 @app.get("/vss_status")
 async def vss_status():
-    """Get VSS infrastructure status."""
+    """Get VSS/Vector infrastructure status."""
     conn = sqlite3.connect(DB_PATH)
+    enable_vss_extension(conn)
     cursor = conn.cursor()
     
     status = {
         "vss_available": _vss_available,
-        "vss_chunks_exists": False,
+        "vss_mode": _vss_mode,
+        "table_name": VEC_TABLE,
+        "vector_table_exists": False,
         "total_embeddings": 0,
         "documents_without_embeddings": 0
     }
     
     try:
         if _vss_available:
-            cursor.execute("SELECT COUNT(*) FROM vss_chunks")
-            status["total_embeddings"] = cursor.fetchone()[0]
-            status["vss_chunks_exists"] = True
-            
-            cursor.execute("""
-                SELECT COUNT(*) FROM documents d
-                LEFT JOIN vss_chunks v ON d.id = v.rowid
-                WHERE v.rowid IS NULL
-            """)
-            status["documents_without_embeddings"] = cursor.fetchone()[0]
+            cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{VEC_TABLE}'")
+            if cursor.fetchone():
+                status["vector_table_exists"] = True
+                cursor.execute(f"SELECT COUNT(*) FROM {VEC_TABLE}")
+                status["total_embeddings"] = cursor.fetchone()[0]
+                
+                cursor.execute(f"""
+                    SELECT COUNT(*) FROM documents d
+                    LEFT JOIN {VEC_TABLE} v ON d.id = v.rowid
+                    WHERE v.rowid IS NULL
+                """)
+                status["documents_without_embeddings"] = cursor.fetchone()[0]
     except Exception as e:
-        logger.error(f"Failed to get VSS status: {e}")
+        logger.error(f"Failed to get vector status: {e}")
     finally:
         conn.close()
     
@@ -775,16 +867,51 @@ async def vss_status():
 
 # ==================== HYBRID SEARCH PHASE 2 ====================
 
+_INTERROGATIVE_PATTERN = re.compile(
+    r'\b(como|quando|qual|quais|quem|onde|por que|porque|o que|quanto|quantos|quantas)\b',
+    re.IGNORECASE | re.UNICODE,
+)
+
+_COMMAND_PATTERN = re.compile(
+    r'\b(resuma|liste|explique|descreva|quais|detalhe|aponte|fale sobre)\b',
+    re.IGNORECASE | re.UNICODE,
+)
+
+def _is_simple_query(question: str) -> bool:
+    """
+    Retorna True se a query é simples (≤ 3 tokens, sem palavras interrogativas, sem comandos e sem '?').
+    Queries simples não se beneficiam de expansão via LLM — apenas adicionam latência.
+    """
+    tokens = question.strip().split()
+    if len(tokens) > 3:
+        return False
+    if '?' in question:
+        return False
+    if _INTERROGATIVE_PATTERN.search(question):
+        return False
+    if _COMMAND_PATTERN.search(question):
+        return False
+    return True
+
+
 def expand_query(question: str, provider: str = None) -> Dict[str, any]:
     """
     Expand user question into keywords for FTS5 and semantic query for VSS.
     Uses AI to generate optimized search terms.
+    For short, simple queries (≤ 2 tokens, no interrogative words) skips the LLM call.
     """
     log_step("EXPAND", f"Iniciando expansao da pergunta", {"question": question[:200]})
-    
+
     if not question or not question.strip():
         log_step("EXPAND", "Pergunta vazia recebida", {"keywords": [], "semantic_query": ""})
         return {"keywords": [], "semantic_query": ""}
+
+    if _is_simple_query(question):
+        log_step("EXPAND", "Query simples — expansao via LLM ignorada", {"question": question})
+        return {
+            "keywords": question.strip().split(),
+            "semantic_query": question.strip(),
+        }
     
     prompt = f"""###
 Você é um especialista em Recuperação de Informação (IR) aplicado ao Direito e Perícia Digital. Analise a pergunta do usuário e retorne um JSON estruturado para uma busca híbrida (FTS5 + Vetorial).
@@ -913,28 +1040,56 @@ def hybrid_search(keywords: List[str], semantic_query: str, case_id: Optional[st
             
             if embedding:
                 log_step("HYBRID-VSS", f"Embedding gerado", {"dimension": len(embedding)})
+                enable_vss_extension(conn) # Ensure loaded
                 
-                if case_id:
-                    log_step("HYBRID-VSS", f"Executando VSS com filtro case_id", {"case_id": case_id})
-                    cursor.execute("""
-                        SELECT v.rowid, d.content, d.filename, d.page_number,
-                               vss_distance(v.embedding, ?)
-                        FROM vss_chunks v
-                        JOIN documents d ON v.rowid = d.id
-                        WHERE d.case_id = ?
-                        ORDER BY vss_distance(v.embedding, ?)
-                        LIMIT ?
-                    """, (embedding, case_id, embedding, limit))
+                if _vss_mode == "vec":
+                    import array
+                    embedding_blob = array.array('f', embedding).tobytes()
+                    
+                    if case_id:
+                        log_step("HYBRID-VSS", f"Executando sqlite-vec com filtro case_id", {"case_id": case_id})
+                        cursor.execute(f"""
+                            SELECT v.rowid, d.content, d.filename, d.page_number,
+                                   vec_distance_cosine(v.embedding, ?) as distance
+                            FROM {VEC_TABLE} v
+                            JOIN documents d ON v.rowid = d.id
+                            WHERE d.case_id = ?
+                            ORDER BY distance
+                            LIMIT ?
+                        """, (embedding_blob, case_id, limit))
+                    else:
+                        log_step("HYBRID-VSS", "Executando sqlite-vec sem filtro")
+                        cursor.execute(f"""
+                            SELECT v.rowid, d.content, d.filename, d.page_number,
+                                   vec_distance_cosine(v.embedding, ?) as distance
+                            FROM {VEC_TABLE} v
+                            JOIN documents d ON v.rowid = d.id
+                            ORDER BY distance
+                            LIMIT ?
+                        """, (embedding_blob, limit))
                 else:
-                    log_step("HYBRID-VSS", "Executando VSS sem filtro")
-                    cursor.execute("""
-                        SELECT v.rowid, d.content, d.filename, d.page_number,
-                               vss_distance(v.embedding, ?)
-                        FROM vss_chunks v
-                        JOIN documents d ON v.rowid = d.id
-                        ORDER BY vss_distance(v.embedding, ?)
-                        LIMIT ?
-                    """, (embedding, embedding, limit))
+                    # Original sqlite-vss logic
+                    if case_id:
+                        log_step("HYBRID-VSS", f"Executando VSS com filtro case_id", {"case_id": case_id})
+                        cursor.execute("""
+                            SELECT v.rowid, d.content, d.filename, d.page_number,
+                                   vss_distance(v.embedding, ?)
+                            FROM vss_chunks v
+                            JOIN documents d ON v.rowid = d.id
+                            WHERE d.case_id = ?
+                            ORDER BY vss_distance(v.embedding, ?)
+                            LIMIT ?
+                        """, (json.dumps(embedding), case_id, json.dumps(embedding), limit))
+                    else:
+                        log_step("HYBRID-VSS", "Executando VSS sem filtro")
+                        cursor.execute("""
+                            SELECT v.rowid, d.content, d.filename, d.page_number,
+                                   vss_distance(v.embedding, ?)
+                            FROM vss_chunks v
+                            JOIN documents d ON v.rowid = d.id
+                            ORDER BY vss_distance(v.embedding, ?)
+                            LIMIT ?
+                        """, (json.dumps(embedding), json.dumps(embedding), limit))
                 
                 for row in cursor.fetchall():
                     vss_results.append({
@@ -976,7 +1131,7 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     if case_id:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
-        cursor.execute("SELECT id FROM documents WHERE case_id = ?", (case_id,))
+        cursor.execute("SELECT id FROM documents WHERE case_id = ?", (str(case_id),))
         valid_rowids = set(row[0] for row in cursor.fetchall())
         conn.close()
         
@@ -990,15 +1145,16 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     for position, item in enumerate(fts_results):
         rowid = item["rowid"]
         rank = position + 1
-        rrf_score = 1.0 / (rank * 60 + position + 1)
+        rrf_score = 1.0 / (60 + rank)
         
         if rowid not in ranked_items:
             ranked_items[rowid] = {"rowid": rowid, "content": item["content"], 
                                    "filename": item["filename"], "page": item["page"],
+                                   "case_id": case_id,
                                    "fts_rank": rank, "vss_rank": None, "rrf_score": rrf_score}
         else:
             ranked_items[rowid]["rrf_score"] += rrf_score
-            ranked_items[rowid]["fts_rank"] = min(ranked_items[rowid].get("fts_rank"), rank)
+            ranked_items[rowid]["fts_rank"] = min(ranked_items[rowid].get("fts_rank", 999), rank)
     
     log_step("RANK", f"Apos FTS5: {len(ranked_items)} items unicos")
     
@@ -1006,15 +1162,16 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
     for position, item in enumerate(vss_results):
         rowid = item["rowid"]
         rank = position + 1
-        rrf_score = 1.0 / (rank * 60 + position + 1)
+        rrf_score = 1.0 / (60 + rank)
         
         if rowid not in ranked_items:
             ranked_items[rowid] = {"rowid": rowid, "content": item["content"], 
                                    "filename": item["filename"], "page": item["page"],
+                                   "case_id": case_id,
                                    "fts_rank": None, "vss_rank": rank, "rrf_score": rrf_score}
         else:
             ranked_items[rowid]["rrf_score"] += rrf_score
-            ranked_items[rowid]["vss_rank"] = min(ranked_items[rowid].get("vss_rank"), rank)
+            ranked_items[rowid]["vss_rank"] = min(ranked_items[rowid].get("vss_rank", 999), rank)
     
     log_step("RANK", f"Apos VSS: {len(ranked_items)} items unicos")
     
@@ -1033,11 +1190,19 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
 
 def select_final_context_chunks(question: str, candidates: List[Dict], case_id: str = None) -> List[Dict]:
     """Re-rank candidates via cross-encoder and trim/pad to final context size."""
+    log_step("DEBUG_SELECT", f"ENTRADA candidates={len(candidates)}, case_id={case_id}")
+    
     # Filter candidates by case_id if provided
     if case_id:
+        original_count = len(candidates)
         candidates = [c for c in candidates if c.get("case_id") == case_id]
+        log_step("DEBUG_SELECT", f"APOS FILTRO case_id: {original_count} -> {len(candidates)}")
+        if len(candidates) == 0:
+            log_step("DEBUG_SELECT", "CANDIDATES VAZIOS APÓS FILTRO - TODOS PERDERAM case_id!")
     
+    log_step("DEBUG_SELECT", f"ANTES cross_encoder: {len(candidates)} candidates")
     final_chunks = cross_encoder_rerank(question, candidates, FINAL_CONTEXT_CHUNKS)
+    log_step("DEBUG_SELECT", f"APOS cross_encoder: {len(final_chunks)} chunks")
 
     if len(final_chunks) < MIN_FINAL_CONTEXT_CHUNKS:
         needed = MIN_FINAL_CONTEXT_CHUNKS - len(final_chunks)
@@ -1053,13 +1218,56 @@ def select_final_context_chunks(question: str, candidates: List[Dict], case_id: 
     return final_chunks[:FINAL_CONTEXT_CHUNKS]
 
 
+_local_cross_encoder = None
+
+def get_cross_encoder():
+    """Lazy-load the local cross-encoder model."""
+    global _local_cross_encoder
+    if not _cross_encoder_available:
+        return None
+    if _local_cross_encoder is None:
+        try:
+            log_step("CROSS", "Loading local cross-encoder model...")
+            # ms-marco-MiniLM-L-6-v2 is a good balance of speed and quality
+            _local_cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2', max_length=512)
+            log_step("CROSS", "Local cross-encoder loaded successfully")
+        except Exception as e:
+            log_step("CROSS", f"Failed to load local cross-encoder: {e}")
+            return None
+    return _local_cross_encoder
+
 def cross_encoder_rerank(question: str, candidates: List[Dict], top_k: int) -> List[Dict]:
     """
-    Use the AI to act as a cross-encoder and select the most relevant chunks.
+    Use a cross-encoder to select the most relevant chunks.
+    Tries local model first, then falls back to AI (OpenRouter/Gemini).
     """
     if not candidates:
         return []
 
+    # Try local cross-encoder first
+    local_ce = get_cross_encoder()
+    if local_ce:
+        try:
+            log_step("RERANK", f"Using local cross-encoder for {len(candidates)} candidates")
+            start_time = time.time()
+            
+            # Prepare pairs (question, chunk_content)
+            pairs = [[question, c.get("content", "")[:1000]] for c in candidates]
+            scores = local_ce.predict(pairs)
+            
+            # Zip and sort by score
+            scored_candidates = sorted(zip(candidates, scores), key=lambda x: x[1], reverse=True)
+            
+            # Log results
+            duration = time.time() - start_time
+            log_step("RERANK", f"Local rerank finished in {duration:.2f}s")
+            
+            return [c for c, score in scored_candidates[:top_k]]
+        except Exception as e:
+            log_step("RERANK", f"Local cross-encoder failed: {e}")
+            # Fall back to AI-based reranking
+
+    # Original AI-based reranking logic
     prompt_chunks = []
     for idx, chunk in enumerate(candidates):
         snippet = chunk.get("content", "").replace("\n", " ")[:400]
@@ -1078,7 +1286,7 @@ Chunks:
 """
 
     try:
-        response = call_ai(prompt, "openrouter")
+        response = call_ai(prompt)
         content = response.strip()
         if content.startswith("```"):
             content = "\n".join(content.split("\n")[1:-1])
@@ -1391,7 +1599,10 @@ async def delete_file(request: DeleteFileQuery):
         cursor.executemany("DELETE FROM documents_fts WHERE rowid = ?", [(doc_id,) for doc_id in doc_ids])
 
         if _vss_available:
-            cursor.executemany("DELETE FROM vss_chunks WHERE rowid = ?", [(doc_id,) for doc_id in doc_ids])
+            # Verify if vector table exists before attempting delete
+            cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{VEC_TABLE}'")
+            if cursor.fetchone():
+                cursor.executemany(f"DELETE FROM {VEC_TABLE} WHERE rowid = ?", [(doc_id,) for doc_id in doc_ids])
 
         conn.commit()
         log_step("DELETE", "Database cleanup completed", {"deleted": len(doc_ids)})
@@ -1421,10 +1632,52 @@ async def delete_file(request: DeleteFileQuery):
 async def search(query: SearchQuery):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute("SELECT filename, page_number, content, snippet(documents_fts, 0, '<b>', '</b>', '...', 64) FROM documents_fts WHERE case_id = ? AND documents_fts MATCH ? LIMIT ?", (query.case_id, query.query, query.top_k))
+
+    # Build dynamic WHERE clause for metadata filters
+    params: list = [query.case_id, query.query]
+    extra_conditions = ""
+
+    if query.filename_filter:
+        extra_conditions += " AND filename LIKE ?"
+        params.append(f"%{query.filename_filter}%")
+
+    if query.file_type_filter:
+        ext = query.file_type_filter.lstrip(".")
+        extra_conditions += " AND filename LIKE ?"
+        params.append(f"%.{ext}")
+
+    params.extend([query.top_k, query.offset])
+
+    cursor.execute(
+        f"""SELECT filename, page_number, content,
+                   snippet(documents_fts, 0, '<b>', '</b>', '...', 64)
+            FROM documents_fts
+            WHERE case_id = ? AND documents_fts MATCH ?
+            {extra_conditions}
+            ORDER BY bm25(documents_fts)
+            LIMIT ? OFFSET ?""",
+        params,
+    )
     results = cursor.fetchall()
+
+    # Total count for pagination metadata (same filters, no LIMIT/OFFSET)
+    count_params = [query.case_id, query.query] + params[2:-2]  # strip top_k and offset
+    cursor.execute(
+        f"""SELECT COUNT(*)
+            FROM documents_fts
+            WHERE case_id = ? AND documents_fts MATCH ?
+            {extra_conditions}""",
+        count_params,
+    )
+    total = cursor.fetchone()[0]
     conn.close()
-    return [{"filename": r[0], "page": r[1], "content": r[2], "snippet": r[3]} for r in results]
+
+    return {
+        "total": total,
+        "offset": query.offset,
+        "top_k": query.top_k,
+        "results": [{"filename": r[0], "page": r[1], "content": r[2], "snippet": r[3]} for r in results],
+    }
 
     
     return {"error": "Provider not configured"}
@@ -1746,6 +1999,7 @@ def init_invitation_tables(conn: sqlite3.Connection):
 class InviteLawyerRequest(BaseModel):
     case_id: str
     inviter_email: str
+    inviter_name: Optional[str] = None
     invitee_email: str
     invitee_name: Optional[str] = None
     role: str = "viewer"
@@ -1827,10 +2081,23 @@ async def invite_lawyer(request: InviteLawyerRequest):
         invitation_id = cursor.lastrowid
         conn.commit()
         
+        # Fetch case info for the email
+        case_name = ""
+        case_description = ""
+        try:
+            cursor.execute("SELECT name, description FROM cases WHERE id = ?", (request.case_id,))
+            case_row = cursor.fetchone()
+            if case_row:
+                case_name = case_row[0] or ""
+                case_description = case_row[1] or ""
+        except Exception as e:
+            log_step("INVITE", f"Could not fetch case info: {e}")
+        
         magic_link = f"{MAGIC_LINK_BASE_URL}/magic-login?token={raw_token}&case_id={request.case_id}"
         
         # Send invitation email
-        email_sent = send_invitation_email(request.invitee_email, request.case_id, magic_link, request.inviter_email)
+        inviter_display_name = request.inviter_name if request.inviter_name else request.inviter_email
+        email_sent = send_invitation_email(request.invitee_email, request.case_id, magic_link, inviter_display_name, case_name, case_description)
         
         log_step("INVITE", f"Invitation created", {"invitation_id": invitation_id, "expires_at": expires_at})
         
