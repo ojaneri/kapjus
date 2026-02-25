@@ -690,6 +690,59 @@ if ($path === '/api/update_case' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
+// ── Create note with source reference ──────────────────────────────────────────
+if ($path === '/api/create_note' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    
+    require_once __DIR__ . '/../src/php/auth.php';
+    $user = current_user();
+    
+    if (!$user) {
+        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+        exit;
+    }
+    
+    $input = json_decode(file_get_contents('php://input'), true);
+    $case_id = $input['case_id'] ?? null;
+    $text = $input['text'] ?? '';
+    $source_file = $input['source_file'] ?? '';
+    $source_page = $input['source_page'] ?? null;
+    $source_snippet = $input['source_snippet'] ?? '';
+    
+    if (!$text) {
+        echo json_encode(['status' => 'error', 'message' => 'Note text is required']);
+        exit;
+    }
+    
+    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
+    
+    // Check if notes table exists, create if not
+    $db->exec("CREATE TABLE IF NOT EXISTS case_notes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        case_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        text TEXT NOT NULL,
+        source_file TEXT,
+        source_page INTEGER,
+        source_snippet TEXT,
+        color TEXT DEFAULT 'yellow',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+    
+    $stmt = $db->prepare("INSERT INTO case_notes (case_id, user_id, text, source_file, source_page, source_snippet) VALUES (:case_id, :user_id, :text, :source_file, :source_page, :source_snippet)");
+    $stmt->bindValue(':case_id', $case_id, SQLITE3_INTEGER);
+    $stmt->bindValue(':user_id', $user['id'], SQLITE3_INTEGER);
+    $stmt->bindValue(':text', $text, SQLITE3_TEXT);
+    $stmt->bindValue(':source_file', $source_file, SQLITE3_TEXT);
+    $stmt->bindValue(':source_page', $source_page, SQLITE3_INTEGER);
+    $stmt->bindValue(':source_snippet', $source_snippet, SQLITE3_TEXT);
+    
+    $result = $stmt->execute();
+    
+    echo json_encode(['status' => 'success', 'id' => $db->lastInsertRowID()]);
+    exit;
+}
+
 // ── Executive Summary API (for sidebar) ───────────────────────────────────────
 if ($path === '/api/executive_summary' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');

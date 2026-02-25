@@ -1053,7 +1053,7 @@ function openPdfAtPage(encodedFilename, page) {
     viewPdf(encodedFilename, page || null);
 }
 
-// Open PDF at specific page with search term for highlighting - opens in new tab
+// Open PDF at specific page with search term for highlighting - opens in new tab with full viewer
 function openPdfWithSearch(encodedFilename, page, snippetEncoded = '') {
     const filename = decodeFilename(encodedFilename);
     const snippet = snippetEncoded ? decodeFilename(snippetEncoded) : '';
@@ -1063,9 +1063,9 @@ function openPdfWithSearch(encodedFilename, page, snippetEncoded = '') {
         return;
     }
     
-    // Build URL with page and search parameters
-    const pdfUrl = '/storage/uploads/' + encodeURIComponent(filename);
+    // Build URL for the new PDF viewer
     const params = new URLSearchParams();
+    params.set('file', filename);
     
     if (page) {
         params.set('page', page.toString());
@@ -1074,9 +1074,20 @@ function openPdfWithSearch(encodedFilename, page, snippetEncoded = '') {
         params.set('search', snippet);
     }
     
-    const url = params.toString() ? pdfUrl + '?' + params.toString() : pdfUrl;
+    // Pass case_id if available
+    const caseId = '<?php echo $case_id; ?>';
+    if (caseId) {
+        params.set('case_id', caseId);
+    }
     
-    // Open in new tab
+    // Build sources URL param if we have sources from the current response
+    // This will be populated by the IA response rendering
+    if (typeof window.currentIaSources !== 'undefined' && window.currentIaSources.length > 0) {
+        params.set('sources', encodeURIComponent(JSON.stringify(window.currentIaSources)));
+    }
+    
+    // Open in new tab using our custom viewer
+    const url = '/pdf-viewer.php?' + params.toString();
     window.open(url, '_blank');
 }
 
@@ -2109,6 +2120,10 @@ function _renderIAResponseInUnified(container, data, question = '') {
     if (indicator) indicator.remove();
 
     const sources = data.sources || [];
+    
+    // Store sources globally for PDF viewer to access
+    window.currentIaSources = sources;
+    
     let sourceInfoHtml = '';
 
     if (sources.length) {
