@@ -210,13 +210,21 @@ KapJus © 2024 - Inteligência Artificial para o Direito
         return False
 
 
-def call_ai(prompt: str, provider: str = None) -> str:
-    """Call AI with the specified or default provider. Returns the response text."""
+def call_ai(prompt: str, provider: str = None, model: str = None) -> str:
+    """Call AI with the specified or default provider. Returns the response text.
+    
+    Args:
+        prompt: The prompt to send to the AI
+        provider: Override the default provider (openrouter or gemini)
+        model: Specific model to use. For Gemini, can be 'flash', 'pro', or full model name.
+               For OpenRouter, overrides the model list.
+    """
     effective_provider = provider if provider else IA_PROVIDER
-    log_step("AI", f"Calling AI with provider: {effective_provider}", {"prompt_length": len(prompt)})
+    log_step("AI", f"Calling AI with provider: {effective_provider}", {"prompt_length": len(prompt), "model": model})
     
     if effective_provider == "openrouter":
-        for model in OPENROUTER_MODELS:
+        if model:
+            # Use specific model
             try:
                 response = openrouter_client.chat.completions.create(
                     model=model,
@@ -231,19 +239,49 @@ def call_ai(prompt: str, provider: str = None) -> str:
                 log_step("AI", f"OpenRouter response with {model}", {"length": len(answer)})
                 return answer
             except Exception as e:
-                log_step("AI", f"Model {model} failed, trying next", {"error": str(e)})
-                continue
-        raise Exception("All OpenRouter models failed")
+                log_step("AI", f"Model {model} failed", {"error": str(e)})
+                raise e
+        else:
+            # Use fallback chain
+            for model in OPENROUTER_MODELS:
+                try:
+                    response = openrouter_client.chat.completions.create(
+                        model=model,
+                        messages=[
+                            {"role": "system", "content": "Você é um assistente jurídico helpful."},
+                            {"role": "user", "content": prompt}
+                        ],
+                        max_tokens=2048,
+                        temperature=0.7
+                    )
+                    answer = response.choices[0].message.content
+                    log_step("AI", f"OpenRouter response with {model}", {"length": len(answer)})
+                    return answer
+                except Exception as e:
+                    log_step("AI", f"Model {model} failed, trying next", {"error": str(e)})
+                    continue
+            raise Exception("All OpenRouter models failed")
     elif effective_provider == "gemini":
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+            # Determine which Gemini model to use
+            if model == "flash" or model == "gemini-1.5-flash-8b":
+                gemini_model = GEMINI_FLASH_MODEL
+            elif model == "pro" or model == "gemini-1.5-pro":
+                gemini_model = GEMINI_PRO_MODEL
+            elif model:
+                gemini_model = model  # Use custom model name
+            else:
+                # Default to flash for speed
+                gemini_model = GEMINI_FLASH_MODEL
+            
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{gemini_model}:generateContent?key={GEMINI_API_KEY}"
             response = requests.post(url, json={
                 "contents": [{"parts": [{"text": prompt}]}]
             })
             data = response.json()
             if "candidates" in data:
                 answer = data["candidates"][0]["content"]["parts"][0]["text"]
-                log_step("AI", f"Gemini response", {"length": len(answer)})
+                log_step("AI", f"Gemini ({gemini_model}) response", {"length": len(answer)})
                 return answer
             else:
                 raise Exception(f"Gemini response error: {data}")
@@ -291,6 +329,11 @@ log_step("ENV", "Environment variables loaded", {
     "gemini_key": _mask_api_key(GEMINI_API_KEY)
 })
 IA_PROVIDER = os.getenv("IA_PROVIDER", "gemini").lower()  # Options: gemini, openrouter
+
+# Gemini Model Configuration
+GEMINI_FLASH_MODEL = os.getenv("GEMINI_FLASH_MODEL", "gemini-1.5-flash-8b")
+GEMINI_PRO_MODEL = os.getenv("GEMINI_PRO_MODEL", "gemini-1.5-pro")
+GEMINI_EMBEDDING_MODEL = os.getenv("GEMINI_EMBEDDING_MODEL", "text-embedding-004")
 
 # OpenRouter Model Fallback Chain (best to worst)
 OPENROUTER_MODELS_DEFAULT = [
@@ -645,11 +688,25 @@ def create_vss_table(conn):
         logger.error(f"Failed to create vector table: {e}")
         return False
 
-def get_embedding(text: str, model: str = "text-embedding-3-small") -> Optional[List[float]]:
-    """Generate embedding vector for given text using OpenAI API via OpenRouter."""
+def get_embedding(text: str, model: str = "text-embedding-3-small", provider: str = None) -> Optional[List[float]]:
+    """Generate embedding vector for given text. Supports OpenAI and Gemini embeddings.
+    
+    Args:
+        text: Text to embed
+        model: Model name. For OpenAI: 'text-embedding-3-small' or 'text-embedding-3-large'.
+               For Gemini: uses GEMINI_EMBEDDING_MODEL from env (default: text-embedding-004)
+        provider: Override the default provider ('openrouter' or 'gemini')
+    """
     if not text or not text.strip():
         return None
     
+    effective_provider = provider if provider else IA_PROVIDER
+    
+    # If provider is explicitly gemini or model starts with 'gemini' or 'text-embedding'
+    if effective_provider == "gemini" or (model and model.startswith("text-embedding")):
+        return get_gemini_embedding(text)
+    
+    # Default to OpenRouter/OpenAI embeddings
     try:
         response = openrouter_client.embeddings.create(
             model=model,
@@ -660,6 +717,36 @@ def get_embedding(text: str, model: str = "text-embedding-3-small") -> Optional[
         return embedding
     except Exception as e:
         logger.error(f"Failed to generate embedding: {e}")
+        return None
+
+
+def get_gemini_embedding(text: str) -> Optional[List[float]]:
+    """Generate embedding vector using Gemini API."""
+    if not text or not text.strip():
+        return None
+    
+    try:
+        # Use Gemini embedding model
+        embedding_model = GEMINI_EMBEDDING_MODEL
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{embedding_model}:embedContent?key={GEMINI_API_KEY}"
+        
+        response = requests.post(url, json={
+            "content": {
+                "parts": [{"text": text[:8000]}]  # Truncate to avoid token limits
+            }
+        })
+        
+        data = response.json()
+        
+        if "embedding" in data and "values" in data["embedding"]:
+            embedding = data["embedding"]["values"]
+            logger.debug(f"Generated Gemini embedding for text ({len(text)} chars) using {embedding_model}")
+            return embedding
+        else:
+            logger.error(f"Gemini embedding response error: {data}")
+            return None
+    except Exception as e:
+        logger.error(f"Failed to generate Gemini embedding: {e}")
         return None
 
 # Table name based on available extension
@@ -899,6 +986,9 @@ def expand_query(question: str, provider: str = None) -> Dict[str, any]:
     Expand user question into keywords for FTS5 and semantic query for VSS.
     Uses AI to generate optimized search terms.
     For short, simple queries (≤ 2 tokens, no interrogative words) skips the LLM call.
+    
+    For Gemini: Uses Flash model for fast query expansion.
+    For OpenRouter: Uses default model chain.
     """
     log_step("EXPAND", f"Iniciando expansao da pergunta", {"question": question[:200]})
 
@@ -912,6 +1002,8 @@ def expand_query(question: str, provider: str = None) -> Dict[str, any]:
             "keywords": question.strip().split(),
             "semantic_query": question.strip(),
         }
+    
+    effective_provider = provider if provider else IA_PROVIDER
     
     prompt = f"""###
 Você é um especialista em Recuperação de Informação (IR) aplicado ao Direito e Perícia Digital. Analise a pergunta do usuário e retorne um JSON estruturado para uma busca híbrida (FTS5 + Vetorial).
@@ -932,7 +1024,9 @@ Responda APENAS o JSON, sem markdown ou textos explicativos: {{ "keywords": [], 
     log_step("EXPAND", f"Prompt gerado para IA", {"prompt": prompt[:300]})
     
     try:
-        content = call_ai(prompt, provider)
+        # Use fast Flash model for query expansion
+        model_type = "flash" if (effective_provider == "gemini") else None
+        content = call_ai(prompt, effective_provider, model_type)
         log_step("EXPAND", f"Resposta raw da IA", {"content": content[:500]})
         
         # Clean up if model adds markdown formatting
@@ -1345,7 +1439,9 @@ PERGUNTA: > {question}
 Resposta (cite as fontes utilizadas):"""
     
     try:
-        answer = call_ai(prompt, provider)
+        # Use Pro model for Gemini to generate higher quality responses
+        model_type = "pro" if (provider == "gemini" or IA_PROVIDER == "gemini") else None
+        answer = call_ai(prompt, provider, model_type)
         log_step("RESPONSE", f"Resposta gerada pela IA", {"answer_length": len(answer), "answer_preview": answer[:200]})
         
         return answer

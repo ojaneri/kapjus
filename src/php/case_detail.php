@@ -254,9 +254,9 @@ if (!$case) { echo "Caso não encontrado."; exit; }
     </div>
 </div>
 
-<div class="min-h-screen bg-[#f8fafc]">
+<div class="h-screen overflow-hidden flex flex-col bg-[#f8fafc]">
     <!-- Navbar -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <nav class="bg-white border-b border-slate-200 flex-shrink-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center gap-2">
                 <div class="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
@@ -289,12 +289,12 @@ if (!$case) { echo "Caso não encontrado."; exit; }
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-0">
-        <div class="md:block">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+    <main class="flex-1 overflow-hidden">
+        <div class="h-full">
+            <div class="grid grid-cols-12 gap-4 h-full p-4">
             
-            <!-- Sidebar (4 colunas) -->
-            <div class="lg:col-span-4 space-y-4 sm:space-y-6">
+            <!-- Sidebar (3 colunas - Documentos) -->
+            <div class="col-span-3 flex flex-col gap-4 overflow-hidden">
                 <!-- Upload Card -->
                 <div class="mobile-tab-panel" data-mobile-section="enviar">
                 <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
@@ -324,15 +324,15 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                 </div>
 
                 <!-- Document List Card -->
-                <div class="mobile-tab-panel" data-mobile-section="arquivos">
-                <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
-                    <h3 class="text-xs font-black text-slate-900 mb-4 flex items-center tracking-widest uppercase">
+                <div class="mobile-tab-panel flex-1 overflow-hidden" data-mobile-section="arquivos">
+                <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6 h-full flex flex-col">
+                    <h3 class="text-xs font-black text-slate-900 mb-4 flex items-center tracking-widest uppercase flex-shrink-0">
                         <span class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center mr-3 text-xs">
                             <i class="fas fa-folder-open"></i>
                         </span>
                         Arquivos do caso
                     </h3>
-                    <div id="doc-list" class="space-y-2 max-h-[300px] sm:max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                    <div id="doc-list" class="flex-1 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
                         <!-- empty state shown until fetchDocuments() runs -->
                         <div id="doc-empty-state" class="flex flex-col items-center justify-center py-8 text-center space-y-3">
                             <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center">
@@ -346,10 +346,10 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                 </div>
             </div>
 
-            <!-- Main Content (8 colunas) -->
-            <div class="lg:col-span-8 space-y-4 sm:space-y-6">
-                <div class="mobile-tab-panel active" data-mobile-section="busca">
-                    <div class="space-y-4">
+            <!-- Centro (6 colunas - Chat/Busca) -->
+            <div class="col-span-6 flex flex-col overflow-hidden">
+                <div class="mobile-tab-panel active flex-1 flex flex-col overflow-hidden" data-mobile-section="busca">
+                    <div class="space-y-4 flex-1 flex flex-col overflow-hidden">
                         <!-- Unified search bar with mode toggle -->
                         <div class="bg-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200 space-y-4">
                             <!-- Segmented Control Mode toggle -->
@@ -398,8 +398,8 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                         </div>
 
                         <!-- Results Area (Unified for Search and IA) -->
-                        <div class="bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col min-h-[500px]">
-                            <div class="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-3xl">
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col flex-1 overflow-hidden min-h-0">
+                            <div class="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-3xl flex-shrink-0">
                                 <div class="flex items-center gap-3">
                                     <div id="results-icon" class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-xs">
                                         <i class="fas fa-list-ul"></i>
@@ -414,7 +414,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                                 </div>
                             </div>
                             
-                            <div id="search-results" class="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 custom-scrollbar">
+                            <div id="search-results" class="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 custom-scrollbar min-h-0">
                                 <!-- Welcome / Empty state -->
                                 <div id="empty-results-state" class="flex flex-col items-center justify-center h-full text-center space-y-6 py-12">
                                     <div class="relative">
@@ -432,7 +432,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                                 </div>
                             </div>
                             
-                            <div id="search-load-more" class="hidden border-t border-slate-100 p-4 text-center bg-slate-50/30 rounded-b-3xl">
+                            <div id="search-load-more" class="hidden border-t border-slate-100 p-4 text-center bg-slate-50/30 rounded-b-3xl flex-shrink-0">
                                 <button onclick="loadMoreResults()" class="inline-flex items-center px-6 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-600 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm">
                                     <i class="fas fa-chevron-down mr-2"></i>Carregar mais resultados
                                 </button>
@@ -440,22 +440,43 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                         </div>
                     </div>
                 </div>
+                <!-- Direita (3 colunas - Notas do Caso) -->
+            <div class="col-span-3 flex flex-col overflow-hidden bg-white rounded-2xl border border-slate-200">
+                <div class="p-4 border-b border-slate-100 flex-shrink-0">
+                    <h3 class="text-xs font-black text-slate-900 flex items-center tracking-widest uppercase">
+                        <span class="w-8 h-8 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center mr-3 text-xs">
+                            <i class="fas fa-sticky-note"></i>
+                        </span>
+                        Notas do Caso
+                    </h3>
+                </div>
+                
+                <!-- Note Creation Form -->
+                <div class="p-4 border-b border-slate-100 flex-shrink-0 bg-slate-50">
+                    <form id="note-form" onsubmit="createNote(event)" class="space-y-3">
+                        <textarea id="note-text" rows="2" placeholder="Nova nota..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none resize-none" required></textarea>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-1">
+                                <button type="button" onclick="setNoteColor('red')" class="note-color-btn w-6 h-6 rounded-full bg-red-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="red" title="Vermelho"></button>
+                                <button type="button" onclick="setNoteColor('yellow')" class="note-color-btn w-6 h-6 rounded-full bg-yellow-400 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="yellow" title="Amarelo"></button>
+                                <button type="button" onclick="setNoteColor('green')" class="note-color-btn w-6 h-6 rounded-full bg-emerald-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="green" title="Verde"></button>
+                                <button type="button" onclick="setNoteColor('blue')" class="note-color-btn w-6 h-6 rounded-full bg-blue-500 border-2 border-white ring-2 ring-transparent hover:ring-slate-300 transition-all" data-color="blue" title="Azul"></button>
+                            </div>
+                            <button type="submit" class="px-3 py-1.5 bg-amber-500 text-white text-xs font-bold rounded-lg hover:bg-amber-600 transition-colors">
+                                <i class="fas fa-plus mr-1"></i>Adicionar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Notes List -->
+                <div id="notes-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+                    <!-- Notes will be rendered here -->
+                </div>
             </div>
         </div>
-        <nav id="mobile-tab-bar" class="md:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white shadow-lg flex justify-between text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-            <button data-mobile-tab-btn data-tab="busca" class="flex-1 py-4 flex flex-col items-center justify-center gap-1 transition-colors">
-                <i class="fas fa-search text-lg"></i>
-                <span>Pesquisa</span>
-            </button>
-            <button data-mobile-tab-btn data-tab="arquivos" class="flex-1 py-4 flex flex-col items-center justify-center gap-1 transition-colors">
-                <i class="fas fa-folder-open text-lg"></i>
-                <span>Arquivos</span>
-            </button>
-            <button data-mobile-tab-btn data-tab="enviar" class="flex-1 py-4 flex flex-col items-center justify-center gap-1 transition-colors">
-                <i class="fas fa-cloud-upload-alt text-lg"></i>
-                <span>Enviar</span>
-            </button>
-        </nav>
+        
+        <!-- Mobile tab bar removed for SPA layout -->
     </main>
 </div>
 
@@ -1695,6 +1716,292 @@ async function sendFeedback(feedbackId, vote, question, snippet) {
 
 // Load documents on page load
 fetchDocuments();
+
+// ==================== CASE NOTES SYSTEM ====================
+// Notes storage key for localStorage
+const NOTES_STORAGE_KEY = 'kapjus_case_notes_<?php echo $case_id; ?>';
+let notes = [];
+let selectedNoteColor = 'yellow';
+
+// Initialize notes from localStorage
+function initNotes() {
+    const stored = localStorage.getItem(NOTES_STORAGE_KEY);
+    if (stored) {
+        try {
+            notes = JSON.parse(stored);
+        } catch (e) {
+            notes = [];
+        }
+    }
+    renderNotes();
+}
+
+// Save notes to localStorage
+function saveNotes() {
+    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
+}
+
+// Set note color selection
+function setNoteColor(color) {
+    selectedNoteColor = color;
+    document.querySelectorAll('.note-color-btn').forEach(btn => {
+        if (btn.dataset.color === color) {
+            btn.classList.add('ring-indigo-500');
+        } else {
+            btn.classList.remove('ring-indigo-500');
+        }
+    });
+}
+
+// Create a new note
+function createNote(event) {
+    event.preventDefault();
+    const textEl = document.getElementById('note-text');
+    const text = textEl.value.trim();
+    if (!text) return;
+    
+    const note = {
+        id: Date.now().toString(),
+        text: text,
+        author: CURRENT_USER_NAME || 'Advogado',
+        color: selectedNoteColor,
+        createdAt: new Date().toISOString()
+    };
+    
+    notes.unshift(note);
+    saveNotes();
+    renderNotes();
+    textEl.value = '';
+}
+
+// Delete a note
+async function deleteNote(noteId) {
+    const confirmed = await showConfirm({
+        title: 'Excluir nota',
+        message: 'Esta nota será excluída permanentemente.',
+        okLabel: 'Excluir',
+        icon: 'fas fa-trash',
+        iconBg: 'bg-red-100',
+        iconColor: 'text-red-600',
+    });
+    if (!confirmed) return;
+    
+    notes = notes.filter(n => n.id !== noteId);
+    saveNotes();
+    renderNotes();
+}
+
+// Edit a note - show inline edit
+function startEditNote(noteId) {
+    const note = notes.find(n => n.id === noteId);
+    if (!note) return;
+    
+    const card = document.querySelector(`[data-note-id="${noteId}"]`);
+    if (!card) return;
+    
+    const content = card.querySelector('.note-content');
+    const editArea = document.createElement('div');
+    editArea.className = 'space-y-2';
+    editArea.innerHTML = `
+        <textarea class="note-edit-text w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-700 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none resize-none" rows="2">${escapeHtml(note.text)}</textarea>
+        <div class="flex gap-2 justify-end">
+            <button onclick="cancelEditNote('${noteId}')" class="px-3 py-1.5 text-xs font-bold text-slate-500 hover:text-slate-700">Cancelar</button>
+            <button onclick="saveEditNote('${noteId}')" class="px-3 py-1.5 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700">Salvar</button>
+        </div>
+    `;
+    
+    content.classList.add('hidden');
+    card.insertBefore(editArea, content);
+}
+
+// Cancel note edit
+function cancelEditNote(noteId) {
+    const card = document.querySelector(`[data-note-id="${noteId}"]`);
+    if (!card) return;
+    const editArea = card.querySelector('.space-y-2');
+    const content = card.querySelector('.note-content');
+    if (editArea) editArea.remove();
+    content.classList.remove('hidden');
+}
+
+// Save note edit
+function saveEditNote(noteId) {
+    const card = document.querySelector(`[data-note-id="${noteId}"]`);
+    if (!card) return;
+    const editText = card.querySelector('.note-edit-text');
+    const note = notes.find(n => n.id === noteId);
+    if (!note || !editText) return;
+    
+    note.text = editText.value.trim();
+    if (!note.text) {
+        deleteNote(noteId);
+        return;
+    }
+    
+    saveNotes();
+    renderNotes();
+}
+
+// Format date for display
+function formatNoteDate(isoString) {
+    const date = new Date(isoString);
+    const now = new Date();
+    const diff = now - date;
+    
+    if (diff < 60000) return 'agora';
+    if (diff < 3600000) return Math.floor(diff / 60000) + ' min atrás';
+    if (diff < 86400000) return Math.floor(diff / 3600000) + 'h atrás';
+    
+    return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+// Get color classes for note
+function getNoteColorClasses(color) {
+    const colors = {
+        red: { bg: 'bg-red-50', border: 'border-l-red-500', text: 'text-red-700' },
+        yellow: { bg: 'bg-yellow-50', border: 'border-l-yellow-400', text: 'text-yellow-700' },
+        green: { bg: 'bg-emerald-50', border: 'border-l-emerald-500', text: 'text-emerald-700' },
+        blue: { bg: 'bg-blue-50', border: 'border-l-blue-500', text: 'text-blue-700' }
+    };
+    return colors[color] || colors.yellow;
+}
+
+// Render all notes
+function renderNotes() {
+    const container = document.getElementById('notes-list');
+    if (!container) return;
+    
+    if (notes.length === 0) {
+        container.innerHTML = `
+            <div class="flex flex-col items-center justify-center h-full text-center space-y-3 py-8">
+                <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-sticky-note text-xl text-slate-300"></i>
+                </div>
+                <p class="text-xs font-medium text-slate-400">Nenhuma nota ainda</p>
+                <p class="text-[10px] text-slate-300">Crie uma nota acima</p>
+            </div>`;
+        return;
+    }
+    
+    container.innerHTML = notes.map(note => {
+        const colorClasses = getNoteColorClasses(note.color);
+        return `
+            <div data-note-id="${note.id}" class="note-card bg-white rounded-xl border border-slate-100 border-l-4 ${colorClasses.border} shadow-sm hover:shadow-md transition-shadow">
+                <div class="p-3 note-content">
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <span class="text-[10px] font-bold ${colorClasses.text} bg-slate-100 px-2 py-0.5 rounded uppercase">${note.color}</span>
+                        <div class="flex gap-1">
+                            <button onclick="startEditNote('${note.id}')" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="Editar">
+                                <i class="fas fa-edit text-[10px]"></i>
+                            </button>
+                            <button onclick="deleteNote('${note.id}')" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Excluir">
+                                <i class="fas fa-trash text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHtml(note.text)}</p>
+                    <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
+                        <span class="text-[10px] font-medium text-slate-500">${escapeHtml(note.author)}</span>
+                        <span class="text-[10px] text-slate-400">${formatNoteDate(note.createdAt)}</span>
+                    </div>
+                </div>
+            </div>`;
+    }).join('');
+}
+
+// Initialize notes on page load
+initNotes();
+
+// ==================== LOCALSTORAGE PERSISTENCE FOR SEARCH & IA ====================
+const SEARCH_STATE_KEY = 'kapjus_search_state_<?php echo $case_id; ?>';
+const IA_CONVERSATION_KEY = 'kapjus_ia_conversation_<?php echo $case_id; ?>';
+
+// Save search state
+function saveSearchState() {
+    if (_searchState.query) {
+        localStorage.setItem(SEARCH_STATE_KEY, JSON.stringify(_searchState));
+    }
+}
+
+// Load search state
+function loadSearchState() {
+    const stored = localStorage.getItem(SEARCH_STATE_KEY);
+    if (stored) {
+        try {
+            const state = JSON.parse(stored);
+            return state;
+        } catch (e) {
+            return null;
+        }
+    }
+    return null;
+}
+
+// Save IA conversation
+function saveIAConversation() {
+    localStorage.setItem(IA_CONVERSATION_KEY, JSON.stringify(_iaConversation));
+}
+
+// Load IA conversation
+function loadIAConversation() {
+    const stored = localStorage.getItem(IA_CONVERSATION_KEY);
+    if (stored) {
+        try {
+            return JSON.parse(stored);
+        } catch (e) {
+            return [];
+        }
+    }
+    return [];
+}
+
+// Clear all persisted data
+function clearPersistedData() {
+    localStorage.removeItem(SEARCH_STATE_KEY);
+    localStorage.removeItem(IA_CONVERSATION_KEY);
+    localStorage.removeItem(NOTES_STORAGE_KEY);
+}
+
+// Modified clearIAHistory to also persist
+const _originalClearIAHistory = clearIAHistory;
+clearIAHistory = function() {
+    _iaConversation = [];
+    localStorage.removeItem(IA_CONVERSATION_KEY);
+    _renderIAHistoryPanel();
+};
+
+// Modified _unifiedPerformSearch to save state
+const _originalUnifiedPerformSearch = _unifiedPerformSearch;
+_unifiedPerformSearch = async function(query) {
+    await _originalUnifiedPerformSearch(query);
+    saveSearchState();
+};
+
+// Modified _unifiedAskIA to save conversation
+const _originalUnifiedAskIA = _unifiedAskIA;
+_unifiedAskIA = async function(question) {
+    await _originalUnifiedAskIA(question);
+    saveIAConversation();
+};
+
+// Load persisted data on initialization
+document.addEventListener('DOMContentLoaded', function() {
+    // Load IA conversation
+    const savedIA = loadIAConversation();
+    if (savedIA.length > 0) {
+        _iaConversation = savedIA;
+        setSearchMode('ia');
+        _renderIAHistoryPanel();
+    }
+    
+    // Load search state
+    const savedSearch = loadSearchState();
+    if (savedSearch && savedSearch.query) {
+        _searchState = savedSearch;
+        setSearchMode('search');
+        document.getElementById('unified-input').value = savedSearch.query;
+    }
+});
 
 // ==================== INLINE CASE TITLE EDIT ====================
 function startEditCaseTitle() {
