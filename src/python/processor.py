@@ -324,6 +324,13 @@ def _mask_api_key(key: str) -> str:
     suffix = key[-4:]
     return f"{prefix}…{suffix}"
 
+IA_PROVIDER = os.getenv("IA_PROVIDER", "gemini").lower()  # Options: gemini, openrouter
+
+# Gemini Model Configuration
+GEMINI_FLASH_MODEL = os.getenv("GEMINI_FLASH_MODEL", "gemini-1.5-flash-8b")
+GEMINI_PRO_MODEL = os.getenv("GEMINI_PRO_MODEL", "gemini-1.5-pro")
+GEMINI_EMBEDDING_MODEL = os.getenv("GEMINI_EMBEDDING_MODEL", "text-embedding-004")
+
 log_step("ENV", "Environment variables loaded", {
     "openrouter_key": _mask_api_key(OPENROUTER_API_KEY),
     "gemini_key": _mask_api_key(GEMINI_API_KEY),
@@ -331,12 +338,6 @@ log_step("ENV", "Environment variables loaded", {
     "gemini_flash": GEMINI_FLASH_MODEL,
     "gemini_pro": GEMINI_PRO_MODEL
 })
-IA_PROVIDER = os.getenv("IA_PROVIDER", "gemini").lower()  # Options: gemini, openrouter
-
-# Gemini Model Configuration
-GEMINI_FLASH_MODEL = os.getenv("GEMINI_FLASH_MODEL", "gemini-1.5-flash-8b")
-GEMINI_PRO_MODEL = os.getenv("GEMINI_PRO_MODEL", "gemini-1.5-pro")
-GEMINI_EMBEDDING_MODEL = os.getenv("GEMINI_EMBEDDING_MODEL", "text-embedding-004")
 
 # OpenRouter Model Fallback Chain (best to worst)
 OPENROUTER_MODELS_DEFAULT = [
