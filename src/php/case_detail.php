@@ -349,10 +349,10 @@ if (!$case) { echo "Caso não encontrado."; exit; }
         <div class="h-full">
             <div class="grid grid-cols-12 gap-4 h-full p-4">
             
-            <!-- Sidebar (Documentos) -->
-            <div class="hidden md:flex col-span-3 flex-col gap-4 overflow-hidden">
-                <!-- Upload Card -->
-                <div class="mobile-tab-panel" data-mobile-section="enviar">
+            <!-- Sidebar (Documentos) - Desktop always visible, Mobile via tabs -->
+            <div class="col-span-3 flex flex-col gap-4 overflow-hidden hidden md:flex">
+                <!-- Upload Card - Mobile: show when 'arquivos' tab active -->
+                <div class="mobile-tab-panel" data-mobile-section="arquivos">
                 <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
                     <h3 class="text-xs font-black text-slate-900 mb-4 flex items-center tracking-widest uppercase">
                         <span class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center mr-3 text-xs">
@@ -499,6 +499,24 @@ if (!$case) { echo "Caso não encontrado."; exit; }
             </div>
         </div>
         
+        <!-- Mobile Bottom Navigation Bar -->
+        <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg z-50 px-2 pb-safe">
+            <div class="flex items-center justify-around h-16">
+                <button data-mobile-tab-btn data-tab="busca" class="flex flex-col items-center justify-center flex-1 h-full py-2 text-slate-500 hover:text-indigo-600 transition-colors">
+                    <i class="fas fa-search text-lg mb-1"></i>
+                    <span class="text-[10px] font-medium">Pesquisa</span>
+                </button>
+                <button onclick="openNotesModal();" class="flex flex-col items-center justify-center flex-1 h-full py-2 text-slate-500 hover:text-amber-600 transition-colors">
+                    <i class="fas fa-sticky-note text-lg mb-1"></i>
+                    <span class="text-[10px] font-medium">Notas</span>
+                </button>
+                <button data-mobile-tab-btn data-tab="arquivos" class="flex flex-col items-center justify-center flex-1 h-full py-2 text-slate-500 hover:text-indigo-600 transition-colors">
+                    <i class="fas fa-folder-open text-lg mb-1"></i>
+                    <span class="text-[10px] font-medium">Arquivos</span>
+                </button>
+            </div>
+        </nav>
+        
         <!-- Mobile tab bar removed for SPA layout -->
     </main>
 </div>
@@ -516,12 +534,36 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
 @media (max-width: 767px) {
+    /* Sidebar - hidden by default on mobile, shown via tabs */
+    .col-span-3 {
+        display: none !important;
+    }
+    
+    .col-span-3.mobile-visible {
+        display: flex !important;
+    }
+
+    /* Mobile tab panels */
     .mobile-tab-panel {
         display: none;
     }
 
     .mobile-tab-panel.active {
         display: block;
+    }
+
+    /* Adjust main content for bottom nav */
+    main {
+        padding-bottom: 4rem;
+    }
+    
+    .grid-cols-12 {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .col-span-12.md\:col-span-9 {
+        width: 100%;
     }
 
     #mobile-tab-bar button.active {
@@ -2296,14 +2338,38 @@ async function loadAccessHistory() {
 document.addEventListener('DOMContentLoaded', () => {
     const mobileTabButtons = document.querySelectorAll('[data-mobile-tab-btn]');
     const mobilePanels = document.querySelectorAll('[data-mobile-section]');
+    const sidebar = document.querySelector('.col-span-3');
 
     function setActiveMobileTab(tab) {
+        // Update panels visibility
         mobilePanels.forEach(panel => {
             panel.classList.toggle('active', panel.dataset.mobileSection === tab);
         });
 
+        // Show/hide sidebar on mobile based on tab
+        if (window.innerWidth < 768) {
+            if (tab === 'arquivos') {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('mobile-visible');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('mobile-visible');
+            }
+        }
+
+        // Update bottom nav button styling
         mobileTabButtons.forEach(button => {
-            button.classList.toggle('active', button.dataset.tab === tab);
+            const isActive = button.dataset.tab === tab;
+            button.classList.toggle('active', isActive);
+            
+            // Update colors based on active state
+            if (isActive) {
+                button.classList.remove('text-slate-500');
+                button.classList.add('text-indigo-600');
+            } else {
+                button.classList.remove('text-indigo-600');
+                button.classList.add('text-slate-500');
+            }
         });
     }
 
@@ -2311,6 +2377,17 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             setActiveMobileTab(button.dataset.tab);
         });
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768) {
+            sidebar.classList.remove('hidden', 'mobile-visible');
+            sidebar.classList.add('md:flex');
+        } else {
+            sidebar.classList.remove('md:flex');
+            sidebar.classList.add('hidden');
+        }
     });
 
     setActiveMobileTab('busca');
