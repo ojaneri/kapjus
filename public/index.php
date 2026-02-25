@@ -213,18 +213,44 @@ function initialize_database() {
     // Create documents table for PDF processing
     $db->exec("CREATE TABLE IF NOT EXISTS documents (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        case_id TEXT,
+        case_id INTEGER,
         filename TEXT,
         page_number INTEGER,
         content TEXT
     )");
+    // Add index for faster lookups and unique constraint to prevent duplicate indexing
+    $db->exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_doc_case_file_page ON documents(case_id, filename, page_number)");
     
     // Create FTS5 virtual table for full-text search
     $db->exec("CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(content, case_id UNINDEXED, filename UNINDEXED, page_number UNINDEXED)");
-    
+
+    // Create users table for authentication
+    $db->exec("CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL UNIQUE,
+        password_hash TEXT NOT NULL,
+        name TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+
+    // Create AI answer feedback table
+    $db->exec("CREATE TABLE IF NOT EXISTS answer_feedback (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        case_id TEXT NOT NULL,
+        question TEXT,
+        answer_snippet TEXT,
+        vote INTEGER NOT NULL CHECK(vote IN (1, -1)),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+
     debug_log('DEBUG', 'Database initialized successfully');
     return $db;
 }
+
+// ============================================================================
+// AUTHENTICATION HELPERS
+// ============================================================================
+require_once BASE_DIR . '/src/php/auth.php';
 
 // ============================================================================
 // ROUTING HELPERS
@@ -270,6 +296,11 @@ function show_error_page($message, $code = 500) {
 // MAIN EXECUTION
 // ============================================================================
 session_start();
+
+// Generate CSRF token once per session
+if (empty($_SESSION['_csrf_token'])) {
+    $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
+}
 
 // Ensure Python service is running
 if (!ensure_python_service_running()) {
@@ -441,13 +472,115 @@ if (strpos($path, '/api/') === 0) {
     }
 }
 
+// ── Answer feedback (thumbs up/down) ────────────────────────────────────────
+if ($path === '/api/answer_feedback' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    $input = json_decode(file_get_contents('php://input'), true) ?? [];
+    $case_id  = trim($input['case_id'] ?? '');
+    $question = trim($input['question'] ?? '');
+    $snippet  = substr(trim($input['answer_snippet'] ?? ''), 0, 300);
+    $vote     = (int)($input['vote'] ?? 0);
+
+    if (!$case_id || !in_array($vote, [1, -1])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'case_id e vote (1 ou -1) são obrigatórios']);
+        exit;
+    }
+
+    $stmt = $db->prepare("INSERT INTO answer_feedback (case_id, question, answer_snippet, vote) VALUES (:cid, :q, :a, :v)");
+    $stmt->bindValue(':cid', $case_id, SQLITE3_TEXT);
+    $stmt->bindValue(':q',   $question, SQLITE3_TEXT);
+    $stmt->bindValue(':a',   $snippet,  SQLITE3_TEXT);
+    $stmt->bindValue(':v',   $vote,     SQLITE3_INTEGER);
+    $stmt->execute();
+    echo json_encode(['status' => 'ok']);
+    exit;
+}
+
+// ── Inline case update (handled directly in PHP, no Python needed) ──────────
+if ($path === '/api/update_case' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    $input = json_decode(file_get_contents('php://input'), true) ?? [];
+    $id    = isset($input['id']) ? (int)$input['id'] : 0;
+    $name  = trim($input['name'] ?? '');
+    $desc  = trim($input['description'] ?? '');
+
+    if (!$id || !$name) {
+        http_response_code(400);
+        echo json_encode(['error' => 'id e name são obrigatórios']);
+        exit;
+    }
+
+    $stmt = $db->prepare("UPDATE cases SET name = :name, description = :desc WHERE id = :id");
+    $stmt->bindValue(':name', $name,  SQLITE3_TEXT);
+    $stmt->bindValue(':desc', $desc,  SQLITE3_TEXT);
+    $stmt->bindValue(':id',   $id,    SQLITE3_INTEGER);
+    $stmt->execute();
+    echo json_encode(['status' => 'ok']);
+    exit;
+}
+
+// ── Login / Logout ───────────────────────────────────────────────────────────
+if ($path === '/login') {
+    $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '/';
+    // Sanitize redirect to relative paths only
+    if (!preg_match('/^\//', $redirect)) $redirect = '/';
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // CSRF check
+        if (!hash_equals($_SESSION['_csrf_token'] ?? '', $_POST['_csrf'] ?? '')) {
+            render_login_page('Token de segurança inválido. Recarregue a página.', $redirect);
+        }
+        $error = attempt_login($db, $_POST['email'] ?? '', $_POST['password'] ?? '');
+        if ($error) {
+            render_login_page($error, $redirect);
+        }
+        header("Location: {$redirect}");
+        exit;
+    }
+    // Already logged in → redirect
+    if (current_user()) { header("Location: {$redirect}"); exit; }
+    render_login_page('', $redirect);
+}
+
+if ($path === '/logout') {
+    logout();
+    header('Location: /login');
+    exit;
+}
+
+// ── Secure file download ─────────────────────────────────────────────────────
+if (strpos($path, '/storage/uploads/') === 0) {
+    // Rewrite direct file access through authenticated download controller
+    if (!current_user()) {
+        header('Location: /login?redirect=' . urlencode($path));
+        exit;
+    }
+    $filename = rawurldecode(basename(substr($path, strlen('/storage/uploads/'))));
+    $_GET['file'] = $filename;
+    include BASE_DIR . '/public/download.php';
+    exit;
+}
+
+// ── Protect API routes ───────────────────────────────────────────────────────
+// API calls from the frontend always come with an active session cookie.
+// We allow /api/* only for authenticated users (magic-login sets its own session).
+if (strpos($path, '/api/') === 0 && !current_user()) {
+    header('Content-Type: application/json');
+    http_response_code(401);
+    echo json_encode(['error' => 'Não autenticado']);
+    exit;
+}
+
 // Route page requests
 if ($path === '/' || $path === '/index.php' || $path === '') {
+    requireAuth();
     debug_log('INFO', 'Page Request: Home');
     render_header("KapJus - Início");
     include BASE_DIR . '/src/php/home.php';
     render_footer();
 } elseif (preg_match('/^\/case\/(\d+)$/', $path, $matches)) {
+    requireAuth();
     $case_id = (int)$matches[1];
     debug_log('INFO', 'Page Request: Case Detail', ['case_id' => $case_id]);
     
@@ -463,6 +596,10 @@ if ($path === '/' || $path === '/index.php' || $path === '') {
     render_header("Caso #{$case_id} - KapJus");
     include BASE_DIR . '/src/php/case_detail.php';
     render_footer();
+} elseif ($path === '/magic-login') {
+    debug_log('INFO', 'Page Request: Magic Login');
+    require BASE_DIR . '/public/magic-login.php';
+    exit;
 } else {
     debug_log('INFO', 'Page Request: 404', ['path' => $path]);
     show_error_page('Página não encontrada', 404);
