@@ -348,7 +348,7 @@ if (strpos($path, '/api/create_note') === 0 && $_SERVER['REQUEST_METHOD'] === 'P
         exit;
     }
     
-    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
+    $db = new SQLite3(BASE_DIR . '/database/kapjus.db');
     
     // Check if notes table exists, create if not
     $db->exec("CREATE TABLE IF NOT EXISTS case_notes (
@@ -394,7 +394,7 @@ if (strpos($path, '/api/get_snippet') === 0 && $_SERVER['REQUEST_METHOD'] === 'P
         exit;
     }
     
-    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
+    $db = new SQLite3(BASE_DIR . '/database/kapjus.db');
     
     // Get the document content by rowid
     $stmt = $db->prepare("SELECT content, filename, page_number FROM documents WHERE rowid = :rowid LIMIT 1");
