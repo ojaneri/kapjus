@@ -1895,7 +1895,7 @@ async function revokeInvitation(invitationId) {
         const response = await fetch('/api/revoke_invitation', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ invitation_id: invitationId })
+            body: JSON.stringify({ invitation_id: invitationId, case_id: CASE_ID })
         });
         
         const data = await response.json();
