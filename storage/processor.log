@@ -1,57 +1,177 @@
-INFO:     Started server process [2248872]
-INFO:     Started server process [2248872]
-INFO:     Waiting for application startup.
+2026-02-25 00:04:26,951 - INFO - [ENV] Environment variables loaded
+2026-02-25 00:04:27,385 - INFO - sqlite-vec extension loaded successfully
+2026-02-25 00:04:27,386 - INFO - VSS extension available: True (Mode: vec)
+INFO:     Started server process [1488557]
+INFO:     Started server process [1488557]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
+INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+ERROR:    [Errno 98] error while attempting to bind on address ('127.0.0.1', 8000): address already in use
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
 INFO:     Uvicorn running on unix socket /var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Press CTRL+C to quit)
+2026-02-25 00:05:13,080 - INFO - [INVITE] Creating invitation for osvaldo@janeri.com.br
+2026-02-25 00:05:13,081 - INFO - [INVITE] Returning existing pending invitation
+INFO:      - "POST /invite_lawyer HTTP/1.1" 200 OK
+INFO:      - "POST /access_history HTTP/1.1" 200 OK
+INFO:      - "POST /invitations HTTP/1.1" 200 OK
+INFO:      - "POST /access_history HTTP/1.1" 200 OK
 INFO:      - "POST /documents HTTP/1.1" 200 OK
-2026-02-09 11:13:38,232 - INFO - Upload initialized: 0aadf12f-6b67-4309-a139-32013b6f2936 - test_debug.pdf
-INFO:      - "POST /upload_init HTTP/1.1" 200 OK
-2026-02-09 11:13:52,307 - INFO - Upload initialized: ad2bdce4-3517-4872-89c9-bd7d418e1e39 - test_debug.pdf
-INFO:      - "POST /upload_init HTTP/1.1" 200 OK
-[2026-02-09 11:27:16] Stopping processor...
-[2026-02-09 11:27:16] Processor stopped
-[2026-02-09 11:27:18] Starting processor...
-[2026-02-09 11:27:21] Processor started successfully
-[2026-02-09 11:29:15] Stopping processor...
-[2026-02-09 11:29:15] Processor stopped
-[2026-02-09 11:29:17] Starting processor...
-[2026-02-09 11:29:20] Processor started successfully
-[2026-02-09 11:29:40] Stopping processor...
-[2026-02-09 11:29:40] Processor stopped
-[2026-02-09 11:29:42] Starting processor...
-[2026-02-09 11:29:45] Processor started successfully
-[2026-02-09 11:31:24] Stopping processor...
-[2026-02-09 11:31:24] Processor stopped
-[2026-02-09 11:31:26] Starting processor...
-[2026-02-09 11:31:29] Processor started successfully
-[2026-02-09 11:34:42] Stopping processor...
-[2026-02-09 11:34:42] Processor stopped
-[2026-02-09 11:34:44] Starting processor...
-[2026-02-09 11:34:47] Processor started successfully
-[2026-02-09 11:37:27] Stopping processor...
-[2026-02-09 11:37:27] Processor stopped
-[2026-02-09 11:37:29] Starting processor...
-[2026-02-09 11:37:39] Processor started successfully
-[2026-02-10 06:21:47] Stopping processor...
-[2026-02-10 06:21:47] Processor stopped
-[2026-02-10 06:21:49] Starting processor...
-[2026-02-10 06:21:52] Processor started successfully
-[2026-02-10 21:44:03] Stopping processor...
-[2026-02-10 21:44:03] Processor stopped
-[2026-02-10 21:44:05] Starting processor...
-[2026-02-10 21:44:08] Processor started successfully
-[2026-02-10 21:44:12] Stopping processor...
-[2026-02-10 21:44:12] Processor stopped
-[2026-02-10 21:44:14] Starting processor...
-[2026-02-10 21:44:17] Processor started successfully
-[2026-02-10 21:46:13] Stopping processor...
-[2026-02-10 21:46:13] Processor stopped
-[2026-02-10 21:46:15] Starting processor...
-[2026-02-10 21:46:18] Processor started successfully
-[2026-02-10 21:47:38] Stopping processor...
-[2026-02-10 21:47:38] Processor stopped
-[2026-02-10 21:47:40] Starting processor...
-[2026-02-10 21:47:43] Processor started successfully
+INFO:      - "POST /invitations HTTP/1.1" 200 OK
+INFO:      - "POST /access_history HTTP/1.1" 200 OK
+2026-02-25 00:05:33,070 - INFO - [INVITE] Creating invitation for osvaldo@janeri.com.br
+2026-02-25 00:05:33,071 - INFO - [INVITE] Returning existing pending invitation
+INFO:      - "POST /invite_lawyer HTTP/1.1" 200 OK
+INFO:      - "POST /search HTTP/1.1" 200 OK
+2026-02-25 00:06:32,476 - INFO - [ASK_IA] Requisicao recebida
+2026-02-25 00:06:32,477 - INFO - [ASK_IA] Modo: HYBRID search pipeline
+2026-02-25 00:06:32,477 - INFO - [EXPAND] Iniciando expansao da pergunta
+INFO:      - "POST /ask_ia HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/usr/local/lib/python3.10/dist-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 107, in app
+    response = await f(request)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 1390, in ask_ia_v2
+    "sources": sources,
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 881, in expand_query
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 862, in _is_simple_query
+    tokens = question.strip().split()
+NameError: name '_INTERROGATIVE_PATTERN' is not defined
+2026-02-25 00:06:37,258 - INFO - [ASK_IA] Requisicao recebida
+2026-02-25 00:06:37,258 - INFO - [ASK_IA] Modo: HYBRID search pipeline
+2026-02-25 00:06:37,258 - INFO - [EXPAND] Iniciando expansao da pergunta
+INFO:      - "POST /ask_ia HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/usr/local/lib/python3.10/dist-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 107, in app
+    response = await f(request)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 1390, in ask_ia_v2
+    "sources": sources,
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 881, in expand_query
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 862, in _is_simple_query
+    tokens = question.strip().split()
+NameError: name '_INTERROGATIVE_PATTERN' is not defined
+INFO:      - "POST /documents HTTP/1.1" 200 OK
+2026-02-25 00:06:55,810 - INFO - [ASK_IA] Requisicao recebida
+2026-02-25 00:06:55,810 - INFO - [ASK_IA] Modo: HYBRID search pipeline
+2026-02-25 00:06:55,810 - INFO - [EXPAND] Iniciando expansao da pergunta
+INFO:      - "POST /ask_ia HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/usr/local/lib/python3.10/dist-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/applications.py", line 1138, in __call__
+    await super().__call__(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 121, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/usr/local/lib/python3.10/dist-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 107, in app
+    response = await f(request)
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 426, in app
+    raw_response = await run_endpoint_function(
+  File "/usr/local/lib/python3.10/dist-packages/fastapi/routing.py", line 314, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 1390, in ask_ia_v2
+    "sources": sources,
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 881, in expand_query
+  File "/var/www/html/kapjus.kaponline.com.br/src/python/processor.py", line 862, in _is_simple_query
+    tokens = question.strip().split()
+NameError: name '_INTERROGATIVE_PATTERN' is not defined

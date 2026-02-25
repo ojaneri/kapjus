@@ -600,6 +600,10 @@ if ($path === '/' || $path === '/index.php' || $path === '') {
     debug_log('INFO', 'Page Request: Magic Login');
     require BASE_DIR . '/public/magic-login.php';
     exit;
+} elseif ($path === '/forgot-password') {
+    debug_log('INFO', 'Page Request: Forgot Password');
+    require BASE_DIR . '/public/forgot-password.php';
+    exit;
 } else {
     debug_log('INFO', 'Page Request: 404', ['path' => $path]);
     show_error_page('Página não encontrada', 404);

@@ -1,0 +1,9 @@
+storage/
+database/
+socket/
+.git/
+node_modules/
+__pycache__/
+*.db
+*.log
+debug

@@ -1938,6 +1938,9 @@ async def cancel_upload(upload_id: str):
 INVITATION_EXPIRY_HOURS = 48
 MAGIC_LINK_BASE_URL = os.getenv("MAGIC_LINK_BASE_URL", "https://kapjus.kaponline.com.br")
 
+# Password reset token expiry (1 hour)
+PASSWORD_RESET_EXPIRY_HOURS = 1
+
 
 def generate_secure_token(length: int = 64) -> str:
     """Generate a cryptographically secure URL-safe token."""
@@ -1952,6 +1955,11 @@ def hash_token(token: str) -> str:
 def get_invitation_expiry() -> str:
     """Get expiration datetime for invitation."""
     return (datetime.datetime.utcnow() + datetime.timedelta(hours=INVITATION_EXPIRY_HOURS)).isoformat()
+
+
+def get_password_reset_expiry() -> str:
+    """Get expiration datetime for password reset token."""
+    return (datetime.datetime.utcnow() + datetime.timedelta(hours=PASSWORD_RESET_EXPIRY_HOURS)).isoformat()
 
 
 def init_invitation_tables(conn: sqlite3.Connection):
@@ -1987,12 +1995,26 @@ def init_invitation_tables(conn: sqlite3.Connection):
             created_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
     """)
+    # Password reset tokens table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS password_reset_tokens (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT NOT NULL,
+            token TEXT NOT NULL UNIQUE,
+            token_hash TEXT NOT NULL,
+            expires_at TEXT NOT NULL,
+            used_at TEXT,
+            created_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
     # Create indexes
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_token ON lawyer_invitations(token)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_email ON lawyer_invitations(invitee_email)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_case ON lawyer_invitations(case_id)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_invitations_status ON lawyer_invitations(status)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_access_logs_invitation ON lawyer_access_logs(invitation_id)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_password_reset_token ON password_reset_tokens(token_hash)")
+    cursor.execute("CREATE INDEX IF NOT EXISTS idx_password_reset_email ON password_reset_tokens(email)")
     conn.commit()
 
 
@@ -2021,6 +2043,409 @@ class ListInvitationsRequest(BaseModel):
 
 class AccessHistoryRequest(BaseModel):
     case_id: str
+
+
+class RegisterLawyerPasswordRequest(BaseModel):
+    token: str
+    case_id: str
+    password: str
+
+
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+
+class ResetPasswordRequest(BaseModel):
+    email: str
+    token: str
+    password: str
+
+
+@app.post("/register_lawyer_password")
+async def register_lawyer_password(request: RegisterLawyerPasswordRequest):
+    """Register password for a lawyer when accepting invitation."""
+    token_hash = hash_token(request.token)
+    
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        # Find the invitation
+        cursor.execute("""
+            SELECT id, case_id, invitee_email, invitee_name, role, status, expires_at
+            FROM lawyer_invitations
+            WHERE token_hash = ? AND case_id = ?
+        """, (token_hash, request.case_id))
+        
+        row = cursor.fetchone()
+        
+        if not row:
+            raise HTTPException(status_code=404, detail="Convite não encontrado")
+        
+        invitation_id, case_id, email, name, role, status, expires_at = row
+        
+        if status == 'revoked':
+            raise HTTPException(status_code=400, detail="Convite foi revogado")
+        
+        if status == 'accepted':
+            raise HTTPException(status_code=400, detail="Convite já foi aceito. Use a página de login.")
+        
+        if datetime.datetime.fromisoformat(expires_at) < datetime.datetime.utcnow():
+            raise HTTPException(status_code=400, detail="Convite expirou")
+        
+        # Hash the password
+        password_hash = hashlib.sha256(request.password.encode()).hexdigest()
+        
+        # Check if user already exists in users table, update or insert
+        cursor.execute("SELECT id FROM users WHERE email = ?", (email,))
+        existing_user = cursor.fetchone()
+        
+        if existing_user:
+            # Update existing user password
+            cursor.execute("""
+                UPDATE users SET password_hash = ? WHERE email = ?
+            """, (password_hash, email))
+        else:
+            # Create new user
+            cursor.execute("""
+                INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)
+            """, (email, password_hash, name or email.split('@')[0]))
+        
+        # Update invitation status to accepted
+        cursor.execute("""
+            UPDATE lawyer_invitations 
+            SET status = 'accepted', accepted_at = ?
+            WHERE id = ?
+        """, (datetime.datetime.utcnow().isoformat(), invitation_id))
+        
+        conn.commit()
+        
+        # Send confirmation email with login info
+        login_link = f"{MAGIC_LINK_BASE_URL}/login"
+        send_password_registered_email(email, name, login_link)
+        
+        log_step("REGISTER_PWD", f"Password registered for {email}", {"invitation_id": invitation_id})
+        
+        return {
+            "status": "success",
+            "message": "Senha cadastrada com sucesso",
+            "email": email
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log_step("REGISTER_PWD", f"Error registering password", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
+
+
+@app.post("/forgot_password")
+async def forgot_password(request: ForgotPasswordRequest):
+    """Request password reset - sends email with reset link."""
+    email = request.email.lower().strip()
+    
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        # Check if user exists
+        cursor.execute("SELECT id FROM users WHERE email = ?", (email,))
+        user = cursor.fetchone()
+        
+        # Always return success to prevent email enumeration
+        # If user exists, send reset email
+        if user:
+            # Generate reset token
+            raw_token = generate_secure_token()
+            token_hash = hash_token(raw_token)
+            expires_at = get_password_reset_expiry()
+            
+            # Delete any existing unused tokens for this email
+            cursor.execute("""
+                DELETE FROM password_reset_tokens 
+                WHERE email = ? AND used_at IS NULL
+            """, (email,))
+            
+            # Insert new token
+            cursor.execute("""
+                INSERT INTO password_reset_tokens (email, token, token_hash, expires_at)
+                VALUES (?, ?, ?, ?)
+            """, (email, raw_token, token_hash, expires_at))
+            
+            conn.commit()
+            
+            # Send reset email
+            reset_link = f"{MAGIC_LINK_BASE_URL}/forgot-password?token={raw_token}&email={email}"
+            send_password_reset_email(email, reset_link)
+            
+            log_step("FORGOT_PWD", f"Password reset requested for {email}")
+        else:
+            log_step("FORGOT_PWD", f"Password reset requested for non-existent email: {email}")
+        
+        # Always return success
+        return {
+            "status": "success",
+            "message": "Se o e-mail estiver cadastrado, você receberá um link para redefinir sua senha."
+        }
+        
+    except Exception as e:
+        log_step("FORGOT_PWD", f"Error requesting password reset", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
+
+
+@app.post("/reset_password")
+async def reset_password(request: ResetPasswordRequest):
+    """Reset password using the reset token."""
+    email = request.email.lower().strip()
+    token_hash = hash_token(request.token)
+    
+    conn = sqlite3.connect(DB_PATH)
+    init_invitation_tables(conn)
+    cursor = conn.cursor()
+    
+    try:
+        # Find valid reset token
+        cursor.execute("""
+            SELECT id, expires_at, used_at
+            FROM password_reset_tokens
+            WHERE token_hash = ? AND email = ? AND used_at IS NULL
+        """, (token_hash, email))
+        
+        row = cursor.fetchone()
+        
+        if not row:
+            raise HTTPException(status_code=400, detail="Token de redefinição inválido ou expirado")
+        
+        token_id, expires_at, used_at = row
+        
+        if datetime.datetime.fromisoformat(expires_at) < datetime.datetime.utcnow():
+            raise HTTPException(status_code=400, detail="Token de redefinição expirou")
+        
+        # Hash the new password
+        password_hash = hashlib.sha256(request.password.encode()).hexdigest()
+        
+        # Update user password
+        cursor.execute("""
+            UPDATE users SET password_hash = ? WHERE email = ?
+        """, (password_hash, email))
+        
+        if cursor.rowcount == 0:
+            raise HTTPException(status_code=404, detail="Usuário não encontrado")
+        
+        # Mark token as used
+        cursor.execute("""
+            UPDATE password_reset_tokens SET used_at = ? WHERE id = ?
+        """, (datetime.datetime.utcnow().isoformat(), token_id))
+        
+        conn.commit()
+        
+        log_step("RESET_PWD", f"Password reset successful for {email}")
+        
+        return {
+            "status": "success",
+            "message": "Senha redefinida com sucesso"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log_step("RESET_PWD", f"Error resetting password", {"error": str(e)})
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        conn.close()
+
+
+def send_password_registered_email(to_email: str, name: str = None, login_link: str = "") -> bool:
+    """Send confirmation email after password is registered."""
+    
+    SMTP_HOST = os.getenv("SMTP_HOST", "localhost")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", "25"))
+    SMTP_FROM = os.getenv("SMTP_FROM", "KapJus <noreply@janeri.com.br>")
+    
+    display_name = name or to_email.split('@')[0]
+    
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {{ font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }}
+        .container {{ max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .header {{ background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 30px; text-align: center; }}
+        .header h1 {{ margin: 0; font-size: 28px; }}
+        .content {{ padding: 30px; color: #333; line-height: 1.7; }}
+        .content h2 {{ color: #1a237e; font-size: 20px; margin-top: 0; }}
+        .credentials {{ background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0; }}
+        .credentials p {{ margin: 8px 0; }}
+        .credentials strong {{ color: #1a237e; }}
+        .button {{ display: inline-block; background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin: 20px 0; }}
+        .footer {{ background: #f5f5f5; padding: 20px; text-align: center; font-size: 12px; color: #888; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ KapJus</h1>
+            <p>Sua Inteligência Artificial Jurídica</p>
+        </div>
+        <div class="content">
+            <h2>Olá, {display_name}!</h2>
+            <p>Sua conta no <strong>KapJus</strong> foi criada com sucesso!</p>
+            
+            <div class="credentials">
+                <p><strong>🔑 Seus dados de acesso:</strong></p>
+                <p><strong>Login (E-mail):</strong> {to_email}</p>
+                <p><strong>Senha:</strong> A senha que você acabou de cadastrar</p>
+            </div>
+            
+            <p style="text-align: center;">
+                <a href="{login_link}" class="button">Acessar KapJus</a>
+            </p>
+            
+            <p style="font-size: 13px; color: #888;">
+                Se você não reconhece esta operação, entre em contato com o administrador.
+            </p>
+        </div>
+        <div class="footer">
+            KapJus © 2024 - Inteligência Artificial para o Direito<br>
+            Este é um email automático, não responda.
+        </div>
+    </div>
+</body>
+</html>"""
+    
+    text_content = f"""KapJus - Sua Inteligência Jurídica
+
+Olá, {display_name}!
+
+Sua conta no KapJus foi criada com sucesso!
+
+Seus dados de acesso:
+- Login (E-mail): {to_email}
+- Senha: A senha que você acabou de cadastrar
+
+Acesse aqui: {login_link}
+
+-- 
+KapJus © 2024 - Inteligência Artificial para o Direito
+"""
+    
+    try:
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = "Sua conta KapJus foi criada com sucesso!"
+        msg['From'] = SMTP_FROM
+        msg['To'] = to_email
+        
+        text_part = MIMEText(text_content, 'plain', 'utf-8')
+        html_part = MIMEText(html_content, 'html', 'utf-8')
+        msg.attach(text_part)
+        msg.attach(html_part)
+        
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.send_message(msg)
+        
+        log_step("EMAIL", f"Password registered confirmation sent to {to_email}")
+        return True
+        
+    except Exception as e:
+        log_step("EMAIL", f"Error sending password registered email to {to_email}: {e}")
+        return False
+
+
+def send_password_reset_email(to_email: str, reset_link: str = "") -> bool:
+    """Send password reset email."""
+    
+    SMTP_HOST = os.getenv("SMTP_HOST", "localhost")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", "25"))
+    SMTP_FROM = os.getenv("SMTP_FROM", "KapJus <noreply@janeri.com.br>")
+    
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {{ font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }}
+        .container {{ max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .header {{ background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 30px; text-align: center; }}
+        .header h1 {{ margin: 0; font-size: 28px; }}
+        .content {{ padding: 30px; color: #333; line-height: 1.7; }}
+        .content h2 {{ color: #1a237e; font-size: 20px; margin-top: 0; }}
+        .warning {{ background: #fff3cd; border-left: 4px solid #ffc107; padding: 12px; margin: 20px 0; font-size: 13px; color: #856404; }}
+        .button {{ display: inline-block; background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin: 20px 0; }}
+        .footer {{ background: #f5f5f5; padding: 20px; text-align: center; font-size: 12px; color: #888; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ KapJus</h1>
+            <p>Sua Inteligência Artificial Jurídica</p>
+        </div>
+        <div class="content">
+            <h2>Recuperação de Senha</h2>
+            <p>Você solicitou a recuperação de senha para sua conta no <strong>KapJus</strong>.</p>
+            
+            <p style="text-align: center;">
+                <a href="{reset_link}" class="button">Redefinir Minha Senha</a>
+            </p>
+            
+            <div class="warning">
+                ⚠️ Este link expira em 1 hora e é único. Não compartilhe com terceiros.
+            </div>
+            
+            <p style="font-size: 13px; color: #888;">
+                Se você não solicitou esta recuperação, ignore este email. Sua senha permanecerá inalterada.
+            </p>
+        </div>
+        <div class="footer">
+            KapJus © 2024 - Inteligência Artificial para o Direito<br>
+            Este é um email automático, não responda.
+        </div>
+    </div>
+</body>
+</html>"""
+    
+    text_content = f"""KapJus - Recuperação de Senha
+
+Você solicitou a recuperação de senha para sua conta no KapJus.
+
+Acesse aqui: {reset_link}
+
+Este link expira em 1 hora e é único. Não compartilhe com terceiros.
+
+Se você não solicitou esta recuperação, ignore este email.
+
+-- 
+KapJus © 2024 - Inteligência Artificial para o Direito
+"""
+    
+    try:
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = "Recuperação de Senha - KapJus"
+        msg['From'] = SMTP_FROM
+        msg['To'] = to_email
+        
+        text_part = MIMEText(text_content, 'plain', 'utf-8')
+        html_part = MIMEText(html_content, 'html', 'utf-8')
+        msg.attach(text_part)
+        msg.attach(html_part)
+        
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.send_message(msg)
+        
+        log_step("EMAIL", f"Password reset email sent to {to_email}")
+        return True
+        
+    except Exception as e:
+        log_step("EMAIL", f"Error sending password reset email to {to_email}: {e}")
+        return False
+
 
 @app.post("/invite_lawyer")
 async def invite_lawyer(request: InviteLawyerRequest):

@@ -24,11 +24,15 @@ $results = $db->query("SELECT * FROM cases ORDER BY created_at DESC");
                 <div class="flex items-center space-x-3 sm:space-x-4">
                     <div class="text-right hidden sm:block">
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Usuário</p>
-                        <p class="text-sm font-semibold text-slate-700">Osvaldo J. Filho</p>
+                        <p class="text-sm font-semibold text-slate-700"><?php echo htmlspecialchars(current_user()['name'] ?? ''); ?></p>
                     </div>
-                    <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold border-2 border-white shadow-sm">
-                        OJ
+                    <?php $initials = strtoupper(implode('', array_map(fn($w) => $w[0], array_filter(explode(' ', current_user()['name'] ?? 'U'))))); $initials = substr($initials, 0, 2); ?>
+                    <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold border-2 border-white shadow-sm text-sm">
+                        <?php echo htmlspecialchars($initials); ?>
                     </div>
+                    <a href="/logout" class="text-xs text-slate-400 hover:text-red-500 transition-colors hidden sm:block" title="Sair">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -46,11 +50,29 @@ $results = $db->query("SELECT * FROM cases ORDER BY created_at DESC");
             </button>
         </div>
 
+        <!-- Search + Sort bar -->
+        <div class="flex flex-col sm:flex-row gap-3 mb-6 items-stretch sm:items-center">
+            <div class="flex-1 relative">
+                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="text" id="case-filter-input" placeholder="Filtrar casos por nome..." oninput="filterCases()" class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:ring-2 focus:ring-indigo-500 outline-none shadow-sm transition-all">
+            </div>
+            <select id="case-sort-select" onchange="filterCases()" class="text-sm bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none shadow-sm font-medium">
+                <option value="recent">Mais recentes</option>
+                <option value="oldest">Mais antigos</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+            </select>
+        </div>
+
         <!-- Cases List - Mobile: Single line, Desktop: Grid -->
-        <div class="block sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-0 sm:gap-5 sm:gap-8">
-            <?php while ($row = $results->fetchArray()): ?>
-                <a href="/case/<?php echo $row['id']; ?>" class="group flex sm:block items-center sm:items-start gap-4 sm:gap-0 p-4 sm:p-0 sm:bg-white sm:rounded-2xl sm:shadow-sm sm:border sm:border-slate-200 sm:hover:shadow-xl sm:hover:border-indigo-200 transition-all duration-300 relative overflow-hidden">
-                    <!-- Mobile: Icon, Desktop: Hover indicator -->
+        <div id="cases-grid" class="block sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-0 sm:gap-5 sm:gap-8">
+            <?php 
+            $has_cases = false;
+            while ($row = $results->fetchArray()): 
+                $has_cases = true;
+            ?>
+                <a href="/case/<?php echo $row['id']; ?>" class="case-card group flex sm:block items-center sm:items-start gap-4 sm:gap-0 p-4 sm:p-0 sm:bg-white sm:rounded-2xl sm:shadow-sm sm:border sm:border-slate-200 sm:hover:shadow-xl sm:hover:border-indigo-200 transition-all duration-300 relative overflow-hidden" data-name="<?php echo strtolower(htmlspecialchars($row['name'])); ?>" data-date="<?php echo $row['created_at']; ?>">
+                    <!-- ... existing card content ... -->
                     <div class="hidden sm:block absolute top-0 left-0 w-1 h-full bg-indigo-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
                     <div class="flex-shrink-0 sm:hidden p-2 bg-indigo-50 rounded-lg text-indigo-600">
                         <i class="fas fa-gavel"></i>
@@ -75,8 +97,57 @@ $results = $db->query("SELECT * FROM cases ORDER BY created_at DESC");
                 </a>
             <?php endwhile; ?>
         </div>
+
+        <?php if (!$has_cases): ?>
+            <div id="cases-empty-state" class="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
+                <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-folder-open text-3xl text-indigo-200"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Nenhum caso ainda</h3>
+                <p class="text-slate-500 mb-8 text-center max-w-xs">Você ainda não criou nenhum caso jurídico. Comece agora para organizar seus documentos.</p>
+                <button onclick="document.getElementById('modal-case').classList.remove('hidden')" class="px-8 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
+                    <i class="fas fa-plus-circle mr-2"></i> Criar Meu Primeiro Caso
+                </button>
+            </div>
+        <?php endif; ?>
+        <p id="no-cases-msg" class="hidden text-center text-slate-400 font-bold py-12">Nenhum caso encontrado para o filtro atual.</p>
     </main>
 </div>
+
+<script>
+function filterCases() {
+    const q = (document.getElementById('case-filter-input').value || '').toLowerCase().trim();
+    const sort = document.getElementById('case-sort-select').value;
+    const grid = document.getElementById('cases-grid');
+    const cards = Array.from(grid.querySelectorAll('.case-card'));
+
+    // Filter
+    let visible = cards.filter(c => {
+        if (!q) return true;
+        return c.dataset.name.includes(q);
+    });
+
+    // Hide all first
+    cards.forEach(c => c.style.display = 'none');
+
+    // Sort
+    visible.sort((a, b) => {
+        if (sort === 'recent') return b.dataset.date.localeCompare(a.dataset.date);
+        if (sort === 'oldest') return a.dataset.date.localeCompare(b.dataset.date);
+        if (sort === 'az') return a.dataset.name.localeCompare(b.dataset.name);
+        if (sort === 'za') return b.dataset.name.localeCompare(a.dataset.name);
+        return 0;
+    });
+
+    // Re-append in sorted order and show
+    visible.forEach(c => {
+        c.style.display = '';
+        grid.appendChild(c);
+    });
+
+    document.getElementById('no-cases-msg').classList.toggle('hidden', visible.length > 0);
+}
+</script>
 
 <!-- Modal Novo Caso -->
 <div id="modal-case" class="hidden fixed inset-0 z-[100] overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
