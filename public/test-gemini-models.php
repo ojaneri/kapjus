@@ -195,7 +195,7 @@ header('Content-Type: text/html; charset=utf-8');
         const GEMINI_KEY = '<?= $geminiKey ?>';
         
         async function testModel(modelName, type) {
-            const result = { model: modelName, status: 'testing', message: '' };
+            const result = { model: modelName, status: 'testing', message: '', curl: '' };
             
             try {
                 let url, body;
@@ -212,6 +212,10 @@ header('Content-Type: text/html; charset=utf-8');
                     };
                 }
                 
+                // Build curl command for debugging
+                const curlCmd = `curl -X POST '${url}' \\\n  -H 'Content-Type: application/json' \\\n  -d '${JSON.stringify(body)}'`;
+                result.curl = curlCmd;
+                
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -226,10 +230,12 @@ header('Content-Type: text/html; charset=utf-8');
                 } else {
                     result.status = 'error';
                     result.message = data.error?.message || 'Erro desconhecido';
+                    result.curl = curlCmd + `\n\n# ERRO: ${result.message}`;
                 }
             } catch (e) {
                 result.status = 'error';
-                result.message = e.message;
+                result.message = 'Failed to fetch: ' + e.message;
+                result.curl = result.curl + `\n\n# ERRO: ${result.message}`;
             }
             
             return result;
@@ -253,17 +259,26 @@ header('Content-Type: text/html; charset=utf-8');
                 const statusClass = result.status === 'success' ? 'bg-green-900/30 border-green-500' : 'bg-red-900/30 border-red-500';
                 
                 html += `
-                    <div class="border ${statusClass} rounded-xl p-4 flex items-center justify-between">
-                        <div class="flex items-center gap-4">
-                            ${statusIcon}
-                            <div>
-                                <span class="font-bold">${model.label}</span>
-                                <span class="font-mono text-slate-400 ml-2">${result.model}</span>
+                    <div class="border ${statusClass} rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-4">
+                                ${statusIcon}
+                                <div>
+                                    <span class="font-bold">${model.label}</span>
+                                    <span class="font-mono text-slate-400 ml-2">${result.model}</span>
+                                </div>
                             </div>
-                        </div>
-                        <span class="text-sm ${result.status === 'success' ? 'text-green-400' : 'text-red-400'}">${result.message}</span>
-                    </div>
-                `;
+                            <span class="text-sm ${result.status === 'success' ? 'text-green-400' : 'text-red-400'}">${result.message}</span>
+                        </div>`;
+                
+                if (result.status === 'error' && result.curl) {
+                    html += `
+                        <div class="mt-2 pt-2 border-t border-red-500/30">
+                            <pre class="bg-slate-900 p-2 rounded-lg overflow-x-auto text-xs font-mono text-slate-400">${result.curl}</pre>
+                        </div>`;
+                }
+                
+                html += '</div>';
             }
             
             resultsDiv.innerHTML = html;
@@ -314,18 +329,29 @@ header('Content-Type: text/html; charset=utf-8');
             const statusIcon = result.status === 'success' ? '<i class="fas fa-check-circle text-green-400"></i>' : '<i class="fas fa-times-circle text-red-400"></i>';
             const statusClass = result.status === 'success' ? 'bg-green-900/30 border-green-500' : 'bg-red-900/30 border-red-500';
             
-            resultsDiv.innerHTML = `
-                <div class="border ${statusClass} rounded-xl p-4 flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        ${statusIcon}
-                        <div>
-                            <span class="font-bold">${type === 'generate' ? 'Geração' : 'Embedding'}</span>
-                            <span class="font-mono text-slate-400 ml-2">${result.model}</span>
+            let html = `
+                <div class="border ${statusClass} rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-4">
+                            ${statusIcon}
+                            <div>
+                                <span class="font-bold">${type === 'generate' ? 'Geração' : 'Embedding'}</span>
+                                <span class="font-mono text-slate-400 ml-2">${result.model}</span>
+                            </div>
                         </div>
-                    </div>
-                    <span class="text-sm ${result.status === 'success' ? 'text-green-400' : 'text-red-400'}">${result.message}</span>
-                </div>
-            `;
+                        <span class="text-sm ${result.status === 'success' ? 'text-green-400' : 'text-red-400'}">${result.message}</span>
+                    </div>`;
+            
+            if (result.status === 'error' && result.curl) {
+                html += `
+                    <div class="mt-3 pt-3 border-t border-red-500/30">
+                        <p class="text-xs text-red-400 font-bold mb-2">Comando curl para diagnóstico:</p>
+                        <pre class="bg-slate-900 p-3 rounded-lg overflow-x-auto text-xs font-mono text-slate-300">${result.curl}</pre>
+                    </div>`;
+            }
+            
+            html += '</div>';
+            resultsDiv.innerHTML = html;
         }
         
         // Auto-test on load
