@@ -450,6 +450,15 @@ $user = current_user();
             </div>
         </div>
         
+        <!-- Page Notes Display -->
+        <div id="page-notes-container" style="padding: 12px; border-top: 1px solid #e2e8f0; max-height: 200px; overflow-y: auto; background: #f8fafc; display: none;">
+            <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; display: flex; align-items: center; gap: 4px;">
+                <i class="fas fa-sticky-note"></i>
+                Notas desta página
+            </div>
+            <div id="page-notes-list"></div>
+        </div>
+        
         <!-- Note Form -->
         <div class="note-form">
             <textarea id="note-text" rows="2" placeholder="Criar nota sobre esta página..."></textarea>
@@ -493,6 +502,11 @@ $user = current_user();
             // Show initial snippet if available
             if (currentSource.snippet) {
                 updateSnippetDisplay();
+            }
+            
+            // Load notes for initial page
+            if (PHP_CASE_ID) {
+                loadPageNotes();
             }
             
             // Auto-search if term provided
@@ -551,6 +565,9 @@ $user = current_user();
             
             // Highlight active source in panel
             updateActiveSource();
+            
+            // Load notes for this page
+            loadPageNotes();
             
             // Re-search if we have a term (page change clears highlights)
             if (searchTerm) {
@@ -746,6 +763,8 @@ $user = current_user();
                 if (result.status === 'success') {
                     document.getElementById('note-text').value = '';
                     showToast('Nota salva com sucesso!');
+                    // Reload notes for current page
+                    loadPageNotes();
                 } else {
                     showToast('Erro ao salvar nota: ' + (result.message || ''));
                 }
@@ -763,6 +782,56 @@ $user = current_user();
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+        
+        // Load notes for current page
+        async function loadPageNotes() {
+            if (!PHP_CASE_ID || !currentSource.file) return;
+            
+            const container = document.getElementById('page-notes-container');
+            const list = document.getElementById('page-notes-list');
+            
+            try {
+                const url = `/api/get_notes?case_id=${PHP_CASE_ID}&source_file=${encodeURIComponent(currentSource.file)}&source_page=${currentSource.page}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.status === 'success' && data.notes && data.notes.length > 0) {
+                    const notesHtml = data.notes.map(note => {
+                        const color = note.color || 'yellow';
+                        const colorClasses = {
+                            red: { bg: '#fef2f2', border: '#ef4444', text: '#b91c1c' },
+                            yellow: { bg: '#fefce8', border: '#eab308', text: '#a16207' },
+                            green: { bg: '#f0fdf4', border: '#22c55e', text: '#15803d' },
+                            blue: { bg: '#eff6ff', border: '#3b82f6', text: '#1d4ed8' }
+                        };
+                        const colors = colorClasses[color] || colorClasses.yellow;
+                        const date = new Date(note.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                        
+                        return `<div style="background: ${colors.bg}; border-left: 3px solid ${colors.border}; border-radius: 8px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <div style="font-size: 12px; color: ${colors.text}; line-height: 1.5;">${escapeHtml(note.text)}</div>
+                            <div style="font-size: 10px; color: #64748b; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(0,0,0,0.05);">
+                                <i class="fas fa-calendar-alt mr-1"></i>${date}
+                            </div>
+                        </div>`;
+                    }).join('');
+                    
+                    list.innerHTML = notesHtml;
+                    container.style.display = 'block';
+                } else {
+                    list.innerHTML = '';
+                    container.style.display = 'none';
+                }
+            } catch (e) {
+                console.error('Error loading page notes:', e);
+                container.style.display = 'none';
+            }
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
         
         // Keyboard navigation

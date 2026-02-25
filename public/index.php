@@ -394,6 +394,8 @@ if (strpos($path, '/api/get_notes') === 0 && $_SERVER['REQUEST_METHOD'] === 'GET
     }
     
     $case_id = isset($_GET['case_id']) ? (int)$_GET['case_id'] : null;
+    $source_file = isset($_GET['source_file']) ? $_GET['source_file'] : null;
+    $source_page = isset($_GET['source_page']) ? (int)$_GET['source_page'] : null;
     
     if (!$case_id) {
         echo json_encode(['status' => 'error', 'message' => 'case_id is required']);
@@ -415,8 +417,32 @@ if (strpos($path, '/api/get_notes') === 0 && $_SERVER['REQUEST_METHOD'] === 'GET
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
     
-    $stmt = $db->prepare("SELECT id, case_id, user_id, text, source_file, source_page, source_snippet, color, created_at FROM case_notes WHERE case_id = :case_id ORDER BY created_at DESC");
-    $stmt->bindValue(':case_id', $case_id, SQLITE3_INTEGER);
+    // Build query with optional filters
+    $sql = "SELECT id, case_id, user_id, text, source_file, source_page, source_snippet, color, created_at FROM case_notes WHERE case_id = :case_id";
+    $params = [':case_id' => $case_id];
+    
+    if ($source_file !== null && $source_file !== '') {
+        $sql .= " AND source_file = :source_file";
+        $params[':source_file'] = $source_file;
+    }
+    
+    if ($source_page !== null && $source_page > 0) {
+        $sql .= " AND source_page = :source_page";
+        $params[':source_page'] = $source_page;
+    }
+    
+    $sql .= " ORDER BY created_at DESC";
+    
+    $stmt = $db->prepare($sql);
+    foreach ($params as $key => $value) {
+        if ($key === ':case_id') {
+            $stmt->bindValue($key, $value, SQLITE3_INTEGER);
+        } elseif ($key === ':source_page') {
+            $stmt->bindValue($key, $value, SQLITE3_INTEGER);
+        } else {
+            $stmt->bindValue($key, $value, SQLITE3_TEXT);
+        }
+    }
     
     $notes = [];
     $result = $stmt->execute();
