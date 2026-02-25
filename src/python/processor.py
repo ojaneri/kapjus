@@ -223,7 +223,9 @@ def call_ai(prompt: str, provider: str = None, model: str = None) -> str:
     log_step("AI", f"Calling AI with provider: {effective_provider}", {"prompt_length": len(prompt), "model": model})
     
     if effective_provider == "openrouter":
-        if model:
+        # For OpenRouter, "pro" and "flash" are not valid model IDs
+        # Only use specific model if it's a valid OpenRouter model name
+        if model and model not in ["pro", "flash"]:
             # Use specific model
             try:
                 response = openrouter_client.chat.completions.create(
@@ -242,7 +244,7 @@ def call_ai(prompt: str, provider: str = None, model: str = None) -> str:
                 log_step("AI", f"Model {model} failed", {"error": str(e)})
                 raise e
         else:
-            # Use fallback chain
+            # Use fallback chain (ignore invalid model IDs like "pro" or "flash")
             for model in OPENROUTER_MODELS:
                 try:
                     response = openrouter_client.chat.completions.create(
