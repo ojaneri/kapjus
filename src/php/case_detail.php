@@ -2068,7 +2068,7 @@ async function _fetchSearchPage(replace) {
                         <p class="text-base font-black text-slate-900">Nenhum resultado encontrado</p>
                         <p class="text-xs text-slate-500 leading-relaxed">Não encontramos termos exatos para "<span class="font-bold text-slate-700">${escapeHtml(_searchState.query)}</span>".</p>
                     </div>
-                    <button onclick="setSearchMode('ia'); document.getElementById('unified-input').value = ${JSON.stringify(_searchState.query)}; document.getElementById('unified-input').focus();" 
+                    <button onclick="setSearchMode('ia'); document.getElementById('unified-input').value = ${JSON.stringify(_searchState.query)}; setTimeout(() => dispatchUnifiedSearch(), 100);" 
                         class="px-6 py-3 bg-indigo-50 border border-indigo-100 rounded-xl text-xs font-bold text-indigo-700 hover:bg-indigo-100 hover:border-indigo-200 transition-all shadow-sm flex items-center gap-2 group">
                         <span class="w-6 h-6 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i class="fas fa-robot text-indigo-600 text-[10px]"></i>
