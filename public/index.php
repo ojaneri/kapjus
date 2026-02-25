@@ -323,6 +323,98 @@ $db = initialize_database();
 $request = $_SERVER['REQUEST_URI'] ?? '/';
 $path = parse_url($request, PHP_URL_PATH);
 
+// ── Create note with source reference ──────────────────────────────────────────
+// NOTE: This must be BEFORE the main API routing block that sends to socket_client.php
+if (strpos($path, '/api/create_note') === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    
+    require_once __DIR__ . '/../src/php/auth.php';
+    $user = current_user();
+    
+    if (!$user) {
+        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+        exit;
+    }
+    
+    $input = json_decode(file_get_contents('php://input'), true);
+    $case_id = isset($input['case_id']) ? (int)$input['case_id'] : null;
+    $text = $input['text'] ?? '';
+    $source_file = $input['source_file'] ?? '';
+    $source_page = isset($input['source_page']) ? (int)$input['source_page'] : null;
+    $source_snippet = $input['source_snippet'] ?? '';
+    
+    if (!$text) {
+        echo json_encode(['status' => 'error', 'message' => 'Note text is required']);
+        exit;
+    }
+    
+    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
+    
+    // Check if notes table exists, create if not
+    $db->exec("CREATE TABLE IF NOT EXISTS case_notes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        case_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        text TEXT NOT NULL,
+        source_file TEXT,
+        source_page INTEGER,
+        source_snippet TEXT,
+        color TEXT DEFAULT 'yellow',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+    
+    // Convert null to 0 for INTEGER binding
+    $caseIdForDb = $case_id !== null ? $case_id : 0;
+    $pageForDb = $source_page !== null ? $source_page : 0;
+    
+    $stmt = $db->prepare("INSERT INTO case_notes (case_id, user_id, text, source_file, source_page, source_snippet) VALUES (:case_id, :user_id, :text, :source_file, :source_page, :source_snippet)");
+    $stmt->bindValue(':case_id', $caseIdForDb, SQLITE3_INTEGER);
+    $stmt->bindValue(':user_id', $user['id'], SQLITE3_INTEGER);
+    $stmt->bindValue(':text', $text, SQLITE3_TEXT);
+    $stmt->bindValue(':source_file', $source_file, SQLITE3_TEXT);
+    $stmt->bindValue(':source_page', $pageForDb, SQLITE3_INTEGER);
+    $stmt->bindValue(':source_snippet', $source_snippet, SQLITE3_TEXT);
+    
+    $result = $stmt->execute();
+    
+    echo json_encode(['status' => 'success', 'id' => $db->lastInsertRowID()]);
+    exit;
+}
+
+// ── Get snippet by rowid ────────────────────────────────────────────────────────
+// NOTE: This must be BEFORE the main API routing block
+if (strpos($path, '/api/get_snippet') === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    
+    $input = json_decode(file_get_contents('php://input'), true);
+    $rowid = isset($input['rowid']) ? (int)$input['rowid'] : 0;
+    
+    if (!$rowid) {
+        echo json_encode(['error' => 'rowid is required']);
+        exit;
+    }
+    
+    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
+    
+    // Get the document content by rowid
+    $stmt = $db->prepare("SELECT content, filename, page_number FROM documents WHERE rowid = :rowid LIMIT 1");
+    $stmt->bindValue(':rowid', $rowid, SQLITE3_INTEGER);
+    $doc = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    
+    if ($doc && !empty($doc['content'])) {
+        // Return first 500 chars as snippet
+        $snippet = substr($doc['content'], 0, 500);
+        echo json_encode([
+            'snippet' => $snippet,
+            'filename' => $doc['filename'],
+            'page' => $doc['page_number']
+        ]);
+    } else {
+        echo json_encode(['snippet' => '', 'filename' => '', 'page' => 0]);
+    }
+    exit;
+}
+
 // Route API requests
 if (strpos($path, '/api/') === 0) {
     debug_log('INFO', 'API Request START', [
@@ -687,92 +779,6 @@ if ($path === '/api/update_case' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindValue(':id',   $id,    SQLITE3_INTEGER);
     $stmt->execute();
     echo json_encode(['status' => 'ok']);
-    exit;
-}
-
-// ── Create note with source reference ──────────────────────────────────────────
-if ($path === '/api/create_note' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json');
-    
-    require_once __DIR__ . '/../src/php/auth.php';
-    $user = current_user();
-    
-    if (!$user) {
-        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-        exit;
-    }
-    
-    $input = json_decode(file_get_contents('php://input'), true);
-    $case_id = $input['case_id'] ?? null;
-    $text = $input['text'] ?? '';
-    $source_file = $input['source_file'] ?? '';
-    $source_page = $input['source_page'] ?? null;
-    $source_snippet = $input['source_snippet'] ?? '';
-    
-    if (!$text) {
-        echo json_encode(['status' => 'error', 'message' => 'Note text is required']);
-        exit;
-    }
-    
-    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
-    
-    // Check if notes table exists, create if not
-    $db->exec("CREATE TABLE IF NOT EXISTS case_notes (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        case_id INTEGER NOT NULL,
-        user_id INTEGER NOT NULL,
-        text TEXT NOT NULL,
-        source_file TEXT,
-        source_page INTEGER,
-        source_snippet TEXT,
-        color TEXT DEFAULT 'yellow',
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )");
-    
-    $stmt = $db->prepare("INSERT INTO case_notes (case_id, user_id, text, source_file, source_page, source_snippet) VALUES (:case_id, :user_id, :text, :source_file, :source_page, :source_snippet)");
-    $stmt->bindValue(':case_id', $case_id, SQLITE3_INTEGER);
-    $stmt->bindValue(':user_id', $user['id'], SQLITE3_INTEGER);
-    $stmt->bindValue(':text', $text, SQLITE3_TEXT);
-    $stmt->bindValue(':source_file', $source_file, SQLITE3_TEXT);
-    $stmt->bindValue(':source_page', $source_page, SQLITE3_INTEGER);
-    $stmt->bindValue(':source_snippet', $source_snippet, SQLITE3_TEXT);
-    
-    $result = $stmt->execute();
-    
-    echo json_encode(['status' => 'success', 'id' => $db->lastInsertRowID()]);
-    exit;
-}
-
-// ── Get snippet by rowid ────────────────────────────────────────────────────────
-if ($path === '/api/get_snippet' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json');
-    
-    $input = json_decode(file_get_contents('php://input'), true);
-    $rowid = isset($input['rowid']) ? (int)$input['rowid'] : 0;
-    
-    if (!$rowid) {
-        echo json_encode(['error' => 'rowid is required']);
-        exit;
-    }
-    
-    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
-    
-    // Get the document content by rowid
-    $stmt = $db->prepare("SELECT content, filename, page_number FROM documents WHERE rowid = :rowid LIMIT 1");
-    $stmt->bindValue(':rowid', $rowid, SQLITE3_INTEGER);
-    $doc = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
-    
-    if ($doc && !empty($doc['content'])) {
-        // Return first 500 chars as snippet
-        $snippet = substr($doc['content'], 0, 500);
-        echo json_encode([
-            'snippet' => $snippet,
-            'filename' => $doc['filename'],
-            'page' => $doc['page_number']
-        ]);
-    } else {
-        echo json_encode(['snippet' => '', 'filename' => '', 'page' => 0]);
-    }
     exit;
 }
 

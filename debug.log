@@ -21046,3 +21046,438 @@
 [2026-02-25 19:07:08] [INFO] API Request START {"path":"\/api\/create_note","method":"POST","query_string":"","content_type":"application\/json","content_length":"191"}
 [2026-02-25 19:07:08] [DEBUG] socket_client.php START {"action":"create_note"}
 [2026-02-25 19:07:08] [DEBUG] Processing action {"action":"create_note"}
+[2026-02-25 20:40:53] [INFO] Checking Python service status...
+[2026-02-25 20:40:53] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:40:53] [DEBUG] Initializing database...
+[2026-02-25 20:40:53] [DEBUG] Database initialized successfully
+[2026-02-25 20:40:53] [INFO] Page Request: Case Detail {"case_id":4}
+[2026-02-25 20:40:54] [INFO] Checking Python service status...
+[2026-02-25 20:40:54] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:40:54] [DEBUG] Initializing database...
+[2026-02-25 20:40:54] [DEBUG] Database initialized successfully
+[2026-02-25 20:40:54] [INFO] API Request START {"path":"\/api\/executive_summary_cache","method":"GET","query_string":"case_id=4","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-25 20:40:54] [INFO] Checking Python service status...
+[2026-02-25 20:40:54] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:40:54] [DEBUG] Initializing database...
+[2026-02-25 20:40:54] [DEBUG] Database initialized successfully
+[2026-02-25 20:40:54] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 20:40:54] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 20:40:54] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 20:40:59] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:41:00] [INFO] Checking Python service status...
+[2026-02-25 20:41:00] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:41:00] [DEBUG] Initializing database...
+[2026-02-25 20:41:00] [DEBUG] Database initialized successfully
+[2026-02-25 20:41:00] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:41:00] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:43:47] [INFO] Checking Python service status...
+[2026-02-25 20:43:47] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:43:47] [DEBUG] Initializing database...
+[2026-02-25 20:43:47] [DEBUG] Database initialized successfully
+[2026-02-25 20:43:47] [INFO] API Request START {"path":"\/api\/executive_summary_refresh","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25T17:43:47.013128] [KAPJUS-EXEC_SUMMARY] Starting executive summary generation | Params: {"case_id": "4"}
+[2026-02-25T17:43:47.013884] [KAPJUS-EXEC_SUMMARY] Documents fetched | Params: {"case_id": "4", "doc_count": 1}
+[2026-02-25T17:43:47.014654] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 2339, "model": "flash"}
+[2026-02-25T17:43:52.206942] [KAPJUS-AI] Gemini (gemini-2.5-flash) response | Params: {"length": 694}
+[2026-02-25T17:43:52.207533] [KAPJUS-EXEC_SUMMARY] AI analysis completed successfully
+[2026-02-25T17:43:52.207698] [KAPJUS-EXEC_SUMMARY] AI analysis successful | Params: {"facts_count": 2, "parties_count": 5, "proof_status": "pending"}
+[2026-02-25 20:43:52] [INFO] AI Executive summary generated {"case_id":4,"facts_count":2,"proof_status":"pending"}
+[2026-02-25 20:46:16] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:46:16] [INFO] Checking Python service status...
+[2026-02-25 20:46:16] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:16] [DEBUG] Initializing database...
+[2026-02-25 20:46:16] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:16] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:46:16] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:46:28] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:46:29] [INFO] Checking Python service status...
+[2026-02-25 20:46:29] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:29] [DEBUG] Initializing database...
+[2026-02-25 20:46:29] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:29] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:46:29] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:46:32] [INFO] Checking Python service status...
+[2026-02-25 20:46:32] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:32] [DEBUG] Initializing database...
+[2026-02-25 20:46:32] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:32] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-25 20:46:43] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:46:44] [INFO] Checking Python service status...
+[2026-02-25 20:46:44] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:44] [DEBUG] Initializing database...
+[2026-02-25 20:46:44] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:44] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:46:44] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:46:46] [INFO] Checking Python service status...
+[2026-02-25 20:46:46] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:46] [DEBUG] Initializing database...
+[2026-02-25 20:46:46] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:46] [INFO] Page Request: Case Detail {"case_id":4}
+[2026-02-25 20:46:47] [INFO] Checking Python service status...
+[2026-02-25 20:46:47] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:47] [DEBUG] Initializing database...
+[2026-02-25 20:46:47] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:47] [INFO] API Request START {"path":"\/api\/executive_summary_cache","method":"GET","query_string":"case_id=4","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-25 20:46:47] [INFO] Checking Python service status...
+[2026-02-25 20:46:47] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:47] [DEBUG] Initializing database...
+[2026-02-25 20:46:47] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:47] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 20:46:47] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 20:46:47] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 20:46:51] [INFO] Checking Python service status...
+[2026-02-25 20:46:51] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:51] [DEBUG] Initializing database...
+[2026-02-25 20:46:51] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:51] [INFO] Page Request: Case Detail {"case_id":4}
+[2026-02-25 20:46:52] [INFO] Checking Python service status...
+[2026-02-25 20:46:52] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:52] [DEBUG] Initializing database...
+[2026-02-25 20:46:52] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:52] [INFO] API Request START {"path":"\/api\/executive_summary_cache","method":"GET","query_string":"case_id=4","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-25 20:46:52] [INFO] Checking Python service status...
+[2026-02-25 20:46:52] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:52] [DEBUG] Initializing database...
+[2026-02-25 20:46:52] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:52] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 20:46:52] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 20:46:52] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 20:46:53] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:46:53] [INFO] Checking Python service status...
+[2026-02-25 20:46:53] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:53] [DEBUG] Initializing database...
+[2026-02-25 20:46:53] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:53] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:46:53] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:46:56] [INFO] Checking Python service status...
+[2026-02-25 20:46:56] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:56] [DEBUG] Initializing database...
+[2026-02-25 20:46:56] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:56] [INFO] Page Request: Case Detail {"case_id":4}
+[2026-02-25 20:46:56] [INFO] Checking Python service status...
+[2026-02-25 20:46:56] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:56] [DEBUG] Initializing database...
+[2026-02-25 20:46:56] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:56] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 20:46:56] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 20:46:56] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 20:46:56] [INFO] Checking Python service status...
+[2026-02-25 20:46:56] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:56] [DEBUG] Initializing database...
+[2026-02-25 20:46:56] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:56] [INFO] API Request START {"path":"\/api\/executive_summary_cache","method":"GET","query_string":"case_id=4","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-25 20:46:58] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:46:58] [INFO] Checking Python service status...
+[2026-02-25 20:46:58] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:46:58] [DEBUG] Initializing database...
+[2026-02-25 20:46:58] [DEBUG] Database initialized successfully
+[2026-02-25 20:46:58] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:46:58] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:51:57] [INFO] Checking Python service status...
+[2026-02-25 20:51:57] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:51:57] [DEBUG] Initializing database...
+[2026-02-25 20:51:57] [DEBUG] Database initialized successfully
+[2026-02-25 20:51:57] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundary1vrXKDFzkdN5I53i","content_length":"264"}
+[2026-02-25 20:51:57] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 20:51:57] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T17:51:57.610216] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "4", "question": "quais emails aparecem no caso?", "provider": "gemini", "use_hybrid": true}
+[2026-02-25T17:51:57.610443] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T17:51:57.610553] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "quais emails aparecem no caso?"}
+[2026-02-25T17:51:57.610675] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T17:51:57.610795] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 852, "model": "flash"}
+[2026-02-25T17:52:04.766580] [KAPJUS-AI] Gemini (gemini-2.5-flash) response | Params: {"length": 1754}
+[2026-02-25T17:52:04.767200] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"email\",\n    \"e-mail\",\n    \"emails\",\n    \"e-mails\",\n    \"correio eletr\u00f4nico\",\n    \"correios eletr\u00f4nicos\",\n    \"endere\u00e7o eletr\u00f4nico\",\n    \"endere\u00e7os eletr\u00f4nicos\",\n    \"presente\",\n    \"presentes\",\n    \"identificar\",\n    \"identificado\",\n    \"identificados\",\n    \"identifica\u00e7\u00e3o\",\n    \"constar\",\n    \"consta\",\n    \"constam\",\n    \"constante\",\n    \"constantes\",\n    \"surgir\",\n    \"surge\",\n    \"surgem\",\n    \"surgiram\",\n    \"aparecer\",\n    \"aparece\",\n    \"aparecem\",\n    \"apareceu\",\n   "}
+[2026-02-25T17:52:04.767424] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["email", "e-mail", "emails", "e-mails", "correio eletr\u00f4nico", "correios eletr\u00f4nicos", "endere\u00e7o eletr\u00f4nico", "endere\u00e7os eletr\u00f4nicos", "presente", "presentes", "identificar", "identificado", "identificados", "identifica\u00e7\u00e3o", "constar", "consta", "constam", "constante", "constantes", "surgir", "surge", "surgem", "surgiram", "aparecer", "aparece", "aparecem", "apareceu", "exibir", "exibe", "exibem", "exibido", "exibida", "exibidos", "revelar", "revela", "revelam", "revelado", "revelada", "revelados", "evidenciar", "evidencia", "evidenciam", "evidenciado", "evidenciada", "evidenciados", "caso", "autos", "processo", "inqu\u00e9rito", "digital", "forense", "per\u00edcia", "pericial", "laudo", "relat\u00f3rio", "parecer", "prova", "provas", "evid\u00eancia", "evid\u00eancias", "an\u00e1lise", "investiga\u00e7\u00e3o", "apura\u00e7\u00e3o", "comunica\u00e7\u00e3o", "comunica\u00e7\u00f5es", "remetente", "remetentes", "destinat\u00e1rio", "destinat\u00e1rios", "cabe\u00e7alho", "rodap\u00e9", "anexo", "anexos", "ante o exposto", "conclui-se", "observa-se", "verificou-se", "em an\u00e1lise", "informa\u00e7\u00f5es", "dados", "listagem", "rol"], "semantic_query": "Requer-se a apresenta\u00e7\u00e3o de um rol exaustivo e detalhado de todos os endere\u00e7os de correio eletr\u00f4nico (e-mail) identificados, evidenciados ou recuperados no \u00e2mbito da an\u00e1lise forense digital ou da inst"}
+[2026-02-25T17:52:04.768068] [KAPJUS-ASK_IA] Expansao: keywords=['email', 'e-mail', 'emails', 'e-mails', 'correio eletrônico', 'correios eletrônicos', 'endereço eletrônico', 'endereços eletrônicos', 'presente', 'presentes', 'identificar', 'identificado', 'identificados', 'identificação', 'constar', 'consta', 'constam', 'constante', 'constantes', 'surgir', 'surge', 'surgem', 'surgiram', 'aparecer', 'aparece', 'aparecem', 'apareceu', 'exibir', 'exibe', 'exibem', 'exibido', 'exibida', 'exibidos', 'revelar', 'revela', 'revelam', 'revelado', 'revelada', 'revelados', 'evidenciar', 'evidencia', 'evidenciam', 'evidenciado', 'evidenciada', 'evidenciados', 'caso', 'autos', 'processo', 'inquérito', 'digital', 'forense', 'perícia', 'pericial', 'laudo', 'relatório', 'parecer', 'prova', 'provas', 'evidência', 'evidências', 'análise', 'investigação', 'apuração', 'comunicação', 'comunicações', 'remetente', 'remetentes', 'destinatário', 'destinatários', 'cabeçalho', 'rodapé', 'anexo', 'anexos', 'ante o exposto', 'conclui-se', 'observa-se', 'verificou-se', 'em análise', 'informações', 'dados', 'listagem', 'rol'], semantic=Requer-se a apresentação de um rol exaustivo e det...
+[2026-02-25T17:52:04.768416] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["email", "e-mail", "emails", "e-mails", "correio eletr\u00f4nico", "correios eletr\u00f4nicos", "endere\u00e7o eletr\u00f4nico", "endere\u00e7os eletr\u00f4nicos", "presente", "presentes", "identificar", "identificado", "identificados", "identifica\u00e7\u00e3o", "constar", "consta", "constam", "constante", "constantes", "surgir", "surge", "surgem", "surgiram", "aparecer", "aparece", "aparecem", "apareceu", "exibir", "exibe", "exibem", "exibido", "exibida", "exibidos", "revelar", "revela", "revelam", "revelado", "revelada", "revelados", "evidenciar", "evidencia", "evidenciam", "evidenciado", "evidenciada", "evidenciados", "caso", "autos", "processo", "inqu\u00e9rito", "digital", "forense", "per\u00edcia", "pericial", "laudo", "relat\u00f3rio", "parecer", "prova", "provas", "evid\u00eancia", "evid\u00eancias", "an\u00e1lise", "investiga\u00e7\u00e3o", "apura\u00e7\u00e3o", "comunica\u00e7\u00e3o", "comunica\u00e7\u00f5es", "remetente", "remetentes", "destinat\u00e1rio", "destinat\u00e1rios", "cabe\u00e7alho", "rodap\u00e9", "anexo", "anexos", "ante o exposto", "conclui-se", "observa-se", "verificou-se", "em an\u00e1lise", "informa\u00e7\u00f5es", "dados", "listagem", "rol"], "semantic_query": "Requer-se a apresenta\u00e7\u00e3o de um rol exaustivo e detalhado de todos os endere\u00e7os de correio eletr\u00f4nico (e-mail) identificados, evidenciados ou recuperados no \u00e2mbito da an\u00e1lise forense digital ou da inst", "case_id": "4", "limit": 50}
+[2026-02-25T17:52:04.769290] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["email", "e mail", "emails", "e mails", "correio eletr\u00f4nico", "correios eletr\u00f4nicos", "endere\u00e7o eletr\u00f4nico", "endere\u00e7os eletr\u00f4nicos", "presente", "presentes", "identificar", "identificado", "identificados", "identifica\u00e7\u00e3o", "constar", "consta", "constam", "constante", "constantes", "surgir", "surge", "surgem", "surgiram", "aparecer", "aparece", "aparecem", "apareceu", "exibir", "exibe", "exibem", "exibido", "exibida", "exibidos", "revelar", "revela", "revelam", "revelado", "revelada", "revelados", "evidenciar", "evidencia", "evidenciam", "evidenciado", "evidenciada", "evidenciados", "caso", "autos", "processo", "inqu\u00e9rito", "digital", "forense", "per\u00edcia", "pericial", "laudo", "relat\u00f3rio", "parecer", "prova", "provas", "evid\u00eancia", "evid\u00eancias", "an\u00e1lise", "investiga\u00e7\u00e3o", "apura\u00e7\u00e3o", "comunica\u00e7\u00e3o", "comunica\u00e7\u00f5es", "remetente", "remetentes", "destinat\u00e1rio", "destinat\u00e1rios", "cabe\u00e7alho", "rodap\u00e9", "anexo", "anexos", "ante o exposto", "conclui se", "observa se", "verificou se", "em an\u00e1lise", "informa\u00e7\u00f5es", "dados", "listagem", "rol"], "original_terms": ["quais", "emails", "aparecem", "caso"]}
+[2026-02-25T17:52:04.769786] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "quais* OR emails* OR aparecem* OR caso* OR email* OR e mail* OR e mails* OR correio eletr\u00f4nico* OR correios eletr\u00f4nicos* OR endere\u00e7o eletr\u00f4nico* OR endere\u00e7os eletr\u00f4nicos* OR presente* OR presentes* OR identificar* OR identificado* OR identificados* OR identifica\u00e7\u00e3o* OR constar* OR consta* OR constam* OR constante* OR constantes* OR surgir* OR surge* OR surgem* OR surgiram* OR aparecer* OR aparece* OR apareceu* OR exibir* OR exibe* OR exibem* OR exibido* OR exibida* OR exibidos* OR revelar* OR revela* OR revelam* OR revelado* OR revelada* OR revelados* OR evidenciar* OR evidencia* OR evidenciam* OR evidenciado* OR evidenciada* OR evidenciados* OR autos* OR processo* OR inqu\u00e9rito* OR digital* OR forense* OR per\u00edcia* OR pericial* OR laudo* OR relat\u00f3rio* OR parecer* OR prova* OR provas* OR evid\u00eancia* OR evid\u00eancias* OR an\u00e1lise* OR investiga\u00e7\u00e3o* OR apura\u00e7\u00e3o* OR comunica\u00e7\u00e3o* OR comunica\u00e7\u00f5es* OR remetente* OR remetentes* OR destinat\u00e1rio* OR destinat\u00e1rios* OR cabe\u00e7alho* OR rodap\u00e9* OR anexo* OR anexos* OR ante o exposto* OR conclui se* OR observa se* OR verificou se* OR em an\u00e1lise* OR informa\u00e7\u00f5es* OR dados* OR listagem* OR rol*", "original_terms": ["quais", "emails", "aparecem", "caso"]}
+[2026-02-25T17:52:04.798810] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 50}
+[2026-02-25T17:52:04.799404] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "Requer-se a apresenta\u00e7\u00e3o de um rol exaustivo e detalhado de todos os endere\u00e7os de correio eletr\u00f4nico (e-mail) identificados, evidenciados ou recuperados no \u00e2mbito da an\u00e1lise forense digital ou da inst"}
+[2026-02-25T17:52:04.983311] [KAPJUS-HYBRID-VSS] Embedding gerado | Params: {"dimension": 1536}
+[2026-02-25T17:52:04.984897] [KAPJUS-HYBRID-VSS] Executando sqlite-vec com filtro case_id | Params: {"case_id": "4"}
+[2026-02-25T17:52:05.587690] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 50}
+[2026-02-25T17:52:05.588651] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 50, "vss_count": 50}
+[2026-02-25T17:52:05.588873] [KAPJUS-ASK_IA] Busca: FTS5=50, VSS=50
+[2026-02-25T17:52:05.588973] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 50, "vss_count": 50, "top_k": 50, "case_id": "4"}
+[2026-02-25T17:52:05.590352] [KAPJUS-RANK] Apos validacao case_id: fts=50, vss=50
+[2026-02-25T17:52:05.590556] [KAPJUS-RANK] Apos FTS5: 50 items unicos
+[2026-02-25T17:52:05.590724] [KAPJUS-RANK] Apos VSS: 81 items unicos
+[2026-02-25T17:52:05.590845] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 81}
+[2026-02-25T17:52:05.590965] [KAPJUS-RANK]   Pos 1: rowid=7468, score=0.031281, file=0224395-56.2025.8.06.0001.pdf:318
+[2026-02-25T17:52:05.591048] [KAPJUS-RANK]   Pos 2: rowid=9127, score=0.031010, file=0224395-56.2025.8.06.0001.pdf:641
+[2026-02-25T17:52:05.591131] [KAPJUS-RANK]   Pos 3: rowid=9175, score=0.029851, file=0224395-56.2025.8.06.0001.pdf:650
+[2026-02-25T17:52:05.591206] [KAPJUS-RANK]   Pos 4: rowid=9025, score=0.027757, file=0224395-56.2025.8.06.0001.pdf:626
+[2026-02-25T17:52:05.591284] [KAPJUS-RANK]   Pos 5: rowid=9270, score=0.027444, file=0224395-56.2025.8.06.0001.pdf:654
+[2026-02-25T17:52:05.591358] [KAPJUS-RANK]   Pos 6: rowid=8245, score=0.027263, file=0224395-56.2025.8.06.0001.pdf:478
+[2026-02-25T17:52:05.591431] [KAPJUS-RANK]   Pos 7: rowid=7140, score=0.026387, file=0224395-56.2025.8.06.0001.pdf:269
+[2026-02-25T17:52:05.591509] [KAPJUS-RANK]   Pos 8: rowid=6863, score=0.026077, file=0224395-56.2025.8.06.0001.pdf:112
+[2026-02-25T17:52:05.591650] [KAPJUS-RANK]   Pos 9: rowid=7456, score=0.024910, file=0224395-56.2025.8.06.0001.pdf:316
+[2026-02-25T17:52:05.591747] [KAPJUS-RANK]   Pos 10: rowid=9436, score=0.023889, file=0224395-56.2025.8.06.0001.pdf:705
+[2026-02-25T17:52:05.591831] [KAPJUS-RANK] Top-K final | Params: {"count": 50}
+[2026-02-25T17:52:05.591964] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=50, case_id=4
+[2026-02-25T17:52:05.592065] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 50 -> 50
+[2026-02-25T17:52:05.592178] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 50 candidates
+[2026-02-25T17:52:05.592260] [KAPJUS-RERANK] Using local cross-encoder for 50 candidates
+[2026-02-25T17:52:14.920239] [KAPJUS-RERANK] Local rerank finished in 9.33s
+[2026-02-25T17:52:14.920739] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T17:52:14.921129] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T17:52:14.921538] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "quais emails aparecem no caso?", "chunks_count": 12}
+[2026-02-25T17:52:14.921918] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 12501}
+[2026-02-25T17:52:14.922269] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 12811, "model": "pro"}
+[2026-02-25T17:52:25.583561] [KAPJUS-AI] Gemini (gemini-2.5-pro) response | Params: {"length": 361}
+[2026-02-25T17:52:25.584111] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 361, "answer_preview": "Com base nos trechos fornecidos, os e-mails que aparecem no caso s\u00e3o:\n\n*   **miguelfernandespneto@gmail.com**: Este e-mail foi identificado na extra\u00e7\u00e3o de dados do celular de Miguel (Fonte 2).\n*   **m"}
+[2026-02-25T17:52:25.584341] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25 20:53:32] [INFO] Checking Python service status...
+[2026-02-25 20:53:32] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:32] [DEBUG] Initializing database...
+[2026-02-25 20:53:32] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:32] [INFO] Page Request: Case Detail {"case_id":4}
+[2026-02-25 20:53:33] [INFO] Checking Python service status...
+[2026-02-25 20:53:33] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:33] [DEBUG] Initializing database...
+[2026-02-25 20:53:33] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:33] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 20:53:33] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 20:53:33] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 20:53:33] [INFO] Checking Python service status...
+[2026-02-25 20:53:33] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:33] [DEBUG] Initializing database...
+[2026-02-25 20:53:33] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:33] [INFO] API Request START {"path":"\/api\/executive_summary_cache","method":"GET","query_string":"case_id=4","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-25 20:53:34] [INFO] Checking Python service status...
+[2026-02-25 20:53:34] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:34] [DEBUG] Initializing database...
+[2026-02-25 20:53:34] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:34] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-25 20:53:35] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:53:36] [INFO] Checking Python service status...
+[2026-02-25 20:53:36] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:36] [DEBUG] Initializing database...
+[2026-02-25 20:53:36] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:36] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:53:36] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:53:50] [INFO] Checking Python service status...
+[2026-02-25 20:53:50] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:50] [DEBUG] Initializing database...
+[2026-02-25 20:53:50] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:50] [INFO] API Request START {"path":"\/api\/get_snippet","method":"POST","query_string":"","content_type":"application\/json","content_length":"14"}
+[2026-02-25 20:53:50] [DEBUG] socket_client.php START {"action":"get_snippet"}
+[2026-02-25 20:53:50] [DEBUG] Processing action {"action":"get_snippet"}
+[2026-02-25 20:53:54] [INFO] Checking Python service status...
+[2026-02-25 20:53:54] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:54] [DEBUG] Initializing database...
+[2026-02-25 20:53:54] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:54] [INFO] API Request START {"path":"\/api\/get_snippet","method":"POST","query_string":"","content_type":"application\/json","content_length":"14"}
+[2026-02-25 20:53:54] [DEBUG] socket_client.php START {"action":"get_snippet"}
+[2026-02-25 20:53:54] [DEBUG] Processing action {"action":"get_snippet"}
+[2026-02-25 20:53:57] [INFO] Checking Python service status...
+[2026-02-25 20:53:57] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:57] [DEBUG] Initializing database...
+[2026-02-25 20:53:57] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:57] [INFO] API Request START {"path":"\/api\/get_snippet","method":"POST","query_string":"","content_type":"application\/json","content_length":"14"}
+[2026-02-25 20:53:57] [DEBUG] socket_client.php START {"action":"get_snippet"}
+[2026-02-25 20:53:57] [DEBUG] Processing action {"action":"get_snippet"}
+[2026-02-25 20:53:59] [INFO] Checking Python service status...
+[2026-02-25 20:53:59] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:53:59] [DEBUG] Initializing database...
+[2026-02-25 20:53:59] [DEBUG] Database initialized successfully
+[2026-02-25 20:53:59] [INFO] API Request START {"path":"\/api\/get_snippet","method":"POST","query_string":"","content_type":"application\/json","content_length":"14"}
+[2026-02-25 20:53:59] [DEBUG] socket_client.php START {"action":"get_snippet"}
+[2026-02-25 20:53:59] [DEBUG] Processing action {"action":"get_snippet"}
+[2026-02-25 20:54:00] [INFO] Checking Python service status...
+[2026-02-25 20:54:00] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:54:00] [DEBUG] Initializing database...
+[2026-02-25 20:54:00] [DEBUG] Database initialized successfully
+[2026-02-25 20:54:00] [INFO] API Request START {"path":"\/api\/get_snippet","method":"POST","query_string":"","content_type":"application\/json","content_length":"14"}
+[2026-02-25 20:54:00] [DEBUG] socket_client.php START {"action":"get_snippet"}
+[2026-02-25 20:54:00] [DEBUG] Processing action {"action":"get_snippet"}
+[2026-02-25 20:54:01] [INFO] Checking Python service status...
+[2026-02-25 20:54:01] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:54:01] [DEBUG] Initializing database...
+[2026-02-25 20:54:01] [DEBUG] Database initialized successfully
+[2026-02-25 20:54:01] [INFO] API Request START {"path":"\/api\/get_snippet","method":"POST","query_string":"","content_type":"application\/json","content_length":"14"}
+[2026-02-25 20:54:01] [DEBUG] socket_client.php START {"action":"get_snippet"}
+[2026-02-25 20:54:01] [DEBUG] Processing action {"action":"get_snippet"}
+[2026-02-25 20:54:12] [INFO] Checking Python service status...
+[2026-02-25 20:54:12] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:54:12] [DEBUG] Initializing database...
+[2026-02-25 20:54:12] [DEBUG] Database initialized successfully
+[2026-02-25 20:54:12] [INFO] Page Request: Case Detail {"case_id":4}
+[2026-02-25 20:54:13] [INFO] Checking Python service status...
+[2026-02-25 20:54:13] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:54:13] [DEBUG] Initializing database...
+[2026-02-25 20:54:13] [DEBUG] Database initialized successfully
+[2026-02-25 20:54:13] [INFO] API Request START {"path":"\/api\/executive_summary_cache","method":"GET","query_string":"case_id=4","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-25 20:54:13] [INFO] Checking Python service status...
+[2026-02-25 20:54:13] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:54:13] [DEBUG] Initializing database...
+[2026-02-25 20:54:13] [DEBUG] Database initialized successfully
+[2026-02-25 20:54:13] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 20:54:13] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 20:54:13] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 20:54:14] [INFO] Checking Python service status...
+[2026-02-25 20:54:14] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:54:14] [DEBUG] Initializing database...
+[2026-02-25 20:54:14] [DEBUG] Database initialized successfully
+[2026-02-25 20:54:14] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-25 20:54:19] [INFO] Checking Python service status...
+[2026-02-25 20:54:19] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:54:19] [DEBUG] Initializing database...
+[2026-02-25 20:54:19] [DEBUG] Database initialized successfully
+[2026-02-25 20:54:19] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundaryHAIEaTYcE1WpyOhB","content_length":"267"}
+[2026-02-25 20:54:19] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 20:54:19] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T17:54:19.973330] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "4", "question": "traga os telefones que aparecerem", "provider": "gemini", "use_hybrid": true}
+[2026-02-25T17:54:19.973545] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T17:54:19.973629] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "traga os telefones que aparecerem"}
+[2026-02-25T17:54:19.973743] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T17:54:19.973846] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 855, "model": "flash"}
+[2026-02-25T17:54:27.449112] [KAPJUS-AI] Gemini (gemini-2.5-flash) response | Params: {"length": 1211}
+[2026-02-25T17:54:27.450032] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{\n  \"keywords\": [\n    \"telefones\",\n    \"telefone\",\n    \"n\u00fameros\",\n    \"n\u00famero\",\n    \"celular\",\n    \"celulares\",\n    \"contato\",\n    \"contatos\",\n    \"m\u00f3vel\",\n    \"m\u00f3veis\",\n    \"fixo\",\n    \"fixos\",\n    \"DDD\",\n    \"DDI\",\n    \"ramal\",\n    \"ramais\",\n    \"whatsapp\",\n    \"extra\u00e7\u00e3o\",\n    \"extrair\",\n    \"identifica\u00e7\u00e3o\",\n    \"identificar\",\n    \"per\u00edcia\",\n    \"pericial\",\n    \"relat\u00f3rio\",\n    \"laudo\",\n    \"evid\u00eancia\",\n    \"provas\",\n    \"registros\",\n    \"chamada\",\n    \"chamadas\",\n    \"comunica\u00e7\u00f5es\",\n    \"disp"}
+[2026-02-25T17:54:27.450366] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["telefones", "telefone", "n\u00fameros", "n\u00famero", "celular", "celulares", "contato", "contatos", "m\u00f3vel", "m\u00f3veis", "fixo", "fixos", "DDD", "DDI", "ramal", "ramais", "whatsapp", "extra\u00e7\u00e3o", "extrair", "identifica\u00e7\u00e3o", "identificar", "per\u00edcia", "pericial", "relat\u00f3rio", "laudo", "evid\u00eancia", "provas", "registros", "chamada", "chamadas", "comunica\u00e7\u00f5es", "dispositivo", "aparelho", "smartphones", "smartphone", "localizados", "listagem", "elenco", "dados de contato", "informa\u00e7\u00f5es de contato", "n\u00fameros de contato", "constantes", "apresentados", "presentes", "digitais", "ante o exposto", "conclui-se"], "semantic_query": "O documento deve apresentar a compila\u00e7\u00e3o exaustiva e detalhada de todos os n\u00fameros de telefone identificados, abarcando linhas m\u00f3veis, fixas e de comunica\u00e7\u00e3o via aplicativos, que foram extra\u00eddos, loca"}
+[2026-02-25T17:54:27.450891] [KAPJUS-ASK_IA] Expansao: keywords=['telefones', 'telefone', 'números', 'número', 'celular', 'celulares', 'contato', 'contatos', 'móvel', 'móveis', 'fixo', 'fixos', 'DDD', 'DDI', 'ramal', 'ramais', 'whatsapp', 'extração', 'extrair', 'identificação', 'identificar', 'perícia', 'pericial', 'relatório', 'laudo', 'evidência', 'provas', 'registros', 'chamada', 'chamadas', 'comunicações', 'dispositivo', 'aparelho', 'smartphones', 'smartphone', 'localizados', 'listagem', 'elenco', 'dados de contato', 'informações de contato', 'números de contato', 'constantes', 'apresentados', 'presentes', 'digitais', 'ante o exposto', 'conclui-se'], semantic=O documento deve apresentar a compilação exaustiva...
+[2026-02-25T17:54:27.451172] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["telefones", "telefone", "n\u00fameros", "n\u00famero", "celular", "celulares", "contato", "contatos", "m\u00f3vel", "m\u00f3veis", "fixo", "fixos", "DDD", "DDI", "ramal", "ramais", "whatsapp", "extra\u00e7\u00e3o", "extrair", "identifica\u00e7\u00e3o", "identificar", "per\u00edcia", "pericial", "relat\u00f3rio", "laudo", "evid\u00eancia", "provas", "registros", "chamada", "chamadas", "comunica\u00e7\u00f5es", "dispositivo", "aparelho", "smartphones", "smartphone", "localizados", "listagem", "elenco", "dados de contato", "informa\u00e7\u00f5es de contato", "n\u00fameros de contato", "constantes", "apresentados", "presentes", "digitais", "ante o exposto", "conclui-se"], "semantic_query": "O documento deve apresentar a compila\u00e7\u00e3o exaustiva e detalhada de todos os n\u00fameros de telefone identificados, abarcando linhas m\u00f3veis, fixas e de comunica\u00e7\u00e3o via aplicativos, que foram extra\u00eddos, loca", "case_id": "4", "limit": 50}
+[2026-02-25T17:54:27.451769] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["telefones", "telefone", "n\u00fameros", "n\u00famero", "celular", "celulares", "contato", "contatos", "m\u00f3vel", "m\u00f3veis", "fixo", "fixos", "ddd", "ddi", "ramal", "ramais", "whatsapp", "extra\u00e7\u00e3o", "extrair", "identifica\u00e7\u00e3o", "identificar", "per\u00edcia", "pericial", "relat\u00f3rio", "laudo", "evid\u00eancia", "provas", "registros", "chamada", "chamadas", "comunica\u00e7\u00f5es", "dispositivo", "aparelho", "smartphones", "smartphone", "localizados", "listagem", "elenco", "dados de contato", "informa\u00e7\u00f5es de contato", "n\u00fameros de contato", "constantes", "apresentados", "presentes", "digitais", "ante o exposto", "conclui se"], "original_terms": ["traga", "telefones", "que", "aparecerem"]}
+[2026-02-25T17:54:27.452204] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "traga* OR telefones* OR que* OR aparecerem* OR telefone* OR n\u00fameros* OR n\u00famero* OR celular* OR celulares* OR contato* OR contatos* OR m\u00f3vel* OR m\u00f3veis* OR fixo* OR fixos* OR ddd* OR ddi* OR ramal* OR ramais* OR whatsapp* OR extra\u00e7\u00e3o* OR extrair* OR identifica\u00e7\u00e3o* OR identificar* OR per\u00edcia* OR pericial* OR relat\u00f3rio* OR laudo* OR evid\u00eancia* OR provas* OR registros* OR chamada* OR chamadas* OR comunica\u00e7\u00f5es* OR dispositivo* OR aparelho* OR smartphones* OR smartphone* OR localizados* OR listagem* OR elenco* OR dados de contato* OR informa\u00e7\u00f5es de contato* OR n\u00fameros de contato* OR constantes* OR apresentados* OR presentes* OR digitais* OR ante o exposto* OR conclui se*", "original_terms": ["traga", "telefones", "que", "aparecerem"]}
+[2026-02-25T17:54:27.469066] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 50}
+[2026-02-25T17:54:27.469509] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "O documento deve apresentar a compila\u00e7\u00e3o exaustiva e detalhada de todos os n\u00fameros de telefone identificados, abarcando linhas m\u00f3veis, fixas e de comunica\u00e7\u00e3o via aplicativos, que foram extra\u00eddos, loca"}
+[2026-02-25T17:54:27.670015] [KAPJUS-HYBRID-VSS] Embedding gerado | Params: {"dimension": 1536}
+[2026-02-25T17:54:27.670707] [KAPJUS-HYBRID-VSS] Executando sqlite-vec com filtro case_id | Params: {"case_id": "4"}
+[2026-02-25T17:54:28.107366] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 50}
+[2026-02-25T17:54:28.108286] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 50, "vss_count": 50}
+[2026-02-25T17:54:28.108575] [KAPJUS-ASK_IA] Busca: FTS5=50, VSS=50
+[2026-02-25T17:54:28.108717] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 50, "vss_count": 50, "top_k": 50, "case_id": "4"}
+[2026-02-25T17:54:28.109846] [KAPJUS-RANK] Apos validacao case_id: fts=50, vss=50
+[2026-02-25T17:54:28.110019] [KAPJUS-RANK] Apos FTS5: 50 items unicos
+[2026-02-25T17:54:28.110208] [KAPJUS-RANK] Apos VSS: 85 items unicos
+[2026-02-25T17:54:28.110322] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 85}
+[2026-02-25T17:54:28.110424] [KAPJUS-RANK]   Pos 1: rowid=9053, score=0.032522, file=0224395-56.2025.8.06.0001.pdf:629
+[2026-02-25T17:54:28.110562] [KAPJUS-RANK]   Pos 2: rowid=9019, score=0.032266, file=0224395-56.2025.8.06.0001.pdf:625
+[2026-02-25T17:54:28.110681] [KAPJUS-RANK]   Pos 3: rowid=8245, score=0.030077, file=0224395-56.2025.8.06.0001.pdf:478
+[2026-02-25T17:54:28.110866] [KAPJUS-RANK]   Pos 4: rowid=9361, score=0.029643, file=0224395-56.2025.8.06.0001.pdf:687
+[2026-02-25T17:54:28.110994] [KAPJUS-RANK]   Pos 5: rowid=9270, score=0.028778, file=0224395-56.2025.8.06.0001.pdf:654
+[2026-02-25T17:54:28.111085] [KAPJUS-RANK]   Pos 6: rowid=7135, score=0.028205, file=0224395-56.2025.8.06.0001.pdf:264
+[2026-02-25T17:54:28.111151] [KAPJUS-RANK]   Pos 7: rowid=7140, score=0.027778, file=0224395-56.2025.8.06.0001.pdf:269
+[2026-02-25T17:54:28.111217] [KAPJUS-RANK]   Pos 8: rowid=9059, score=0.027497, file=0224395-56.2025.8.06.0001.pdf:630
+[2026-02-25T17:54:28.111278] [KAPJUS-RANK]   Pos 9: rowid=9345, score=0.026257, file=0224395-56.2025.8.06.0001.pdf:683
+[2026-02-25T17:54:28.111342] [KAPJUS-RANK]   Pos 10: rowid=8814, score=0.026151, file=0224395-56.2025.8.06.0001.pdf:589
+[2026-02-25T17:54:28.111446] [KAPJUS-RANK] Top-K final | Params: {"count": 50}
+[2026-02-25T17:54:28.111628] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=50, case_id=4
+[2026-02-25T17:54:28.111741] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 50 -> 50
+[2026-02-25T17:54:28.111810] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 50 candidates
+[2026-02-25T17:54:28.111880] [KAPJUS-RERANK] Using local cross-encoder for 50 candidates
+[2026-02-25T17:54:34.184875] [KAPJUS-RERANK] Local rerank finished in 6.07s
+[2026-02-25T17:54:34.185472] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T17:54:34.185664] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T17:54:34.185837] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "traga os telefones que aparecerem", "chunks_count": 12}
+[2026-02-25T17:54:34.186071] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 11383}
+[2026-02-25T17:54:34.186266] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 11696, "model": "pro"}
+[2026-02-25T17:54:46.676886] [KAPJUS-AI] Gemini (gemini-2.5-pro) response | Params: {"length": 457}
+[2026-02-25T17:54:46.677575] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 457, "answer_preview": "Com base nos documentos fornecidos, os n\u00fameros de telefone mencionados s\u00e3o:\n\n*   **+55 85 8677-5754** ou **85-98677.5754**: Identificado como o n\u00famero de contato de Miguel Fernandes Pessoa Neto (Fonte"}
+[2026-02-25T17:54:46.677847] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25 20:57:03] [INFO] Checking Python service status...
+[2026-02-25 20:57:03] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:57:03] [DEBUG] Initializing database...
+[2026-02-25 20:57:03] [DEBUG] Database initialized successfully
+[2026-02-25 20:57:03] [INFO] Page Request: Case Detail {"case_id":4}
+[2026-02-25 20:57:04] [INFO] Checking Python service status...
+[2026-02-25 20:57:04] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:57:04] [DEBUG] Initializing database...
+[2026-02-25 20:57:04] [DEBUG] Database initialized successfully
+[2026-02-25 20:57:04] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 20:57:04] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 20:57:04] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 20:57:04] [INFO] Checking Python service status...
+[2026-02-25 20:57:04] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:57:04] [DEBUG] Initializing database...
+[2026-02-25 20:57:04] [DEBUG] Database initialized successfully
+[2026-02-25 20:57:04] [INFO] API Request START {"path":"\/api\/executive_summary_cache","method":"GET","query_string":"case_id=4","content_type":"N\/A","content_length":"N\/A"}
+[2026-02-25 20:57:04] [INFO] Checking Python service status...
+[2026-02-25 20:57:04] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:57:04] [DEBUG] Initializing database...
+[2026-02-25 20:57:04] [DEBUG] Database initialized successfully
+[2026-02-25 20:57:04] [INFO] Page Request: 404 {"path":"\/favicon.ico"}
+[2026-02-25 20:57:07] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 20:57:07] [INFO] Checking Python service status...
+[2026-02-25 20:57:07] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:57:07] [DEBUG] Initializing database...
+[2026-02-25 20:57:07] [DEBUG] Database initialized successfully
+[2026-02-25 20:57:07] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 20:57:07] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 20:57:15] [INFO] Checking Python service status...
+[2026-02-25 20:57:15] [DEBUG] Socket available on attempt 1
+[2026-02-25 20:57:15] [DEBUG] Initializing database...
+[2026-02-25 20:57:15] [DEBUG] Database initialized successfully
+[2026-02-25 20:57:15] [INFO] API Request START {"path":"\/api\/create_note","method":"POST","query_string":"","content_type":"application\/json","content_length":"153"}
+[2026-02-25 20:57:15] [DEBUG] socket_client.php START {"action":"create_note"}
+[2026-02-25 20:57:15] [DEBUG] Processing action {"action":"create_note"}
+[2026-02-25 21:05:36] [INFO] Checking Python service status...
+[2026-02-25 21:05:36] [DEBUG] Socket available on attempt 1
+[2026-02-25 21:05:36] [DEBUG] Initializing database...
+[2026-02-25 21:05:36] [DEBUG] Database initialized successfully
+[2026-02-25 21:05:36] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarytBCEKQ3GKeVQjQFl","content_length":"276"}
+[2026-02-25 21:05:36] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 21:05:36] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T18:05:36.797492] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "4", "question": "resuma e traga todos os emails mencionados", "provider": "gemini", "use_hybrid": true}
+[2026-02-25T18:05:36.797682] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T18:05:36.797760] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "resuma e traga todos os emails mencionados"}
+[2026-02-25T18:05:36.797841] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T18:05:36.797950] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 864, "model": "flash"}
+[2026-02-25T18:05:43.406282] [KAPJUS-AI] Gemini (gemini-2.5-flash) response | Params: {"length": 1275}
+[2026-02-25T18:05:43.406826] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "```json\n{\n  \"keywords\": [\n    \"email\",\n    \"emails\",\n    \"e-mail\",\n    \"e-mails\",\n    \"correio eletr\u00f4nico\",\n    \"mensagem eletr\u00f4nica\",\n    \"correspond\u00eancia eletr\u00f4nica\",\n    \"prova digital\",\n    \"evid\u00eancia digital\",\n    \"per\u00edcia digital\",\n    \"forense digital\",\n    \"investiga\u00e7\u00e3o digital\",\n    \"citados\",\n    \"mencionados\",\n    \"referenciados\",\n    \"aludidos\",\n    \"identificados\",\n    \"descritos\",\n    \"sumarizar\",\n    \"resumo\",\n    \"sintetizar\",\n    \"s\u00edntese\",\n    \"compilar\",\n    \"compila\u00e7\u00e3o\",\n    "}
+[2026-02-25T18:05:43.407063] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["email", "emails", "e-mail", "e-mails", "correio eletr\u00f4nico", "mensagem eletr\u00f4nica", "correspond\u00eancia eletr\u00f4nica", "prova digital", "evid\u00eancia digital", "per\u00edcia digital", "forense digital", "investiga\u00e7\u00e3o digital", "citados", "mencionados", "referenciados", "aludidos", "identificados", "descritos", "sumarizar", "resumo", "sintetizar", "s\u00edntese", "compilar", "compila\u00e7\u00e3o", "extrair", "extra\u00e7\u00e3o", "listar", "listagem", "consolidar", "consolida\u00e7\u00e3o", "caixa de entrada", "caixa de sa\u00edda", "servidor de e-mail", "metadados de e-mail", "cabe\u00e7alhos de e-mail", "anexos de e-mail", "registros de comunica\u00e7\u00e3o", "comunica\u00e7\u00e3o digital", "documentos eletr\u00f4nicos", "ante o exposto", "conclui-se que", "segue a listagem", "conforme apurado", "em anexo"], "semantic_query": "Requer-se a sumariza\u00e7\u00e3o detalhada e a exibi\u00e7\u00e3o integral de todas as correspond\u00eancias eletr\u00f4nicas (emails) que foram expressamente referenciadas, citadas ou identificadas em qualquer documento ou proce"}
+[2026-02-25T18:05:43.407229] [KAPJUS-ASK_IA] Expansao: keywords=['email', 'emails', 'e-mail', 'e-mails', 'correio eletrônico', 'mensagem eletrônica', 'correspondência eletrônica', 'prova digital', 'evidência digital', 'perícia digital', 'forense digital', 'investigação digital', 'citados', 'mencionados', 'referenciados', 'aludidos', 'identificados', 'descritos', 'sumarizar', 'resumo', 'sintetizar', 'síntese', 'compilar', 'compilação', 'extrair', 'extração', 'listar', 'listagem', 'consolidar', 'consolidação', 'caixa de entrada', 'caixa de saída', 'servidor de e-mail', 'metadados de e-mail', 'cabeçalhos de e-mail', 'anexos de e-mail', 'registros de comunicação', 'comunicação digital', 'documentos eletrônicos', 'ante o exposto', 'conclui-se que', 'segue a listagem', 'conforme apurado', 'em anexo'], semantic=Requer-se a sumarização detalhada e a exibição int...
+[2026-02-25T18:05:43.407325] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["email", "emails", "e-mail", "e-mails", "correio eletr\u00f4nico", "mensagem eletr\u00f4nica", "correspond\u00eancia eletr\u00f4nica", "prova digital", "evid\u00eancia digital", "per\u00edcia digital", "forense digital", "investiga\u00e7\u00e3o digital", "citados", "mencionados", "referenciados", "aludidos", "identificados", "descritos", "sumarizar", "resumo", "sintetizar", "s\u00edntese", "compilar", "compila\u00e7\u00e3o", "extrair", "extra\u00e7\u00e3o", "listar", "listagem", "consolidar", "consolida\u00e7\u00e3o", "caixa de entrada", "caixa de sa\u00edda", "servidor de e-mail", "metadados de e-mail", "cabe\u00e7alhos de e-mail", "anexos de e-mail", "registros de comunica\u00e7\u00e3o", "comunica\u00e7\u00e3o digital", "documentos eletr\u00f4nicos", "ante o exposto", "conclui-se que", "segue a listagem", "conforme apurado", "em anexo"], "semantic_query": "Requer-se a sumariza\u00e7\u00e3o detalhada e a exibi\u00e7\u00e3o integral de todas as correspond\u00eancias eletr\u00f4nicas (emails) que foram expressamente referenciadas, citadas ou identificadas em qualquer documento ou proce", "case_id": "4", "limit": 50}
+[2026-02-25T18:05:43.409072] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["email", "emails", "e mail", "e mails", "correio eletr\u00f4nico", "mensagem eletr\u00f4nica", "correspond\u00eancia eletr\u00f4nica", "prova digital", "evid\u00eancia digital", "per\u00edcia digital", "forense digital", "investiga\u00e7\u00e3o digital", "citados", "mencionados", "referenciados", "aludidos", "identificados", "descritos", "sumarizar", "resumo", "sintetizar", "s\u00edntese", "compilar", "compila\u00e7\u00e3o", "extrair", "extra\u00e7\u00e3o", "listar", "listagem", "consolidar", "consolida\u00e7\u00e3o", "caixa de entrada", "caixa de sa\u00edda", "servidor de e mail", "metadados de e mail", "cabe\u00e7alhos de e mail", "anexos de e mail", "registros de comunica\u00e7\u00e3o", "comunica\u00e7\u00e3o digital", "documentos eletr\u00f4nicos", "ante o exposto", "conclui se que", "segue a listagem", "conforme apurado", "em anexo"], "original_terms": ["resuma", "traga", "todos", "emails", "mencionados"]}
+[2026-02-25T18:05:43.409517] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "resuma* OR traga* OR todos* OR emails* OR mencionados* OR email* OR e mail* OR e mails* OR correio eletr\u00f4nico* OR mensagem eletr\u00f4nica* OR correspond\u00eancia eletr\u00f4nica* OR prova digital* OR evid\u00eancia digital* OR per\u00edcia digital* OR forense digital* OR investiga\u00e7\u00e3o digital* OR citados* OR referenciados* OR aludidos* OR identificados* OR descritos* OR sumarizar* OR resumo* OR sintetizar* OR s\u00edntese* OR compilar* OR compila\u00e7\u00e3o* OR extrair* OR extra\u00e7\u00e3o* OR listar* OR listagem* OR consolidar* OR consolida\u00e7\u00e3o* OR caixa de entrada* OR caixa de sa\u00edda* OR servidor de e mail* OR metadados de e mail* OR cabe\u00e7alhos de e mail* OR anexos de e mail* OR registros de comunica\u00e7\u00e3o* OR comunica\u00e7\u00e3o digital* OR documentos eletr\u00f4nicos* OR ante o exposto* OR conclui se que* OR segue a listagem* OR conforme apurado* OR em anexo*", "original_terms": ["resuma", "traga", "todos", "emails", "mencionados"]}
+[2026-02-25T18:05:43.432483] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 50}
+[2026-02-25T18:05:43.433118] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "Requer-se a sumariza\u00e7\u00e3o detalhada e a exibi\u00e7\u00e3o integral de todas as correspond\u00eancias eletr\u00f4nicas (emails) que foram expressamente referenciadas, citadas ou identificadas em qualquer documento ou proce"}
+[2026-02-25T18:05:43.653396] [KAPJUS-HYBRID-VSS] Embedding gerado | Params: {"dimension": 1536}
+[2026-02-25T18:05:43.662280] [KAPJUS-HYBRID-VSS] Executando sqlite-vec com filtro case_id | Params: {"case_id": "4"}
+[2026-02-25T18:05:44.187012] [KAPJUS-HYBRID-VSS] Resultados VSS encontrados | Params: {"count": 50}
+[2026-02-25T18:05:44.188265] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 50, "vss_count": 50}
+[2026-02-25T18:05:44.188613] [KAPJUS-ASK_IA] Busca: FTS5=50, VSS=50
+[2026-02-25T18:05:44.188854] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 50, "vss_count": 50, "top_k": 50, "case_id": "4"}
+[2026-02-25T18:05:44.190172] [KAPJUS-RANK] Apos validacao case_id: fts=50, vss=50
+[2026-02-25T18:05:44.190545] [KAPJUS-RANK] Apos FTS5: 50 items unicos
+[2026-02-25T18:05:44.190826] [KAPJUS-RANK] Apos VSS: 72 items unicos
+[2026-02-25T18:05:44.191098] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 72}
+[2026-02-25T18:05:44.191341] [KAPJUS-RANK]   Pos 1: rowid=9025, score=0.032787, file=0224395-56.2025.8.06.0001.pdf:626
+[2026-02-25T18:05:44.191607] [KAPJUS-RANK]   Pos 2: rowid=9127, score=0.032002, file=0224395-56.2025.8.06.0001.pdf:641
+[2026-02-25T18:05:44.192338] [KAPJUS-RANK]   Pos 3: rowid=9361, score=0.032002, file=0224395-56.2025.8.06.0001.pdf:687
+[2026-02-25T18:05:44.192660] [KAPJUS-RANK]   Pos 4: rowid=9059, score=0.030331, file=0224395-56.2025.8.06.0001.pdf:630
+[2026-02-25T18:05:44.193481] [KAPJUS-RANK]   Pos 5: rowid=7140, score=0.030310, file=0224395-56.2025.8.06.0001.pdf:269
+[2026-02-25T18:05:44.193723] [KAPJUS-RANK]   Pos 6: rowid=7468, score=0.028778, file=0224395-56.2025.8.06.0001.pdf:318
+[2026-02-25T18:05:44.194017] [KAPJUS-RANK]   Pos 7: rowid=9175, score=0.027972, file=0224395-56.2025.8.06.0001.pdf:650
+[2026-02-25T18:05:44.194298] [KAPJUS-RANK]   Pos 8: rowid=9345, score=0.027588, file=0224395-56.2025.8.06.0001.pdf:683
+[2026-02-25T18:05:44.194617] [KAPJUS-RANK]   Pos 9: rowid=9070, score=0.027206, file=0224395-56.2025.8.06.0001.pdf:632
+[2026-02-25T18:05:44.194864] [KAPJUS-RANK]   Pos 10: rowid=7135, score=0.026263, file=0224395-56.2025.8.06.0001.pdf:264
+[2026-02-25T18:05:44.195115] [KAPJUS-RANK] Top-K final | Params: {"count": 50}
+[2026-02-25T18:05:44.195376] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=50, case_id=4
+[2026-02-25T18:05:44.195940] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 50 -> 50
+[2026-02-25T18:05:44.196293] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 50 candidates
+[2026-02-25T18:05:44.196663] [KAPJUS-RERANK] Using local cross-encoder for 50 candidates
+[2026-02-25T18:05:59.573351] [KAPJUS-RERANK] Local rerank finished in 15.38s
+[2026-02-25T18:05:59.574304] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T18:05:59.574719] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T18:05:59.575137] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "resuma e traga todos os emails mencionados", "chunks_count": 12}
+[2026-02-25T18:05:59.575669] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 12461}
+[2026-02-25T18:05:59.576119] [KAPJUS-AI] Calling AI with provider: gemini | Params: {"prompt_length": 12783, "model": "pro"}
+[2026-02-25T18:06:11.839962] [KAPJUS-AI] Gemini (gemini-2.5-pro) response | Params: {"length": 924}
+[2026-02-25T18:06:11.840603] [KAPJUS-RESPONSE] Resposta gerada pela IA | Params: {"answer_length": 924, "answer_preview": "Com base nos trechos fornecidos, os seguintes e-mails s\u00e3o mencionados:\n\n*   **miguelfernandesp@icloud.com**: A extra\u00e7\u00e3o de dados desta conta identificou 3.935 e-mails, n\u00e3o categorizados como enviados "}
+[2026-02-25T18:06:11.840969] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12
+[2026-02-25 21:06:17] [DEBUG] socket_client.php START {"action":"N\/A"}
+[2026-02-25 21:06:19] [INFO] Checking Python service status...
+[2026-02-25 21:06:19] [DEBUG] Socket available on attempt 1
+[2026-02-25 21:06:19] [DEBUG] Initializing database...
+[2026-02-25 21:06:19] [DEBUG] Database initialized successfully
+[2026-02-25 21:06:19] [ERROR] PHP Error Constant BASE_DIR already defined in /var/www/html/kapjus.kaponline.com.br/public/download.php:8
+[2026-02-25 21:06:19] [ERROR] PHP Error session_start(): Ignoring session_start() because a session is already active in /var/www/html/kapjus.kaponline.com.br/public/download.php:11
+[2026-02-25 21:06:47] [INFO] Checking Python service status...
+[2026-02-25 21:06:47] [DEBUG] Socket available on attempt 1
+[2026-02-25 21:06:47] [DEBUG] Initializing database...
+[2026-02-25 21:06:47] [DEBUG] Database initialized successfully
+[2026-02-25 21:06:47] [INFO] API Request START {"path":"\/api\/create_note","method":"POST","query_string":"","content_type":"application\/json","content_length":"152"}
+[2026-02-25 21:06:47] [DEBUG] socket_client.php START {"action":"create_note"}
+[2026-02-25 21:06:47] [DEBUG] Processing action {"action":"create_note"}

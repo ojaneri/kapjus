@@ -23,6 +23,18 @@ if ($case_id) {
 $sourcesJson = $_GET['sources'] ?? '[]';
 $sources = json_decode(urldecode($sourcesJson), true) ?: [];
 
+// If no sources from URL, try to get from database based on case_id and file
+if (empty($sources) && $case_id && $file) {
+    $db = new SQLite3(__DIR__ . '/../database/kapjus.db');
+    $stmt = $db->prepare("SELECT DISTINCT filename, page_number as page, content as snippet FROM documents WHERE case_id = :case_id AND filename = :filename ORDER BY page_number");
+    $stmt->bindValue(':case_id', $case_id, SQLITE3_INTEGER);
+    $stmt->bindValue(':filename', $file, SQLITE3_TEXT);
+    $result = $stmt->execute();
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $sources[] = $row;
+    }
+}
+
 // Current user
 $user = current_user();
 ?>
