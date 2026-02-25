@@ -326,7 +326,10 @@ def _mask_api_key(key: str) -> str:
 
 log_step("ENV", "Environment variables loaded", {
     "openrouter_key": _mask_api_key(OPENROUTER_API_KEY),
-    "gemini_key": _mask_api_key(GEMINI_API_KEY)
+    "gemini_key": _mask_api_key(GEMINI_API_KEY),
+    "ia_provider": IA_PROVIDER,
+    "gemini_flash": GEMINI_FLASH_MODEL,
+    "gemini_pro": GEMINI_PRO_MODEL
 })
 IA_PROVIDER = os.getenv("IA_PROVIDER", "gemini").lower()  # Options: gemini, openrouter
 
