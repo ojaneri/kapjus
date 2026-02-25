@@ -675,7 +675,7 @@ if (strpos($path, '/api/') === 0) {
     
     // Special handling for upload_chunk - parse multipart data before including socket_client
     if ($_GET['action'] === 'upload_chunk') {
-        debug_log('UPLOAD_CHUNK_REQUEST', [
+        debug_log('UPLOAD_CHUNK_REQUEST', 'Processing upload chunk request', [
             'method' => $_SERVER['REQUEST_METHOD'] ?? 'N/A',
             'content_type' => $_SERVER['CONTENT_TYPE'] ?? 'N/A',
             'files_count' => count($_FILES),
@@ -699,7 +699,7 @@ if (strpos($path, '/api/') === 0) {
             $filename = $_POST['filename'] ?? '';
             $case_id = $_POST['case_id'] ?? '';
             
-            debug_log('UPLOAD_CHUNK_PARAMS', [
+            debug_log('UPLOAD_CHUNK_PARAMS', 'Extracting upload parameters', [
                 'upload_id' => $upload_id,
                 'chunk_index' => $chunk_index,
                 'filename' => $filename,
@@ -725,7 +725,7 @@ if (strpos($path, '/api/') === 0) {
                 
                 // Call Python API directly
                 $response = call_python_api('/upload_chunk', $data, false, $files);
-                debug_log('UPLOAD_CHUNK_RESPONSE', ['response' => substr($response, 0, 500)]);
+                debug_log('UPLOAD_CHUNK_RESPONSE', 'Chunk upload response received', ['response' => substr($response, 0, 500)]);
                 echo $response;
                 exit;
             } else {
