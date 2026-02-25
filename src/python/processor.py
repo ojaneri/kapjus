@@ -264,15 +264,18 @@ def call_ai(prompt: str, provider: str = None, model: str = None) -> str:
     elif effective_provider == "gemini":
         try:
             # Determine which Gemini model to use
-            if model == "flash" or model == "gemini-1.5-flash-8b":
-                gemini_model = GEMINI_FLASH_MODEL
-            elif model == "pro" or model == "gemini-1.5-pro":
-                gemini_model = GEMINI_PRO_MODEL
+            # Remove 'models/' prefix if present to avoid duplication in URL
+            base_model = model.replace('models/', '') if model else GEMINI_FLASH_MODEL
+            base_model = base_model.replace('models/', '') if base_model else GEMINI_FLASH_MODEL
+            
+            if model == "flash" or "flash" in (base_model or ""):
+                gemini_model = GEMINI_FLASH_MODEL.replace('models/', '')
+            elif model == "pro" or "pro" in (base_model or ""):
+                gemini_model = GEMINI_PRO_MODEL.replace('models/', '')
             elif model:
-                gemini_model = model  # Use custom model name
+                gemini_model = model.replace('models/', '')
             else:
-                # Default to flash for speed
-                gemini_model = GEMINI_FLASH_MODEL
+                gemini_model = GEMINI_FLASH_MODEL.replace('models/', '')
             
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{gemini_model}:generateContent?key={GEMINI_API_KEY}"
             response = requests.post(url, json={
@@ -731,7 +734,7 @@ def get_gemini_embedding(text: str) -> Optional[List[float]]:
     
     try:
         # Use Gemini embedding model
-        embedding_model = GEMINI_EMBEDDING_MODEL
+        embedding_model = GEMINI_EMBEDDING_MODEL.replace('models/', '')
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{embedding_model}:embedContent?key={GEMINI_API_KEY}"
         
         response = requests.post(url, json={
@@ -1627,7 +1630,7 @@ async def ask_ia_v2(
     if effective_provider == "openrouter":
         return await ask_with_openrouter(prompt)
     elif effective_provider == "gemini":
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
         response = requests.post(url, json={"contents": [{"parts": [{"text": prompt}]}]})
         return response.json()
     
