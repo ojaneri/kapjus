@@ -1,0 +1,15 @@
+2026-02-25 12:34:46,073 - INFO - [ENV] Environment variables loaded
+2026-02-25 12:34:46,132 - INFO - sqlite-vec extension loaded successfully
+2026-02-25 12:34:46,132 - INFO - VSS extension available: True (Mode: vec)
+INFO:     Started server process [1592218]
+INFO:     Started server process [1592218]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Waiting for application startup.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on unix socket /var/www/html/kapjus.kaponline.com.br/socket/kapjus.sock (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1592218]

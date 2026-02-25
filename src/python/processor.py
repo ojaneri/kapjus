@@ -1511,7 +1511,8 @@ async def hybrid_search_endpoint(query: HybridSearchQuery):
                 "rowid": chunk["rowid"],
                 "filename": chunk["filename"],
                 "page": chunk["page"],
-                "score": round(chunk["rrf_score"], 6)
+                "score": round(chunk["rrf_score"], 6),
+                "snippet": chunk.get("content", "")[:300] if chunk.get("content") else ""
             }
             for chunk in final_chunks
         ]
@@ -1598,7 +1599,8 @@ async def ask_ia_v2(
                 "rowid": chunk["rowid"],
                 "filename": chunk["filename"],
                 "page": chunk["page"],
-                "score": round(chunk["rrf_score"], 6)
+                "score": round(chunk["rrf_score"], 6),
+                "snippet": chunk.get("content", "")[:300] if chunk.get("content") else ""
             }
             for chunk in final_chunks
         ]

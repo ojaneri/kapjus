@@ -1053,6 +1053,33 @@ function openPdfAtPage(encodedFilename, page) {
     viewPdf(encodedFilename, page || null);
 }
 
+// Open PDF at specific page with search term for highlighting - opens in new tab
+function openPdfWithSearch(encodedFilename, page, snippetEncoded = '') {
+    const filename = decodeFilename(encodedFilename);
+    const snippet = snippetEncoded ? decodeFilename(snippetEncoded) : '';
+    
+    if (!filename.toLowerCase().endsWith('.pdf')) {
+        alert('Visualização disponível apenas para arquivos PDF.');
+        return;
+    }
+    
+    // Build URL with page and search parameters
+    const pdfUrl = '/storage/uploads/' + encodeURIComponent(filename);
+    const params = new URLSearchParams();
+    
+    if (page) {
+        params.set('page', page.toString());
+    }
+    if (snippet) {
+        params.set('search', snippet);
+    }
+    
+    const url = params.toString() ? pdfUrl + '?' + params.toString() : pdfUrl;
+    
+    // Open in new tab
+    window.open(url, '_blank');
+}
+
 function closePdfModal() {
     const modal = document.getElementById('pdf-modal');
     const viewer = document.getElementById('pdf-viewer-modal');
@@ -2085,25 +2112,33 @@ function _renderIAResponseInUnified(container, data, question = '') {
     let sourceInfoHtml = '';
 
     if (sources.length) {
-        // Group sources by filename
+        // Group sources by filename, keeping track of snippets per page
         const groupedSources = {};
         sources.forEach(source => {
             const filename = source.filename || 'Arquivo desconhecido';
             if (!groupedSources[filename]) {
-                groupedSources[filename] = [];
+                groupedSources[filename] = { pages: [], snippets: {} };
             }
             if (source.page) {
-                groupedSources[filename].push(source.page);
+                if (!groupedSources[filename].pages.includes(source.page)) {
+                    groupedSources[filename].pages.push(source.page);
+                }
+                // Store snippet for this page (use first snippet found)
+                if (source.snippet && !groupedSources[filename].snippets[source.page]) {
+                    groupedSources[filename].snippets[source.page] = source.snippet;
+                }
             }
         });
 
         // Render grouped sources: "Filename [page1] [page2] ..."
-        const linkHtml = Object.entries(groupedSources).map(([filename, pages]) => {
+        const linkHtml = Object.entries(groupedSources).map(([filename, data]) => {
             const encoded = encodeURIComponent(filename);
             const safeName = escapeHtml(filename);
-            const pagesHtml = pages.map(page => 
-                `<button type="button" class="text-[10px] text-slate-500 underline hover:text-indigo-600 transition-colors" onclick="focusDocument('${encoded}', ${page})">[${page}]</button>`
-            ).join('');
+            const pagesHtml = data.pages.map(page => {
+                const snippet = data.snippets[page] || '';
+                const snippetEncoded = encodeURIComponent(snippet);
+                return `<button type="button" class="text-[10px] text-slate-500 underline hover:text-indigo-600 transition-colors" onclick="openPdfWithSearch('${encoded}', ${page}, '${snippetEncoded}')">[${page}]</button>`;
+            }).join('');
             return `<span class="flex items-center gap-1"><span class="text-[10px] text-slate-600 font-medium">${safeName}</span>${pagesHtml}</span>`;
         }).join('<span class="text-slate-300 mx-2">|</span>');
         sourceInfoHtml = `

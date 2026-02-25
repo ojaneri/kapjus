@@ -1,38 +1,48 @@
-# Lawyer Invitation Email Fix - 2026-02-25
+# Lawyer Invitation Flow - Password Registration + Access Email
 
 ## Problem
-The "Convidar advogado" (Invite lawyer) option in case/X was not sending emails.
+User requested changes to the lawyer invitation flow:
+1. Lawyer receives magic link invitation email
+2. Clicks the link → sees password registration form
+3. After registering password → system sends NEW email with access link
+4. When clicking the access link → login page with email pre-filled, just needs to type password
+5. Add "Esqueci minha senha" (forgot password) option on login page
 
-## Root Causes & Fixes Applied
+## Implementation
 
-### 1. Email sender not verified in AWS SES
-- **Issue**: Email was being rejected by AWS SES because sender (`nao-responda@kapjus.com.br`) was not verified
-- **Fix**: Changed `SMTP_FROM` in `.env` from `nao-responda@kapjus.com.br` to `noreply@janeri.com.br` (verified email)
+### 1. Magic Login Page (public/magic-login.php)
+- Already modified to show password registration form
+- After password registration, calls `/send_access_email` endpoint
+- Shows success message with link to login page
 
-### 2. Frontend JavaScript parsing incorrect API response format
-- **Issue**: Frontend expected direct arrays but API returned objects with `status` + `invitations`/`logs`
-- **Fix**: Updated `loadInvitations()`, `loadAccessHistory()`, and `revokeInvitation()` in `src/php/case_detail.php` to parse `data.invitations` and `data.logs`
+### 2. Python Backend (src/python/processor.py)
+Added new endpoint and function:
+- `/send_access_email` endpoint (lines ~2378)
+- `send_access_confirmation_email()` function to send access confirmation email
+- The email includes the login link: `https://kapjus.kaponline.com.br/login?email=lawyer@email.com`
 
-### 3. Missing case_id in revoke invitation
-- **Issue**: `revokeInvitation()` function was missing required `case_id` parameter
-- **Fix**: Added `case_id` parameter to the revoke request
+### 3. Login Page with Email Pre-fill (src/php/auth.php + public/index.php)
+- Modified `render_login_page()` to accept optional `$prefill_email` parameter
+- Modified login page route in index.php to read `?email=` parameter from URL
+- When accessing `/login?email=lawyer@email.com`, the email field is pre-filled
 
-### 4. Enhanced email with case information
-- **Issue**: Invitation emails didn't include case name and description
-- **Fix**: Updated `send_invitation_email()` function to accept `case_name` and `case_description` parameters and include them in the email template. Updated `/invite_lawyer` endpoint to fetch case info from database and pass to email function.
-
-### 5. Missing /magic-login route (FIXED)
-- **Issue**: Accessing `/magic-login` returned 404 page not found
-- **Fix**: Added `/magic-login` route in `public/index.php` to include magic-login.php
+### 4. Forgot Password (Already implemented)
+- "Esqueci minha senha" link exists on login page (auth.php line 198)
+- Forgot password page exists at `/forgot-password`
+- Uses `/forgot_password` and `/reset_password` endpoints
 
 ## Files Modified
-- `.env` - Changed SMTP_FROM
-- `src/php/case_detail.php` - Fixed JavaScript parsing
-- `src/python/processor.py` - Enhanced email with case info
-- `public/index.php` - Added /magic-login route
+- `src/python/processor.py` - Added `/send_access_email` endpoint and email function
+- `src/php/auth.php` - Added email pre-fill support to login page
+- `public/index.php` - Read email parameter from URL and pass to login page
 
 ## Status
-✅ Complete - All fixes applied and service restarted
+✅ Complete - All functionality implemented
 
-## Test URL
-https://kapjus.kaponline.com.br/magic-login?token=xY_cu7MGuWyIPdbyV0ZHafSX1dU9CIuQD7OJmrDtJwH0IfY-bA2cylS3W4apVxCx33IRBgas-CFPy4qvikCsQw&case_id=6
+## Test Flow
+1. Invite lawyer → they receive magic link email
+2. Click link → see password registration form
+3. Register password → new access email is sent
+4. Click access link → login page with email pre-filled
+5. Type password → logged in to case
+6. "Esqueci minha senha" on login page works for password reset

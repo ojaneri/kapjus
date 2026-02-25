@@ -19,6 +19,16 @@ $invitation = null;
 $case_id = isset($_GET['case_id']) ? $_GET['case_id'] : null;
 $token = isset($_GET['token']) ? $_GET['token'] : null;
 
+// Pre-fill email from URL for returning users
+$prefill_email = isset($_GET['email']) ? $_GET['email'] : '';
+
+// Password registration success
+$password_registered = false;
+$registered_email = '';
+
+// Define magic link base URL
+define('MAGIC_LINK_BASE_URL', 'https://kapjus.kaponline.com.br');
+
 // If no token or case_id, show form
 if (!$token || !$case_id) {
     $error = "Link de convite inválido ou expirado.";
@@ -62,30 +72,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $invitation) {
         curl_close($ch);
         
         if ($http_code === 200) {
-            // Regenerate session ID for security
-            session_regenerate_id(true);
-
-            // Prepare session data
-            $user_data = [
-                'id'           => 0, // Will be set by session
-                'email'        => $invitation['lawyer_email'],
-                'name'         => $invitation['lawyer_name'],
-                'role'         => $invitation['role'],
-                'case_id'      => $invitation['case_id'],
-                'is_guest'     => false,
-                'is_lawyer'    => true,
-                'session_token'=> $invitation['session_token']
-            ];
+            // Password registered successfully
+            // Instead of logging in, send email with access link
+            $result = json_decode($response, true);
+            $lawyer_email = $invitation['lawyer_email'];
+            $lawyer_name = $invitation['lawyer_name'];
             
-            // 1. Set standard PHP session
-            $_SESSION[AUTH_SESSION_KEY] = $user_data;
-
-            // 2. Set signed cookie for 24h as fallback/persistence
-            set_signed_cookie('kapjus_session', $user_data, time() + 86400);
+            // Send confirmation email with access link (includes case_id for direct access)
+            $access_link = MAGIC_LINK_BASE_URL . "/login?email=" . urlencode($lawyer_email);
+            $ch2 = curl_init(SOCKET_HOST . "/send_access_email");
+            curl_setopt($ch2, CURLOPT_POST, true);
+            curl_setopt($ch2, CURLOPT_POSTFIELDS, json_encode([
+                'email' => $lawyer_email,
+                'name' => $lawyer_name,
+                'case_id' => $case_id,
+                'access_link' => $access_link
+            ]));
+            curl_setopt($ch2, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+            curl_exec($ch2);
+            curl_close($ch2);
             
-            // Redirect to case detail
-            header("Location: /case/" . $invitation['case_id']);
-            exit;
+            // Show success message - don't auto-login
+            $password_registered = true;
+            $registered_email = $lawyer_email;
         } else {
             $result = json_decode($response, true);
             $error = $result['detail'] ?? $result['message'] ?? "Erro ao registrar senha.";
@@ -130,6 +140,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $invitation) {
             <p class="text-slate-600 mb-6"><?php echo htmlspecialchars($error); ?></p>
             <a href="/" class="inline-flex items-center justify-center px-6 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-indigo-600 transition-all">
                 <i class="fas fa-home mr-2"></i> Voltar ao Início
+            </a>
+        </div>
+        
+        <!-- Password Registered Successfully Card -->
+        <?php elseif ($password_registered): ?>
+        <div class="bg-white rounded-3xl shadow-2xl p-8 text-center">
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-envelope text-2xl text-emerald-500"></i>
+            </div>
+            <h2 class="text-xl font-bold text-slate-900 mb-2">Senha Cadastrada!</h2>
+            <p class="text-slate-600 mb-2">Enviamos um e-mail com o link de acesso para:</p>
+            <p class="text-lg font-bold text-indigo-600 mb-6"><?php echo htmlspecialchars($registered_email); ?></p>
+            <p class="text-sm text-slate-500 mb-6">Verifique sua caixa de entrada (e spam) e clique no link para acessar o caso.</p>
+            <a href="/login?email=<?php echo urlencode($registered_email); ?>" class="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all">
+                <i class="fas fa-sign-in-alt mr-2"></i> Ir para Login
             </a>
         </div>
         
