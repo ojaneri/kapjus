@@ -337,6 +337,96 @@ $user = current_user();
             border-radius: 20px;
             font-size: 12px;
         }
+        
+        /* Floating Notes Panel - Outside main panel */
+        #notes-panel {
+            position: fixed;
+            right: 20px;
+            top: auto;
+            bottom: 20px;
+            width: 320px;
+            max-height: 300px;
+            z-index: 99;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            padding-bottom: 80px; /* Space for note form */
+        }
+        
+        /* Individual Note Floating Panel */
+        .note-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            padding: 14px;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .note-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .note-panel-page {
+            font-size: 11px;
+            font-weight: 600;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .note-panel-delete {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .note-panel-delete:hover {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+        
+        .note-panel-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #1e293b;
+        }
+        
+        .note-panel-date {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        /* Note colors */
+        .note-panel.red { border-left: 4px solid #ef4444; }
+        .note-panel.yellow { border-left: 4px solid #eab308; }
+        .note-panel.green { border-left: 4px solid #22c55e; }
+        .note-panel.blue { border-left: 4px solid #3b82f6; }
     </style>
 </head>
 <body>
@@ -373,6 +463,11 @@ $user = current_user();
             <i class="fas fa-list-ul"></i>
             Fontes
             <span class="source-count"><?= count($sources) ?></span>
+        </button>
+        
+        <button onclick="toggleNoteForm()" class="toolbar-btn primary" id="add-note-btn">
+            <i class="fas fa-sticky-note"></i>
+            Adicionar Nota
         </button>
     </div>
     
@@ -450,21 +545,54 @@ $user = current_user();
             </div>
         </div>
         
-        <!-- Page Notes Display -->
-        <div id="page-notes-container" style="padding: 12px; border-top: 1px solid #e2e8f0; max-height: 200px; overflow-y: auto; background: #f8fafc; display: none;">
-            <div style="font-size: 11px; color: #64748b; margin-bottom: 8px; display: flex; align-items: center; gap: 4px;">
-                <i class="fas fa-sticky-note"></i>
-                Notas desta página
-            </div>
-            <div id="page-notes-list"></div>
-        </div>
-        
-        <!-- Note Form -->
-        <div class="note-form">
-            <textarea id="note-text" rows="2" placeholder="Criar nota sobre esta página..."></textarea>
-            <button onclick="createNote()">
+    </div>
+    
+    <!-- Notes Panel - Outside Floating Panel -->
+    <div id="notes-panel"></div>
+    
+    <!-- Note Form - Toggleable -->
+    <div id="note-form-panel" style="display: none; position: fixed; right: 20px; top: auto; bottom: 20px; width: 320px; background: white; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); z-index: 100; overflow: hidden;">
+        <div style="padding: 16px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; display: flex; align-items: center; justify-content: space-between;">
+            <div>
                 <i class="fas fa-sticky-note mr-2"></i>
-                Criar Nota
+                <span class="font-semibold">Nova Nota</span>
+            </div>
+            <button onclick="toggleNoteForm()" style="background: none; border: none; color: white; cursor: pointer; padding: 4px;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div style="padding: 16px;">
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">
+                    <i class="fas fa-align-left mr-1"></i> Conteúdo da nota
+                </label>
+                <textarea id="note-text" rows="4" placeholder="Digite sua nota aqui..." style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 13px; resize: none; font-family: inherit;"></textarea>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; color: #64748b; margin-bottom: 6px;">
+                    <i class="fas fa-palette mr-1"></i> Cor do destaque
+                </label>
+                <div style="display: flex; gap: 8px;">
+                    <label style="cursor: pointer;">
+                        <input type="radio" name="note-color" value="yellow" checked style="display: none;">
+                        <span style="display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: #eab308; border: 3px solid transparent; transition: all 0.2s;"></span>
+                    </label>
+                    <label style="cursor: pointer;">
+                        <input type="radio" name="note-color" value="red" style="display: none;">
+                        <span style="display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: #ef4444; border: 3px solid transparent; transition: all 0.2s;"></span>
+                    </label>
+                    <label style="cursor: pointer;">
+                        <input type="radio" name="note-color" value="green" style="display: none;">
+                        <span style="display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: #22c55e; border: 3px solid transparent; transition: all 0.2s;"></span>
+                    </label>
+                    <label style="cursor: pointer;">
+                        <input type="radio" name="note-color" value="blue" style="display: none;">
+                        <span style="display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: #3b82f6; border: 3px solid transparent; transition: all 0.2s;"></span>
+                    </label>
+                </div>
+            </div>
+            <button onclick="createNote()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                <i class="fas fa-save mr-2"></i> Salvar Nota
             </button>
         </div>
     </div>
@@ -734,6 +862,16 @@ $user = current_user();
             panel.classList.toggle('collapsed');
         }
         
+        function toggleNoteForm() {
+            const form = document.getElementById('note-form-panel');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                document.getElementById('note-text').focus();
+            } else {
+                form.style.display = 'none';
+            }
+        }
+        
         async function createNote() {
             const noteText = document.getElementById('note-text').value.trim();
             if (!noteText) {
@@ -741,9 +879,14 @@ $user = current_user();
                 return;
             }
             
+            // Get selected color
+            const colorRadio = document.querySelector('input[name="note-color"]:checked');
+            const noteColor = colorRadio ? colorRadio.value : 'yellow';
+            
             const noteData = {
                 case_id: PHP_CASE_ID,
                 text: noteText,
+                color: noteColor,
                 source_file: currentSource.file,
                 source_page: currentSource.page,
                 source_snippet: currentSource.snippet,
@@ -763,6 +906,8 @@ $user = current_user();
                 if (result.status === 'success') {
                     document.getElementById('note-text').value = '';
                     showToast('Nota salva com sucesso!');
+                    // Close the form
+                    document.getElementById('note-form-panel').style.display = 'none';
                     // Reload notes for current page
                     loadPageNotes();
                 } else {
@@ -784,12 +929,11 @@ $user = current_user();
             }, 3000);
         }
         
-        // Load notes for current page
+        // Load notes for current page - Creates floating panels below the main panel
         async function loadPageNotes() {
             if (!PHP_CASE_ID || !currentSource.file) return;
             
-            const container = document.getElementById('page-notes-container');
-            const list = document.getElementById('page-notes-list');
+            const notesPanel = document.getElementById('notes-panel');
             
             try {
                 const url = `/api/get_notes?case_id=${PHP_CASE_ID}&source_file=${encodeURIComponent(currentSource.file)}&source_page=${currentSource.page}`;
@@ -799,32 +943,59 @@ $user = current_user();
                 if (data.status === 'success' && data.notes && data.notes.length > 0) {
                     const notesHtml = data.notes.map(note => {
                         const color = note.color || 'yellow';
-                        const colorClasses = {
-                            red: { bg: '#fef2f2', border: '#ef4444', text: '#b91c1c' },
-                            yellow: { bg: '#fefce8', border: '#eab308', text: '#a16207' },
-                            green: { bg: '#f0fdf4', border: '#22c55e', text: '#15803d' },
-                            blue: { bg: '#eff6ff', border: '#3b82f6', text: '#1d4ed8' }
-                        };
-                        const colors = colorClasses[color] || colorClasses.yellow;
-                        const date = new Date(note.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                        const date = new Date(note.created_at).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
                         
-                        return `<div style="background: ${colors.bg}; border-left: 3px solid ${colors.border}; border-radius: 8px; padding: 10px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                            <div style="font-size: 12px; color: ${colors.text}; line-height: 1.5;">${escapeHtml(note.text)}</div>
-                            <div style="font-size: 10px; color: #64748b; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(0,0,0,0.05);">
-                                <i class="fas fa-calendar-alt mr-1"></i>${date}
+                        return `<div class="note-panel ${color}" data-note-id="${note.id}">
+                            <div class="note-panel-header">
+                                <div class="note-panel-page">
+                                    <i class="fas fa-file-alt"></i>
+                                    Página ${note.source_page}
+                                </div>
+                                <button class="note-panel-delete" onclick="deleteNote(${note.id})" title="Excluir nota">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            <div class="note-panel-text">${escapeHtml(note.text)}</div>
+                            <div class="note-panel-date">
+                                <i class="fas fa-clock mr-1"></i>${date}
                             </div>
                         </div>`;
                     }).join('');
                     
-                    list.innerHTML = notesHtml;
-                    container.style.display = 'block';
+                    notesPanel.innerHTML = notesHtml;
+                    notesPanel.style.display = 'flex';
                 } else {
-                    list.innerHTML = '';
-                    container.style.display = 'none';
+                    notesPanel.innerHTML = '';
+                    notesPanel.style.display = 'none';
                 }
             } catch (e) {
                 console.error('Error loading page notes:', e);
-                container.style.display = 'none';
+                notesPanel.style.display = 'none';
+            }
+        }
+        
+        // Delete note function
+        async function deleteNote(noteId) {
+            if (!confirm('Tem certeza que deseja excluir esta nota?')) return;
+            
+            try {
+                const response = await fetch('/api/delete_note', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ note_id: noteId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    showToast('Nota excluída!');
+                    loadPageNotes();
+                } else {
+                    showToast('Erro ao excluir nota');
+                }
+            } catch (e) {
+                console.error('Error deleting note:', e);
+                showToast('Erro ao excluir nota');
             }
         }
         
