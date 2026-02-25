@@ -2436,15 +2436,29 @@ const NOTES_STORAGE_KEY = 'kapjus_case_notes_<?php echo $case_id; ?>';
 let notes = [];
 let selectedNoteColor = 'yellow';
 
-// Initialize notes from localStorage
-function initNotes() {
-    const stored = localStorage.getItem(NOTES_STORAGE_KEY);
-    if (stored) {
-        try {
-            notes = JSON.parse(stored);
-        } catch (e) {
+// Initialize notes from database API
+async function initNotes() {
+    try {
+        const response = await fetch(`/api/get_notes?case_id=${CASE_ID}`);
+        const data = await response.json();
+        if (data.status === 'success' && data.notes) {
+            // Map database notes to local format
+            notes = data.notes.map(note => ({
+                id: note.id.toString(),
+                text: note.text,
+                author: 'Advogado', // Could be enhanced to fetch user name
+                color: note.color || 'yellow',
+                createdAt: note.created_at,
+                source_file: note.source_file,
+                source_page: note.source_page,
+                source_snippet: note.source_snippet
+            }));
+        } else {
             notes = [];
         }
+    } catch (e) {
+        console.error('Error loading notes:', e);
+        notes = [];
     }
     renderNotesModal();
 }
@@ -2480,24 +2494,42 @@ function setNoteColor(color) {
 }
 
 // Create a new note
-function createNote(event) {
+async function createNote(event) {
     event.preventDefault();
     const textEl = document.getElementById('note-text-modal');
     const text = textEl.value.trim();
     if (!text) return;
     
-    const note = {
-        id: Date.now().toString(),
+    const noteData = {
+        case_id: CASE_ID,
         text: text,
-        author: CURRENT_USER_NAME || 'Advogado',
-        color: selectedNoteColor,
-        createdAt: new Date().toISOString()
+        color: selectedNoteColor
     };
     
-    notes.unshift(note);
-    saveNotes();
-    renderNotesModal();
-    textEl.value = '';
+    try {
+        const response = await fetch('/api/create_note', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(noteData)
+        });
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+            // Add to local notes array
+            const note = {
+                id: result.id.toString(),
+                text: text,
+                author: CURRENT_USER_NAME || 'Advogado',
+                color: selectedNoteColor,
+                createdAt: new Date().toISOString()
+            };
+            notes.unshift(note);
+            renderNotesModal();
+            textEl.value = '';
+        }
+    } catch (e) {
+        console.error('Error creating note:', e);
+    }
 }
 
 // Delete a note

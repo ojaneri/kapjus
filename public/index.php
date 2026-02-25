@@ -381,6 +381,53 @@ if (strpos($path, '/api/create_note') === 0 && $_SERVER['REQUEST_METHOD'] === 'P
     exit;
 }
 
+// ── Get notes for a case ──────────────────────────────────────────────────────
+if (strpos($path, '/api/get_notes') === 0 && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    header('Content-Type: application/json');
+    
+    require_once __DIR__ . '/../src/php/auth.php';
+    $user = current_user();
+    
+    if (!$user) {
+        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+        exit;
+    }
+    
+    $case_id = isset($_GET['case_id']) ? (int)$_GET['case_id'] : null;
+    
+    if (!$case_id) {
+        echo json_encode(['status' => 'error', 'message' => 'case_id is required']);
+        exit;
+    }
+    
+    $db = new SQLite3(BASE_DIR . '/database/kapjus.db');
+    
+    // Ensure table exists
+    $db->exec("CREATE TABLE IF NOT EXISTS case_notes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        case_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        text TEXT NOT NULL,
+        source_file TEXT,
+        source_page INTEGER,
+        source_snippet TEXT,
+        color TEXT DEFAULT 'yellow',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+    
+    $stmt = $db->prepare("SELECT id, case_id, user_id, text, source_file, source_page, source_snippet, color, created_at FROM case_notes WHERE case_id = :case_id ORDER BY created_at DESC");
+    $stmt->bindValue(':case_id', $case_id, SQLITE3_INTEGER);
+    
+    $notes = [];
+    $result = $stmt->execute();
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $notes[] = $row;
+    }
+    
+    echo json_encode(['status' => 'success', 'notes' => $notes]);
+    exit;
+}
+
 // ── Get snippet by rowid ────────────────────────────────────────────────────────
 // NOTE: This must be BEFORE the main API routing block
 if (strpos($path, '/api/get_snippet') === 0 && $_SERVER['REQUEST_METHOD'] === 'POST') {
