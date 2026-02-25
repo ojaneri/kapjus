@@ -29,14 +29,11 @@ if (!$case) { echo "Caso não encontrado."; exit; }
     </div>
 </div>
 
-<!-- PDF Viewer Modal -->
-<div id="pdf-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="pdf-modal-title" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closePdfModal()"></div>
-    <div class="fixed inset-0 z-10 overflow-hidden">
-        <div class="flex h-full">
-            <!-- PDF Viewer -->
-            <div class="flex-1 flex flex-col bg-slate-900">
-                <div class="flex items-center justify-between px-4 py-3 bg-slate-800 border-b border-slate-700">
+<!-- PDF Viewer Split View Panel -->
+<div id="pdf-panel" class="fixed inset-y-0 right-0 z-[90] hidden w-full max-w-2xl bg-slate-900 shadow-2xl transform transition-transform duration-300" aria-labelledby="pdf-modal-title" role="dialog" aria-modal="true">
+    <div class="flex flex-col h-full">
+        <!-- Header -->
+        <div class="flex items-center justify-between px-4 py-3 bg-slate-800 border-b border-slate-700 flex-shrink-0">
                     <div class="flex items-center space-x-3">
                         <button onclick="closePdfModal()" class="text-white hover:text-red-400 transition-colors">
                             <i class="fas fa-times text-xl"></i>
@@ -63,10 +60,59 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                         <a id="pdf-open-tab" href="" target="_blank" class="px-3 py-2 bg-slate-700 text-white text-sm rounded-lg hover:bg-slate-600 transition-colors">
                             <i class="fas fa-external-link-alt mr-1"></i> Abrir
                         </a>
+                        <button onclick="togglePdfFullscreen()" class="px-3 py-2 bg-slate-700 text-white text-sm rounded-lg hover:bg-slate-600 transition-colors" title="Tela cheia">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <button onclick="closePdfPanel()" class="ml-2 p-2 text-slate-400 hover:text-white transition-colors">
+                            <i class="fas fa-times text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-auto bg-slate-800">
+                    <iframe id="pdf-viewer" class="w-full h-full" src=""></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fullscreen PDF Modal (for toggle) -->
+<div id="pdf-modal" class="fixed inset-0 z-[100] hidden" aria-labelledby="pdf-modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closePdfModal()"></div>
+    <div class="fixed inset-0 z-10 overflow-hidden">
+        <div class="flex h-full">
+            <div class="flex-1 flex flex-col bg-slate-900">
+                <div class="flex items-center justify-between px-4 py-3 bg-slate-800 border-b border-slate-700">
+                    <div class="flex items-center space-x-3">
+                        <button onclick="closePdfModal()" class="text-white hover:text-red-400 transition-colors">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                        <span id="pdf-filename-modal" class="text-white font-medium truncate max-w-[400px]"></span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <input type="text" id="pdf-search-input-modal" placeholder="Buscar no PDF..." class="pl-10 pr-4 py-2 bg-slate-700 text-white text-sm rounded-lg border-0 focus:ring-2 focus:ring-indigo-500">
+                            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        </div>
+                        <button onclick="findNext()" class="px-3 py-2 bg-slate-700 text-white text-sm rounded-lg hover:bg-slate-600 transition-colors">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button onclick="findPrev()" class="px-3 py-2 bg-slate-700 text-white text-sm rounded-lg hover:bg-slate-600 transition-colors">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                        <span id="pdf-search-count-modal" class="text-slate-400 text-sm hidden"></span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="downloadPdf()" class="px-3 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors">
+                            <i class="fas fa-download mr-1"></i> Baixar
+                        </button>
+                        <a id="pdf-open-tab-modal" href="" target="_blank" class="px-3 py-2 bg-slate-700 text-white text-sm rounded-lg hover:bg-slate-600 transition-colors">
+                            <i class="fas fa-external-link-alt mr-1"></i> Abrir
+                        </a>
                     </div>
                 </div>
                 <div class="flex-1 overflow-auto">
-                    <iframe id="pdf-viewer" class="w-full h-full" src=""></iframe>
+                    <iframe id="pdf-viewer-modal" class="w-full h-full" src=""></iframe>
                 </div>
             </div>
         </div>
@@ -351,6 +397,66 @@ if (!$case) { echo "Caso não encontrado."; exit; }
             
             <!-- Sidebar (Documentos) - Desktop always visible, Mobile via tabs -->
             <div class="col-span-3 flex flex-col gap-4 overflow-hidden hidden md:flex">
+                
+                <!-- Sumário Executivo Card -->
+                <div class="mobile-tab-panel" data-mobile-section="arquivos">
+                <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
+                    <h3 class="text-xs font-black text-slate-900 mb-4 flex items-center tracking-widest uppercase">
+                        <span class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-lg flex items-center justify-center mr-3 text-xs">
+                            <i class="fas fa-gavel"></i>
+                        </span>
+                        Sumário Executivo
+                    </h3>
+                    
+                    <!-- Fatos Relevantes -->
+                    <div id="executive-facts" class="mb-4">
+                        <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt text-indigo-400"></i>
+                            Fatos Relevantes
+                        </h4>
+                        <div class="bg-indigo-50 rounded-xl p-3 space-y-2">
+                            <p class="text-xs text-indigo-600 font-medium animate-pulse">
+                                <i class="fas fa-circle-notch fa-spin mr-1"></i>Analisando documentos...
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Partes Envolvidas -->
+                    <div id="executive-parties" class="mb-4">
+                        <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fas fa-users text-purple-400"></i>
+                            Partes Envolvidas
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                                <span class="text-xs font-medium text-slate-600">Autor</span>
+                                <span class="text-[10px] text-slate-400">Não identificado</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                                <span class="text-xs font-medium text-slate-600">Réu</span>
+                                <span class="text-[10px] text-slate-400">Não identificado</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                                <span class="text-xs font-medium text-slate-600">Juiz</span>
+                                <span class="text-[10px] text-slate-400">Não identificado</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Status da Prova -->
+                    <div id="executive-proof-status">
+                        <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fas fa-file-signature text-emerald-400"></i>
+                            Status da Prova
+                        </h4>
+                        <div id="proof-status-indicator" class="flex items-center gap-2 p-3 bg-emerald-50 rounded-xl">
+                            <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                            <span class="text-xs font-bold text-emerald-700">Aguardando documentos</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
                 <!-- Upload Card - Mobile: show when 'arquivos' tab active -->
                 <div class="mobile-tab-panel" data-mobile-section="arquivos">
                 <div class="bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-slate-200 p-4 sm:p-6">
@@ -406,34 +512,6 @@ if (!$case) { echo "Caso não encontrado."; exit; }
             <div class="col-span-12 md:col-span-9 flex flex-col overflow-hidden">
                 <div class="mobile-tab-panel active flex-1 flex flex-col overflow-hidden" data-mobile-section="busca">
                     <div class="space-y-4 flex-1 flex flex-col overflow-hidden">
-                        <!-- Unified search bar with mode toggle -->
-                        <div class="bg-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200 space-y-4">
-                            <!-- Segmented Control Mode toggle -->
-                            <div class="flex bg-slate-100 p-1 rounded-xl w-full sm:w-72">
-                                <button id="mode-search-btn" onclick="setSearchMode('search')" class="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-xs font-bold transition-all bg-white shadow-sm text-indigo-600">
-                                    <i class="fas fa-search text-[10px]"></i> Busca rápida
-                                </button>
-                                <button id="mode-ia-btn" onclick="setSearchMode('ia')" class="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-xs font-bold transition-all text-slate-500 hover:text-slate-700">
-                                    <i class="fas fa-robot text-[10px]"></i> Perguntar à IA
-                                </button>
-                            </div>
-                            <!-- Unified input row -->
-                            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch sm:items-center">
-                                <div class="flex-1 relative">
-                                    <i id="unified-icon" class="fas fa-search absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                                    <input type="text" id="unified-input" placeholder="Pesquise fatos, nomes ou termos jurídicos..." class="w-full pl-12 sm:pl-14 pr-4 sm:pr-6 py-3 sm:py-4 bg-slate-50 border-0 rounded-xl sm:rounded-2xl text-sm sm:text-base text-slate-900 font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-inner" onkeydown="handleUnifiedKeydown(event)">
-                                </div>
-                                <div class="flex gap-2 sm:gap-3">
-                                    <button id="unified-submit-btn" onclick="dispatchUnifiedSearch()" class="flex-1 sm:flex-none bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-sm tracking-tight hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 whitespace-nowrap active:scale-95 group">
-                                        <i class="fas fa-paper-plane mr-2 group-hover:translate-x-1 transition-transform"></i>Enviar
-                                    </button>
-                                    <button onclick="openInteractiveSearchModal()" class="flex-none bg-white text-slate-700 border border-slate-200 px-4 sm:px-5 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm hover:bg-slate-50 transition-all shadow-sm active:scale-95" title="Busca Avançada">
-                                        <i class="fas fa-sliders-h"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Filtros de metadados (apenas modo busca) -->
                         <div id="search-filters-bar" class="bg-white rounded-2xl border border-slate-100 px-5 py-3 flex flex-wrap gap-4 items-center shadow-sm">
                             <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest shrink-0">Filtrar arquivos</span>
@@ -455,7 +533,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 
                         <!-- Results Area (Unified for Search and IA) -->
                         <div class="bg-white rounded-3xl shadow-sm border border-slate-200 flex flex-col flex-1 overflow-hidden min-h-0">
-                            <div class="p-5 sm:p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-3xl flex-shrink-0">
+                            <div class="p-4 sm:p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-3xl flex-shrink-0">
                                 <div class="flex items-center gap-3">
                                     <div id="results-icon" class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-xs">
                                         <i class="fas fa-list-ul"></i>
@@ -470,7 +548,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                                 </div>
                             </div>
                             
-                            <div id="search-results" class="flex-1 overflow-y-auto p-5 sm:p-8 space-y-6 custom-scrollbar min-h-0">
+                            <div id="search-results" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 custom-scrollbar min-h-0">
                                 <!-- Welcome / Empty state -->
                                 <div id="empty-results-state" class="flex flex-col items-center justify-center h-full text-center space-y-6 py-12">
                                     <div class="relative">
@@ -488,10 +566,41 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                                 </div>
                             </div>
                             
-                            <div id="search-load-more" class="hidden border-t border-slate-100 p-4 text-center bg-slate-50/30 rounded-b-3xl flex-shrink-0">
+                            <div id="search-load-more" class="hidden border-t border-slate-100 p-3 text-center bg-slate-50/30 flex-shrink-0">
                                 <button onclick="loadMoreResults()" class="inline-flex items-center px-6 py-2 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-600 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm">
                                     <i class="fas fa-chevron-down mr-2"></i>Carregar mais resultados
                                 </button>
+                            </div>
+                            
+                            <!-- Search Bar moved to footer -->
+                            <div id="search-bar-container" class="p-3 sm:p-4 border-t border-slate-100 bg-slate-50/30 flex-shrink-0">
+                                <div class="flex items-center gap-2">
+                                    <!-- Mode Toggle: Left side (Search/AI) -->
+                                    <div class="flex items-center gap-1 bg-slate-200 p-1 rounded-lg">
+                                        <button id="mode-search-btn" onclick="setSearchMode('search')" class="mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-md text-xs font-bold transition-all bg-white shadow-sm text-indigo-600" title="Busca por palavras-chave">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                        <button id="mode-ia-btn" onclick="setSearchMode('ia')" class="mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-md text-xs font-bold transition-all text-slate-500 hover:text-indigo-600" title="Perguntar ao Dr. Jus">
+                                            <i class="fas fa-brain"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Input Field -->
+                                    <div class="flex-1 relative">
+                                        <i id="unified-icon" class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                                        <input type="text" id="unified-input" placeholder="Pesquise ou pergunte ao Dr. Jus..." class="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all shadow-sm" onkeydown="handleUnifiedKeydown(event)">
+                                    </div>
+                                    
+                                    <!-- Advanced Search Button -->
+                                    <button onclick="openInteractiveSearchModal()" class="flex-none text-slate-400 hover:text-indigo-600 p-2 rounded-lg hover:bg-indigo-50 transition-all" title="Busca Avançada">
+                                        <i class="fas fa-sliders-h text-sm"></i>
+                                    </button>
+                                    
+                                    <!-- Submit Button (compact) -->
+                                    <button id="unified-submit-btn" onclick="dispatchUnifiedSearch()" class="bg-indigo-600 text-white w-9 h-9 flex items-center justify-center rounded-xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-md shadow-indigo-200 active:scale-95">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -587,7 +696,7 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 }
 
 /* Modal animations */
-#pdf-modal, #interactive-search-modal, #invitation-modal, #notes-modal {
+#pdf-modal, #pdf-panel, #interactive-search-modal, #invitation-modal, #notes-modal {
     animation: fadeIn 0.2s ease-out;
 }
 @keyframes fadeIn {
@@ -601,22 +710,44 @@ if (!$case) { echo "Caso não encontrado."; exit; }
     color: black;
 }
 
+/* Split View Panel */
+#pdf-panel {
+    transition: transform 0.3s ease-in-out;
+}
+
+#pdf-panel.hidden {
+    transform: translateX(100%);
+}
+
+/* Main content adjustment for split view */
+.col-span-12.mr-\[34rem\] {
+    margin-right: 34rem;
+}
+
+@media (max-width: 1280px) {
+    .col-span-12.mr-\[34rem\] {
+        margin-right: 0;
+    }
+}
+
+/* Enhanced Typing Indicator with rotating messages */
 .typing-indicator {
     display: flex;
     align-items: center;
     gap: 0.85rem;
     padding: 0.85rem 1.25rem;
     border-radius: 1rem;
-    background: #ffffff;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     border: 1px solid #e4e7ec;
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08), 0 4px 10px rgba(99, 102, 241, 0.05);
 }
 
 .typing-indicator strong {
     font-size: 0.65rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #64748b;
+    min-width: 180px;
 }
 
 .typing-dots {
@@ -628,8 +759,9 @@ if (!$case) { echo "Caso não encontrado."; exit; }
     width: 0.45rem;
     height: 0.45rem;
     border-radius: 999px;
-    background: #4338ca;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     animation: typingPulse 1s infinite ease-in-out;
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
 }
 
 .typing-dot:nth-child(2) {
@@ -650,6 +782,32 @@ if (!$case) { echo "Caso não encontrado."; exit; }
         transform: scale(1);
         opacity: 1;
     }
+}
+
+/* Skeleton loading animation */
+.skeleton {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-line {
+    height: 12px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.skeleton-line:last-child {
+    width: 70%;
 }
 </style>
 
@@ -715,12 +873,13 @@ function performInteractiveSearch() {
 // addOperator kept as no-op for any residual references
 function addOperator() {}
 
-// PDF Viewer Functions
+// PDF Viewer Functions - Split View
 let currentPdfUrl = '';
 let currentPdfFilename = '';
 let pdfSearchTerm = '';
 let pdfSearchResults = [];
 let pdfCurrentMatch = 0;
+let pdfViewMode = 'split'; // 'split' or 'fullscreen'
 
 function escapeHtml(text = '') {
     return text
@@ -742,27 +901,73 @@ function decodeFilename(encoded = '') {
 
 async function viewPdf(encodedFilename, page = null) {
     const filename = decodeFilename(encodedFilename);
-    const modal = document.getElementById('pdf-modal');
-    const viewer = document.getElementById('pdf-viewer');
-    const filenameEl = document.getElementById('pdf-filename');
-    const openTab = document.getElementById('pdf-open-tab');
-
+    
     if (!filename.toLowerCase().endsWith('.pdf')) {
         alert('Visualização disponível apenas para arquivos PDF.');
         return;
     }
 
     currentPdfFilename = filename;
-    currentPdfUrl = '/storage/uploads/' + encodeURIComponent(filename); // served via download.php when auth is active
+    currentPdfUrl = '/storage/uploads/' + encodeURIComponent(filename);
+    
+    const pageHash = page ? `#page=${page}` : '';
+    const pdfSrc = currentPdfUrl + pageHash;
+
+    // Use split view by default
+    openPdfPanel(filename, pdfSrc, page);
+}
+
+function openPdfPanel(filename, pdfSrc, page = null) {
+    const panel = document.getElementById('pdf-panel');
+    const viewer = document.getElementById('pdf-viewer');
+    const filenameEl = document.getElementById('pdf-filename');
+    const openTab = document.getElementById('pdf-open-tab');
 
     filenameEl.textContent = filename + (page ? ` — p. ${page}` : '');
     openTab.href = currentPdfUrl;
+    viewer.src = pdfSrc;
 
-    // Use native browser PDF viewer; append #page=N to jump directly to the page
-    const pageHash = page ? `#page=${page}` : '';
-    viewer.src = currentPdfUrl + pageHash;
+    panel.classList.remove('hidden');
+    
+    // Add split-view class to main content for layout adjustment
+    document.querySelector('.col-span-12').classList.add('mr-[34rem]');
+    
+    pdfViewMode = 'split';
+}
 
-    modal.classList.remove('hidden');
+function closePdfPanel() {
+    const panel = document.getElementById('pdf-panel');
+    const viewer = document.getElementById('pdf-viewer');
+    
+    panel.classList.add('hidden');
+    viewer.src = '';
+    
+    // Remove split-view class
+    document.querySelector('.col-span-12')?.classList.remove('mr-[34rem]');
+    
+    pdfViewMode = 'split';
+}
+
+function togglePdfFullscreen() {
+    if (pdfViewMode === 'split') {
+        // Switch to fullscreen
+        closePdfPanel();
+        const modal = document.getElementById('pdf-modal');
+        const viewer = document.getElementById('pdf-viewer-modal');
+        const filenameEl = document.getElementById('pdf-filename-modal');
+        const openTab = document.getElementById('pdf-open-tab-modal');
+        
+        filenameEl.textContent = currentPdfFilename;
+        openTab.href = currentPdfUrl;
+        viewer.src = currentPdfUrl;
+        
+        modal.classList.remove('hidden');
+        pdfViewMode = 'fullscreen';
+    } else {
+        // Switch to split view
+        closePdfModal();
+        openPdfPanel(currentPdfFilename, currentPdfUrl);
+    }
 }
 
 // Open a PDF source from Dr. Jus citation — always opens at the cited page
@@ -771,12 +976,25 @@ function openPdfAtPage(encodedFilename, page) {
 }
 
 function closePdfModal() {
-    document.getElementById('pdf-modal').classList.add('hidden');
-    document.getElementById('pdf-viewer').src = '';
+    const modal = document.getElementById('pdf-modal');
+    const viewer = document.getElementById('pdf-viewer-modal');
+    
+    if (modal) {
+        modal.classList.add('hidden');
+        if (viewer) viewer.src = '';
+    }
+    
     pdfSearchTerm = '';
     pdfSearchResults = [];
-    document.getElementById('pdf-search-input').value = '';
-    document.getElementById('pdf-search-count').classList.add('hidden');
+    
+    const searchInput = document.getElementById('pdf-search-input');
+    if (searchInput) searchInput.value = '';
+    
+    const searchCount = document.getElementById('pdf-search-count');
+    if (searchCount) searchCount.classList.add('hidden');
+    
+    // Reset view mode
+    pdfViewMode = 'split';
 }
 
 function downloadPdf() {
@@ -1387,26 +1605,27 @@ function setSearchMode(mode) {
     const resultsTitle = document.getElementById('results-title');
     const resultsIcon = document.getElementById('results-icon');
 
-    const activeClass = 'flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-xs font-bold transition-all bg-white shadow-sm text-indigo-600';
-    const inactiveClass = 'flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-xs font-bold transition-all text-slate-500 hover:text-slate-700';
+    // Compact toggle button styles
+    const activeToggleClass = 'mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all bg-white shadow-sm text-indigo-600';
+    const inactiveToggleClass = 'mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-600';
 
     const iaClearBtn = document.getElementById('ia-clear-btn');
     if (mode === 'search') {
-        searchBtn.className = activeClass;
-        iaBtn.className = inactiveClass;
-        icon.className = 'fas fa-search absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-slate-400 text-sm';
+        searchBtn.className = activeToggleClass;
+        iaBtn.className = inactiveToggleClass;
+        icon.className = 'fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs';
         input.placeholder = 'Pesquise fatos, nomes ou termos jurídicos...';
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Enviar';
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
         if (filtersBar) filtersBar.classList.remove('hidden');
         resultsTitle.textContent = 'RESULTADOS DA BUSCA';
         resultsIcon.innerHTML = '<i class="fas fa-list-ul"></i>';
         if (iaClearBtn) iaClearBtn.classList.add('hidden');
     } else {
-        iaBtn.className = activeClass;
-        searchBtn.className = inactiveClass;
-        icon.className = 'fas fa-robot absolute left-4 sm:left-5 top-1/2 -translate-y-1/2 text-indigo-400 text-sm';
+        iaBtn.className = activeToggleClass;
+        searchBtn.className = inactiveToggleClass;
+        icon.className = 'fas fa-brain absolute left-3 top-1/2 -translate-y-1/2 text-indigo-400 text-xs';
         input.placeholder = 'Faça uma pergunta complexa sobre o caso...';
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Enviar';
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
         if (filtersBar) filtersBar.classList.add('hidden');
         resultsTitle.textContent = 'RESPOSTA DO DR. JUS';
         resultsIcon.innerHTML = '<i class="fas fa-robot"></i>';
@@ -1442,24 +1661,48 @@ async function _unifiedPerformSearch(query) {
         file_type_filter: document.getElementById('filter-filetype').value,
     };
     const resultsDiv = document.getElementById('search-results');
+    
+    // Skeleton loading with rotating messages
+    const searchMessages = [
+        'Buscando na base de arquivos',
+        'Checando nos arquivos',
+        'Analisando documentos'
+    ];
+    let msgIdx = 0;
+    
     resultsDiv.innerHTML = `
         <div class="flex flex-col items-center justify-center h-full py-16 space-y-6">
             <div class="relative">
-                <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center animate-pulse">
+                <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center">
                     <i class="fas fa-search text-3xl text-indigo-300"></i>
                 </div>
                 <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-white rounded-xl shadow-md border border-slate-100 flex items-center justify-center">
                     <i class="fas fa-circle-notch fa-spin text-indigo-600 text-xs"></i>
                 </div>
             </div>
-            <div class="text-center space-y-2">
-                <p class="text-sm font-black text-slate-900 uppercase tracking-widest">Pesquisando documentos</p>
-                <p class="text-xs text-slate-500 font-medium">Analisando conteúdo e metadados...</p>
+            <div class="text-center space-y-4">
+                <p class="text-sm font-black text-slate-900 uppercase tracking-widest animate-pulse">${searchMessages[0]}</p>
+                <!-- Skeleton cards -->
+                <div class="w-full max-w-md space-y-3">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                </div>
             </div>
         </div>`;
+    
+    // Rotate search messages
+    const msgEl = resultsDiv.querySelector('.animate-pulse');
+    const msgInterval = setInterval(() => {
+        msgIdx = (msgIdx + 1) % searchMessages.length;
+        if (msgEl) msgEl.textContent = searchMessages[msgIdx];
+    }, 2500);
+    
     document.getElementById('search-load-more').classList.add('hidden');
     document.getElementById('search-count-badge').classList.add('hidden');
+    
     await _fetchSearchPage(true);
+    clearInterval(msgInterval);
 }
 
 // IA conversation history for the current case session
@@ -1501,16 +1744,53 @@ function _renderIAHistoryPanel() {
     _iaConversation.forEach((item, idx) => {
         const slot = turns[idx].querySelector('.ia-answer-slot');
         if (item.pending) {
+            // Rotating feedback messages
+            const feedbackMessages = [
+                'Entendendo sua questão',
+                'Buscando na base de arquivos',
+                'Checando nos arquivos',
+                'Analisando documentos relevantes',
+                'Processando informações',
+                'Preparando resposta'
+            ];
+            let msgIndex = 0;
             slot.innerHTML = `<div class="typing-indicator">
                 <div class="typing-dots">
                     <span class="typing-dot"></span>
                     <span class="typing-dot"></span>
                     <span class="typing-dot"></span>
                 </div>
-                <strong data-typing-text>Analisando o caso...</strong>
+                <strong data-typing-text>${feedbackMessages[0]}</strong>
             </div>`;
+            
+            // Rotate messages every 2 seconds
+            const messageEl = slot.querySelector('[data-typing-text]');
+            const messageInterval = setInterval(() => {
+                msgIndex = (msgIndex + 1) % feedbackMessages.length;
+                if (messageEl && !item.pending) {
+                    clearInterval(messageInterval);
+                } else if (messageEl) {
+                    messageEl.textContent = feedbackMessages[msgIndex];
+                }
+            }, 2000);
+            
+            // Store interval to clear later
+            item._messageInterval = messageInterval;
         } else if (item.error) {
-            slot.innerHTML = `<div class="bg-red-50 p-5 rounded-2xl rounded-tl-none border border-red-100 text-sm text-red-700 max-w-[90%]">Erro ao processar sua pergunta. Tente novamente.</div>`;
+            slot.innerHTML = `<div class="bg-gradient-to-br from-red-50 to-orange-50 p-5 rounded-2xl rounded-tl-none border border-red-100 text-sm text-red-700 max-w-[90%] shadow-sm">
+                <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-brain text-red-500"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-red-800 mb-1">Ops! Algo aconteceu</p>
+                        <p class="text-red-600">Estamos ajustando o cérebro do Dr. Jus para esta análise. Tente novamente em instantes.</p>
+                    </div>
+                </div>
+                <button onclick="_unifiedAskIA('${escapeHtml(item.question)}')" class="mt-3 w-full px-4 py-2 bg-white border border-red-200 text-red-600 text-xs font-bold rounded-lg hover:bg-red-50 transition-colors">
+                    <i class="fas fa-redo mr-1"></i>Tentar novamente
+                </button>
+            </div>`;
         } else {
             _renderIAResponseInUnified(slot, item.data, item.question);
         }
@@ -1781,6 +2061,99 @@ async function sendFeedback(feedbackId, vote, question, snippet) {
 
 // Load documents on page load
 fetchDocuments();
+
+// ==================== EXECUTIVE SUMMARY FUNCTIONS ====================
+async function loadExecutiveSummary() {
+    const factsContainer = document.getElementById('executive-facts');
+    const proofStatusContainer = document.getElementById('proof-status-indicator');
+    
+    if (!factsContainer) return;
+    
+    try {
+        const response = await fetch('/api/executive_summary', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ case_id: CASE_ID })
+        });
+        
+        if (!response.ok) return;
+        
+        const data = await response.json();
+        
+        // Update Facts
+        if (data.facts && data.facts.length > 0) {
+            const factsHtml = data.facts.map(fact => `
+                <div class="flex items-start gap-2 p-2 bg-white rounded-lg border border-indigo-100">
+                    <div class="w-2 h-2 bg-indigo-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                    <span class="text-xs text-slate-700">${escapeHtml(fact)}</span>
+                </div>
+            `).join('');
+            
+            factsContainer.innerHTML = `
+                <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <i class="fas fa-calendar-alt text-indigo-400"></i>
+                    Fatos Relevantes
+                </h4>
+                <div class="space-y-2 max-h-40 overflow-y-auto">${factsHtml}</div>
+            `;
+        }
+        
+        // Update Parties
+        if (data.parties) {
+            const partiesContainer = document.getElementById('executive-parties');
+            if (partiesContainer && data.parties.author || data.parties.defendant || data.parties.judge) {
+                const author = data.parties.author || { name: 'Não identificado', role: 'Autor' };
+                const defendant = data.parties.defendant || { name: 'Não identificado', role: 'Réu' };
+                const judge = data.parties.judge || { name: 'Não identificado', role: 'Juiz' };
+                
+                partiesContainer.innerHTML = `
+                    <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="fas fa-users text-purple-400"></i>
+                        Partes Envolvidas
+                    </h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                            <span class="text-xs font-medium text-slate-600">${escapeHtml(author.role)}</span>
+                            <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(author.name)}</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                            <span class="text-xs font-medium text-slate-600">${escapeHtml(defendant.role)}</span>
+                            <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(defendant.name)}</span>
+                        </div>
+                        <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                            <span class="text-xs font-medium text-slate-600">${escapeHtml(judge.role)}</span>
+                            <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(judge.name)}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Update Proof Status
+        if (proofStatusContainer && data.proof_status) {
+            const status = data.proof_status;
+            const statusConfig = {
+                'ok': { class: 'bg-emerald-500', text: 'Provas OK', textClass: 'text-emerald-700', bgClass: 'bg-emerald-50' },
+                'warning': { class: 'bg-amber-500', text: 'Atenção necessária', textClass: 'text-amber-700', bgClass: 'bg-amber-50' },
+                'suspect': { class: 'bg-red-500', text: 'Provas suspeitas', textClass: 'text-red-700', bgClass: 'bg-red-50' },
+                'pending': { class: 'bg-slate-400', text: 'Aguardando documentos', textClass: 'text-slate-700', bgClass: 'bg-slate-50' }
+            };
+            
+            const config = statusConfig[status] || statusConfig.pending;
+            proofStatusContainer.className = `flex items-center gap-2 p-3 ${config.bgClass} rounded-xl`;
+            proofStatusContainer.innerHTML = `
+                <div class="w-3 h-3 ${config.class} rounded-full"></div>
+                <span class="text-xs font-bold ${config.textClass}">${config.text}</span>
+            `;
+        }
+        
+    } catch (e) {
+        console.error('Error loading executive summary:', e);
+    }
+}
+
+// Load executive summary on page load
+loadExecutiveSummary();
 
 // ==================== CASE NOTES SYSTEM ====================
 // Notes storage key for localStorage

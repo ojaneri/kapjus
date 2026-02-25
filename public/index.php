@@ -520,6 +520,87 @@ if ($path === '/api/update_case' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
+// ── Executive Summary API (for sidebar) ───────────────────────────────────────
+if ($path === '/api/executive_summary' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    $input = json_decode(file_get_contents('php://input'), true) ?? [];
+    $case_id = isset($input['case_id']) ? (int)$input['case_id'] : 0;
+
+    if (!$case_id) {
+        echo json_encode(['error' => 'case_id é obrigatório']);
+        exit;
+    }
+
+    // Get case info
+    $stmt = $db->prepare("SELECT * FROM cases WHERE id = :id");
+    $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+    $case = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+    // Get document count for proof status
+    $stmt = $db->prepare("SELECT COUNT(*) as count FROM documents WHERE case_id = :id");
+    $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+    $docCount = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    $docCount = $docCount['count'] ?? 0;
+
+    // Determine proof status
+    if ($docCount === 0) {
+        $proof_status = 'pending';
+    } elseif ($docCount < 3) {
+        $proof_status = 'warning';
+    } else {
+        $proof_status = 'ok';
+    }
+
+    // Extract facts from case name/description if available
+    $facts = [];
+    if (!empty($case['description'])) {
+        // Try to find dates in description
+        preg_match_all('/(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/', $case['description'], $dates);
+        if (!empty($dates[0])) {
+            foreach (array_slice($dates[0], 0, 5) as $date) {
+                $facts[] = 'Data: ' . $date;
+            }
+        }
+    }
+
+    // If no facts found, provide default
+    if (empty($facts)) {
+        $facts = [
+            'Caso criado em: ' . date('d/m/Y', strtotime($case['created_at'] ?? 'now')),
+            'Documentos indexados: ' . $docCount,
+            'Aguardando análise'
+        ];
+    }
+
+    // Get case name for parties extraction
+    $caseName = $case['name'] ?? 'Caso #' . $case_id;
+
+    // Extract potential parties from case name (simple heuristic)
+    $parties = [
+        'author' => ['name' => 'Não identificado', 'role' => 'Autor'],
+        'defendant' => ['name' => 'Não identificado', 'role' => 'Réu'],
+        'judge' => ['name' => 'Não identificado', 'role' => 'Juiz']
+    ];
+
+    // Try to extract parties from case name
+    if (preg_match('/(?:vs?|x|v\.?\s?)[\s\w]+/i', $caseName, $matches)) {
+        // Try to split by vs/X
+        $parts = preg_split('/\s+(?:vs?|x|v\.?)\s+/i', $caseName);
+        if (count($parts) >= 2) {
+            $parties['author']['name'] = trim($parts[0]);
+            $parties['defendant']['name'] = trim($parts[1]);
+        }
+    }
+
+    echo json_encode([
+        'facts' => $facts,
+        'parties' => $parties,
+        'proof_status' => $proof_status,
+        'document_count' => $docCount
+    ]);
+    exit;
+}
+
 // ── Login / Logout ───────────────────────────────────────────────────────────
 if ($path === '/login') {
     $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '/';
