@@ -207,13 +207,17 @@ header('Content-Type: text/html; charset=utf-8');
                     };
                 } else if (type === 'embed') {
                     url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:embedContent?key=${GEMINI_KEY}`;
+                    // gemini-embedding-001 uses 3072 dimensions by default
+                    // Add outputDimensionality: 768 if you need compatibility with older indexes
                     body = {
-                        content: { parts: [{ text: 'test' }] }
+                        content: {
+                            parts: [{ text: 'test' }]
+                        }
                     };
                 }
                 
                 // Build curl command for debugging
-                const curlCmd = `curl -X POST '${url}' \\\n  -H 'Content-Type: application/json' \\\n  -d '${JSON.stringify(body)}'`;
+                const curlCmd = `curl -X POST '${url}' \\\n  -H 'Content-Type: application/json' \\\n  -d '${JSON.stringify(body, null, 2)}'`;
                 result.curl = curlCmd;
                 
                 const response = await fetch(url, {

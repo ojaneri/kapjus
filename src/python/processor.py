@@ -733,10 +733,12 @@ def get_gemini_embedding(text: str) -> Optional[List[float]]:
         return None
     
     try:
-        # Use Gemini embedding model
+        # Use Gemini embedding model - strip 'models/' prefix
         embedding_model = GEMINI_EMBEDDING_MODEL.replace('models/', '')
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{embedding_model}:embedContent?key={GEMINI_API_KEY}"
         
+        # gemini-embedding-001 returns 3072 dimensions by default
+        # To get 768 dimensions (compatible with older indexes), add: "outputDimensionality": 768
         response = requests.post(url, json={
             "content": {
                 "parts": [{"text": text[:8000]}]  # Truncate to avoid token limits
@@ -747,7 +749,7 @@ def get_gemini_embedding(text: str) -> Optional[List[float]]:
         
         if "embedding" in data and "values" in data["embedding"]:
             embedding = data["embedding"]["values"]
-            logger.debug(f"Generated Gemini embedding for text ({len(text)} chars) using {embedding_model}")
+            logger.info(f"Generated Gemini embedding ({len(embedding)} dimensions) for text ({len(text)} chars) using {embedding_model}")
             return embedding
         else:
             logger.error(f"Gemini embedding response error: {data}")
