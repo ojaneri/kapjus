@@ -242,6 +242,15 @@ function initialize_database() {
         vote INTEGER NOT NULL CHECK(vote IN (1, -1)),
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
+    
+    // Create executive summary cache table
+    $db->exec("CREATE TABLE IF NOT EXISTS executive_summary_cache (
+        case_id INTEGER PRIMARY KEY,
+        facts TEXT,
+        parties TEXT,
+        proof_status TEXT,
+        generated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
 
     debug_log('DEBUG', 'Database initialized successfully');
     return $db;
@@ -597,6 +606,127 @@ if ($path === '/api/executive_summary' && $_SERVER['REQUEST_METHOD'] === 'POST')
         'parties' => $parties,
         'proof_status' => $proof_status,
         'document_count' => $docCount
+    ]);
+    exit;
+}
+
+// ── Executive Summary Cache GET (check cache) ─────────────────────────────────
+if ($path === '/api/executive_summary_cache' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    header('Content-Type: application/json');
+    $case_id = isset($_GET['case_id']) ? (int)$_GET['case_id'] : 0;
+
+    if (!$case_id) {
+        echo json_encode(['error' => 'case_id é obrigatório', 'cached' => false, 'data' => null]);
+        exit;
+    }
+
+    // Check if cache exists
+    $stmt = $db->prepare("SELECT * FROM executive_summary_cache WHERE case_id = :id");
+    $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+    $cache = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+    if ($cache) {
+        echo json_encode([
+            'cached' => true,
+            'data' => [
+                'facts' => json_decode($cache['facts'] ?? '[]', true),
+                'parties' => json_decode($cache['parties'] ?? '[]', true),
+                'proof_status' => $cache['proof_status'] ?? 'pending',
+                'generated_at' => $cache['generated_at']
+            ]
+        ]);
+    } else {
+        echo json_encode(['cached' => false, 'data' => null]);
+    }
+    exit;
+}
+
+// ── Executive Summary Cache POST (refresh/regenerate) ──────────────────────────
+if ($path === '/api/executive_summary_refresh' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    $input = json_decode(file_get_contents('php://input'), true) ?? [];
+    $case_id = isset($input['case_id']) ? (int)$input['case_id'] : 0;
+
+    if (!$case_id) {
+        echo json_encode(['error' => 'case_id é obrigatório']);
+        exit;
+    }
+
+    // Get case info
+    $stmt = $db->prepare("SELECT * FROM cases WHERE id = :id");
+    $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+    $case = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+    // Get document count for proof status
+    $stmt = $db->prepare("SELECT COUNT(*) as count FROM documents WHERE case_id = :id");
+    $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+    $docCount = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    $docCount = $docCount['count'] ?? 0;
+
+    // Determine proof status
+    if ($docCount === 0) {
+        $proof_status = 'pending';
+    } elseif ($docCount < 3) {
+        $proof_status = 'warning';
+    } else {
+        $proof_status = 'ok';
+    }
+
+    // Extract facts from case name/description if available
+    $facts = [];
+    if (!empty($case['description'])) {
+        preg_match_all('/(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/', $case['description'], $dates);
+        if (!empty($dates[0])) {
+            foreach (array_slice($dates[0], 0, 5) as $date) {
+                $facts[] = 'Data: ' . $date;
+            }
+        }
+    }
+
+    // If no facts found, provide default
+    if (empty($facts)) {
+        $facts = [
+            'Caso criado em: ' . date('d/m/Y', strtotime($case['created_at'] ?? 'now')),
+            'Documentos indexados: ' . $docCount,
+            'Aguardando análise'
+        ];
+    }
+
+    // Get case name for parties extraction
+    $caseName = $case['name'] ?? 'Caso #' . $case_id;
+
+    // Extract potential parties from case name (simple heuristic)
+    $parties = [
+        'author' => ['name' => 'Não identificado', 'role' => 'Autor'],
+        'defendant' => ['name' => 'Não identificado', 'role' => 'Réu'],
+        'judge' => ['name' => 'Não identificado', 'role' => 'Juiz']
+    ];
+
+    // Try to extract parties from case name
+    if (preg_match('/(?:vs?|x|v\.?\s?)[\s\w]+/i', $caseName, $matches)) {
+        $parts = preg_split('/\s+(?:vs?|x|v\.?)\s+/i', $caseName);
+        if (count($parts) >= 2) {
+            $parties['author']['name'] = trim($parts[0]);
+            $parties['defendant']['name'] = trim($parts[1]);
+        }
+    }
+
+    // Save to cache (upsert)
+    $stmt = $db->prepare("INSERT OR REPLACE INTO executive_summary_cache (case_id, facts, parties, proof_status, generated_at) VALUES (:id, :facts, :parties, :proof_status, CURRENT_TIMESTAMP)");
+    $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+    $stmt->bindValue(':facts', json_encode($facts), SQLITE3_TEXT);
+    $stmt->bindValue(':parties', json_encode($parties), SQLITE3_TEXT);
+    $stmt->bindValue(':proof_status', $proof_status, SQLITE3_TEXT);
+    $stmt->execute();
+
+    echo json_encode([
+        'cached' => true,
+        'data' => [
+            'facts' => $facts,
+            'parties' => $parties,
+            'proof_status' => $proof_status,
+            'document_count' => $docCount
+        ]
     ]);
     exit;
 }

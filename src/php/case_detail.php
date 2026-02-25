@@ -2064,93 +2064,205 @@ fetchDocuments();
 
 // ==================== EXECUTIVE SUMMARY FUNCTIONS ====================
 async function loadExecutiveSummary() {
-    const factsContainer = document.getElementById('executive-facts');
-    const proofStatusContainer = document.getElementById('proof-status-indicator');
+    const factsContainer = document.getElementById("executive-facts");
+    const proofStatusContainer = document.getElementById("proof-status-indicator");
     
     if (!factsContainer) return;
     
+    // First check cache
     try {
-        const response = await fetch('/api/executive_summary', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+        const cacheResponse = await fetch(`/api/executive_summary_cache?case_id=${CASE_ID}`);
+        const cacheData = await cacheResponse.json();
+        
+        if (cacheData.cached && cacheData.data) {
+            // Show cached data with refresh button
+            renderExecutiveSummary(cacheData.data);
+            addRefreshButton();
+            return;
+        }
+        
+        // No cache - show "clique aqui para buscar" message
+        showNoCacheMessage();
+        
+    } catch (e) {
+        console.error("Error checking cache:", e);
+        showNoCacheMessage();
+    }
+}
+
+function showNoCacheMessage() {
+    const factsContainer = document.getElementById("executive-facts");
+    const partiesContainer = document.getElementById("executive-parties");
+    const proofStatusContainer = document.getElementById("proof-status-indicator");
+    
+    if (factsContainer) {
+        factsContainer.innerHTML = `
+            <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <i class="fas fa-calendar-alt text-indigo-400"></i>
+                Fatos Relevantes
+            </h4>
+            <div class="bg-indigo-50 rounded-xl p-4 text-center">
+                <p class="text-xs text-indigo-600 font-medium">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Não há dados, <button onclick="refreshExecutiveSummary()" class="underline hover:text-indigo-800 font-bold">clique aqui para buscar</button>
+                </p>
+            </div>`;
+    }
+    
+    if (partiesContainer) {
+        partiesContainer.innerHTML = `
+            <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <i class="fas fa-users text-purple-400"></i>
+                Partes Envolvidas
+            </h4>
+            <div class="bg-purple-50 rounded-xl p-4 text-center">
+                <button onclick="refreshExecutiveSummary()" class="text-xs text-purple-600 font-medium hover:text-purple-800 underline">
+                    <i class="fas fa-search mr-1"></i>Buscar informações
+                </button>
+            </div>`;
+    }
+    
+    if (proofStatusContainer) {
+        proofStatusContainer.className = "flex items-center gap-2 p-3 bg-slate-50 rounded-xl";
+        proofStatusContainer.innerHTML = `
+            <div class="w-3 h-3 bg-slate-400 rounded-full"></div>
+            <span class="text-xs font-bold text-slate-700">Aguardando dados</span>`;
+    }
+}
+
+function addRefreshButton() {
+    const cardHeader = document.querySelector(".mobile-tab-panel .bg-white.rounded-2xl > h3");
+    if (cardHeader && !document.getElementById("exec-summary-refresh-btn")) {
+        const refreshBtn = document.createElement("button");
+        refreshBtn.id = "exec-summary-refresh-btn";
+        refreshBtn.className = "ml-auto text-slate-400 hover:text-indigo-600 transition-colors p-1";
+        refreshBtn.title = "Atualizar sumário";
+        refreshBtn.innerHTML = '<i class="fas fa-sync-alt text-xs"></i>';
+        refreshBtn.onclick = refreshExecutiveSummary;
+        cardHeader.appendChild(refreshBtn);
+    }
+}
+
+async function refreshExecutiveSummary() {
+    const factsContainer = document.getElementById("executive-facts");
+    
+    // Show loading state
+    if (factsContainer) {
+        factsContainer.innerHTML = `
+            <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <i class="fas fa-calendar-alt text-indigo-400"></i>
+                Fatos Relevantes
+            </h4>
+            <div class="bg-indigo-50 rounded-xl p-3">
+                <p class="text-xs text-indigo-600 font-medium animate-pulse">
+                    <i class="fas fa-circle-notch fa-spin mr-1"></i>Gerando sumário...
+                </p>
+            </div>`;
+    }
+    
+    try {
+        // Call refresh endpoint
+        const response = await fetch("/api/executive_summary_refresh", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ case_id: CASE_ID })
         });
         
-        if (!response.ok) return;
+        if (!response.ok) {
+            throw new Error("Failed to refresh");
+        }
         
         const data = await response.json();
         
-        // Update Facts
-        if (data.facts && data.facts.length > 0) {
-            const factsHtml = data.facts.map(fact => `
-                <div class="flex items-start gap-2 p-2 bg-white rounded-lg border border-indigo-100">
-                    <div class="w-2 h-2 bg-indigo-500 rounded-full mt-1.5 flex-shrink-0"></div>
-                    <span class="text-xs text-slate-700">${escapeHtml(fact)}</span>
-                </div>
-            `).join('');
-            
+        if (data.data) {
+            renderExecutiveSummary(data.data);
+            addRefreshButton();
+        }
+        
+    } catch (e) {
+        console.error("Error refreshing executive summary:", e);
+        if (factsContainer) {
             factsContainer.innerHTML = `
                 <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
                     <i class="fas fa-calendar-alt text-indigo-400"></i>
                     Fatos Relevantes
                 </h4>
-                <div class="space-y-2 max-h-40 overflow-y-auto">${factsHtml}</div>
-            `;
+                <div class="bg-red-50 rounded-xl p-3">
+                    <p class="text-xs text-red-600 font-medium">
+                        <i class="fas fa-exclamation-circle mr-1"></i>Erro ao gerar sumário
+                    </p>
+                </div>`;
         }
-        
-        // Update Parties
-        if (data.parties) {
-            const partiesContainer = document.getElementById('executive-parties');
-            if (partiesContainer && data.parties.author || data.parties.defendant || data.parties.judge) {
-                const author = data.parties.author || { name: 'Não identificado', role: 'Autor' };
-                const defendant = data.parties.defendant || { name: 'Não identificado', role: 'Réu' };
-                const judge = data.parties.judge || { name: 'Não identificado', role: 'Juiz' };
-                
-                partiesContainer.innerHTML = `
-                    <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <i class="fas fa-users text-purple-400"></i>
-                        Partes Envolvidas
-                    </h4>
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
-                            <span class="text-xs font-medium text-slate-600">${escapeHtml(author.role)}</span>
-                            <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(author.name)}</span>
-                        </div>
-                        <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
-                            <span class="text-xs font-medium text-slate-600">${escapeHtml(defendant.role)}</span>
-                            <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(defendant.name)}</span>
-                        </div>
-                        <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
-                            <span class="text-xs font-medium text-slate-600">${escapeHtml(judge.role)}</span>
-                            <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(judge.name)}</span>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-        
-        // Update Proof Status
-        if (proofStatusContainer && data.proof_status) {
-            const status = data.proof_status;
-            const statusConfig = {
-                'ok': { class: 'bg-emerald-500', text: 'Provas OK', textClass: 'text-emerald-700', bgClass: 'bg-emerald-50' },
-                'warning': { class: 'bg-amber-500', text: 'Atenção necessária', textClass: 'text-amber-700', bgClass: 'bg-amber-50' },
-                'suspect': { class: 'bg-red-500', text: 'Provas suspeitas', textClass: 'text-red-700', bgClass: 'bg-red-50' },
-                'pending': { class: 'bg-slate-400', text: 'Aguardando documentos', textClass: 'text-slate-700', bgClass: 'bg-slate-50' }
-            };
-            
-            const config = statusConfig[status] || statusConfig.pending;
-            proofStatusContainer.className = `flex items-center gap-2 p-3 ${config.bgClass} rounded-xl`;
-            proofStatusContainer.innerHTML = `
-                <div class="w-3 h-3 ${config.class} rounded-full"></div>
-                <span class="text-xs font-bold ${config.textClass}">${config.text}</span>
-            `;
-        }
-        
-    } catch (e) {
-        console.error('Error loading executive summary:', e);
     }
 }
+
+function renderExecutiveSummary(data) {
+    const factsContainer = document.getElementById("executive-facts");
+    const partiesContainer = document.getElementById("executive-parties");
+    const proofStatusContainer = document.getElementById("proof-status-indicator");
+    
+    // Update Facts
+    if (factsContainer && data.facts && data.facts.length > 0) {
+        const factsHtml = data.facts.map(fact => `
+            <div class="flex items-start gap-2 p-2 bg-white rounded-lg border border-indigo-100">
+                <div class="w-2 h-2 bg-indigo-500 rounded-full mt-1.5 flex-shrink-0"></div>
+                <span class="text-xs text-slate-700">${escapeHtml(fact)}</span>
+            </div>`).join("");
+        
+        factsContainer.innerHTML = `
+            <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <i class="fas fa-calendar-alt text-indigo-400"></i>
+                Fatos Relevantes
+            </h4>
+            <div class="space-y-2 max-h-40 overflow-y-auto">${factsHtml}</div>`;
+    }
+    
+    // Update Parties
+    if (partiesContainer && data.parties) {
+        const author = data.parties.author || { name: "Não identificado", role: "Autor" };
+        const defendant = data.parties.defendant || { name: "Não identificado", role: "Réu" };
+        const judge = data.parties.judge || { name: "Não identificado", role: "Juiz" };
+        
+        partiesContainer.innerHTML = `
+            <h4 class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                <i class="fas fa-users text-purple-400"></i>
+                Partes Envolvidas
+            </h4>
+            <div class="space-y-2">
+                <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span class="text-xs font-medium text-slate-600">${escapeHtml(author.role)}</span>
+                    <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(author.name)}</span>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span class="text-xs font-medium text-slate-600">${escapeHtml(defendant.role)}</span>
+                    <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(defendant.name)}</span>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span class="text-xs font-medium text-slate-600">${escapeHtml(judge.role)}</span>
+                    <span class="text-[10px] text-indigo-600 font-medium truncate max-w-[100px]">${escapeHtml(judge.name)}</span>
+                </div>
+            </div>`;
+    }
+    
+    // Update Proof Status
+    if (proofStatusContainer && data.proof_status) {
+        const status = data.proof_status;
+        const statusConfig = {
+            "ok": { class: "bg-emerald-500", text: "Provas OK", textClass: "text-emerald-700", bgClass: "bg-emerald-50" },
+            "warning": { class: "bg-amber-500", text: "Atenção necessária", textClass: "text-amber-700", bgClass: "bg-amber-50" },
+            "suspect": { class: "bg-red-500", text: "Provas suspeitas", textClass: "text-red-700", bgClass: "bg-red-50" },
+            "pending": { class: "bg-slate-400", text: "Aguardando documentos", textClass: "text-slate-700", bgClass: "bg-slate-50" }
+        };
+        
+        const config = statusConfig[status] || statusConfig.pending;
+        proofStatusContainer.className = `flex items-center gap-2 p-3 ${config.bgClass} rounded-xl`;
+        proofStatusContainer.innerHTML = `
+            <div class="w-3 h-3 ${config.class} rounded-full"></div>
+            <span class="text-xs font-bold ${config.textClass}">${config.text}</span>`;
+    }
+}
+
+
 
 // Load executive summary on page load
 loadExecutiveSummary();
