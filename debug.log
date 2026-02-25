@@ -18619,3 +18619,77 @@
 [2026-02-25T09:42:27.423437] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
 [2026-02-25T09:42:42.641405] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
 [2026-02-25T09:43:08.739834] [KAPJUS-ENV] Environment variables loaded | Params: {"openrouter_key": "sk-or-\u20265d64", "gemini_key": "AIzaSy\u2026Zg-k", "ia_provider": "gemini", "gemini_flash": "gemini-2.5-flash", "gemini_pro": "gemini-2.5-pro"}
+[2026-02-25 13:38:35] [INFO] Checking Python service status...
+[2026-02-25 13:38:35] [DEBUG] Socket available on attempt 1
+[2026-02-25 13:38:35] [DEBUG] Initializing database...
+[2026-02-25 13:38:35] [DEBUG] Database initialized successfully
+[2026-02-25 13:38:35] [INFO] Page Request: Home
+[2026-02-25 13:45:35] [INFO] Checking Python service status...
+[2026-02-25 13:45:35] [DEBUG] Socket available on attempt 1
+[2026-02-25 13:45:35] [DEBUG] Initializing database...
+[2026-02-25 13:45:35] [DEBUG] Database initialized successfully
+[2026-02-25 13:45:35] [INFO] Page Request: Case Detail {"case_id":6}
+[2026-02-25 13:45:35] [INFO] Checking Python service status...
+[2026-02-25 13:45:35] [DEBUG] Socket available on attempt 1
+[2026-02-25 13:45:35] [DEBUG] Initializing database...
+[2026-02-25 13:45:35] [DEBUG] Database initialized successfully
+[2026-02-25 13:45:35] [INFO] API Request START {"path":"\/api\/documents","method":"POST","query_string":"","content_type":"application\/json","content_length":"15"}
+[2026-02-25 13:45:35] [DEBUG] socket_client.php START {"action":"documents"}
+[2026-02-25 13:45:35] [DEBUG] Processing action {"action":"documents"}
+[2026-02-25 13:45:42] [INFO] Checking Python service status...
+[2026-02-25 13:45:42] [DEBUG] Socket available on attempt 1
+[2026-02-25 13:45:42] [DEBUG] Initializing database...
+[2026-02-25 13:45:42] [DEBUG] Database initialized successfully
+[2026-02-25 13:45:42] [INFO] API Request START {"path":"\/api\/ask_ia","method":"POST","query_string":"","content_type":"multipart\/form-data; boundary=----WebKitFormBoundarywssWqjSPowDymcaU","content_length":"345"}
+[2026-02-25 13:45:42] [DEBUG] socket_client.php START {"action":"ask_ia"}
+[2026-02-25 13:45:42] [DEBUG] Processing action {"action":"ask_ia"}
+[2026-02-25T10:45:42.654608] [KAPJUS-ASK_IA] Requisicao recebida | Params: {"case_id": "6", "question": "Resuma", "provider": "openrouter", "use_hybrid": true}
+[2026-02-25T10:45:42.655003] [KAPJUS-ASK_IA] Modo: HYBRID search pipeline
+[2026-02-25T10:45:42.655398] [KAPJUS-EXPAND] Iniciando expansao da pergunta | Params: {"question": "Resuma"}
+[2026-02-25T10:45:42.655661] [KAPJUS-EXPAND] Prompt gerado para IA | Params: {"prompt": "###\nVoc\u00ea \u00e9 um especialista em Recupera\u00e7\u00e3o de Informa\u00e7\u00e3o (IR) aplicado ao Direito e Per\u00edcia Digital. Analise a pergunta do usu\u00e1rio e retorne um JSON estruturado para uma busca h\u00edbrida (FTS5 + Vetorial).\n\nInstru\u00e7\u00f5es para Keywords (FTS5):\n- Inclua termos t\u00e9cnicos (jur\u00eddicos e forenses) relacionados ao "}
+[2026-02-25T10:45:42.656048] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 828, "model": null}
+[2026-02-25T10:45:53.162145] [KAPJUS-AI] OpenRouter response with arcee-ai/trinity-large-preview:free | Params: {"length": 447}
+[2026-02-25T10:45:53.162556] [KAPJUS-EXPAND] Resposta raw da IA | Params: {"content": "{ \"keywords\": [\"resumo\", \"sum\u00e1rio\", \"s\u00edntese\", \"extrato\", \"conclus\u00e3o\", \"sintetizar\", \"resumir\", \"resumo executivo\", \"resumo anal\u00edtico\", \"resumo cr\u00edtico\"], \"semantic_query\": \"A elabora\u00e7\u00e3o de um resumo jur\u00eddico deve contemplar a s\u00edntese objetiva dos fatos, provas e fundamentos legais, destacando os elementos essenciais do processo e as conclus\u00f5es periciais de forma clara e concisa, preservando o car\u00e1ter t\u00e9cnico e imparcial da an\u00e1lise forense.\" }"}
+[2026-02-25T10:45:53.162807] [KAPJUS-EXPAND] Expansao concluida | Params: {"keywords": ["resumo", "sum\u00e1rio", "s\u00edntese", "extrato", "conclus\u00e3o", "sintetizar", "resumir", "resumo executivo", "resumo anal\u00edtico", "resumo cr\u00edtico"], "semantic_query": "A elabora\u00e7\u00e3o de um resumo jur\u00eddico deve contemplar a s\u00edntese objetiva dos fatos, provas e fundamentos legais, destacando os elementos essenciais do processo e as conclus\u00f5es periciais de forma clara e "}
+[2026-02-25T10:45:53.163030] [KAPJUS-ASK_IA] Expansao: keywords=['resumo', 'sumário', 'síntese', 'extrato', 'conclusão', 'sintetizar', 'resumir', 'resumo executivo', 'resumo analítico', 'resumo crítico'], semantic=A elaboração de um resumo jurídico deve contemplar...
+[2026-02-25T10:45:53.163229] [KAPJUS-HYBRID] Iniciando busca hibrida | Params: {"keywords": ["resumo", "sum\u00e1rio", "s\u00edntese", "extrato", "conclus\u00e3o", "sintetizar", "resumir", "resumo executivo", "resumo anal\u00edtico", "resumo cr\u00edtico"], "semantic_query": "A elabora\u00e7\u00e3o de um resumo jur\u00eddico deve contemplar a s\u00edntese objetiva dos fatos, provas e fundamentos legais, destacando os elementos essenciais do processo e as conclus\u00f5es periciais de forma clara e ", "case_id": "6", "limit": 50}
+[2026-02-25T10:45:53.163758] [KAPJUS-HYBRID] Sanitized keywords for FTS5 | Params: {"sanitized": ["resumo", "sum\u00e1rio", "s\u00edntese", "extrato", "conclus\u00e3o", "sintetizar", "resumir", "resumo executivo", "resumo anal\u00edtico", "resumo cr\u00edtico"], "original_terms": ["resuma"]}
+[2026-02-25T10:45:53.164160] [KAPJUS-HYBRID-FTS5] Executando busca FTS5 | Params: {"query": "resuma* OR resumo* OR sum\u00e1rio* OR s\u00edntese* OR extrato* OR conclus\u00e3o* OR sintetizar* OR resumir* OR resumo executivo* OR resumo anal\u00edtico* OR resumo cr\u00edtico*", "original_terms": ["resuma"]}
+[2026-02-25T10:45:53.166726] [KAPJUS-HYBRID-FTS5] Resultados FTS5 encontrados | Params: {"count": 42}
+[2026-02-25T10:45:53.166918] [KAPJUS-HYBRID-VSS] Gerando embedding para busca vetorial | Params: {"query": "A elabora\u00e7\u00e3o de um resumo jur\u00eddico deve contemplar a s\u00edntese objetiva dos fatos, provas e fundamentos legais, destacando os elementos essenciais do processo e as conclus\u00f5es periciais de forma clara e "}
+[2026-02-25T10:45:53.369400] [KAPJUS-HYBRID-VSS] Embedding gerado | Params: {"dimension": 3072}
+[2026-02-25T10:45:53.370287] [KAPJUS-HYBRID-VSS] Executando sqlite-vec com filtro case_id | Params: {"case_id": "6"}
+[2026-02-25T10:45:53.370631] [KAPJUS-HYBRID-VSS] Erro na busca VSS | Params: {"error": "no such table: vec_chunks"}
+[2026-02-25T10:45:53.371101] [KAPJUS-HYBRID] Busca hibrida concluida | Params: {"fts_count": 42, "vss_count": 0}
+[2026-02-25T10:45:53.371353] [KAPJUS-ASK_IA] Busca: FTS5=42, VSS=0
+[2026-02-25T10:45:53.371511] [KAPJUS-RANK] Iniciando ranking de resultados | Params: {"fts_count": 42, "vss_count": 0, "top_k": 50, "case_id": "6"}
+[2026-02-25T10:45:53.372649] [KAPJUS-RANK] Apos validacao case_id: fts=42, vss=0
+[2026-02-25T10:45:53.372909] [KAPJUS-RANK] Apos FTS5: 42 items unicos
+[2026-02-25T10:45:53.373175] [KAPJUS-RANK] Apos VSS: 42 items unicos
+[2026-02-25T10:45:53.373430] [KAPJUS-RANK] Resultados ranqueados | Params: {"total": 42}
+[2026-02-25T10:45:53.373616] [KAPJUS-RANK]   Pos 1: rowid=13145, score=0.016393, file=Safari-pages-4.pdf:9
+[2026-02-25T10:45:53.373766] [KAPJUS-RANK]   Pos 2: rowid=13186, score=0.016129, file=Safari-pages-4.pdf:21
+[2026-02-25T10:45:53.373914] [KAPJUS-RANK]   Pos 3: rowid=18197, score=0.015873, file=Safari-pages-3.pdf:238
+[2026-02-25T10:45:53.374058] [KAPJUS-RANK]   Pos 4: rowid=17687, score=0.015625, file=Safari-pages-3.pdf:170
+[2026-02-25T10:45:53.374207] [KAPJUS-RANK]   Pos 5: rowid=11468, score=0.015385, file=Safari-pages-1.pdf:21
+[2026-02-25T10:45:53.374415] [KAPJUS-RANK]   Pos 6: rowid=16142, score=0.015152, file=Safari-pages-2.pdf:264
+[2026-02-25T10:45:53.374584] [KAPJUS-RANK]   Pos 7: rowid=12886, score=0.014925, file=Safari-pages-1.pdf:235
+[2026-02-25T10:45:53.374747] [KAPJUS-RANK]   Pos 8: rowid=12639, score=0.014706, file=Safari-pages-1.pdf:188
+[2026-02-25T10:45:53.374910] [KAPJUS-RANK]   Pos 9: rowid=18202, score=0.014493, file=Safari-pages-3.pdf:239
+[2026-02-25T10:45:53.375042] [KAPJUS-RANK]   Pos 10: rowid=12481, score=0.014286, file=Safari-pages-1.pdf:162
+[2026-02-25T10:45:53.375195] [KAPJUS-RANK] Top-K final | Params: {"count": 42}
+[2026-02-25T10:45:53.375394] [KAPJUS-DEBUG_SELECT] ENTRADA candidates=42, case_id=6
+[2026-02-25T10:45:53.375538] [KAPJUS-DEBUG_SELECT] APOS FILTRO case_id: 42 -> 42
+[2026-02-25T10:45:53.375706] [KAPJUS-DEBUG_SELECT] ANTES cross_encoder: 42 candidates
+[2026-02-25T10:45:53.375843] [KAPJUS-CROSS] Loading local cross-encoder model...
+[2026-02-25T10:45:53.947371] [KAPJUS-CROSS] Local cross-encoder loaded successfully
+[2026-02-25T10:45:53.947546] [KAPJUS-RERANK] Using local cross-encoder for 42 candidates
+[2026-02-25T10:45:59.222812] [KAPJUS-RERANK] Local rerank finished in 5.27s
+[2026-02-25T10:45:59.223784] [KAPJUS-DEBUG_SELECT] APOS cross_encoder: 12 chunks
+[2026-02-25T10:45:59.224171] [KAPJUS-ASK_IA] Ranking: 12 chunks selecionados
+[2026-02-25T10:45:59.224560] [KAPJUS-RESPONSE] Iniciando geracao de resposta | Params: {"question": "Resuma", "chunks_count": 12}
+[2026-02-25T10:45:59.225026] [KAPJUS-RESPONSE] Contexto construido | Params: {"chunks": 12, "context_length": 11282}
+[2026-02-25T10:45:59.225398] [KAPJUS-AI] Calling AI with provider: openrouter | Params: {"prompt_length": 11568, "model": "pro"}
+[2026-02-25T10:45:59.269286] [KAPJUS-AI] Model pro failed | Params: {"error": "Error code: 400 - {'error': {'message': 'pro is not a valid model ID', 'code': 400}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-25T10:45:59.270000] [KAPJUS-RESPONSE] Erro ao gerar resposta | Params: {"error": "Error code: 400 - {'error': {'message': 'pro is not a valid model ID', 'code': 400}, 'user_id': 'user_2XzrZi0vLEOxZgMQczcLBftwQBr'}"}
+[2026-02-25T10:45:59.270434] [KAPJUS-ASK_IA] Resposta gerada: sources=12, final_results=12

@@ -1537,7 +1537,7 @@ async function _unifiedAskIA(question) {
         const formData = new FormData();
         formData.append('case_id', '<?php echo $case_id; ?>');
         formData.append('question', question);
-        formData.append('provider', 'openrouter');
+        // Use default IA_PROVIDER from .env (gemini) - remove hardcoded openrouter
         const response = await fetch('/api/ask_ia', { method: 'POST', body: formData });
         const data = await response.json();
 
