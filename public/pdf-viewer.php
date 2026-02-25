@@ -408,10 +408,11 @@ $user = current_user();
                                 <?php 
                                 $srcPage = $src['page'] ?? 1;
                                 $srcSnippet = $src['snippet'] ?? '';
+                                $srcRowid = $src['rowid'] ?? null;
                                 $isActive = ($filename === $file && $srcPage === $page);
                                 ?>
                                 <span class="source-page-badge <?= $isActive ? 'active' : '' ?>"
-                                      onclick="goToSource('<?= htmlspecialchars(urlencode($filename)) ?>', <?= $srcPage ?>, '<?= htmlspecialchars(urlencode($srcSnippet)) ?>')">
+                                      onclick="goToSource('<?= htmlspecialchars(urlencode($filename)) ?>', <?= $srcPage ?>, '<?= htmlspecialchars(urlencode($srcSnippet)) ?>', <?= $srcRowid ? $srcRowid : 'null' ?>)">
                                     p. <?= $srcPage ?>
                                 </span>
                             <?php endforeach; ?>
@@ -469,7 +470,8 @@ $user = current_user();
         let currentSource = {
             file: '<?= htmlspecialchars($file) ?>',
             page: <?= $page ?>,
-            snippet: '<?= htmlspecialchars($search) ?>'
+            snippet: '<?= htmlspecialchars($search) ?>',
+            rowid: null
         };
         
         // Initialize
@@ -560,7 +562,7 @@ $user = current_user();
             }
         }
         
-        function goToSource(filename, page, snippet) {
+        function goToSource(filename, page, snippet, rowid = null) {
             // Update URL without reload
             const url = new URL(window.location);
             url.searchParams.set('file', filename);
@@ -574,6 +576,7 @@ $user = current_user();
             currentSource.file = decodeURIComponent(filename);
             currentSource.page = page;
             currentSource.snippet = snippet || '';
+            currentSource.rowid = rowid;
             
             // Update toolbar
             document.querySelector('.toolbar-title').innerHTML = 
@@ -603,8 +606,41 @@ $user = current_user();
                 }
                 text.textContent = snippetText;
                 display.style.display = 'block';
+            } else if (currentSource.rowid) {
+                // Fetch snippet from API using rowid
+                fetchSnippetByRowid(currentSource.rowid);
             } else {
                 display.style.display = 'none';
+            }
+        }
+        
+        async function fetchSnippetByRowid(rowid) {
+            try {
+                const response = await fetch('/api/get_snippet', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ rowid: rowid })
+                });
+                
+                const data = await response.json();
+                
+                if (data.snippet) {
+                    const display = document.getElementById('snippet-display');
+                    const text = document.getElementById('snippet-text');
+                    
+                    // Truncate to ~200 chars if too long
+                    let snippetText = data.snippet.trim();
+                    if (snippetText.length > 200) {
+                        snippetText = snippetText.substring(0, 200) + '...';
+                    }
+                    text.textContent = snippetText;
+                    display.style.display = 'block';
+                    
+                    // Also update current source snippet
+                    currentSource.snippet = data.snippet;
+                }
+            } catch (e) {
+                console.error('Error fetching snippet:', e);
             }
         }
         

@@ -743,6 +743,39 @@ if ($path === '/api/create_note' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
+// ── Get snippet by rowid ────────────────────────────────────────────────────────
+if ($path === '/api/get_snippet' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+    
+    $input = json_decode(file_get_contents('php://input'), true);
+    $rowid = isset($input['rowid']) ? (int)$input['rowid'] : 0;
+    
+    if (!$rowid) {
+        echo json_encode(['error' => 'rowid is required']);
+        exit;
+    }
+    
+    $db = new SQLite3(__DIR__ . '/database/kapjus.db');
+    
+    // Get the document content by rowid
+    $stmt = $db->prepare("SELECT content, filename, page_number FROM documents WHERE rowid = :rowid LIMIT 1");
+    $stmt->bindValue(':rowid', $rowid, SQLITE3_INTEGER);
+    $doc = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+    
+    if ($doc && !empty($doc['content'])) {
+        // Return first 500 chars as snippet
+        $snippet = substr($doc['content'], 0, 500);
+        echo json_encode([
+            'snippet' => $snippet,
+            'filename' => $doc['filename'],
+            'page' => $doc['page_number']
+        ]);
+    } else {
+        echo json_encode(['snippet' => '', 'filename' => '', 'page' => 0]);
+    }
+    exit;
+}
+
 // ── Executive Summary API (for sidebar) ───────────────────────────────────────
 if ($path === '/api/executive_summary' && $_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
