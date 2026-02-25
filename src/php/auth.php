@@ -137,10 +137,11 @@ function logout(): void {
 /**
  * Render the login page.
  */
-function render_login_page(string $error = '', string $redirect = '/'): void {
+function render_login_page(string $error = '', string $redirect = '/', string $prefill_email = ''): void {
     render_header('KapJus — Login');
     $safe_error    = htmlspecialchars($error, ENT_QUOTES, 'UTF-8');
     $safe_redirect = htmlspecialchars($redirect, ENT_QUOTES, 'UTF-8');
+    $safe_email    = htmlspecialchars($prefill_email, ENT_QUOTES, 'UTF-8');
     $error_html    = $safe_error
         ? '<div class="bg-red-50 border border-red-200 rounded-2xl px-4 py-3 text-sm font-medium text-red-700 flex items-center gap-2"><i class="fas fa-exclamation-circle"></i>' . $safe_error . '</div>'
         : '';
@@ -175,7 +176,7 @@ function render_login_page(string $error = '', string $redirect = '/'): void {
                         <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                         <input type="email" name="email" required autofocus
                             class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                            placeholder="seu@email.com.br">
+                            placeholder="seu@email.com.br" value="{$safe_email}">
                     </div>
                 </div>
 

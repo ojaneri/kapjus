@@ -740,11 +740,12 @@ def get_gemini_embedding(text: str) -> Optional[List[float]]:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{embedding_model}:embedContent?key={GEMINI_API_KEY}"
         
         # gemini-embedding-001 returns 3072 dimensions by default
-        # To get 768 dimensions (compatible with older indexes), add: "outputDimensionality": 768
+        # We use 1536 dimensions to match the vec_chunks table schema
         response = requests.post(url, json={
             "content": {
-                "parts": [{"text": text[:8000]}]  # Truncate to avoid token limits
-            }
+                "parts": [{"text": text[:8000]}]
+            },
+            "outputDimensionality": 1536
         })
         
         data = response.json()
@@ -1259,7 +1260,7 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
                                    "fts_rank": rank, "vss_rank": None, "rrf_score": rrf_score}
         else:
             ranked_items[rowid]["rrf_score"] += rrf_score
-            ranked_items[rowid]["fts_rank"] = min(ranked_items[rowid].get("fts_rank", 999), rank)
+            ranked_items[rowid]["fts_rank"] = min(ranked_items[rowid].get("fts_rank") or 999, rank)
     
     log_step("RANK", f"Apos FTS5: {len(ranked_items)} items unicos")
     
@@ -1276,7 +1277,7 @@ def rank_results(fts_results: List[Dict], vss_results: List[Dict], top_k: int = 
                                    "fts_rank": None, "vss_rank": rank, "rrf_score": rrf_score}
         else:
             ranked_items[rowid]["rrf_score"] += rrf_score
-            ranked_items[rowid]["vss_rank"] = min(ranked_items[rowid].get("vss_rank", 999), rank)
+            ranked_items[rowid]["vss_rank"] = min(ranked_items[rowid].get("vss_rank") or 999, rank)
     
     log_step("RANK", f"Apos VSS: {len(ranked_items)} items unicos")
     
@@ -2168,6 +2169,13 @@ class ResetPasswordRequest(BaseModel):
     password: str
 
 
+class SendAccessEmailRequest(BaseModel):
+    email: str
+    name: Optional[str] = None
+    case_id: str
+    access_link: str
+
+
 @app.post("/register_lawyer_password")
 async def register_lawyer_password(request: RegisterLawyerPasswordRequest):
     """Register password for a lawyer when accepting invitation."""
@@ -2368,6 +2376,28 @@ async def reset_password(request: ResetPasswordRequest):
         conn.close()
 
 
+@app.post("/send_access_email")
+async def send_access_email(request: SendAccessEmailRequest):
+    """Send access confirmation email after password registration."""
+    
+    email = request.email.lower().strip()
+    name = request.name
+    case_id = request.case_id
+    access_link = request.access_link
+    
+    # Send the access confirmation email
+    success = send_access_confirmation_email(email, name, case_id, access_link)
+    
+    if success:
+        log_step("ACCESS_EMAIL", f"Access confirmation email sent to {email}", {"case_id": case_id})
+        return {
+            "status": "success",
+            "message": "E-mail de acesso enviado com sucesso"
+        }
+    else:
+        raise HTTPException(status_code=500, detail="Erro ao enviar e-mail de acesso")
+
+
 def send_password_registered_email(to_email: str, name: str = None, login_link: str = "") -> bool:
     """Send confirmation email after password is registered."""
     
@@ -2551,6 +2581,108 @@ KapJus © 2024 - Inteligência Artificial para o Direito
         
     except Exception as e:
         log_step("EMAIL", f"Error sending password reset email to {to_email}: {e}")
+        return False
+
+
+def send_access_confirmation_email(to_email: str, name: str = None, case_id: str = "", access_link: str = "") -> bool:
+    """Send access confirmation email after password registration."""
+    
+    SMTP_HOST = os.getenv("SMTP_HOST", "localhost")
+    SMTP_PORT = int(os.getenv("SMTP_PORT", "25"))
+    SMTP_FROM = os.getenv("SMTP_FROM", "KapJus <noreply@janeri.com.br>")
+    
+    display_name = name or to_email.split('@')[0]
+    
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {{ font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }}
+        .container {{ max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }}
+        .header {{ background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 30px; text-align: center; }}
+        .header h1 {{ margin: 0; font-size: 28px; }}
+        .header p {{ margin: 10px 0 0; opacity: 0.9; font-size: 14px; }}
+        .content {{ padding: 30px; color: #333; line-height: 1.7; }}
+        .content h2 {{ color: #1a237e; font-size: 20px; margin-top: 0; }}
+        .content p {{ margin-bottom: 20px; }}
+        .credentials {{ background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 20px 0; }}
+        .credentials p {{ margin: 8px 0; }}
+        .credentials strong {{ color: #1a237e; }}
+        .button {{ display: inline-block; background: linear-gradient(135deg, #1a237e 0%, #283593 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin: 20px 0; }}
+        .button:hover {{ opacity: 0.9; }}
+        .footer {{ background: #f5f5f5; padding: 20px; text-align: center; font-size: 12px; color: #888; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ KapJus</h1>
+            <p>Sua Inteligência Artificial Jurídica</p>
+        </div>
+        <div class="content">
+            <h2>Olá, {display_name}!</h2>
+            <p>Sua conta no <strong>KapJus</strong> foi criada com sucesso!</p>
+            
+            <p>Seu cadastro foi confirmado e você já pode acessar o sistema.</p>
+            
+            <div class="credentials">
+                <p><strong>🔑 Seus dados de acesso:</strong></p>
+                <p><strong>Login (E-mail):</strong> {to_email}</p>
+                <p><strong>Senha:</strong> A senha que você cadastrou</p>
+            </div>
+            
+            <p style="text-align: center;">
+                <a href="{access_link}" class="button">Acessar KapJus</a>
+            </p>
+            
+            <p style="font-size: 13px; color: #888;">
+                Se você não reconhece esta operação, entre em contato com o administrador.
+            </p>
+        </div>
+        <div class="footer">
+            KapJus © 2024 - Inteligência Artificial para o Direito<br>
+            Este é um email automático, não responda.
+        </div>
+    </div>
+</body>
+</html>"""
+    
+    text_content = f"""KapJus - Sua Inteligência Jurídica
+
+Olá, {display_name}!
+
+Sua conta no KapJus foi criada com sucesso!
+
+Seus dados de acesso:
+- Login (E-mail): {to_email}
+- Senha: A senha que você cadastrou
+
+Acesse aqui: {access_link}
+
+-- 
+KapJus © 2024 - Inteligência Artificial para o Direito
+"""
+    
+    try:
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = "Bem-vindo ao KapJus! - Acesso Confirmado"
+        msg['From'] = SMTP_FROM
+        msg['To'] = to_email
+        
+        text_part = MIMEText(text_content, 'plain', 'utf-8')
+        html_part = MIMEText(html_content, 'html', 'utf-8')
+        msg.attach(text_part)
+        msg.attach(html_part)
+        
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.send_message(msg)
+        
+        log_step("EMAIL", f"Access confirmation email sent to {to_email}", {"case_id": case_id})
+        return True
+        
+    except Exception as e:
+        log_step("EMAIL", f"Error sending access confirmation email to {to_email}: {e}")
         return False
 
 

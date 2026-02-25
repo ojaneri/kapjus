@@ -895,24 +895,25 @@ if ($path === '/api/executive_summary_refresh' && $_SERVER['REQUEST_METHOD'] ===
 // ── Login / Logout ───────────────────────────────────────────────────────────
 if ($path === '/login') {
     $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '/';
+    $prefill_email = $_GET['email'] ?? '';
     // Sanitize redirect to relative paths only
     if (!preg_match('/^\//', $redirect)) $redirect = '/';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // CSRF check
         if (!hash_equals($_SESSION['_csrf_token'] ?? '', $_POST['_csrf'] ?? '')) {
-            render_login_page('Token de segurança inválido. Recarregue a página.', $redirect);
+            render_login_page('Token de segurança inválido. Recarregue a página.', $redirect, $prefill_email);
         }
         $error = attempt_login($db, $_POST['email'] ?? '', $_POST['password'] ?? '');
         if ($error) {
-            render_login_page($error, $redirect);
+            render_login_page($error, $redirect, $_POST['email'] ?? '');
         }
         header("Location: {$redirect}");
         exit;
     }
     // Already logged in → redirect
     if (current_user()) { header("Location: {$redirect}"); exit; }
-    render_login_page('', $redirect);
+    render_login_page('', $redirect, $prefill_email);
 }
 
 if ($path === '/logout') {
