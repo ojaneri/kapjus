@@ -2466,9 +2466,12 @@ async function initNotes() {
 // Open Notes Modal
 function openNotesModal() {
     document.getElementById('notes-modal').classList.remove('hidden');
-    renderNotesModal();
-    // Set initial color selection
-    setNoteColor(selectedNoteColor);
+    // Refresh notes from database before rendering
+    initNotes().then(() => {
+        renderNotesModal();
+        // Set initial color selection
+        setNoteColor(selectedNoteColor);
+    });
 }
 
 // Close Notes Modal
@@ -2643,11 +2646,20 @@ function renderNotesModal() {
     
     container.innerHTML = notes.map(note => {
         const colorClasses = getNoteColorClasses(note.color);
+        // Build PDF viewer link if source_file exists
+        const pdfLink = note.source_file ? 
+            `<a href="/pdf-viewer.php?file=${encodeURIComponent(note.source_file)}&page=${note.source_page || 1}&case_id=${CASE_ID}" 
+               class="inline-flex items-center gap-1 px-2 py-1 bg-indigo-50 text-indigo-600 text-xs font-medium rounded-lg hover:bg-indigo-100 transition-colors" 
+               target="_blank" title="Abrir na página ${note.source_page || 1}">
+                <i class="fas fa-file-pdf text-[10px]"></i> Pág. ${note.source_page || 1}
+            </a>` : '';
         return `
             <div data-note-id="${note.id}" class="note-card bg-white rounded-xl border border-slate-100 border-l-4 ${colorClasses.border} shadow-sm hover:shadow-md transition-shadow">
                 <div class="p-3 note-content">
                     <div class="flex items-start justify-between gap-2 mb-2">
-                        <span class="text-[10px] font-bold ${colorClasses.text} bg-slate-100 px-2 py-0.5 rounded uppercase">${note.color}</span>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            ${pdfLink}
+                        </div>
                         <div class="flex gap-1">
                             <button onclick="startEditNote('${note.id}')" class="p-1.5 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="Editar">
                                 <i class="fas fa-edit text-[10px]"></i>
