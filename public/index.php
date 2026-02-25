@@ -377,62 +377,100 @@ if (strpos($path, '/api/') === 0) {
             exit;
         }
 
-        // Get case info
-        $stmt = $db->prepare("SELECT * FROM cases WHERE id = :id");
-        $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
-        $case = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
-
-        // Get document count for proof status
-        $stmt = $db->prepare("SELECT COUNT(*) as count FROM documents WHERE case_id = :id");
-        $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
-        $docCount = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
-        $docCount = $docCount['count'] ?? 0;
-
-        // Determine proof status
-        if ($docCount === 0) {
-            $proof_status = 'pending';
-        } elseif ($docCount < 3) {
-            $proof_status = 'warning';
-        } else {
-            $proof_status = 'ok';
-        }
-
-        // Extract facts from case name/description if available
-        $facts = [];
-        if (!empty($case['description'])) {
-            preg_match_all('/(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/', $case['description'], $dates);
-            if (!empty($dates[0])) {
-                foreach (array_slice($dates[0], 0, 5) as $date) {
-                    $facts[] = 'Data: ' . $date;
-                }
+        // Ensure Python service is running
+        if (!is_socket_available(SOCKET_PATH)) {
+            if (!ensure_python_service_running()) {
+                header('Content-Type: application/json');
+                http_response_code(503);
+                echo json_encode(['error' => 'Python service unavailable']);
+                exit;
             }
         }
 
-        // If no facts found, provide default
-        if (empty($facts)) {
-            $facts = [
-                'Caso criado em: ' . date('d/m/Y', strtotime($case['created_at'] ?? 'now')),
-                'Documentos indexados: ' . $docCount,
-                'Aguardando análise'
+        // Call Python to get AI-generated executive summary
+        $python_response = call_python_api('/executive_summary', [
+            'case_id' => (string)$case_id,
+            'max_documents' => 10,
+            'max_pages_per_doc' => 3
+        ]);
+
+        $ai_result = json_decode($python_response, true);
+
+        // Check if AI analysis was successful
+        if (isset($ai_result['facts']) && isset($ai_result['parties']) && isset($ai_result['proof_status'])) {
+            $facts = $ai_result['facts'];
+            $parties = $ai_result['parties'];
+            $proof_status = $ai_result['proof_status'];
+            
+            debug_log('INFO', 'AI Executive summary generated', [
+                'case_id' => $case_id,
+                'facts_count' => count($facts),
+                'proof_status' => $proof_status
+            ]);
+        } else {
+            // Fallback: basic extraction if AI fails
+            debug_log('ERROR', 'AI Executive summary failed, using fallback', [
+                'case_id' => $case_id,
+                'response' => substr($python_response, 0, 500)
+            ]);
+            
+            // Get case info for fallback
+            $stmt = $db->prepare("SELECT * FROM cases WHERE id = :id");
+            $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+            $case = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+            // Get document count
+            $stmt = $db->prepare("SELECT COUNT(*) as count FROM documents WHERE case_id = :id");
+            $stmt->bindValue(':id', $case_id, SQLITE3_INTEGER);
+            $docCount = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+            $docCount = $docCount['count'] ?? 0;
+
+            // Determine proof status
+            if ($docCount === 0) {
+                $proof_status = 'pending';
+            } elseif ($docCount < 3) {
+                $proof_status = 'warning';
+            } else {
+                $proof_status = 'ok';
+            }
+
+            // Extract facts from case name/description if available
+            $facts = [];
+            if (!empty($case['description'])) {
+                preg_match_all('/(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/', $case['description'], $dates);
+                if (!empty($dates[0])) {
+                    foreach (array_slice($dates[0], 0, 5) as $date) {
+                        $facts[] = 'Data: ' . $date;
+                    }
+                }
+            }
+
+            // If no facts found, provide default
+            if (empty($facts)) {
+                $facts = [
+                    'Caso criado em: ' . date('d/m/Y', strtotime($case['created_at'] ?? 'now')),
+                    'Documentos indexados: ' . $docCount,
+                    'Aguardando análise'
+                ];
+            }
+
+            // Get case name for parties extraction
+            $caseName = $case['name'] ?? 'Caso #' . $case_id;
+
+            // Extract potential parties from case name (simple heuristic)
+            $parties = [
+                'author' => ['name' => 'Não identificado', 'role' => 'Autor'],
+                'defendant' => ['name' => 'Não identificado', 'role' => 'Réu'],
+                'judge' => ['name' => 'Não identificado', 'role' => 'Juiz']
             ];
-        }
 
-        // Get case name for parties extraction
-        $caseName = $case['name'] ?? 'Caso #' . $case_id;
-
-        // Extract potential parties from case name (simple heuristic)
-        $parties = [
-            'author' => ['name' => 'Não identificado', 'role' => 'Autor'],
-            'defendant' => ['name' => 'Não identificado', 'role' => 'Réu'],
-            'judge' => ['name' => 'Não identificado', 'role' => 'Juiz']
-        ];
-
-        // Try to extract parties from case name
-        if (preg_match('/(?:vs?|x|v\.?\s?)[\s\w]+/i', $caseName, $matches)) {
-            $parts = preg_split('/\s+(?:vs?|x|v\.?)\s+/i', $caseName);
-            if (count($parts) >= 2) {
-                $parties['author']['name'] = trim($parts[0]);
-                $parties['defendant']['name'] = trim($parts[1]);
+            // Try to extract parties from case name
+            if (preg_match('/(?:vs?|x|v\.?\s?)[\s\w]+/i', $caseName, $matches)) {
+                $parts = preg_split('/\s+(?:vs?|x|v\.?)\s+/i', $caseName);
+                if (count($parts) >= 2) {
+                    $parties['author']['name'] = trim($parts[0]);
+                    $parties['defendant']['name'] = trim($parts[1]);
+                }
             }
         }
 
@@ -446,11 +484,11 @@ if (strpos($path, '/api/') === 0) {
 
         echo json_encode([
             'cached' => true,
+            'ai_generated' => isset($ai_result['facts']),
             'data' => [
                 'facts' => $facts,
                 'parties' => $parties,
-                'proof_status' => $proof_status,
-                'document_count' => $docCount
+                'proof_status' => $proof_status
             ]
         ]);
         exit;

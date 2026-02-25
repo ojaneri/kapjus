@@ -2833,6 +2833,247 @@ async def health_check():
     """Health check endpoint for service monitoring"""
     return {"status": "healthy", "service": "kapjus-rag"}
 
+
+# ==================== EXECUTIVE SUMMARY WITH AI ====================
+
+class ExecutiveSummaryRequest(BaseModel):
+    case_id: str
+    max_documents: int = 10  # Limit documents to analyze
+    max_pages_per_doc: int = 3  # Limit pages per document
+
+
+def get_documents_for_summary(case_id: str, max_docs: int = 10, max_pages: int = 3) -> List[Dict]:
+    """Get document contents for executive summary analysis."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    # Get unique documents with limited pages
+    cursor.execute("""
+        SELECT filename, page_number, content 
+        FROM documents 
+        WHERE case_id = ? 
+        ORDER BY filename, page_number
+        LIMIT ?
+    """, (case_id, max_docs * max_pages))
+    
+    results = cursor.fetchall()
+    conn.close()
+    
+    documents = {}
+    for row in results:
+        filename, page_number, content = row
+        if filename not in documents:
+            documents[filename] = []
+        if len(documents[filename]) < max_pages:
+            # Truncate content to avoid token limits
+            documents[filename].append({
+                "page": page_number,
+                "content": content[:2000] if content else ""
+            })
+    
+    return documents
+
+
+def analyze_with_gemini(documents: Dict, case_name: str = "") -> Dict:
+    """Use Gemini to analyze documents and extract executive summary."""
+    
+    # Build document context
+    doc_summaries = []
+    for filename, pages in documents.items():
+        page_texts = []
+        for page in pages:
+            page_texts.append(f"--- Página {page['page']} ---\n{page['content']}")
+        doc_summaries.append(f"📄 {filename}\n" + "\n".join(page_texts))
+    
+    document_context = "\n\n".join(doc_summaries)
+    
+    # Limit context size
+    if len(document_context) > 15000:
+        document_context = document_context[:15000] + "\n\n[... documentos truncados ...]"
+    
+    prompt = f"""Você é um assistente jurídico especializado em análise de processos. Analise os documentos abaixo e extraia informações para um Sumário Executivo.
+
+Nome do Caso: {case_name}
+
+DOCUMENTOS:
+{document_context}
+
+INSTRUÇÕES:
+Analise os documentos e retorne um JSON com:
+1. **facts** (array): Lista de fatos relevantes encontrados (datas de eventos, prazos, audiências, etc.). Formato: "Descrição do fato"
+2. **parties** (object): Partes envolvidas no processo:
+   - author: nome e papel do autor
+   - defendant: nome e papel do réu
+   - judge: nome do juiz
+   - lawyer: nome do advogado
+   - other: outras partes relevantes
+3. **proof_status** (string): Status da prova baseado nos documentos:
+   - "ok" = provas documentais suficientes
+   - "warning" = provas insuficientes ou pendentes
+   - "pending" = sem documentos ou análise pendente
+
+Retorne APENAS o JSON, sem explicações:
+```json
+{{
+  "facts": ["Fato 1", "Fato 2"],
+  "parties": {{
+    "author": {{"name": "Nome", "role": "Autor"}},
+    "defendant": {{"name": "Nome", "role": "Réu"}},
+    "judge": {{"name": "Nome", "role": "Juiz"}},
+    "lawyer": {{"name": "Nome", "role": "Advogado"}},
+    "other": []
+  }},
+  "proof_status": "ok|warning|pending"
+}}
+```"""
+    
+    try:
+        # Use flash model for fast analysis
+        result = call_ai(prompt, provider="gemini", model="flash")
+        
+        # Parse JSON from response
+        # Handle potential markdown formatting
+        if "```json" in result:
+            result = result.split("```json")[1].split("```")[0]
+        elif "```" in result:
+            result = result.split("```")[1].split("```")[0]
+        
+        parsed = json.loads(result.strip())
+        
+        log_step("EXEC_SUMMARY", "AI analysis completed successfully")
+        return parsed
+        
+    except Exception as e:
+        log_step("EXEC_SUMMARY", "AI analysis failed", {"error": str(e)})
+        return None
+
+
+@app.post("/executive_summary")
+async def executive_summary(request: ExecutiveSummaryRequest):
+    """
+    Generate executive summary using AI analysis of documents.
+    
+    Flow:
+    1. Get documents from database
+    2. Send to Gemini for analysis
+    3. Return structured facts, parties, proof_status
+    """
+    log_step("EXEC_SUMMARY", "Starting executive summary generation", {"case_id": request.case_id})
+    
+    # Get case info
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT name, description FROM cases WHERE id = ?", (request.case_id,))
+    case_row = cursor.fetchone()
+    case_name = case_row[0] if case_row else f"Caso {request.case_id}"
+    case_description = case_row[1] if case_row and case_row[1] else ""
+    
+    # Get document count
+    cursor.execute("SELECT COUNT(DISTINCT filename) FROM documents WHERE case_id = ?", (request.case_id,))
+    doc_count_row = cursor.fetchone()
+    doc_count = doc_count_row[0] if doc_count_row else 0
+    conn.close()
+    
+    log_step("EXEC_SUMMARY", "Documents fetched", {"case_id": request.case_id, "doc_count": doc_count})
+    
+    # If no documents, return default
+    if doc_count == 0:
+        return {
+            "facts": [
+                f"Caso criado em: {datetime.datetime.now().strftime('%d/%m/%Y')}",
+                "Nenhum documento anexado",
+                "Aguardando upload de documentos"
+            ],
+            "parties": {
+                "author": {"name": "Não identificado", "role": "Autor"},
+                "defendant": {"name": "Não identificado", "role": "Réu"},
+                "judge": {"name": "Não identificado", "role": "Juiz"},
+                "lawyer": {"name": "Não identificado", "role": "Advogado"},
+                "other": []
+            },
+            "proof_status": "pending"
+        }
+    
+    # Get documents for analysis
+    documents = get_documents_for_summary(
+        request.case_id, 
+        max_docs=request.max_documents,
+        max_pages=request.max_pages_per_doc
+    )
+    
+    if not documents:
+        return {
+            "facts": [
+                f"Caso: {case_name}",
+                "Documentos não processados",
+                "Aguardando processamento"
+            ],
+            "parties": {
+                "author": {"name": "Não identificado", "role": "Autor"},
+                "defendant": {"name": "Não identificado", "role": "Réu"},
+                "judge": {"name": "Não identificado", "role": "Juiz"},
+                "lawyer": {"name": "Não identificado", "role": "Advogado"},
+                "other": []
+            },
+            "proof_status": "pending"
+        }
+    
+    # Try AI analysis
+    ai_result = analyze_with_gemini(documents, case_name)
+    
+    if ai_result:
+        # Validate and normalize result
+        facts = ai_result.get("facts", [])
+        parties = ai_result.get("parties", {})
+        proof_status = ai_result.get("proof_status", "pending")
+        
+        # Ensure proof_status is valid
+        if proof_status not in ["ok", "warning", "pending"]:
+            proof_status = "pending"
+        
+        log_step("EXEC_SUMMARY", "AI analysis successful", {
+            "facts_count": len(facts),
+            "parties_count": len(parties),
+            "proof_status": proof_status
+        })
+        
+        return {
+            "facts": facts,
+            "parties": parties,
+            "proof_status": proof_status
+        }
+    
+    # Fallback: basic extraction
+    log_step("EXEC_SUMMARY", "AI failed, using fallback")
+    
+    facts = []
+    if case_description:
+        # Extract dates from description
+        import re
+        dates = re.findall(r'(\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4})', case_description)
+        for date in dates[:5]:
+            facts.append(f"Data: {date}")
+    
+    if not facts:
+        facts = [
+            f"Caso: {case_name}",
+            f"Documentos: {doc_count}",
+            "Análise básica (IA indisponível)"
+        ]
+    
+    return {
+        "facts": facts,
+        "parties": {
+            "author": {"name": "Não identificado", "role": "Autor"},
+            "defendant": {"name": "Não identificado", "role": "Réu"},
+            "judge": {"name": "Não identificado", "role": "Juiz"},
+            "lawyer": {"name": "Não identificado", "role": "Advogado"},
+            "other": []
+        },
+        "proof_status": "warning" if doc_count < 3 else "ok"
+    }
+
+
 if __name__ == "__main__":
     socket_dir = os.path.dirname(SOCKET_PATH)
     os.makedirs(socket_dir, exist_ok=True)
