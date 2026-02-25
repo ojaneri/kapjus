@@ -81,6 +81,45 @@ header('Content-Type: text/html; charset=utf-8');
             </button>
         </div>
         
+        <!-- Select Model to Test -->
+        <div class="bg-slate-800 rounded-2xl p-6 mb-6">
+            <h2 class="text-xl font-bold mb-4 flex items-center">
+                <i class="fas fa-mouse-pointer text-slate-400 mr-2"></i>
+                Testar Modelo Específico
+            </h2>
+            <div class="flex gap-4 items-center">
+                <select id="modelSelect" class="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white font-mono focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <option value="">Selecione um modelo...</option>
+                    <optgroup label="Gemini 2.0">
+                        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+                        <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
+                        <option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
+                    </optgroup>
+                    <optgroup label="Gemini 1.5">
+                        <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                        <option value="gemini-1.5-flash-8b">gemini-1.5-flash-8b</option>
+                        <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                    </optgroup>
+                    <optgroup label="Gemini 1.0 (Legado)">
+                        <option value="gemini-pro">gemini-pro</option>
+                        <option value="gemini-pro-vision">gemini-pro-vision</option>
+                    </optgroup>
+                    <optgroup label="Embeddings">
+                        <option value="text-embedding-004">text-embedding-004</option>
+                        <option value="text-embedding-3-small">text-embedding-3-small</option>
+                        <option value="text-embedding-3-large">text-embedding-3-large</option>
+                    </optgroup>
+                </select>
+                <select id="testType" class="px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <option value="generate">Geração</option>
+                    <option value="embed">Embedding</option>
+                </select>
+                <button onclick="testSelectedModel()" class="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-xl font-bold transition-colors">
+                    <i class="fas fa-check mr-2"></i>Testar
+                </button>
+            </div>
+        </div>
+        
         <!-- Results -->
         <div id="results" class="space-y-4"></div>
         
@@ -228,6 +267,39 @@ header('Content-Type: text/html; charset=utf-8');
             } catch (e) {
                 resultsDiv.innerHTML = '<div class="bg-red-900/30 border border-red-500 rounded-xl p-4">Erro: ' + e.message + '</div>';
             }
+        }
+        
+        async function testSelectedModel() {
+            const modelSelect = document.getElementById('modelSelect');
+            const testType = document.getElementById('testType');
+            const modelName = modelSelect.value;
+            const type = testType.value;
+            
+            if (!modelName) {
+                alert('Por favor, selecione um modelo!');
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="text-center py-8"><i class="fas fa-circle-notch fa-spin text-3xl text-indigo-400"></i><p class="mt-2">Testando ' + modelName + '...</p></div>';
+            
+            const result = await testModel(modelName, type);
+            
+            const statusIcon = result.status === 'success' ? '<i class="fas fa-check-circle text-green-400"></i>' : '<i class="fas fa-times-circle text-red-400"></i>';
+            const statusClass = result.status === 'success' ? 'bg-green-900/30 border-green-500' : 'bg-red-900/30 border-red-500';
+            
+            resultsDiv.innerHTML = `
+                <div class="border ${statusClass} rounded-xl p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        ${statusIcon}
+                        <div>
+                            <span class="font-bold">${type === 'generate' ? 'Geração' : 'Embedding'}</span>
+                            <span class="font-mono text-slate-400 ml-2">${result.model}</span>
+                        </div>
+                    </div>
+                    <span class="text-sm ${result.status === 'success' ? 'text-green-400' : 'text-red-400'}">${result.message}</span>
+                </div>
+            `;
         }
         
         // Auto-test on load
