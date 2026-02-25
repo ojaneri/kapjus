@@ -446,6 +446,8 @@ $user = current_user();
     <script>
         // Configuration
         const pdfFile = '/storage/uploads/<?= urlencode($file) ?>';
+        const PHP_CASE_ID = <?= $case_id ? $case_id : 'null' ?>;
+        const PHP_USER_ID = <?= isset($user['id']) ? $user['id'] : 'null' ?>;
         let pdfDoc = null;
         let currentPage = <?= $page ?>;
         let totalPages = 0;
@@ -640,12 +642,12 @@ $user = current_user();
             }
             
             const noteData = {
-                case_id: <?= $case_id ? $case_id : 'null' ?>,
+                case_id: PHP_CASE_ID,
                 text: noteText,
                 source_file: currentSource.file,
                 source_page: currentSource.page,
                 source_snippet: currentSource.snippet,
-                user_id: <?= $user['id'] ?? 'null' ?>,
+                
                 created_at: new Date().toISOString()
             };
             
