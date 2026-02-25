@@ -576,19 +576,19 @@ if (!$case) { echo "Caso não encontrado."; exit; }
                             <div id="search-bar-container" class="p-3 sm:p-4 border-t border-slate-100 bg-slate-50/30 flex-shrink-0">
                                 <div class="flex items-center gap-2">
                                     <!-- Mode Toggle: Left side (Search/AI) -->
-                                    <div class="flex items-center gap-1 bg-slate-200 p-1 rounded-lg">
-                                        <button id="mode-search-btn" onclick="setSearchMode('search')" class="mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-md text-xs font-bold transition-all bg-white shadow-sm text-indigo-600" title="Busca por palavras-chave">
+                                    <div class="flex items-center gap-1 p-1 rounded-lg" id="mode-toggle-container">
+                                        <button id="mode-search-btn" onclick="setSearchMode('search')" class="mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-md text-xs font-bold transition-all bg-emerald-500 text-white shadow-sm" title="Busca Simples">
                                             <i class="fas fa-search"></i>
                                         </button>
-                                        <button id="mode-ia-btn" onclick="setSearchMode('ia')" class="mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-md text-xs font-bold transition-all text-slate-500 hover:text-indigo-600" title="Perguntar ao Dr. Jus">
+                                        <button id="mode-ia-btn" onclick="setSearchMode('ia')" class="mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-md text-xs font-bold transition-all bg-slate-300 text-slate-600 hover:bg-purple-500 hover:text-white" title="Busca IA">
                                             <i class="fas fa-brain"></i>
                                         </button>
                                     </div>
                                     
                                     <!-- Input Field -->
                                     <div class="flex-1 relative">
-                                        <i id="unified-icon" class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                                        <input type="text" id="unified-input" placeholder="Pesquise ou pergunte ao Dr. Jus..." class="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-900 font-medium focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all shadow-sm" onkeydown="handleUnifiedKeydown(event)">
+                                        <i id="unified-icon" class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-emerald-500 text-xs"></i>
+                                        <input type="text" id="unified-input" placeholder="Pesquise ou pergunte ao Dr. Jus..." class="w-full pl-9 pr-3 py-2.5 bg-emerald-50 border-2 border-emerald-200 rounded-xl text-sm text-slate-900 font-medium focus:ring-2 focus:ring-emerald-400 focus:border-transparent outline-none transition-all shadow-sm" onkeydown="handleUnifiedKeydown(event)">
                                     </div>
                                     
                                     <!-- Advanced Search Button -->
@@ -681,6 +681,61 @@ if (!$case) { echo "Caso não encontrado."; exit; }
 
     #mobile-tab-bar button.active i {
         color: #312e81;
+    }
+
+    /* WhatsApp-style mobile chat layout */
+    .col-span-12.md\:col-span-9 {
+        height: calc(100vh - 4rem - 64px) !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-tab-panel.active {
+        height: 100%;
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .mobile-tab-panel.active .space-y-4 {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .mobile-tab-panel.active .bg-white.rounded-3xl {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* Make search results scrollable, input fixed at bottom */
+    #search-results {
+        flex: 1;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        min-height: 0 !important;
+    }
+
+    #search-bar-container {
+        flex-shrink: 0 !important;
+        background: white !important;
+        border-top: 1px solid #e2e8f0 !important;
+        padding: 12px !important;
+        position: sticky;
+        bottom: 0;
+    }
+
+    /* Hide filters bar on mobile in chat mode */
+    #search-filters-bar {
+        display: none !important;
+    }
+
+    /* Mobile mode toggle - distinct colors for each mode */
+    .mode-toggle-btn {
+        width: 36px !important;
+        height: 36px !important;
     }
 }
 
@@ -781,6 +836,29 @@ if (!$case) { echo "Caso não encontrado."; exit; }
     40% {
         transform: scale(1);
         opacity: 1;
+    }
+    /* Mobile typing indicator - more visible */
+    .typing-indicator {
+        padding: 1rem 1.5rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .typing-indicator strong {
+        font-size: 0.75rem !important;
+        min-width: auto !important;
+    }
+    
+    /* Ensure typing indicator is always visible on mobile */
+    @media (max-width: 767px) {
+        #search-results {
+            scroll-behavior: smooth;
+        }
+        
+        .typing-indicator {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
+            border: 2px solid #6366f1 !important;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2) !important;
+        }
     }
 }
 
@@ -1605,32 +1683,43 @@ function setSearchMode(mode) {
     const resultsTitle = document.getElementById('results-title');
     const resultsIcon = document.getElementById('results-icon');
 
-    // Compact toggle button styles
-    const activeToggleClass = 'mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all bg-white shadow-sm text-indigo-600';
-    const inactiveToggleClass = 'mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-slate-600';
+    // Compact toggle button styles - WhatsApp style distinct colors
+    const activeToggleClass = 'mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all bg-emerald-500 text-white shadow-sm';
+    const inactiveToggleClass = 'mode-toggle-btn w-8 h-8 flex items-center justify-center rounded-lg text-xs font-bold transition-all bg-slate-300 text-slate-600 hover:bg-purple-500 hover:text-white';
 
     const iaClearBtn = document.getElementById('ia-clear-btn');
+    // Update toggle container background based on mode
+    const toggleContainer = document.getElementById('mode-toggle-container');
+    
     if (mode === 'search') {
         searchBtn.className = activeToggleClass;
         iaBtn.className = inactiveToggleClass;
-        icon.className = 'fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs';
+        // Search mode: green colors
+        icon.className = 'fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-emerald-500 text-xs';
         input.placeholder = 'Pesquise fatos, nomes ou termos jurídicos...';
+        input.className = 'w-full pl-9 pr-3 py-2.5 bg-emerald-50 border-2 border-emerald-200 rounded-xl text-sm text-slate-900 font-medium focus:ring-2 focus:ring-emerald-400 focus:border-transparent outline-none transition-all shadow-sm';
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+        submitBtn.className = 'bg-emerald-600 text-white w-9 h-9 flex items-center justify-center rounded-xl font-bold text-sm hover:bg-emerald-700 transition-all shadow-md shadow-emerald-200 active:scale-95';
         if (filtersBar) filtersBar.classList.remove('hidden');
         resultsTitle.textContent = 'RESULTADOS DA BUSCA';
         resultsIcon.innerHTML = '<i class="fas fa-list-ul"></i>';
         if (iaClearBtn) iaClearBtn.classList.add('hidden');
+        if (toggleContainer) toggleContainer.className = 'flex items-center gap-1 p-1 rounded-lg bg-emerald-100';
     } else {
         iaBtn.className = activeToggleClass;
         searchBtn.className = inactiveToggleClass;
-        icon.className = 'fas fa-brain absolute left-3 top-1/2 -translate-y-1/2 text-indigo-400 text-xs';
+        // IA mode: purple colors
+        icon.className = 'fas fa-brain absolute left-3 top-1/2 -translate-y-1/2 text-purple-500 text-xs';
         input.placeholder = 'Faça uma pergunta complexa sobre o caso...';
+        input.className = 'w-full pl-9 pr-3 py-2.5 bg-purple-50 border-2 border-purple-200 rounded-xl text-sm text-slate-900 font-medium focus:ring-2 focus:ring-purple-400 focus:border-transparent outline-none transition-all shadow-sm';
         submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+        submitBtn.className = 'bg-purple-600 text-white w-9 h-9 flex items-center justify-center rounded-xl font-bold text-sm hover:bg-purple-700 transition-all shadow-md shadow-purple-200 active:scale-95';
         if (filtersBar) filtersBar.classList.add('hidden');
         resultsTitle.textContent = 'RESPOSTA DO DR. JUS';
         resultsIcon.innerHTML = '<i class="fas fa-robot"></i>';
         // Restore IA history view
         _renderIAHistoryPanel();
+        if (toggleContainer) toggleContainer.className = 'flex items-center gap-1 p-1 rounded-lg bg-purple-100';
     }
     input.focus();
 }
@@ -1754,13 +1843,14 @@ function _renderIAHistoryPanel() {
                 'Preparando resposta'
             ];
             let msgIndex = 0;
-            slot.innerHTML = `<div class="typing-indicator">
+            slot.innerHTML = `<div class="typing-indicator mobile-typing">
                 <div class="typing-dots">
                     <span class="typing-dot"></span>
                     <span class="typing-dot"></span>
                     <span class="typing-dot"></span>
                 </div>
                 <strong data-typing-text>${feedbackMessages[0]}</strong>
+                <span class="mobile-processing-badge md:hidden ml-2 px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full font-medium">Processando...</span>
             </div>`;
             
             // Rotate messages every 2 seconds
@@ -1797,6 +1887,14 @@ function _renderIAHistoryPanel() {
     });
 
     resultsDiv.scrollTop = resultsDiv.scrollHeight;
+    
+    // Force scroll on mobile with smooth behavior
+    setTimeout(() => {
+        resultsDiv.scrollTo({
+            top: resultsDiv.scrollHeight,
+            behavior: 'smooth'
+        });
+    }, 100);
 }
 
 function clearIAHistory() {
@@ -1987,12 +2085,27 @@ function _renderIAResponseInUnified(container, data, question = '') {
     let sourceInfoHtml = '';
 
     if (sources.length) {
-        const linkHtml = sources.map(source => {
-            const encoded = encodeURIComponent(source.filename || '');
-            const safeName = escapeHtml(source.filename || 'Arquivo desconhecido');
-            const pageLabel = source.page ? `p. ${source.page}` : 'p. ?';
-            return `<button type="button" class="text-[10px] text-slate-500 underline hover:text-indigo-600 transition-colors" onclick="focusDocument('${encoded}', ${source.page || 0})">${safeName} • ${pageLabel}</button>`;
-        }).join('<span class="text-slate-300">·</span>');
+        // Group sources by filename
+        const groupedSources = {};
+        sources.forEach(source => {
+            const filename = source.filename || 'Arquivo desconhecido';
+            if (!groupedSources[filename]) {
+                groupedSources[filename] = [];
+            }
+            if (source.page) {
+                groupedSources[filename].push(source.page);
+            }
+        });
+
+        // Render grouped sources: "Filename [page1] [page2] ..."
+        const linkHtml = Object.entries(groupedSources).map(([filename, pages]) => {
+            const encoded = encodeURIComponent(filename);
+            const safeName = escapeHtml(filename);
+            const pagesHtml = pages.map(page => 
+                `<button type="button" class="text-[10px] text-slate-500 underline hover:text-indigo-600 transition-colors" onclick="focusDocument('${encoded}', ${page})">[${page}]</button>`
+            ).join('');
+            return `<span class="flex items-center gap-1"><span class="text-[10px] text-slate-600 font-medium">${safeName}</span>${pagesHtml}</span>`;
+        }).join('<span class="text-slate-300 mx-2">|</span>');
         sourceInfoHtml = `
             <div class="mt-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
