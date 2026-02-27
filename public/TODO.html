@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Estratégico KapJus - SaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #1e293b; }
+        .sprint-card { background: white; border-radius: 1.25rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); overflow: hidden; border: 1px solid #e2e8f0; }
+        .status-pill { font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 9999px; font-weight: 700; text-transform: uppercase; }
+        .done { background: #dcfce7; color: #15803d; }
+        .doing { background: #fef3c7; color: #b45309; }
+        .todo { background: #f1f5f9; color: #64748b; }
+        .progress-bar { height: 8px; border-radius: 4px; background: #e2e8f0; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #4f46e5, #818cf8); transition: width 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <div class="max-w-6xl mx-auto">
+        
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+            <div class="text-center md:text-left">
+                <h1 class="text-5xl font-black text-slate-900 tracking-tighter mb-2">Roadmap <span class="text-indigo-600">KapJus</span></h1>
+                <p class="text-slate-500 font-medium">Estratégia de Produto: De MVP para SaaS Comercial</p>
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow-xl border border-indigo-50 min-w-[280px]">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-sm font-bold text-slate-600">Progresso Geral</span>
+                    <span class="text-2xl font-black text-indigo-600">47%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 47%"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-2 uppercase tracking-widest font-bold">4 de 8 Sprints Concluídas</p>
+            </div>
+        </header>
+
+        <!-- Sprints Realizadas -->
+        <h2 class="text-2xl font-black text-slate-800 mb-6 flex items-center gap-3">
+            <i class="fas fa-check-circle text-green-500"></i> Sprints Concluídas (MVP Foundation)
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+            <div class="bg-white/50 p-4 rounded-2xl border border-slate-200">
+                <span class="status-pill done">Sprint 1</span>
+                <p class="font-bold text-sm mt-2 text-slate-700">Core Auth & Seguranca</p>
+                <p class="text-[10px] text-slate-500">Login, Cookies Seguros, Proteção de Uploads.</p>
+            </div>
+            <div class="bg-white/50 p-4 rounded-2xl border border-slate-200">
+                <span class="status-pill done">Sprint 2</span>
+                <p class="font-bold text-sm mt-2 text-slate-700">Search Engine</p>
+                <p class="text-[10px] text-slate-500">Busca Híbrida, Normalização NFC, Paginação.</p>
+            </div>
+            <div class="bg-white/50 p-4 rounded-2xl border border-slate-200">
+                <span class="status-pill done">Sprint 3</span>
+                <p class="font-bold text-sm mt-2 text-slate-700">UX Core</p>
+                <p class="text-[10px] text-slate-500">Histórico de Chat, Breadcrumbs, Confirmações.</p>
+            </div>
+            <div class="bg-white/50 p-4 rounded-2xl border border-slate-200">
+                <span class="status-pill done">Sprint 4</span>
+                <p class="font-bold text-sm mt-2 text-slate-700">Dr. Jus Advanced</p>
+                <p class="text-[10px] text-slate-500">Feedback de Respostas, Edição Inline, Filtros.</p>
+            </div>
+        </div>
+
+        <!-- Próximas Sprints -->
+        <h2 class="text-2xl font-black text-slate-800 mb-6 flex items-center gap-3">
+            <i class="fas fa-rocket text-indigo-600"></i> Próximos Passos (Productization)
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Sprint 5 -->
+            <div class="sprint-card">
+                <div class="bg-indigo-600 p-4 flex justify-between items-center">
+                    <h3 class="text-white font-black uppercase tracking-widest text-sm">Sprint 5: Multi-tenancy</h3>
+                    <span class="status-pill doing">Em Progresso</span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <!-- Architecture Complete -->
+                    <div class="flex items-start gap-4 p-3 bg-green-50 rounded-xl border border-green-200">
+                        <input type="checkbox" checked class="mt-1 w-4 h-4 rounded text-green-600" disabled>
+                        <div>
+                            <p class="text-sm font-bold text-green-800 flex items-center gap-2">
+                                <i class="fas fa-check-circle text-green-600"></i> Arquitetura Multi-tenancy
+                            </p>
+                            <p class="text-xs text-green-700">Design completo: Org Entity, RBAC (4 roles), PostgreSQL Migration, RLS. <a href="../plans/multi-tenancy-architecture.md" class="underline font-bold">Ver documento</a></p>
+                            <p class="text-[10px] text-green-600 mt-1 font-bold">2026-02-27</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Migração para PostgreSQL</p>
+                            <p class="text-xs text-slate-500">Substituir SQLite por um banco robusto para alta concorrência.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Entidade "Escritório" (Org)</p>
+                            <p class="text-xs text-slate-500">Isolamento completo de dados entre diferentes empresas.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">RBAC (Roles)</p>
+                            <p class="text-xs text-slate-500">Papéis: Admin, Advogado, Visualizador e Perito.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 6 -->
+            <div class="sprint-card">
+                <div class="bg-emerald-600 p-4 flex justify-between items-center">
+                    <h3 class="text-white font-black uppercase tracking-widest text-sm">Sprint 6: Monetização</h3>
+                    <span class="status-pill todo">A Fazer</span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Integração Stripe/Iugu</p>
+                            <p class="text-xs text-slate-500">Checkout transparente e gestão de assinaturas recorrentes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Gestão de Quotas</p>
+                            <p class="text-xs text-slate-500">Limites por plano: Armazenamento, Casos e Chamadas de IA.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Dashboard Financeiro</p>
+                            <p class="text-xs text-slate-500">Área do cliente para faturas e upgrade de plano.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 7 -->
+            <div class="sprint-card">
+                <div class="bg-purple-600 p-4 flex justify-between items-center">
+                    <h3 class="text-white font-black uppercase tracking-widest text-sm">Sprint 7: Inteligência Avançada</h3>
+                    <span class="status-pill todo">A Fazer</span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Sumarização Executiva</p>
+                            <p class="text-xs text-slate-500">Resumos automáticos de petições e sentenças (Briefing).</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Extração de Prazos</p>
+                            <p class="text-xs text-slate-500">IA que detecta datas fatais em intimações e PDFs.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Integração Tribunais</p>
+                            <p class="text-xs text-slate-500">Captura básica de movimentações em Diários Oficiais.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 8 -->
+            <div class="sprint-card">
+                <div class="bg-amber-600 p-4 flex justify-between items-center">
+                    <h3 class="text-white font-black uppercase tracking-widest text-sm">Sprint 8: Compliance & Branding</h3>
+                    <span class="status-pill todo">A Fazer</span>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Autenticação 2FA (TOTP)</p>
+                            <p class="text-xs text-slate-500">Segurança extra para dados sensíveis de processos.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">White-label / Custom CSS</p>
+                            <p class="text-xs text-slate-500">Personalização de logo e cores por escritório.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-3 hover:bg-slate-50 rounded-xl transition-colors">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded text-indigo-600">
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Onboarding de Usuário</p>
+                            <p class="text-xs text-slate-500">Tour guiado interativo para novos assinantes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-16 pt-8 border-t border-slate-200 text-center">
+            <p class="text-slate-400 text-xs">KapJus Roadmap © 2026 — Gerado automaticamente pela IA de Engenharia</p>
+            <div class="flex justify-center gap-6 mt-4">
+                <span class="text-[10px] font-bold text-slate-500 flex items-center gap-2"><i class="fas fa-database text-indigo-400"></i> DB: PostgreSQL Plan</span>
+                <span class="text-[10px] font-bold text-slate-500 flex items-center gap-2"><i class="fas fa-brain text-purple-400"></i> AI: Gemini Dual-Model</span>
+                <span class="text-[10px] font-bold text-slate-500 flex items-center gap-2"><i class="fas fa-lock text-emerald-400"></i> SEC: GDPR/LGPD Ready</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
