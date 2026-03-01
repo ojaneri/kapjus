@@ -3,4 +3,6 @@ vendor/
 .env
 .env.*
 .DS_Store
+test_reports/
 
+storage/uploads/

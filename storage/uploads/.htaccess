@@ -1,3 +1,0 @@
-# Block all direct Apache access to uploaded files.
-# All file requests go through /public/download.php (authenticated).
-Deny from all
